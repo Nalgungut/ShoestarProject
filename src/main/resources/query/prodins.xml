@@ -10,11 +10,16 @@
 		SELECT
 			pim_file
 		FROM
-			prod_image
+			(
+			SELECT
+				pim_file,
+				row_number() OVER (PARTITION BY p.pi_no ORDER BY p.pim_priority ASC) AS rn
+			FROM
+				prod_image p
+			)
 		WHERE
-			prod_image.pi_no = prod_ins.pi_no AND
-			pim_use = 'p' AND
-			rownum = 1
+			pi_no = prod_ins.pi_no AND
+			rn = 1
 		) AS mainImage,
 		(
 		SELECT
@@ -49,7 +54,7 @@
 	</select>
 	
 	<!-- prodvo로 찾기 -->
-	<select id="pinsDetailByColor" parameterType="prod" resultType="prodins">
+	<select id="pinsDetailByProd" parameterType="prod" resultType="prodins">
 		SELECT
 			<include refid="pinsInfo" />
 		FROM
@@ -75,5 +80,18 @@
 	</select>
 	
 	<!-- ############################## prod_ins 기준으로 제공되는 사이즈와 수량 받아오기 ############################## -->
+	<select id="pstListByPins" parameterType="prodins" resultType="prodstock">
+		SELECT
+			/*+ INDEX_ASC(prod_stock prod_stock_pk)*/
+			ps_size, ps_qty, ps_status
+		FROM
+			prod_stock
+		WHERE
+			pi_no = #{pi_no}
+	</select>
 	
+	<!-- ############################## pi_no 기준으로 이미지 우선도 순으로 가져오기 ############################## -->
+	<select id="pimListByPins" parameterType="prodins" resultType="prodimage">
+		
+	</select>
 </mapper>

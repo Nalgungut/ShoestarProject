@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shoestar.client.prod.service.ProdInsService;
 import com.shoestar.client.prod.service.ProdService;
 import com.shoestar.client.prod.vo.ProdInsVO;
+import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
 import com.shoestar.common.exception.BadRequestException;
 import com.shoestar.common.exception.ResourceNotFoundException;
@@ -77,7 +79,7 @@ public class ProdController {
 			if(color != null)
 				pvo.setColor(color);
 			prodInfo = prodService.prodDetail(pvo);
-			pinsInfo = prodInsService.pinsDetailByColor(pvo);
+			pinsInfo = prodInsService.pinsDetailByProd(pvo);
 		} else {
 			throw new BadRequestException("잘못 된 요청입니다.");
 		}
@@ -93,10 +95,32 @@ public class ProdController {
 	}
 	
 	
-	@RequestMapping(value="/pinsList", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	/**
+	 * pd_no를 기준으로 prodIns 목록을 받아온다
+	 * @param pd_no
+	 * @return ProdInsVO의 List
+	 */
+	@RequestMapping(value="/pinsList/{pd_no}", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
-	public List<ProdInsVO> pinsList(ProdVO pvo) {
+	public List<ProdInsVO> pinsList(@PathVariable("pd_no") Integer pd_no) {
+		ProdVO pvo = new ProdVO();
+		pvo.setPd_no(pd_no != null ? pd_no : 0);
 		List<ProdInsVO> result = prodInsService.pinsListByProd(pvo);
+		return result;
+	}
+	
+	
+	/**
+	 * pi_no를 기준으로 제공되는 사이즈와 수량을 받아온다
+	 * @param pi_no
+	 * @return
+	 */
+	@RequestMapping(value="/sizeList/{pi_no}", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public List<ProdStockVO> productSizeList(@PathVariable("pi_no") Integer pi_no) {
+		ProdInsVO pivo = new ProdInsVO();
+		pivo.setPi_no(pi_no != null ? pi_no : 0);
+		List<ProdStockVO> result = prodInsService.pstListByPins(pivo);
 		return result;
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.shoestar.client.prod.dao.ProdInsDao;
 import com.shoestar.client.prod.vo.ProdInsVO;
+import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
 
 import lombok.Setter;
@@ -30,8 +31,14 @@ public class ProdInsSerivceImpl implements ProdInsService {
 	}
 
 	@Override
-	public ProdInsVO pinsDetailByColor(ProdVO pvo) {
-		ProdInsVO result = prodInsDao.pinsDetailByColor(pvo);
+	public ProdInsVO pinsDetailByProd(ProdVO pvo) {
+		ProdInsVO result = prodInsDao.pinsDetailByProd(pvo);
+		return result;
+	}
+
+	@Override
+	public List<ProdStockVO> pstListByPins(ProdInsVO pivo) {
+		List<ProdStockVO> result = prodInsDao.pstListByPins(pivo);
 		return result;
 	}
 

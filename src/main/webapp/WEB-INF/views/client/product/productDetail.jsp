@@ -21,7 +21,7 @@
 			
 			function getColorInfo() {
 				$.ajax({
-					url : "/product/pinsList",
+					url : "/product/pinsList/" + pd_no,
 					type : "get",
 					data : "",
 					dataType : "json",
@@ -59,7 +59,7 @@
 			
 			function getSizeList() {
 				$.ajax({
-					url : "/product/",
+					url : "/product/sizeList/" + pi_no,
 					type : "get",
 					data : "",
 					dataType : "json",
