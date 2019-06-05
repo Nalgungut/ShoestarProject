@@ -6,71 +6,82 @@
 		<title>슈즈스타 - ${prod.pd_name}</title>
 		
 		<link rel="stylesheet" href="/resources/include/css/product.css" />
-		<script type="text/javascript" src="/resources/include/js/common.js"></script>
+		<script type="text/javascript" src="/resources/include/js/productCommon.js"></script>
 		<script type="text/javascript" src="/resources/include/js/product.js"></script>
 		<script type="text/javascript">
 			var pi_no = '${pins.pi_no}';
 			var pd_no = '${prod.pd_no}';
 			
 			$(function() {
-				
 				getColorInfo();
 				getImageList();
 				getSizeList();
 			});
 			
+			// 색상 정보 읽어오기
 			function getColorInfo() {
+				$("#colorList").html("");
+				
 				$.ajax({
-					url : "/product/pinsList",
+					url : "/product/pinsList/" + pd_no,
 					type : "get",
-					data : "",
 					dataType : "json",
 					error : function() {
-						
+						$("#colorList").append(createErrorList("색상 정보를 불러오는데 실패했습니다."));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
-							
+							$.each(data, function(index, stack) {
+								$("#colorList").append(createPinsBox(stack, pi_no));
+							});
 						} else {
-							
+							$("#colorList").append(createErrorList("색상 정보가 비어있습니다."));
 						}
 					}
 				});
 			}
 			
+			// 이미지 정보 읽어오기
 			function getImageList() {
+				$("#thumbList").html("");
+				
 				$.ajax({
-					url : "",
+					url : "/product/imageList/" + pi_no,
 					type : "get",
-					data : "",
 					dataType : "json",
 					error : function() {
-						
+						$("#thumbList").append(createErrorList("이미지 정보를 불러오는데 실패했습니다."));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
-							
+							$.each(data, function(index, stack) {
+								
+							});
 						} else {
-							
+							$("#thumbList").append(createErrorList("이미지 정보를 불러오는데 실패했습니다."));
 						}
 					}
 				});
 			}
 			
+			// 사이즈 정보 읽어오기
 			function getSizeList() {
+				$("#pi_size").html("");
+				
 				$.ajax({
-					url : "/product/",
+					url : "/product/psList/" + pi_no,
 					type : "get",
-					data : "",
 					dataType : "json",
 					error : function() {
-						
+						$("#pi_size").append(createErrorList("사이즈 정보를 불러오는 데 실패했습니다.", "option").prop("disabled", true));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
-							
+							$.each(data, function(index, stack) {
+								$("#pi_size").append(createSizeOption(stack));
+							});
 						} else {
-							
+							$("#pi_size").append(createErrorList("사이즈 정보가 비어있습니다.", "option").prop("disabled", true));
 						}
 					}
 				});
@@ -83,7 +94,9 @@
 		<div class="productSection">
 			
 			<!-- 이미지 섬네일 리스트 영역 -->
-			<div class="thumbList"></div>
+			<div class="thumbSection">
+				<ul id="thumbList"></ul>
+			</div>
 			
 			<!-- 큰 이미지 영역 -->
 			<div class="imageSection">
@@ -111,7 +124,7 @@
 				<!-- 색상 선택 -->
 				<div class="colorSection">
 					<div class="colorInfo">${pins.pcl_name}</div>
-					<ul class="colorList"></ul>
+					<ul id="colorList"></ul>
 				</div>
 				
 				<hr class="blackLine">

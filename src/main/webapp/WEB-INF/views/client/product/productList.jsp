@@ -31,7 +31,7 @@
 					type: "get",
 					dataType: "json",
 					error: function() {
-						alert("상품 정보를 불러올 수 없었습니다.");
+						$("#itemList").append(createErrorList("상품 정보를 불러올 수 없었습니다.", "div").addClass("text-center emptyResult"));
 					},
 					success: function(data) {
 						if(!jQuery.isEmptyObject(data)) {
@@ -43,8 +43,7 @@
 								$("#itemList").append(createProductDiv(stack));
 							});
 						} else {
-							var cont = $("<div>").text("검색 결과가 없습니다.").addClass("text-center align-middle emptyResult").css({"color":"grey"});
-							$("#itemList").append(cont);
+							$("#itemList").append(createErrorList("검색 결과가 없습니다.", "div").addClass("text-center emptyResult"));
 						}
 					}
 				});
@@ -58,8 +57,7 @@
 					type: "get",
 					dataType: "json",
 					error: function() {
-						var cont = $("<li>").text("상품 분류 정보를 불러올 수 없었습니다.").css({"color":"grey"}).addClass("listHasError");
-						$("#ctgList").append(cont);
+						$("#ctgList").append(createErrorList("상품 분류 정보를 불러올 수 없었습니다."));
 					},
 					success: function(data) {
 						if(!jQuery.isEmptyObject(data)) {
@@ -70,8 +68,7 @@
 								$("#ctgList").append(createProdCtgLink(stack));
 							});
 						} else {
-							var cont = $("<li>").text("분류가 없습니다.").css({"color":"grey"}).addClass("listHasError");
-							$("#ctgList").append(cont);
+							$("#ctgList").append(createErrorList("분류가 없습니다."));
 						}
 					}
 				});
@@ -85,8 +82,7 @@
 					type: "get",
 					dataType: "json",
 					error: function() {
-						var cont = $("<li>").text("사이즈 정보를 불러올 수 없었습니다.").css({"color":"grey"}).addClass("listHasError");
-						$("#sizeList").append(cont);
+						$("#sizeList").append(createErrorList("사이즈 정보를 불러올 수 없었습니다."));
 					},
 					success: function(data) {
 						if(!jQuery.isEmptyObject(data)) {
@@ -95,8 +91,7 @@
 								$("#sizeList").append(createSizeLink(stack));
 							});
 						} else {
-							var cont = $("<li>").text("분류가 없습니다.").css({"color":"grey"}).addClass("listHasError");
-							$("#sizeList").append(cont);
+							$("#sizeList").append(createErrorList("분류가 없습니다."));
 						}
 					}
 				});
@@ -110,8 +105,7 @@
 					type: "get",
 					dataType: "json",
 					error: function() {
-						var cont = $("<li>").text("색상 정보를 불러올 수 없었습니다.").css({"color":"grey"}).addClass("listHasError");
-						$("#colorList").append(cont);
+						$("#colorList").append(createErrorList("색상 정보를 불러올 수 없었습니다."));
 					},
 					success: function(data) {
 						if(!jQuery.isEmptyObject(data)) {
@@ -120,8 +114,7 @@
 								$("#colorList").append(createColorLink(stack));
 							});
 						} else {
-							var cont = $("<li>").text("분류가 없습니다.").css({"color":"grey"}).addClass("listHasError");
-							$("#colorList").append(cont);
+							$("#colorList").append(createErrorList("분류가 없습니다."));
 						}
 					}
 				});

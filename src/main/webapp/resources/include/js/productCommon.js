@@ -39,3 +39,17 @@ function getRequestValue(targetRequest) {
 	var regResult = paramReg.exec(window.location.search);
 	return regResult != null ? regResult[1] : null;
 }
+
+
+/**
+ * 목록을 불러오는데 실패했을 경우 표시하는 에러를 생성해 반환
+ * @param msg 보여줄 메시지
+ * @param tagName 생성할 태그. li, div 등
+ * @returns
+ */
+function createErrorList(msg, tagName) {
+	if(tagName == null || tagName == undefined || tagName == "") {
+		tagName = "li";
+	}
+	return $("<"+tag+">").addClass("listHasError").text(msg);
+}
