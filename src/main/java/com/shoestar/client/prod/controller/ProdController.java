@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shoestar.client.prod.service.ProdInsService;
 import com.shoestar.client.prod.service.ProdService;
+import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
@@ -113,14 +114,29 @@ public class ProdController {
 	/**
 	 * pi_no를 기준으로 제공되는 사이즈와 수량을 받아온다
 	 * @param pi_no
-	 * @return
+	 * @return ProdStockVO의 list
 	 */
-	@RequestMapping(value="/sizeList/{pi_no}", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@RequestMapping(value="/psList/{pi_no}", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
-	public List<ProdStockVO> productSizeList(@PathVariable("pi_no") Integer pi_no) {
+	public List<ProdStockVO> productStockList(@PathVariable("pi_no") Integer pi_no) {
 		ProdInsVO pivo = new ProdInsVO();
 		pivo.setPi_no(pi_no != null ? pi_no : 0);
 		List<ProdStockVO> result = prodInsService.pstListByPins(pivo);
+		return result;
+	}
+	
+	
+	/**
+	 * pi_no를 기준으로 제공되는 상품 이미지 목록을 받아온다
+	 * @param pi_no
+	 * @return ProdImageVO의 list
+	 */
+	@RequestMapping(value="/imageList/{pi_no}", method={RequestMethod.GET}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public List<ProdImageVO> productImageList(@PathVariable("pi_no") Integer pi_no) {
+		ProdInsVO pivo = new ProdInsVO();
+		pivo.setPi_no(pi_no != null ? pi_no : 0);
+		List<ProdImageVO> result = prodInsService.pimListByPins(pivo);
 		return result;
 	}
 }

@@ -12,7 +12,7 @@
 		FROM
 			(
 			SELECT
-				pim_file,
+				pi_no, pim_file,
 				row_number() OVER (PARTITION BY p.pi_no ORDER BY p.pim_priority ASC) AS rn
 			FROM
 				prod_image p
@@ -92,6 +92,13 @@
 	
 	<!-- ############################## pi_no 기준으로 이미지 우선도 순으로 가져오기 ############################## -->
 	<select id="pimListByPins" parameterType="prodins" resultType="prodimage">
-		
+		SELECT
+			pim_no, pim_priority, pim_file
+		FROM
+			prod_image
+		WHERE
+			pi_no = #{pi_no}
+		ORDER BY
+			pim_priority ASC
 	</select>
 </mapper>
