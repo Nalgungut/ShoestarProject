@@ -69,3 +69,15 @@
 .emptyResult {
 	margin: 200px 0;
 }
+
+.listHasError {
+	color: gray;
+}
+
+.blackLine {
+	border-bottom: 2px double #333;
+}
+
+.outOfStock {
+	text-decoration: line-through;
+}
