@@ -1,15 +1,19 @@
 package com.shoestar.admin.event.controller;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shoestar.admin.event.service.AdminEventService;
 import com.shoestar.client.event.vo.EventVO;
+import com.shoestar.common.vo.PageDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,11 +28,11 @@ public class AdminEventController {
 	
 	/***
 	 * 이벤트 리스트 페이지 구현하기
-	 * @param evo
-	 * @return
+	 * @param EventVO
+	 * @return String
 	 */
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String eventList(/*@ModelAttribute("data")*/ EventVO evo, Model model) {
+	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
 		log.info("eventList 호출 성공");
 		
 		//log.info("keyword : "+evo.getKeyword());
@@ -39,6 +43,22 @@ public class AdminEventController {
 		return "admin/event/eventList";
 	
 	}
+	
+	// 글 목록 구현하기(페이징 처리 목록 조회)
+/*	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
+		log.info("eventList 호출 성공");
+		log.info("keyword : " + evo.getKeyword());
+		log.info("search : " + evo.getSearch());
+			
+		model.addAttribute("AdmineventList", eventService.AdmineventList(evo));
+		
+		int total = eventService.AdmineventCnt(evo);
+		
+		model.addAttribute("pageMaker", new PageDTO(evo, total));
+		
+		return "admin/event/eventList";
+	}*/
 	
 	
 	//글쓰기 폼 출력하기
@@ -52,7 +72,7 @@ public class AdminEventController {
 	
 	/**********************************************
 	 * 글쓰기 구현하기
-	 * @param galleryVO
+	 * @param EventVO
 	 * @return String
 	 **********************************************/
 	 @ResponseBody
@@ -68,7 +88,7 @@ public class AdminEventController {
 			result = eventService.eventInsert(evo);
 
 			if(result == 1) {
-				url ="/event/eventList";
+				url ="admin/event/eventList";
 			}
 			//redirect: 를 쓰면 스프링 내부에서 자동적으로 response.sendRedirect(url)를 호출해준다.
 			return "redirect:"+url;
@@ -78,16 +98,21 @@ public class AdminEventController {
 	/**
 	 * 수정
 	 */
-	@RequestMapping(value="/update",  method=RequestMethod.GET)
-	public String eventUpdate(@ModelAttribute("data") EventVO evo, Model model) {
+	@RequestMapping(value="/update",  method=RequestMethod.POST)
+	public String eventUpdate(@ModelAttribute EventVO evo, RedirectAttributes rab) {
 		log.info("eventList 호출 성공");
 		
-		//log.info("keyword : "+evo.getKeyword());
-		//log.info("search : "+evo.getSearch());
+		String url = "";
+		int result = 0;
 		
-		model.addAttribute("eventUpdate", eventService.eventUpdate(evo));
+		result = eventService.eventUpdate(evo);
+		rab.addFlashAttribute("data", evo);
 		
-		return "admin/event/eventUpdate";
+		if(result ==1) {
+			//url="/admin/event/list";
+		}
+		
+		return url;
 	
 	}
 	

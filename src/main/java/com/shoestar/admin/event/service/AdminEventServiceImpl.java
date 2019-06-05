@@ -91,6 +91,13 @@ public class AdminEventServiceImpl implements AdminEventService {
 		
 		return result;
 	}
+	
+	// 
+	@Override
+	public int AdmineventCnt(EventVO evo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 
 

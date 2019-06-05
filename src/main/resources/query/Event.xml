@@ -69,7 +69,7 @@
              where rnum > (#{pageNum} -1) * #{amount} ]]>
       </select> -->
 	
-	<!-- 갤러리 상세 -->
+	<!-- 이벤트 글 상세 -->
 	<select id = "eventDetail" parameterType="event" resultType="event">
 				SELECT 
 					ev_no, 
@@ -84,6 +84,26 @@
 				WHERE 
 					ev_no = #{ev_no}
 	</select>
+	
+	<!-- 이벤트 입력 작업 -->
+	<insert id="eventInsert" parameterType="event">
+		<selectKey keyProperty="ev_no" resultType="int" order="BEFORE">
+			select event_seq.nextval from dual		
+		</selectKey>
+	
+		INSERT INTO event (
+		    ev_title, ev_content,
+		    ev_img,   ev_thumb
+		    <if test= "ev_edate != ''">
+				, ev_edate = #{ev_edate}
+			</if>
+		    )
+		VALUES (#{ev_title}, #{ev_content}, #{ev_img}, #{ev_thumb}
+		 	<if test= "ev_edate != ''">
+				, #{ev_edate}
+			</if>
+		    );
+	</insert>
 	
 	
 	<!-- 수정작업 -->

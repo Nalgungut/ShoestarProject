@@ -15,6 +15,12 @@
 <script type="text/javascript"
 	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
+<style type="text/css">
+ a:link { text-decoration: none;}
+ a:visited {text-decoration: none;}
+ a:hover {text-decoration: underline;}
+</style>
+
 
 <script type="text/javascript">
 	$(function() {
@@ -93,8 +99,11 @@
            		
       			<table id="AvnetViewTable" class="table" >
 					<caption class="Acaption">이벤트 검색</caption>
+					<colgroup>
+						<col width="10%" />
+					</colgroup>
 					<tr>
-						<td class="Avent_td gray" id="Aev_no">이벤트 번호</td>
+						<td class="Avent_td gray" id="Aev_no">번호</td>
 						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>
@@ -135,7 +144,7 @@
 						<c:forEach var="evt" items="${AdmineventList}" varStatus="status">
 							<tr class="daNum" data-num="${evt.ev_no}">
 								<td class="Avent_td tdW">${evt.ev_no}</td>
-								<td class="Avent_td">${evt.ev_title}</td>
+								<td class="Avent_td"><a class="AventUpdateBtn">${evt.ev_title}</a></td>
 								<td class="Avent_td">${evt.ev_content}</td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_date}" /></td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_edate}" /></td>
