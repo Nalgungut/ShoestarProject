@@ -3,12 +3,16 @@ package com.shoestar.admin.event.controller;
 
 import java.util.List;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shoestar.admin.event.service.AdminEventService;
@@ -25,6 +29,15 @@ import lombok.extern.log4j.Log4j;
 public class AdminEventController {
 	
 	private AdminEventService eventService;
+	
+	/* 파라미터를 바인딩할 때 자동으로 호출되는 @InitBinder를 이용해서 변환을 처리할 수 있다. */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+								// 대상, 필드명, 설정값
+		binder.registerCustomEditor(MultipartFile.class, "file",
+					new StringTrimmerEditor(true));
+					// null을 설정하기 위한 클래스
+	}
 	
 	/***
 	 * 이벤트 리스트 페이지 구현하기
@@ -76,22 +89,23 @@ public class AdminEventController {
 	 * @return String
 	 **********************************************/
 	 @ResponseBody
-	 @RequestMapping(value="/insert", method=RequestMethod.POST)
+	 @RequestMapping(value="/insert", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	 public String eventInsert(@ModelAttribute EventVO evo) {
 		 log.info("eventInsert 호출 성공");
 		 
-		/* log.info("file name : " + evo.getFile().getOriginalFilename());*/
+		 log.info("img name : " + evo.getFile().get(0).getOriginalFilename());
+		 log.info("thumb name : " + evo.getFile().get(1).getOriginalFilename());
 		
+		 String value = "";
 		 int result = 0;
-		 String url ="";
 			
 			result = eventService.eventInsert(evo);
-
-			if(result == 1) {
-				url ="admin/event/eventList";
-			}
-			//redirect: 를 쓰면 스프링 내부에서 자동적으로 response.sendRedirect(url)를 호출해준다.
-			return "redirect:"+url;
+			 if(result == 1) {
+				 value = "성공";
+			 } else { 
+				 value = "실패";
+			 }
+			return value;
 	 }
 	
 	
