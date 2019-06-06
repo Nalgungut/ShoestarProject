@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+/* ------------------------------------- Detail 페이지 ------------------------------------- */
+
+body > .container {
+	width: 80%;
+}
+
+.blackLine {
+	border-bottom: 2px double #333;
+}
+
+.outOfStock {
+	text-decoration: line-through;
+}
+
+/* ------------------------------------- 판매란 ------------------------------------- */
+
+.productSection {
+	margin-top: 20px;
+}
+
+.productSection li {
+	list-style: none;
+}
+
+#thumbList {
+	padding: 0;
+}
+
+#thumbList > li {
+	margin-bottom: 5px;
+}
+
+.detailThumbSection {
+	z-index: 2;
+}
+
+.detailImageSection {
+	z-index: 1;
+}
+
+.detailSalesSection {
+	z-index: 2;
+	font-size: 1.2em;
+}
+
+.productCategory, .colorInfo {
+	color: gray;
+}
+
+.productName {
+	font-size: 1.2em;
+	margin-bottom: 40px;
+}
+
+.detailPriceSection {
+	font-size: 1.4em;
+	vertical-align: middle;
+}
+
+.detailPriceSection > * {
+	display: inline;
+	vertical-align: middle;
+}
+
+.detailColorSection {
+	color: gray;
+	font-style: italic;
+}
+
+#colorList {
+	padding: 0;
+}
+
+#colorList > li {
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.detailSubmitSection button {
+	font-weight: bold;
+}
+
+#purchaseNow {
+	background-color: #333;
+	color: white;
+}
+
+#purchaseNow:hover {
+	background-color: #666;
+}
+
+.productInfoTable th {
+	text-align: center;
+}
+
+/* ------------------------------------- 정보란 ------------------------------------- */
+.detailInfoSection {
+	display: block;
+}
+
+
