@@ -30,13 +30,39 @@
            
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
             <!-- <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+           <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+            
+            <!--===============================================================================================-->	
+
+<!--===============================================================================================-->
+	<!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/bootstrap/css/bootstrap.min.css"> -->
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/main.css">
+<!--===============================================================================================-->
+            
+           
             
             <style>
             	#loginAfter{
             	font-size:14px;}
+            	
             </style>
             <!-- lightbox 라이브러리 -->
             <!-- <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
@@ -58,47 +84,10 @@
 			</script>
 		</head>
 	<body>
-		<div class="contentContainer">
-		<div class="well">
-			<c:if test="${login.mem_id == null or login.mem_id == ''}"> 
-			<form id="loginForm" class="form-horizontal">
-			  
-			  <div class="form-group">
-			    <label for="mem_id" class="col-sm-2 control-label">아이디</label>
-			    <div class="col-sm-3">
-			      <input type="text" class="form-control" id="mem_id" name ="mem_id" placeholder="아이디입력">
-			    </div>
-			    <p class="form-control-static error"></p>
-			  </div>
-			  
-			  <div class="form-group">
-			    <label for="mem_pwd" class="col-sm-2 control-label">비밀번호</label>
-			    <div class="col-sm-3">
-			      <input type="password" class="form-control" id="mem_pwd" name="mem_pwd" placeholder="비밀번호 입력">
-			    </div>
-			    <p class="form-control-static error"></p>
-			  </div>
-			  
-			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
-			      <div class="checkbox">
-			        <label>
-			          <input type="checkbox"> 로그인정보 저장
-			        </label>
-			      </div>
-			    </div>
-			  </div>  
-			  
-			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-6">
-			      <input type="button" value="로그인" id="loginBtn" class="btn btn-default"/>
-			      <input type="button" value="회원가입" id="joinBtn" class="btn btn-default"/>
-			    </div>
-			  </div>
-		  </form>
-		  </c:if>
-		  
-		  <c:if test="${login.mem_id != null and login.mem_id != ''}">
+	<div class="contentContainer">
+	
+		<div class="limiter">
+		<c:if test="${login.mem_id != null and login.mem_id != ''}">
 		  	<fieldset id="loginAfter">
 		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
 			  		<span id="memberMenu" class="tac">
@@ -108,7 +97,58 @@
 			  		</span>
 		  	</fieldset>
 		  </c:if>
-		 </div>
-		 </div>
+		<div class="container-login100">
+			<div class="wrap-login100">
+			<c:if test="${login.mem_id == null or login.mem_id == ''}">
+				<form id="loginForm" class="form-horizontal">
+					<span class="login100-form-title p-b-26">
+						ShoeStar<br>슈즈스타
+					</span>
+					<!-- <span class="login100-form-title p-b-48">
+						<i class="zmdi zmdi-font"></i>
+					</span> -->
+					<div class="spinner-border text-primary" role="status">
+					  <span class="sr-only">Loading...</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<input class="input100" id="mem_id" name="mem_id" type="text">
+						<span class="focus-input100" data-placeholder="아이디"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" id="mem_pwd" name="mem_pwd">
+						<span class="focus-input100" data-placeholder="비밀번호"></span>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button id="loginBtn" class="login100-form-btn">
+								로그인
+							</button>
+						</div>
+					</div>
+
+					<div class="text-center p-t-115">
+						<span class="txt1">
+							계정이 없으시다면? &nbsp;
+						</span>
+
+						<a class="txt2" id="joinBtn">
+							회원가입
+						</a>
+					</div>
+					
+				</form>
+				</c:if>
+				
+			</div>
+		</div>
+	</div>
+	</div>
 	</body>
 </html>

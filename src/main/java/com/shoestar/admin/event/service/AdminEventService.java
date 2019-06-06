@@ -8,4 +8,6 @@ public interface AdminEventService {
 	public List<EventVO> AdmineventList(EventVO evo);
 	public int eventInsert(EventVO evo);
 	public int eventUpdate(EventVO evo);
+	
+	public int AdmineventCnt(EventVO evo);
 }

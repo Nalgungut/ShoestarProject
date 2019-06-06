@@ -3,11 +3,21 @@
  * @author 배정훈
  */
 
+
+/* ------------------------------------- 상수 ------------------------------------- */
+
 /** 상품 이미지 저장소의 URL */
 const PROD_IMAGE_STORATE_URL = "/shoestarStorage/prod/";
 
 /** 상품 이미지 저장소의 URL */
 const PROD_THUMB_STORATE_URL = "/shoestarStorage/prod/thumb/";
+
+/** 상품 페이지의 uri */
+const PROD_URI_MAPPING = "/product/";
+
+
+/* ------------------------------------- prod 관련 함수들 ------------------------------------- */
+
 
 /**
  * 상품정보를 매개변수로 이미지와 가격등이 표시되는 div를 만들어내는 함수
@@ -85,7 +95,7 @@ function createProductDiv(prodVO) {
 	var pColumn = $("<div>").addClass("prodContainer");
 	pColumn.append(pImageSection).append(pEventSection).append(pNameSection).append(pCtgSection).append(pPriceSection).append(pRatingSection);
 	
-	var hrefLink = "/product/prod?";
+	var hrefLink = PROD_URI_MAPPING + "prod?";
 	var pclno = null;
 	try {
 		var pclno = getRequestValue("color");
@@ -106,6 +116,57 @@ function createProductDiv(prodVO) {
 	
 	return pColumn;
 }
+
+
+/* ------------------------------------- prodDetail 관련 함수들 ------------------------------------- */
+
+/**
+ * 상품 페이지의 다른 색상 정보를 표시하는 박스 생성
+ * @param pinsVO
+ * @param pinoToExclude 제외할 pi_no 번호
+ * @returns li 객체
+ */
+function createPinsBox(pinsVO, pinoToExclude) {
+	if(pinsVO.pi_no == pinoToExclude) {
+		return null;
+	}
+	
+	var pia = $("<a>").attr({
+		"href" : PROD_URI_MAPPING + "prod/" + pinsVO.pi_no
+	});
+	var pimg = $("<img>").attr({
+			"src" : PROD_THUMB_STORATE_URL + (pinsVO.mainImage != null ? pinsVO.mainImage : "default.jpg"),
+			"title" : pinsVO.pcl_name
+		}).css({
+		"width" : 50,
+		"height" : 50
+	});
+	
+	var pili = $("<li>").addClass("pinsBox");
+	
+	pili.append(pia.append(pimg));
+	return pili;
+}
+
+
+/**
+ * 사이즈 정보를 읽어와 option 태그를 생성하는 함수
+ * @param pinsVO
+ * @returns option 객체
+ */
+function createSizeOption(pinsVO) {
+	var poption = $("<option>").attr("value", pinsVO.ps_size).text(pinsVO.ps_size);
+	if(pinsVO.ps_stock <= 0) {
+		poption.prop("disabled", true).text(poption.text() + " 매진").addClass("outOfStock");
+	}
+	
+	return poption;
+}
+
+
+/* ------------------------------------- 유틸리티 ------------------------------------- */
+
+
 
 /**
  * 상품 정보를 토대로 할인율 라벨을 만드는 함수
@@ -131,6 +192,7 @@ function createDiscountLabel(prodVO, enlarge) {
 	
 	return dcLabel;
 }
+
 
 /**
  * 상품 정보를 토대로 평점 평균을 계산하고 라벨로 만들어주는 함수
@@ -161,3 +223,9 @@ function calculateDiscount(normalPrice, discountRate) {
 	}
 	return Math.floor(parseInt(normalPrice) * (100 - discountRate) / 1000) * 10;
 }
+
+
+
+
+/* ------------------------------------- 끝 ------------------------------------- */
+

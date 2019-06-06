@@ -134,8 +134,8 @@
 										<c:forEach var="evt" items="${eventList}" varStatus="status" end="3">
 									  
 									  	  <c:choose>
-										  		<c:when test="${evt.ev_no == 2}">
-											    <div class="item">
+										  		<c:when test="${status.index == 0}">
+											    <div class="item active">
 												      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
 												      		<img src="/shoestarStorage/event/${evt.ev_thumb}" alt="...">
 												      </a>
@@ -143,7 +143,7 @@
 											    </c:when>
 											    
 											    <c:otherwise>
-											    <div class="item active">
+											    <div class="item">
 											      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
 											      		<img src="/shoestarStorage/event/${evt.ev_thumb}" alt="...">
 											      </a>
