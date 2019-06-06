@@ -11,10 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shoestar.client.event.dao.EventDAO;
 import com.shoestar.admin.event.dao.AdminEventDAO;
 import com.shoestar.client.event.vo.EventVO;
-import com.shoestar.common.file.FileUploadUtil;
+import com.shoestar.common.file.EventFileUploadUtil;
+import com.shoestar.common.file.EventThumbUploadUtil;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -58,25 +59,29 @@ public class AdminEventServiceImpl implements AdminEventService {
 		
 		List<MultipartFile> list= evo.getFile();
 		
+		/*
+		 * 1번은 광고 이미지 : 원본만 앞에 경로_ 붙여서 저장
+		 * 2번은 썸네일 이미지 : 원본 + 썸네일 이미지 저장 
+		 */
 		
 		try {
 			
 		// 다중 처리
 		// 사진 업로드 두개 처리 방법 
-		//   get(0) ev_img : 원본만 저장 > 이벤트 내용이미지  || get(1) ev_thumb : 썸네일+원본 저장 > 이벤트 썸네일
+		//   get(0) ev_img : 원본만 저장 > 이벤트 내용이미지   get(1) ev_thumb : 썸네일+원본 저장 > 이벤트 썸네일
 		if(!list.isEmpty()) { // 안 비어 있으면
 		
 			log.info("비어있지 않음");
 			
-			for(int i = 1; i <=1; i++) {
+			for(int i = 0; i <=1; i++) {
 				if(i == 0) {
 					if(list.get(i) != null ) {
-						String fileName1 = FileUploadUtil.fileUpload(evo.getFile().get(i), "eventImage");
+						String fileName1 = EventFileUploadUtil.fileUpload(evo.getFile().get(i), "eventImage");
 						evo.setEv_img(fileName1);
 					}
 				} else if( i == 1 ) {
 					if (list.get(i) != null) {
-						String fileName2 = FileUploadUtil.fileUpload(evo.getFile().get(i), "eventThumb");
+						String fileName2 = EventThumbUploadUtil.fileUpload(evo.getFile().get(i), "eventThumb");
 						evo.setEv_thumb(fileName2);
 					}
 				}
@@ -90,6 +95,13 @@ public class AdminEventServiceImpl implements AdminEventService {
 		}
 		
 		return result;
+	}
+	
+	// 
+	@Override
+	public int AdmineventCnt(EventVO evo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 

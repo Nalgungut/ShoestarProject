@@ -12,5 +12,6 @@
 		<typeAlias type="com.shoestar.client.prod.vo.ProdInsVO" alias="prodins" />
 		<typeAlias type="com.shoestar.client.notice.vo.NoticeVO" alias="notice" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdStockVO" alias="prodstock" />
+		<typeAlias type="com.shoestar.client.prod.vo.ProdImageVO" alias="prodimage" />
 	</typeAliases>
 </configuration>

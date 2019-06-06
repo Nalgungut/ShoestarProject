@@ -1,4 +1,7 @@
+*{margin: 10px;}
 
+
+/* client 이벤트 리스트 */
 hr{color: gray; width: 1355px; float: left;}
 
 #EvconTitle{text-align: center; margin: 40px;}
@@ -13,24 +16,63 @@ hr{color: gray; width: 1355px; float: left;}
 
 .EventTitle:hover{text-decoration: none;}
 
-#EventImage{display: }
+/* #EventImage{display: } */
 
+table{text-align: center;}
 
-
-/* Admin */
-.Acaption{text-align: left; margin-bottom: 10px; font-weight: bold;}
+/* Admin 이벤트 리스트 */
+.Acaption{text-align: left; margin-bottom: 10px; font-weight: bold; color: black; font-size: 15pt;}
 .table{border-collapse: collapse;}
 .Avent_td, .Avent_tdInput{border: 1px solid black; padding: 7px;}
 #AventSearchBtn{margin: 5px;}
 .gray {background-color: #EDF0F5; font-weight: bold;}
 .bgray {background-color: #B1BDC7; color: white; font-weight: bold;}
-#AventListTable, #AvnetViewTable{width: 80%;}
-#AvnetViewTable tr{height: 50px;}
+#AventListTable, #AvnetViewTable, #insertTable{width: 80%;}
+#AvnetViewTable tr{height: 30px;}
 .Avent_tdInput {
-    width: 1230px;
+    width: 1230px; text-align: left;
 }
 .AventPreviewBtn{width: 5px;}
-.tdW, .AventUpdateBtn, .AventPreviewBtn{width: 70px;}
 
+.tdW, .AventUpdateBtn, .AventPreviewBtn{width: 60px;}
+.Abtn{
+	background-color: #E1E5E7; height: 40px; border: none; 
+}
+.Abtn:hover{
+	background-color: #D2D7D9;
+}
 
-#insertFormBtn{margin-left: 1130px;}
+#insertBtn, #insertFormBtn, #eventCancelBtn, #eventListBtn{
+	
+	font-size: 17px;
+	height: 50px; border:none;
+	background-color: #2166B5; color: white; width: 90px;
+}
+
+#insertBtn{
+	font-size: 16px;
+ 	margin-left: 1100px; width: 120px;
+ }
+
+.daNum:hover{
+	background-color: #F2F2F5;
+}
+
+/* 관리자 검색 버튼 */
+#searchData{
+	font-size: 17px;
+	height: 50px; border:none;
+	background-color: #2166B5; color: white; width: 90px;
+}
+
+#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, #eventListBtn:hover, #searchData:hover{
+	background-color: #1C589C;
+}
+
+/* 이벤트 등록 화면 */
+#insertTable {
+	border-collapse: collapse;
+}
+/* #insertTable td{height: 15px;} */
+
+.btns {margin-top: 20px; text-align: center;}
