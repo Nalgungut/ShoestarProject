@@ -16,6 +16,30 @@
 			<script src="/resources/include/js/html5shiv.js"></script>
 		<![endif] -->
 		
+		
+		<style>
+			#textarea{
+				width: 500px;
+				height: 500px;
+			}
+			#boardListBtn{
+				text-align: right;
+			}
+			textarea{
+				height: 500px;
+				width: 1000px;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			$(function () {
+				$("#boardListBtn").click(function () {
+					location.href="/brand/noticeList";
+				});
+				
+			});
+		</script>
+		
 	</head>
 	
 	<body>
@@ -23,7 +47,9 @@
 			<div class="contentTit page-header">
 				<h3 class="text-center">게시판 상세보기</h3>
 			</div>
-			
+			<div>
+				<input type="button" value="목록" id="boardListBtn" class="btn btn-success"/>
+			</div>
 			<!--  상세정보 보기 -->
 			<div class="contentTB text-center">
 				<table class="table table-bordered">
@@ -38,11 +64,11 @@
 						</tr>
 						<tr>
 							<td>제 목</td>
-							<td colspan="5" class="text-left">${detail.no_content}</td>
+							<td colspan="5" class="text-left">${detail.no_subject}</td>
 						</tr>
 						<tr class="table-height">
 							<td>내 용</td>
-							<td colspan="5" class="text-left"><textarea>${detail.no_content}</textarea></td>
+							<td colspan="5" class="text-left" id="textarea">${detail.no_content}</td>
 						</tr>
 					</tbody>
 				</table>
