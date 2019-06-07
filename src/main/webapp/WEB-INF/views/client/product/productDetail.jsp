@@ -80,22 +80,22 @@
 			
 			// 사이즈 정보 읽어오기
 			function getSizeList() {
-				$("#pi_size").html("");
+				$("#ps_no").html("");
 				
 				$.ajax({
 					url : "/product/psList/" + pi_no,
 					type : "get",
 					dataType : "json",
 					error : function() {
-						$("#pi_size").append(createErrorList("사이즈 정보를 불러오는 데 실패했습니다.", "option").prop("disabled", true));
+						$("#ps_no").append(createErrorList("사이즈 정보를 불러오는 데 실패했습니다.", "option").prop("disabled", true));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
-								$("#pi_size").append(createSizeOption(stack));
+								$("#ps_no").append(createSizeOption(stack));
 							});
 						} else {
-							$("#pi_size").append(createErrorList("사이즈 정보가 비어있습니다.", "option").prop("disabled", true));
+							$("#ps_no").append(createErrorList("사이즈 정보가 비어있습니다.", "option").prop("disabled", true));
 						}
 					}
 				});
