@@ -25,19 +25,19 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	// 테이블 전체화면 호출
 	
 	@Override
-	public List<NoticeVO> noticeList(NoticeVO nvo) {
+	public List<NoticeVO> adminNoticeList(NoticeVO nvo) {
 		List<NoticeVO> myList = null;
-		myList = noticeDao.noticeList(nvo);
+		myList = noticeDao.adminNoticeList(nvo);
 		return myList;
 	}
 	
 	// 공지사항 상세보기
 	@Override
-	public NoticeVO noticeDetail(NoticeVO nvo) {
+	public NoticeVO adminNoticeDetail(NoticeVO nvo) {
 		log.info("noticeDetail 서비스 호출");
 		
 		NoticeVO detail = null;
-		detail = noticeDao.noticeDetail(nvo);
+		detail = noticeDao.adminNoticeDetail(nvo);
 		if(detail!=null){
 			detail.setNo_content(detail.getNo_content().toString().replaceAll("\n","<br>"));
 			
@@ -64,7 +64,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	@Override
 	public NoticeVO updateForm(NoticeVO nvo){
 		NoticeVO detail = null;
-		detail = noticeDao.noticeDetail(nvo);
+		detail = noticeDao.adminNoticeDetail(nvo);
 		return detail;
 	}
 
