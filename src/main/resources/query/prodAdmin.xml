@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.prod.dao.ProdAdminDao">
+	
+	
+	<!--##################################### 최대 할인율 검색하는 쿼리문 #####################################-->
+	<sql id="dcmax">
+		(
+		SELECT
+			MAX(rd_discount) AS maximum
+		FROM
+			range_discount r
+			LEFT OUTER JOIN
+				rd_type rt
+			ON
+				r.rd_no = rt.rd_no
+			LEFT OUTER JOIN
+				rd_product rp
+			ON
+				r.rd_no = rp.rd_no
+		WHERE
+			(
+				RD_EDATE >= TRUNC(sysdate) OR
+				RD_EDATE IS NULL
+			)
+			AND	rp.pd_no = prod.pd_no
+			OR rt.pct_no = prod.pct_no
+		)
+	</sql>
+	
+	<!--##################################### 검색해오는 prodvo 정보 #####################################-->
+	<sql id="prodInfo">
+		pd_no, pd_name, pd_sex, pd_age, pct_no, co_no, pd_price,
+		pd_fabric, pd_country, pd_year, pd_manu, pd_import, pi_no, pd_date, pd_status, pim_main,
+		<!-- 카테고리 이름 받기 -->
+		(
+		SELECT
+			pct_name
+		FROM
+			prod_ctg
+		WHERE
+			pct_no = prod.pct_no
+		) AS pct_name,
+		<!-- 할인율 계산 하기 -->
+		(
+		NVL((
+			<include refid="dcmax"/>
+		), 0)
+		) AS pd_discount
+	</sql>
+	
+	
+	
+</mapper>

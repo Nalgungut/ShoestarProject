@@ -178,7 +178,7 @@
                         addItem(re_content);
                      });
                   }).fail(function(){
-                     alert("댓글 목록을 불러오는데 실패하였습니다.");
+                     /* alert("댓글 목록을 불러오는데 실패하였습니다."); */
                   });
                }
             

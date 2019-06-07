@@ -51,5 +51,5 @@ function createErrorList(msg, tagName) {
 	if(tagName == null || tagName == undefined || tagName == "") {
 		tagName = "li";
 	}
-	return $("<"+tag+">").addClass("listHasError").text(msg);
+	return $("<"+tagName+">").addClass("listHasError").text(msg);
 }
