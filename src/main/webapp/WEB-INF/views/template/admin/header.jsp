@@ -7,11 +7,11 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="/">슈즈스타 - 관리자 페이지</a>
+		<a class="navbar-brand" href="/">슈즈스타 쇼핑몰 페이지로</a>
 	</div>
 	<div id="navbar" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="#">상품</a></li>
+			<li><a href="/admin/product/list">상품</a></li>
 			<li><a href="#">판매</a></li>
 			<li><a href="#">브랜드</a></li>
 			<li><a href="/admin/event/list">이벤트</a></li>
