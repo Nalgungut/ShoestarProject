@@ -1,5 +1,9 @@
 package com.shoestar.client.login.service;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +35,22 @@ public class LoginServiceImpl implements LoginService{
 		return vo;
 	}
 
-	
-	
+	// 아이디 찾기
+	@Override
+	public String find_id(HttpServletResponse response, String mem_email) throws Exception {
+	PrintWriter out = response.getWriter();
+	String mem_id = loginDao.find_id(mem_email);
+					
+	if (mem_id == null) {
+		out.println("<script>");
+		out.println("alert('가입된 아이디가 없습니다.');");
+		out.println("history.go(-1);");
+		out.println("</script>");
+		out.close();
+			return null;
+		} else {
+			return mem_id;
+		}
+	}
+		
 }

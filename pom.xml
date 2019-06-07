@@ -73,6 +73,13 @@
 		    <version>${tiles-version}</version>
 		</dependency>
 		
+		<!-- java mail -->
+	    <dependency>
+	        <groupId>javax.mail</groupId>
+	        <artifactId>mail</artifactId>
+	        <version>1.4</version>
+	    </dependency>
+
 				
 		<!-- AspectJ -->
 		<dependency>

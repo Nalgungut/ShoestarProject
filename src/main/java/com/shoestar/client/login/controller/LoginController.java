@@ -1,9 +1,13 @@
 package com.shoestar.client.login.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,6 +68,26 @@ public class LoginController {
 		sessionStatus.setComplete();
 			return "redirect:/";
 	}
+	
+		/////////////////// [아이디 찾기 폼]////////////////////////////
+		@RequestMapping(value = "/find_id_form")
+		public String find_id(HttpServletResponse response, String mem_email) throws Exception{
+			return "client/member/find_id_form";
+		}
+		
+		///////////////////// [비밀번호 찾기 폼]///////////////////////////
+		@RequestMapping(value = "/find_pwd")
+		public String find_pwd() throws Exception{
+		return "client/member/find_pwd";
+		}
+		
+		// 아이디 찾기
+		@RequestMapping(value = "/find_id", method = RequestMethod.POST)
+		public String find_id(HttpServletResponse response, @RequestParam("email") String mem_email, Model md) throws Exception{
+			md.addAttribute("mem_id", find_id(response, mem_email));
+			return "client/member/find_id";
+		}
+					
 	
 
 }
