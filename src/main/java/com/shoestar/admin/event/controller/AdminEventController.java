@@ -89,23 +89,22 @@ public class AdminEventController {
 	 * @return String
 	 **********************************************/
 	 @ResponseBody
-	 @RequestMapping(value="/insert", method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
-	 public String eventInsert(@ModelAttribute EventVO evo) {
+	 @RequestMapping(value="/insert", method = RequestMethod.POST)
+	 public String eventInsert(EventVO evo) {
 		 log.info("eventInsert 호출 성공");
 		 
-		 log.info("img name : " + evo.getFile().get(0).getOriginalFilename());
-		 log.info("thumb name : " + evo.getFile().get(1).getOriginalFilename());
+		 log.info("img name : " + evo.getFiles().get(0).getOriginalFilename());
+		 log.info("thumb name : " + evo.getFiles().get(1).getOriginalFilename());
 		
-		 String value = "";
-		 int result = 0;
-			
-			result = eventService.eventInsert(evo);
-			 if(result == 1) {
-				 value = "성공";
-			 } else { 
-				 value = "실패";
-			 }
-			return value;
+		 
+		 int result = 1;
+		 String url ="";
+		 
+		 result = eventService.eventInsert(evo);
+		 if(result == 1) {
+			url ="/admin/event/list";
+		 }
+		return "redirect:"+url;
 	 }
 	
 	
@@ -123,7 +122,7 @@ public class AdminEventController {
 		rab.addFlashAttribute("data", evo);
 		
 		if(result ==1) {
-			//url="/admin/event/list";
+			url="/admin/event/list";
 		}
 		
 		return url;

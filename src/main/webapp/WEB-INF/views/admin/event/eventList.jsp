@@ -91,7 +91,7 @@
 		 <hr /></div>
 			
 		<!-- 검색 기능 -->
-		<div id="AventSearchDiv" class="">	
+		<div id="AventSearchDiv">	
 			<form id="AventSearchForm" >
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
            		<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
