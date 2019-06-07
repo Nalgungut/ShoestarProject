@@ -65,6 +65,17 @@
 				prod
 			WHERE
 				<trim prefixOverrides="AND">
+					<!-- 상태값 -->
+					<trim prefix="AND"><choose>
+						<when test="pd_status == null or pd_status == ok">
+							pd_status IS NULL
+						</when>
+						<when test='pd_status == "all"'>
+						</when>
+						<otherwise>
+							pd_status = #{pd_status}
+						</otherwise>
+					</choose></trim>
 					<!-- 성별 -->
 					<trim prefix="AND (" suffix="OR pd_sex = 'u')"><if test='pd_sex != null and pd_sex != ""'>
 						pd_sex = #{pd_sex}
@@ -90,7 +101,14 @@
 					</if>
 					<!-- 이름 검색 -->
 					<if test='keyword != null and keyword != ""'>
-						AND (pd_name LIKE '%'||#{keyword}||'%')
+						<choose>
+							<when test='search == null or search == "pd_name"'>
+								AND (pd_name LIKE '%'||#{keyword}||'%')
+							</when>
+							<when test='search == "pd_no"'>
+								AND pd_no = #{keyword}
+							</when>
+						</choose>
 					</if>
 					<!-- 컬러 필터링 -->
 					<if test="color != 0">
