@@ -71,7 +71,7 @@
 		
 		<div id="Event_note">
 			<div id="Event_note_title">
-				유의 사항
+				설명 및 유의 사항
 			</div>
 			
 			<hr />

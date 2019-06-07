@@ -15,6 +15,12 @@
 <script type="text/javascript"
 	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
+<style type="text/css">
+ a:link { text-decoration: none;}
+ a:visited {text-decoration: none;}
+ a:hover {text-decoration: underline;}
+</style>
+
 
 <script type="text/javascript">
 	$(function() {
@@ -52,7 +58,7 @@
 	         $("#AventListForm").submit();
 		});
 		
-	      $("#insertFormBtn").click(function() {
+	      $("#insertBtn").click(function() {
 		         location.href = "/admin/event/writeForm";
 		      });
 		
@@ -79,7 +85,7 @@
 <body>
 	<div class="Aventcontainer">
 		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 관리
-		<input type="button" value="새로 만들기" id="insertFormBtn" /> 
+		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
 				
 		 <hr /></div>
@@ -94,7 +100,7 @@
       			<table id="AvnetViewTable" class="table" >
 					<caption class="Acaption">이벤트 검색</caption>
 					<tr>
-						<td class="Avent_td gray" id="Aev_no">이벤트 번호</td>
+						<td class="Avent_td gray" id="Aev_no">번호</td>
 						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>
@@ -115,6 +121,7 @@
 			</form>
 			 </div>
 		
+		<hr />
 		
 		<div id="AventList" class="">
 			<form id="AventListForm">
@@ -122,6 +129,7 @@
 				
 				<table id="AventListTable" class="table">
 					<caption class="Acaption">이벤트 목록</caption>
+						
 						<tr>
 							<td class="Avent_td bgray tdW">번호</td>
 							<td class="Avent_td bgray">이벤트명</td>
@@ -129,13 +137,14 @@
 							<td class="Avent_td bgray">이벤트 시작일</td>
 							<td class="Avent_td bgray">이벤트 종료일</td>
 							<td class="Avent_td bgray tdW">상태</td>
-							<td class="Avent_td bgray tdW">미리 보기</td>
+							<td class="Avent_td bgray tdW">보기</td>
 							<td class="Avent_td bgray tdW">수정</td>
+							<td class="Avent_td bgray tdW">삭제</td>
 						</tr>
 						<c:forEach var="evt" items="${AdmineventList}" varStatus="status">
 							<tr class="daNum" data-num="${evt.ev_no}">
 								<td class="Avent_td tdW">${evt.ev_no}</td>
-								<td class="Avent_td">${evt.ev_title}</td>
+								<td class="Avent_td"><a class="AventUpdateBtn">${evt.ev_title}</a></td>
 								<td class="Avent_td">${evt.ev_content}</td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_date}" /></td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_edate}" /></td>
@@ -157,10 +166,14 @@
 									</div>
 								</td>
 								<td class="Avent_td">
-									<button type="button" class="AventPreviewBtn tdW">미리보기</button>
+									<button type="button" class="AventPreviewBtn tdW Abtn">확인</button>
 								</td>
 								<td class="Avent_td">
-									<button type="button" class="AventUpdateBtn tdW">수정</button>
+									<button type="button" class="AventUpdateBtn tdW Abtn">수정</button>
+								</td>
+								<td class="Avent_td">
+									<button type="button" class="AventDeleteBtn tdW Abtn">삭제</button>
+								</td>
 							</tr>
 							
 						</c:forEach>
