@@ -17,7 +17,7 @@
 <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 
 <style type="text/css">
-
+	.Aventcontainer{width: 80%; height: 70%;}
 </style>
 
 <script type="text/javascript">
@@ -32,11 +32,14 @@
 			else if (!chkSubmit($('#ev_thumb'),"이벤트 썸네일을 ")) return;
 			else if (!chkFile($('#ev_thumb'))) return;
 			else{
-				/* $("#insertForm").attr({
+				$("#insertForm").attr({
 					"method" : "post",
+					"enctype" : "multipart/form-data",
 					"action" : "/admin/event/insert"
 				});
-				$("#insertForm").submit(); */
+				$("#insertForm").submit();
+				
+				/* 
   				$("#insertForm").ajaxForm({
   					action : "/admin/event/insert",
   					type : "post",
@@ -59,7 +62,7 @@
   				});
   			
   				$("#insertForm").submit();
-  				
+  				 */
 			}
  		});
 		
@@ -85,7 +88,6 @@
 
 </head>
 <body>
-	관리자 등록 화면 입니다~
 	<div class="Aventcontainer">
 		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 등록</h2>		
 		 <hr />
@@ -95,31 +97,30 @@
 			<form id="insertForm">
 				<table id="insertTable">
 					<caption class="Acaption">이벤트 정보</caption>
-					<colgroup><col /> <col width="50px" />
 					
 					<tr>
-						<td class="Event_td gray">이벤트명</td>
-						<td class="Event_td"><input type="text" id="ev_title" /></td>	
+						<td class="Avent_td gray">이벤트명</td>
+						<td class="Avent_tdInput"><input type="text" id="ev_title" name="ev_title" maxlength="30" size="100"/></td>	
 					</tr>
 					
 					<tr>
-						<td class="Event_td gray">이벤트 내용</td>
-						<td class="Event_td"><textarea id="ev_content" rows="20" cols="100" maxlength="1000"></textarea></td>
+						<td class="Avent_td gray">이벤트 내용</td>
+						<td class="Avent_tdInput"><textarea id="ev_content" name="ev_content" rows="2" cols="150" maxlength="1000"></textarea></td>
 					</tr>
 					
 					<tr>
-						<td class="Event_td gray">이벤트 이미지</td>
-						<td class="Event_td"><input type="file" id="ev_img" /></td>
+						<td class="Avent_td gray">이벤트 이미지</td>
+						<td class="Avent_tdInput"><input type="file" id="ev_img" name="files[0]" /></td>
 					</tr>
 					
 					<tr>
-						<td class="Event_td gray">이벤트 썸네일</td>
-						<td class="Event_td"><input type="file" id="ev_thumb" /></td>
+						<td class="Avent_td gray">이벤트 썸네일</td>
+						<td class="Avent_tdInput"><input type="file" id="ev_thumb" name="files[1]" /></td>
 					</tr>
 					
 					<tr>
-						<td class="Event_td gray">이벤트 종료일</td>
-						<td class="Event_td"><input type="date" id="ev_edate" /></td>
+						<td class="Avent_td gray">이벤트 종료일</td>
+						<td class="Avent_tdInput"><input type="date" id="ev_edate" name="ev_edate" /></td>
 					</tr>
 				</table>
 							<div class="btns">			

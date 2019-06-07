@@ -4,6 +4,7 @@
  <!--  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd"> -->
   
 <tiles-definitions>
+	<!-- ############################# 기본 설정 ############################# -->
 	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
@@ -14,6 +15,17 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
+	
+	<definition name="admin" template="/WEB-INF/views/template/admin/contentLayout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="sidebar" value="" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/admin/footer.jsp" />
+	</definition>
+	
+	
+	
+	<!-- ############################# 클라이언트 페이지 ############################# -->
 	
 	<definition name="client/product/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/client/product/{1}.jsp" />
@@ -34,4 +46,24 @@
 	<definition name="client/brand/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/client/brand/{1}.jsp"/>
 	</definition>
+	
+	
+	
+	<!-- ############################# 관리자 페이지 ############################# -->
+	
+	<definition name="admin/event/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/event/{1}.jsp"></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+	</definition>
+	
+	<definition name="admin/cscenter/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/cscenter/{1}.jsp"></put-attribute>
+		<put-attribute name="sidebar" value=""></put-attribute>
+	</definition>
+	
+	<definition name="admin/product/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/product/{1}.jsp"></put-attribute>
+		<put-attribute name="sidebar" value="/WEB-INF/views/admin/product/prodSidebar.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>

@@ -48,6 +48,7 @@
 				    ev_edate
 				FROM
 				    event
+				order by ev_no desc
 	</select>
 	
 	
@@ -56,7 +57,7 @@
 <!--       <select id="AdmineventList" parameterType="event" resultType="event">
       <![CDATA[
       select 
-             ev_no,  ev_title,  ev_content, ev_img, ev_thumb, to_char(ev_date, 'YYYY-MM-DD') as ev_date, to_char(ev_edate, 'YYYY-MM-DD') as ev_edate
+             ev_no,  ev_title,  ev_content, ev_date, ev_edate
       from (
           select  /*+ INDEX_DESC(event event_pk) */
               rownum as rnum, ev_no, ev_title, ev_date
@@ -65,10 +66,11 @@
              <trim prefix="(" suffix=") AND " prefixOverrides="AND">
                <include refid="AdmineventSearch"></include>
              </trim>
-            <![CDATA[ rownum <= #{pageNum} * #{amount})AdmineventList
+            <![CDATA[ rownum <= #{pageNum} * #{amount}
+            )
              where rnum > (#{pageNum} -1) * #{amount} ]]>
-      </select> -->
-	
+      </select>
+ -->	
 	<!-- 이벤트 글 상세 -->
 	<select id = "eventDetail" parameterType="event" resultType="event">
 				SELECT 
@@ -92,17 +94,18 @@
 		</selectKey>
 	
 		INSERT INTO event (
+			ev_no,
 		    ev_title, ev_content,
-		    ev_img,   ev_thumb
-		    <if test= "ev_edate != ''">
-				, ev_edate = #{ev_edate}
+		    ev_img,   ev_thumb, ev_date
+		    <if test= "ev_edate != null">
+				, ev_edate 
 			</if>
 		    )
-		VALUES (#{ev_title}, #{ev_content}, #{ev_img}, #{ev_thumb}
-		 	<if test= "ev_edate != ''">
+		VALUES (#{ev_no}, #{ev_title}, #{ev_content}, #{ev_img}, #{ev_thumb}, sysdate
+		 	<if test= "ev_edate != null">
 				, #{ev_edate}
 			</if>
-		    );
+		    )
 	</insert>
 	
 	
@@ -118,5 +121,9 @@
 			where ev_no = #{ev_no}
 	</update>
 	
+	<!-- 삭제 작업 -->
+	<delete id="eventDelete" parameterType="event">
+		delete from event where ev_no = #{ev_no}
+	</delete> 
 	
 </mapper>

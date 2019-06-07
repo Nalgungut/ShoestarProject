@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shoestar.admin.notice.service.AdminNoticeService;
 import com.shoestar.client.notice.vo.NoticeVO;
@@ -27,30 +28,18 @@ public class AdminNoticeController {
 	
 	// 공지사항 리스트 매핑
 		@RequestMapping(value="/adminNoticeList", method = RequestMethod.GET)
-		public String noticeList(@ModelAttribute("data") NoticeVO nvo, Model model){
-			log.info("noticeList 호출완료");
+		public String adminNoticeList(@ModelAttribute("data") NoticeVO nvo, Model model){
+			log.info("adminNoticeList 호출완료");
 			
-			List<NoticeVO> noticeList = noticeService.noticeList(nvo);
-			model.addAttribute("notice", noticeList);
+			List<NoticeVO> adminNoticeList = noticeService.adminNoticeList(nvo);
+			model.addAttribute("adminNoticeList", adminNoticeList);
 			
-			return "client/brand/noticeList";
+			return "admin/brand/adminNoticeList";
 		}
 	
-	// 공지사항 상세조회
-	/*@RequestMapping(value="/client/noticeDetail", method=RequestMethod.GET)
-	
-	public String NoticeDetail(@ModelAttribute("data") NoticeVO nvo, Model model){
-		log.info("noticeDetail 호출");
-		
-		NoticeVO detail = noticeService.noticeDetail(nvo);
-		model.addAttribute("detail", detail);
-		
-		return "client/notice/noticeDetail";
-	}*/
-	
 	// 공지사항 글쓰기 폼 들어가기
-	@RequestMapping(value="/writeForm")
-	public String writeForm(@ModelAttribute("data") NoticeVO nvo){
+	@RequestMapping(value="/noticeWriteForm")
+	public String noticeWriteForm(@ModelAttribute("data") NoticeVO nvo){
 		log.info("공지사항 글쓰기 페이지 호출");
 		
 		return "admin/brand/noticeWriteForm";
@@ -79,11 +68,57 @@ public class AdminNoticeController {
 		log.info("adminNoticeDetail 호출");
 		log.info("no_no"+nvo.getNo_no());
 		
-		NoticeVO detail = noticeService.noticeDetail(nvo);
-		model.addAttribute("detail",detail);
+		NoticeVO adminDetail = noticeService.adminNoticeDetail(nvo);
+		model.addAttribute("adminDetail",adminDetail);
 		
-		return "admin/board/adminNoticeDetail";
+		return "admin/brand/adminNoticeDetail";
 		
+	}
+	
+	// 공지사항 수정페이지 매핑
+	@RequestMapping(value="/updateForm")
+	public String updateForm(@ModelAttribute("data") NoticeVO nvo, Model model){
+		log.info("updateForm 호출");
+		
+		log.info("no_no : "+nvo.getNo_no());
+		
+		NoticeVO updateData = noticeService.updateForm(nvo);
+		
+		model.addAttribute("updateData", updateData);
+		return "admin/brand/updateForm";
+	}
+	
+	// 공지사항 수정
+	@RequestMapping(value="/noticeUpdate", method=RequestMethod.POST)
+	public String noticeUpdate(@ModelAttribute NoticeVO nvo, RedirectAttributes ras){
+		
+		log.info("noticeUpdate 호출");
+		
+		int result = 0;
+		String url="";
+		
+			result = noticeService.noticeUpdate(nvo);
+			ras.addFlashAttribute("data", nvo);
+			
+		if(result ==1){
+			url="admin/brand/adminNoticeDetail";
+		}else{
+			url="admin/brand/updateForm";
+		}
+		return "admin/brand/updateForm";
+	}
+	
+	// 공지사항 삭제
+	@RequestMapping(value="/noticeDelete")
+	public String noticeDelete(@ModelAttribute NoticeVO nvo){
+		log.info("noticeDelete 호출");
+		
+		int result = 0;
+		String url = "";
+		
+		result = noticeService.noticeDelete(nvo.getNo_no());
+		
+		return "admin/brand/noticeDetail?no_no="+nvo.getNo_no();
 	}
 
 }

@@ -25,13 +25,14 @@
 <script type="text/javascript">
 	$(function() {
 		  //검색후 검색 대상과 검색 단어 출력
-		   //var word= "<c:out value='${data.keyword}'/>";
-		  // var value = "";
-		  // if(word!=""){
-		//	  $("#keyword").val("<c:out value='${data.keyword}'/>");
-		//	  $("#search").val("<c:out value='${data.search}'/>");
-		//	 
-	 	// }
+		   var word= "<c:out value='${data.keyword}'/>";
+		   var value = "";
+		   if(word!=""){
+			  $("#keyword").val("<c:out value='${data.keyword}'/>");
+			  $("#search").val("<c:out value='${data.search}'/>");
+			 
+		   /* if() */
+	 	 }
 		
 		
 		// 미리보기 선택
@@ -53,14 +54,41 @@
 	
 	         $("#AventListForm").attr({
 	            "method" : "get",
-	            "action" : "/admin/event/update"
+	            "action" : "/admin/event/updateForm"
 	         });
 	         $("#AventListForm").submit();
 		});
 		
+		
+		// 삭제하기 선택 (미완)
+		$(".AventDeleteBtn").click(function() {
+			
+			if(confirm("선택한 내용을 삭제하시겠습니까?")) {
+      		
+			 var ev_no = $(this).parents("tr").attr("data-num");
+	         $("#ev_no").val(ev_no);
+	
+	         $("#AventListForm").attr({
+	            "method" : "get",
+	            "action" : "/admin/event/delete"
+	         });
+	         $("#AventListForm").submit();
+	         
+			}
+			
+		});
+		
+		 // 새로 만들기 버튼 선택
 	      $("#insertBtn").click(function() {
 		         location.href = "/admin/event/writeForm";
 		      });
+		 
+		 
+		 
+		// 검색 버튼 선택
+		$("#searchData").click(function() {
+			
+		});
 		
 	}); // function
 	
@@ -71,7 +99,7 @@
 	      }
 	      $("#search").attr({
 	         "method" : "get",
-	         "action" : "/admin/event/eventList"
+	         "action" : "/admin/event/list"
 	      });
 	      $("#AventSearchForm").submit();
 	   }
@@ -91,7 +119,7 @@
 		 <hr /></div>
 			
 		<!-- 검색 기능 -->
-		<div id="AventSearchDiv" class="">	
+		<div id="AventSearchDiv">	
 			<form id="AventSearchForm" >
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
            		<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
