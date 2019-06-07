@@ -88,6 +88,16 @@
 				.noticeList{
 					margin-left: 50px;
 				}
+				#keyword{
+					width: 200px;
+					height: 35px;
+					
+				}
+				
+				#se{
+					text-align: right;
+					color: navy;
+				}
 			</style>
 		
 		<script type="text/javascript">
@@ -164,7 +174,7 @@
 			  <div class="dropdown">
 			    <button class="dropbtn">브랜드 소개 </button>
 			    <div class="dropdown-content">
-			      <a href="#">브랜드 가치</a>
+			      <a href="/admin/adminNoticeList">브랜드 가치</a>
 			      <a href="#">브랜드 기능</a>
 			      <a href="#">브랜드 뉴스</a>
 			    </div>
@@ -173,7 +183,7 @@
 			  <a href="/brand/collectionIntro">컬렉션 소개</a>
 			  <a href="/brand/noticeList">공지사항</a>
 			</div>
-			<div class="contentTit"><h3>공지사항</h3></div>
+			<div class="contentTit"><h3>공지사항</h3></div><br><br>
 			
 			<form id="detailForm">
 				<input type="hidden" id="no_no" name="no_no"/>
@@ -188,20 +198,20 @@
 					<%-- <input type="hidden" name="pageNum" value="${pageMaker.nvo.pageNum}"> <!-- (pageDTO) 글번호 가져오기 -->
 					<input type="hidden" name="amount" value="${pageMaker.nvo.amount}"> --%>
 						<div class="form-group">
-							<label style="font-size:16px">검색조건</label>
+							<label style="font-size:16px" id="se">검색조건</label>
 							<select id="search" name="search" class="form-control">
 								<option value="all" id="goDetail">전체</option>
-								<option value="b_title" id="goDetail">제목</option>
-								<option value="b_content" id="goDetail">내용</option>
-								<option value="b_name" id="goDetail">말머리</option>
+								<option value="no_title" id="goDetail">제목</option>
+								<option value="no_content" id="goDetail">내용</option>
+								<option value="no_kind" id="goDetail">말머리</option>
 							</select>
-						<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요"  class="form-control" width="5px">
+						<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요"  class="form-control" height="10px;">
 						<button type="button" id="searchData"class="btn btn-success">검색</button>
 					</div>
 				</form>
 			</div>
-			
 			<%--==================리스트 시작=================== --%>	
+			
 			<div id="noticeList">
 			<table class="table-striped" summary="게시판 리스트">
 				<thead>

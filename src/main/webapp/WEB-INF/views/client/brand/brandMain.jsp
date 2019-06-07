@@ -11,7 +11,8 @@
 		
 		<link rel="shortcut icon" type="image⁄x-icon" href="/resources/images/icon.png" />
 		<link rel="apple-touch-icon" type="image⁄x-icon" href="/resources/images/icon.png" />
-		
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Mitr&display=swap" rel="stylesheet">
 		<!-- [if lt IE 9]>
 			<script src="/resources/include/js/html5shiv.js"></script>
 		<![endif] -->
@@ -186,7 +187,17 @@
 			.content{
 				margin-left: -300px;
 			}
-			
+			h2{
+				text-align: center;
+				font-family: 'Noto Sans KR', sans-serif;
+			}
+			p{
+				font-family: 'Mitr', sans-serif;
+			}
+			#explain{
+				font-family: 'Mitr', sans-serif;
+				text-align: center;
+			}
 			/* 목록 보여주기 css dropdown */
 			
 			
@@ -206,9 +217,9 @@
 			  <div class="dropdown">
 			    <button class="dropbtn">브랜드 소개 </button>
 			    <div class="dropdown-content">
-			      <a href="#">브랜드 가치</a>
+			      <a href="/admin/adminNoticeList">브랜드 가치</a>
 			      <a href="#">브랜드 기능</a>
-			      <a href="#">브랜드 뉴스</a>
+			      <a href="/brand/brandNewslist">브랜드 뉴스</a>
 			    </div>
 			  </div>
 			  
@@ -217,7 +228,9 @@
 			</div>
 			<!-- 메인설명 시작 -->
 			<div class="content">
-			<h2>메인페이지</h2>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+			<h2>☆★슈즈스타 브랜드 페이지에 오신것을 환영합니다.★☆</h2><br />
+			
+			<p>슈즈스타는 .................<p><br /><br /><br />
 			  			<!-- 슈즈스타 메인사진 첨부공간 -->
 						<!-- Slideshow container -->
 				<div class="slideshow-container">
@@ -253,7 +266,11 @@
 				  <span class="dot" onclick="currentSlide(2)"></span> 
 				  <span class="dot" onclick="currentSlide(3)"></span> 
 				</div>
+				<hr />
+				<p> dddd</p>
 			</div>
+			<!-- 사진에 대한 설명  -->
+			<p id="explain">설명 위에</p>
 			<script>
 			var slideIndex = 1;
 			showSlides(slideIndex);
@@ -299,6 +316,7 @@
 			  setTimeout(showSlides, 5000); // Change image every 2 seconds
 			}
 			</script>
+			
 		</div>
 	</body>
 </html>

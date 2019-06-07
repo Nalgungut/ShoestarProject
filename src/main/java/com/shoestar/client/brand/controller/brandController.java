@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.shoestar.client.brand.Service.BrandNewsService;
 import com.shoestar.client.brand.vo.BrandVO;
 import com.shoestar.client.brand.vo.CollectionVO;
 import com.shoestar.client.notice.service.NoticeService;
@@ -23,6 +24,7 @@ import lombok.extern.log4j.Log4j;
 
 public class brandController {
 	private NoticeService noticeService;
+	private BrandNewsService brandNewsService;
 	
 	// 브랜드 첫페이지 매핑
 	@RequestMapping(value="/brandMain", method = RequestMethod.GET)
@@ -60,6 +62,28 @@ public class brandController {
 		model.addAttribute("detail", detail);
 		
 		return "client/brand/noticeDetail";
+	}
+	
+	//브랜드 뉴스 리스트
+	@RequestMapping(value="/brandNewslist", method=RequestMethod.GET)
+	public String brandNewsList(@ModelAttribute("data") BrandVO bvo, Model model){
+		log.info("브랜드 뉴스리스트 호출");
+		
+		List<BrandVO> brandNewsList = brandNewsService.brandNewsList(bvo);
+		model.addAttribute("news", brandNewsList);
+		
+		return "client/brand/brandNewsList";
+	}
+	
+	//브랜드 뉴스 상세정보
+	@RequestMapping(value="/brandNewsDetail", method=RequestMethod.GET)
+	public String brandNewsDetail(@ModelAttribute("data") BrandVO bvo,Model model){
+		log.info("브랜드 뉴스 상세정보보기");
+		
+		BrandVO detail = brandNewsService.brandNewsDetail(bvo);
+		model.addAttribute("detail", detail);
+		
+		return "client/brand/brandNewsDetail";
 	}
 	
 }
