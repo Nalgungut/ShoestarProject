@@ -100,12 +100,12 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트명</td>
-						<td class="Avent_tdInput"><input type="text" id="ev_title" /></td>	
+						<td class="Avent_tdInput"><input type="text" id="ev_title" name="ev_title" maxlength="30" size="100"/></td>	
 					</tr>
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 내용</td>
-						<td class="Avent_tdInput"><textarea id="ev_content" rows="3" cols="200" maxlength="1000"></textarea></td>
+						<td class="Avent_tdInput"><textarea id="ev_content" name="ev_content" rows="2" cols="150" maxlength="1000"></textarea></td>
 					</tr>
 					
 					<tr>
@@ -120,7 +120,7 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 종료일</td>
-						<td class="Avent_tdInput"><input type="date" id="ev_edate" /></td>
+						<td class="Avent_tdInput"><input type="date" id="ev_edate" name="ev_edate" /></td>
 					</tr>
 				</table>
 							<div class="btns">			

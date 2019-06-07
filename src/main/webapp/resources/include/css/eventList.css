@@ -2,13 +2,13 @@
 td.gray {text-align: center;}
 
 /* client 이벤트 리스트 */
-hr{color: gray; width: 1355px; float: left; margin-bottom: 20px;}
+hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px;}
 
 #EvconTitle{text-align: center; margin: 40px;}
 
 #EventTable{border-collapse: collapse;}
 
-.Event_td{padding: 30px; border: 1px solid black;}
+.Event_td{padding: 30px; border: 1px solid #595959;}
 
 #EviewImage{color: red;}
 
@@ -16,19 +16,27 @@ hr{color: gray; width: 1355px; float: left; margin-bottom: 20px;}
 
 .EventTitle:hover{text-decoration: none;}
 
-/* #EventImage{display: } */
+
+
+a.EventImage img{width: 700px; height: 400px; }
 
 table{text-align: center;}
+
+/* 이벤트 상세 리스트 */
+#ev_content{text-align: left; float: left; margin: 10px;}
+
 
 /* Admin 이벤트 리스트 */
 .Acaption{text-align: left; margin-bottom: 15px; font-weight: bold; color: black; font-size: 15pt;}
 .table{border-collapse: collapse;}
 .Avent_td, .Avent_tdInput{border: 1px solid black; padding: 7px;}
+#AvnetViewTable .Avent_td{width: 120px;}
 #AventSearchBtn{margin: 5px;}
 .gray {background-color: #EDF0F5; font-weight: bold;}
 .bgray {background-color: #B1BDC7; color: white; font-weight: bold;}
 #AventListTable, #AvnetViewTable, #insertTable{width: 80%;}
 #AvnetViewTable tr{height: 30px;}
+#AvnetViewTable td, #AventListTable td {border-top: 1px solid black; padding: 10px;}
 .Avent_tdInput {
     width: 1230px; text-align: left;
 }
@@ -51,18 +59,20 @@ table{text-align: center;}
 
 #insertBtn{
 	font-size: 16px;
- 	margin-left: 1100px; width: 120px;
+ 	margin-left: 1060px; width: 120px;
  }
 
 .daNum:hover{
 	background-color: #F2F2F5;
 }
 
+
+
 /* 관리자 검색 버튼 */
 #searchData{
 	font-size: 17px;
 	height: 50px; border:none;
-	background-color: #2166B5; color: white; width: 90px; margin-top: 15px; margin-bottom: 20px;
+	background-color: #2166B5; color: white; width: 90px; margin-top: 15px;
 }
 
 #insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, #eventListBtn:hover, #searchData:hover{
@@ -71,13 +81,18 @@ table{text-align: center;}
 
 /* 이벤트 등록 화면 */
 #insertTable {
-	border-collapse: collapse; text-align: left; width: 1400px; height: 50px;
+	border-collapse: collapse; text-align: left; width: 1200px; height: 50px;
 }
 
 #insertTable td{height: 30px;}
 
-#insertTable td.Avent_td{ width:80px; padding: 10px; padding-left: 20px; padding-right: 20px;}
+#insertTable td.Avent_td{ width:150px; padding: 10px; padding-left: 5px; padding-right: 5px;}
 
-#insertTable td.Avent_tdInput{height: 30px; width: 500px;}
+#insertTable td.Avent_tdInput{width: 80px; }
 
 .btns {margin-top: 20px; text-align: center;}
+
+
+/* admin 전체 페이지 margin */
+.Aventcontainer{margin-top: 80px; }
+#AventList{margin-bottom: 140px;}

@@ -8,20 +8,25 @@
 	<title>이벤트</title>
 
 
-      
-      <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css" />
+      <!-- 상위 버전 링크 추가 --> 
+      <!-- 합쳐지고 최소화된 최신 CSS -->
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <!-- <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css" /> -->
 	  <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css" />
 
 	  <link rel="stylesheet" href="/resources/include/css/eventList.css" >
 	  <script type="text/javascript" src="/resources/include/js/eventList.js" ></script>
 
-	  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js" ></script>
+	  <!-- 상위 버전 링크 추가 -->
+	  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+	  <!-- <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js" ></script> -->
       <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 
 
 	<style type="text/css">
 		img{width: 500px; height: 400px;}
 		li{list-style: none; }
+		*{text-align: left;}
 	</style>
 
 	<script type="text/javascript">
@@ -39,16 +44,32 @@
 			         $("#EventListform").submit();
 		      });
 			
-			$(".EventTitle").hover(function(){
+			/* $(".EventTitle").hover(function(){
 				var ss = $(this).attr("data-thumb");
 				//console.log(ss);
-				var uThumb = "/shoestarStorage/event/"+ss;
+				var uThumb = "/shoestarStorage/eventThumb/"+ss;
 				
 				$(this).parents().find(".item").find("img").attr("src",uThumb);
+				
+				var tt = $(this).attr("data-title");
+				console.log(tt);
+				$(this).parents().find(".item").find("img").attr("data-slide-to",tt);
+				
+				// 부트 스트랩 마우스 오버
 				
 				$("li").css("list-style","none");
 				
 				$(this).parent().css("list-style","disc");
+			}); */
+			
+			$('.EventTitle').hover(function(e){ // e는  작동하기 위해? 누른 값을 가져오는 얘 (없어도 있어도 상관 X)
+				var value = $(this).attr("data-title");
+				console.log(parseInt(value));
+				
+				$(this).parents().find(".item").find("img").attr("data-slide-to",value);
+				//$('.carousel ol li').attr("data-slide-to", value);
+				$('.carousel').carousel(parseInt(value));
+				
 			});
 		
 		}); // function 종료
@@ -86,7 +107,7 @@
 				thumbnail.addClass("eventThumbnail");
 				
 				var img = $("<img>");
-				img.attr("src", "/shoestarStorage/event/thumbnail/"+ev_thumb);
+				img.attr("src", "/shoestarStorage/eventThumb/thumbnail/thumbnail_"+ev_thumb);
 				
 					
 				// 조립하기
@@ -137,7 +158,7 @@
 										  		<c:when test="${status.index == 0}">
 											    <div class="item active">
 												      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-												      		<img src="/shoestarStorage/event/${evt.ev_thumb}" alt="...">
+												      		<img src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 												      </a>
 											    </div>
 											    </c:when>
@@ -145,7 +166,7 @@
 											    <c:otherwise>
 											    <div class="item">
 											      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-											      		<img src="/shoestarStorage/event/${evt.ev_thumb}" alt="...">
+											      		<img src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 											      </a>
 											    </div>
 										    	</c:otherwise>
@@ -177,7 +198,7 @@
 								<td class="Event_td">
 									<ul>
 										<li>
-											<a class="EventTitle" data-thumb="${evt.ev_thumb}">
+											<a class="EventTitle" data-title="${status.index}" data-thumb="${evt.ev_thumb}">
 													${evt.ev_title}							
 											</a>
 										</li>

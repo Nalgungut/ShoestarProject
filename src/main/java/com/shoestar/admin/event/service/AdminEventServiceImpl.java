@@ -42,15 +42,7 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return list;
 	
 	}
-	//글 수정 DAO 접속
-	@Override
-	public int eventUpdate(EventVO evo) {
-			int result = 0;
-			result = aEventDao.eventUpdate(evo);
-			return result;
-		
-	}
-	
+
 	// 이벤트 글 입력 구현
 	
 	@Override
@@ -82,10 +74,11 @@ public class AdminEventServiceImpl implements AdminEventService {
 				} else if( i == 1 ) {
 					if (list.get(i) != null) {
 						String fileName2 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "eventThumb");
-						evo.setEv_img(fileName2);
+						//evo.setEv_img(fileName2);
+						evo.setEv_thumb(fileName2);
 						
 						String thumbName = FileUploadUtil.makeThumbnail(fileName2);
-						evo.setEv_thumb(thumbName);
+//						evo.setEv_thumb(thumbName);
 					}
 				}
 			} // for
@@ -97,6 +90,45 @@ public class AdminEventServiceImpl implements AdminEventService {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+	
+	// 창 이동시 값 세팅용 update
+	@Override
+	public EventVO updateForm(EventVO evo) {
+		EventVO detail = null;
+		detail = aEventDao.eventDetail(evo);
+		return detail;
+	}
+	
+	//글 수정 DAO 접속
+	@Override
+	public int eventUpdate(EventVO evo) {
+			int result = 0;
+			result = aEventDao.eventUpdate(evo);
+			return result;
+		
+	}
+	
+	// 글 삭제 
+	@Override
+	public  int eventDelete(EventVO evo) {
+		int result = 0;
+		
+		try {
+			EventVO vo = aEventDao.eventDetail(evo);
+			
+			FileUploadUtil.fileDelete(vo.getEv_img());
+			FileUploadUtil.fileDelete(vo.getEv_thumb());
+			
+			// 썸네일의 썸네일 이미지 삭제하기 (완)
+			FileUploadUtil.fileDelete("thumbnail_"+vo.getEv_thumb());
+			
+			result = aEventDao.eventDelete(evo.getEv_no());
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
 		return result;
 	}
 	

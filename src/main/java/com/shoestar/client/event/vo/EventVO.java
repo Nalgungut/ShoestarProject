@@ -21,8 +21,9 @@ public class EventVO extends CommonVO {
 	private List<MultipartFile> files; // 파일이 하나 이상일때는 배열 또는 list로 
 	private String ev_img; // 이벤트 이미지
 	private String ev_thumb; // 이벤트 썸네일
-	//@DateTimeFormat(pattern="yyyy-MM-dd") 
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date ev_date; // 이벤트 등록일
+	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date ev_edate; // 이벤트 만료일
 	
 	
