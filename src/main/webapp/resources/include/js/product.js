@@ -132,7 +132,7 @@ function createPinsBox(pinsVO, pinoToExclude) {
 	}
 	
 	var pia = $("<a>").attr({
-		"href" : PROD_URI_MAPPING + "prod/" + pinsVO.pi_no
+		"href" : PROD_URI_MAPPING + "prod/?pi_no=" + pinsVO.pi_no
 	});
 	var pimg = $("<img>").attr({
 			"src" : PROD_THUMB_STORATE_URL + (pinsVO.mainImage != null ? pinsVO.mainImage : "default.jpg"),
@@ -148,6 +148,46 @@ function createPinsBox(pinsVO, pinoToExclude) {
 	return pili;
 }
 
+/**
+ * 섬네일 리스트를 만들어 li 객체를 리턴하는 ㅎ마수
+ * @param pimVO prodImageVO의 json 정보
+ * @param largeImage 큰 이미지를 표시할 img 객체
+ * @returns li 객체
+ */
+function createImageBox(pimVO, largeImage) {
+	
+	// li
+	var pimli = $("<li>").addClass("pimThumbList");
+	if(largeImage.attr("src") == "") {
+		largeImage.attr("src", PROD_IMAGE_STORATE_URL + pimVO.pim_file);
+		pimli.addClass("pimSelected");
+	}
+	
+	// a
+	var pima = $("<a>").attr({
+		"href" : PROD_IMAGE_STORATE_URL + pimVO.pim_file
+	}).on("click mouseover", function(event) { // 클릭 시 큰 이미지 src 변경
+		event.preventDefault();
+		largeImage.attr("src", $(this).attr("href"));
+		$(".pimThumbList").each(function() {
+			$(this).removeClass("pimSelected");
+		});
+		$(this).closest("li.pimThumbList").addClass("pimSelected");
+	});
+	
+	// img
+	var pimg = $("<img>").attr({
+		"src" : PROD_THUMB_STORATE_URL + pimVO.pim_file
+	}).css({
+		"width":"80",
+		"height":"80"
+	});
+	
+	// 조립
+	pimli.append(pima.append(pimg));
+	return pimli;
+}
+
 
 /**
  * 사이즈 정보를 읽어와 option 태그를 생성하는 함수
@@ -155,7 +195,7 @@ function createPinsBox(pinsVO, pinoToExclude) {
  * @returns option 객체
  */
 function createSizeOption(pinsVO) {
-	var poption = $("<option>").attr("value", pinsVO.ps_size).text(pinsVO.ps_size);
+	var poption = $("<option>").attr("value", pinsVO.ps_no).text(pinsVO.ps_size);
 	if(pinsVO.ps_stock <= 0) {
 		poption.prop("disabled", true).text(poption.text() + " 매진").addClass("outOfStock");
 	}
