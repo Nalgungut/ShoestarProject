@@ -116,7 +116,7 @@
 			    <div class="dropdown-content">
 			      <a href="/admin/adminNoticeList">브랜드 가치</a>
 			      <a href="#">브랜드 기능</a>
-			      <a href="/brad/brandNewslist">브랜드 뉴스</a>
+			      <a href="/brand/brandNewslist">브랜드 뉴스</a>
 			    </div>
 			  </div>
 			  

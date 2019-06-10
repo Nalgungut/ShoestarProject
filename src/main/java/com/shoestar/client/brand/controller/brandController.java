@@ -64,7 +64,7 @@ public class brandController {
 		return "client/brand/noticeDetail";
 	}
 	
-	//브랜드 뉴스 리스트
+/*	//브랜드 뉴스 리스트
 	@RequestMapping(value="/brandNewslist", method=RequestMethod.GET)
 	public String brandNewsList(@ModelAttribute("data") BrandVO bvo, Model model){
 		log.info("브랜드 뉴스리스트 호출");
@@ -84,6 +84,6 @@ public class brandController {
 		model.addAttribute("detail", detail);
 		
 		return "client/brand/brandNewsDetail";
-	}
+	}*/
 	
 }
