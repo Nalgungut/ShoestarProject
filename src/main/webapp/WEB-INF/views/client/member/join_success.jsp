@@ -45,7 +45,7 @@
 				<h1>회원가입이 완료되었습니다!!</h1>
 				<span class="label label-primary">★2000원 쿠폰 증정★</span>
 			</div>
-			<h4>ShoeStar가입을 축하합니다 !</h4>
+			<h4>ShoeStar가입을 환영합니다 !</h4>
 		</div>
 	</body>
 </html>

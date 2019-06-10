@@ -1,5 +1,7 @@
 package com.shoestar.client.member.dao;
 
+
+
 import com.shoestar.client.member.vo.MemberVO;
 
 public interface MemberDao {
@@ -11,6 +13,5 @@ public interface MemberDao {
 	public int memberUpdate(MemberVO mvo);
 
 	public int memberDelete(String mem_id);
-
 
 }

@@ -42,14 +42,6 @@ function createProdCtgLink(prodCtgVO) {
 	
 	return pcli;
 }
-/**
- * 카테고리 필터를 적용할 option 생성 함수
- * @param prodCtgVO 상품 카테고리 정보
- * @returns jQuery option 객체
- */
-function createCtgOption(prodCtgVO) {
-	
-}
 
 /**
  * 가격 필터를 포함한 링크를 필터리스트 내에 존재하는 a 태그의 속성에 명시
