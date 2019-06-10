@@ -12,6 +12,4 @@ public interface ProdService {
 	public ProdVO prodDetail(ProdVO pvo);
 	
 	public ProdVO prodDetailByIns(ProdInsVO pivo);
-	
-	public int countRecords(ProdVO pvo);
 }

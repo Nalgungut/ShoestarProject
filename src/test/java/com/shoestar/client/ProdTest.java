@@ -1,15 +1,11 @@
 package com.shoestar.client;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.shoestar.admin.prod.dao.ProdAdminDao;
 import com.shoestar.client.prod.dao.ProdDao;
 import com.shoestar.client.prod.dao.ProdInsDao;
 import com.shoestar.client.prod.vo.ProdInsVO;
@@ -29,8 +25,6 @@ public class ProdTest {
 	private ProdDao prodDao;
 	@Setter(onMethod_ = @Autowired)
 	private ProdInsDao prodInsDao;
-	@Setter(onMethod_ = @Autowired)
-	private ProdAdminDao prodAdminDao;
 	
 	@Test
 	public void testThings() {
@@ -38,17 +32,9 @@ public class ProdTest {
 		log.info("---------------------------------------------------------");
 		
 		ProdVO pvo = new ProdVO();
-		pvo.setPd_name("test");
-		pvo.setPd_age("a");
+		pvo.setSize(230);
 		pvo.setPd_sex("m");
-		pvo.setPct_no(1);
-		pvo.setPd_price(20000);
-		pvo.setPd_fabric("천 100%");
-		pvo.setPd_country("베트남");
-		pvo.setPd_year("2019");
-		pvo.setPd_manu("무슨회사");
-		pvo.setPd_import("누군가");
 		
-		log.info("결과 값은: " + prodAdminDao.insertProd(pvo));
+		log.info(prodDao.prodList(pvo));
 	}
 }

@@ -51,113 +51,6 @@
 	</sql>
 	
 	
-	<!--##################################### 검색 조건문 #####################################-->
-	<sql id="prodReq">
-		<!-- 상태값 -->
-		<trim prefix="AND"><choose>
-			<when test="pd_status == null or pd_status == ok">
-				(pd_status IS NULL OR pd_status IN ('n', 'h', 'b'))
-			</when>
-			<when test='pd_status == "all"'>
-			</when>
-			<when test='pd_status == "n"'>
-				pd_status IN ('n', 'b')
-			</when>
-			<when test='pd_status == "h"'>
-				pd_status IN ('h', 'b')
-			</when>
-			<otherwise>
-				pd_status = #{pd_status}
-			</otherwise>
-		</choose></trim>
-		<!-- 성별 -->
-		<trim prefix="AND (" suffix="OR pd_sex = 'u')"><if test='pd_sex != null and pd_sex != ""'>
-			pd_sex = #{pd_sex}
-		</if></trim>
-		<!-- 연령 -->
-		<trim prefix="AND"><choose>
-			<when test='pd_age == null'> <!-- default -->
-				pd_age = 'a'
-			</when>
-			<when test='pd_age == "all"'> <!-- all -->
-			</when>
-			<otherwise>
-				pd_age = #{pd_age}
-			</otherwise>
-		</choose></trim>
-		<!-- 분류 -->
-		<if test='pct_no != null and pct_no != ""'>
-			AND pct_no = #{pct_no}
-		</if>
-		<!-- 컬렉션 -->
-		<if test="co_no != 0">
-			AND co_no = #{co_no}
-		</if>
-		<!-- 이름 검색 -->
-		<if test='keyword != null and keyword != ""'>
-			<choose>
-				<when test='search == null or search == "pd_name"'>
-					AND (pd_name LIKE '%'||#{keyword}||'%')
-				</when>
-				<when test='search == "pd_no"'>
-					AND pd_no = #{keyword}
-				</when>
-			</choose>
-		</if>
-		<!-- 컬러 필터링 -->
-		<if test="color != 0">
-			AND (
-				SELECT DISTINCT
-					1
-				FROM
-					prod_ins
-				WHERE
-					pd_no = prod.pd_no AND
-					pcl_no = #{color}
-			) IS NOT NULL
-		</if>
-		<!-- 사이즈 필터링 -->
-		<if test="size != 0">
-			AND (
-				SELECT DISTINCT
-					1
-				FROM
-					prod_stock
-					INNER JOIN
-						prod_ins
-					ON
-						prod_ins.pi_no = prod_stock.pi_no
-				WHERE
-					pd_no = prod.pd_no AND
-					ps_size = #{size}
-			) IS NOT NULL
-		</if>
-		<if test="priceBottom != 0">
-	 				AND
-				pd_price * NVL((100-(<include refid="dcmax"/>))/100, 1)
-			<![CDATA[>= #{priceBottom}]]>
-		</if>
-		<if test="priceTop != 0">
-	 				AND
-				pd_price * NVL((100-(<include refid="dcmax"/>))/100, 1)
-			<![CDATA[< #{priceTop}]]>
-		</if>
-		<if test="includeItemless == false">
-			AND (
-				SELECT DISTINCT
-					1
-				FROM
-					prod_stock
-					INNER JOIN
-						prod_ins
-					ON
-						prod_stock.pi_no = prod_ins.pi_no
-				WHERE
-					pd_no = prod.pd_no
-			) IS NOT NULL
-		</if>
-	</sql>
-	
 	<!--##################################### 상품 목록 검색 #####################################-->
 	<select id="prodList" parameterType="prod" resultType="prod">
 		SELECT
@@ -172,25 +65,111 @@
 				prod
 			WHERE
 				<trim prefixOverrides="AND">
-					<include refid="prodReq" />
+					<!-- 상태값 -->
+					<trim prefix="AND"><choose>
+						<when test="pd_status == null or pd_status == ok">
+							pd_status IS NULL
+						</when>
+						<when test='pd_status == "all"'>
+						</when>
+						<otherwise>
+							pd_status = #{pd_status}
+						</otherwise>
+					</choose></trim>
+					<!-- 성별 -->
+					<trim prefix="AND (" suffix="OR pd_sex = 'u')"><if test='pd_sex != null and pd_sex != ""'>
+						pd_sex = #{pd_sex}
+					</if></trim>
+					<!-- 연령 -->
+					<trim prefix="AND"><choose>
+						<when test='pd_age == null'> <!-- default -->
+							pd_age = 'a'
+						</when>
+						<when test='pd_age == "all"'> <!-- all -->
+						</when>
+						<otherwise>
+							pd_age = #{pd_age}
+						</otherwise>
+					</choose></trim>
+					<!-- 분류 -->
+					<if test='pct_no != null and pct_no != ""'>
+						AND pct_no = #{pct_no}
+					</if>
+					<!-- 컬렉션 -->
+					<if test="co_no != 0">
+						AND co_no = #{co_no}
+					</if>
+					<!-- 이름 검색 -->
+					<if test='keyword != null and keyword != ""'>
+						<choose>
+							<when test='search == null or search == "pd_name"'>
+								AND (pd_name LIKE '%'||#{keyword}||'%')
+							</when>
+							<when test='search == "pd_no"'>
+								AND pd_no = #{keyword}
+							</when>
+						</choose>
+					</if>
+					<!-- 컬러 필터링 -->
+					<if test="color != 0">
+						AND (
+							SELECT DISTINCT
+								1
+							FROM
+								prod_ins
+							WHERE
+								pd_no = prod.pd_no AND
+								pcl_no = #{color}
+						) IS NOT NULL
+					</if>
+					<!-- 사이즈 필터링 -->
+					<if test="size != 0">
+						AND (
+							SELECT DISTINCT
+								1
+							FROM
+								prod_stock
+								INNER JOIN
+									prod_ins
+								ON
+									prod_ins.pi_no = prod_stock.pi_no
+							WHERE
+								pd_no = prod.pd_no AND
+								ps_size = #{size}
+						) IS NOT NULL
+					</if>
+					<if test="priceBottom != 0">
+		   				AND
+							pd_price * NVL((100-(<include refid="dcmax"/>))/100, 1)
+						<![CDATA[>= #{priceBottom}]]>
+					</if>
+					<if test="priceTop != 0">
+		   				AND
+							pd_price * NVL((100-(<include refid="dcmax"/>))/100, 1)
+						<![CDATA[< #{priceTop}]]>
+					</if>
 					<!-- 페이징 -->
 					<![CDATA[AND rownum <= #{pageNum} * #{amount}]]>
 				</trim>
 			) prodlist
 		WHERE
 			<![CDATA[rn > (#{pageNum} - 1) * #{amount}]]>
+			<if test="includeItemless == false">
+				AND (
+					SELECT DISTINCT
+						1
+					FROM
+						prod_stock
+						INNER JOIN
+							prod_ins
+						ON
+							prod_stock.pi_no = prod_ins.pi_no
+					WHERE
+						pd_no = prodlist.pd_no
+				) IS NOT NULL
+			</if>
 	</select>
 	
-	
-	<select id="countRecords" parameterType="prod" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			prod
-		<where>
-			<include refid="prodReq" />
-		</where>
-	</select>
 	
 	<!--##################################### 상품 단일 검색 #####################################-->
 	<!-- pd_no 기준 검색 -->

@@ -48,10 +48,4 @@ public class ProdServiceImpl implements ProdService {
 		ProdVO result = prodDao.prodDetailByIns(pivo);
 		return result;
 	}
-
-	@Override
-	public int countRecords(ProdVO pvo) {
-		int result = prodDao.countRecords(pvo);
-		return result;
-	}
 }
