@@ -33,10 +33,16 @@ public class QNAController {
 			log.info("qnaList..»£√‚");
 			
 			qvo.setMem_no(lvo.getMem_no());
-			
+			log.info(qvo.getMem_no());
 			List<QNAVO> qnaList = qnaService.qnaList(qvo); 
 			model.addAttribute("qnaList", qnaList);
+			
+			
 			return "client/cscenter/qnaBoard"; 
 		}
 		
+		@RequestMapping(value="/writeForm")
+		public String writeForm() {
+			return "client/cscenter/writeForm";
+		}
 }

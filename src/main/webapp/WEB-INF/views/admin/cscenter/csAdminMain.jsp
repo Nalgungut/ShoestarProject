@@ -84,8 +84,11 @@
 			</table>
 		</div>
 		<div class="form-control">
-			<label>게시물 등록</label>
-			<button type="button" value="자주 묻는 질문  등록하기" class=""></button>
+			<h3>게시물 등록</h3>
+			<button type="button"  class="btn btn-primary">자주 묻는 질문 등록하기</button>
+			<button type="button"  class="btn btn-primary">자주 묻는 질문 수정하기</button>
+			<button type="button"  class="btn btn-primary">자주 묻는 질문 삭제하기</button>
 		</div>
+		
 	</body>
 </html>

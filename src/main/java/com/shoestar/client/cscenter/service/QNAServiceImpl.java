@@ -24,5 +24,7 @@ public class QNAServiceImpl implements QNAService {
 		list = qdao.qnaList(qvo);
 		return list;
 	}
+	
+	
 
 }
