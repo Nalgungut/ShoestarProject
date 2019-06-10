@@ -8,6 +8,10 @@ public interface LoginDao {
 
 	public LoginVO loginSelect(LoginVO lvo);
 
+	public LoginVO find_id(String mem_email);
+
+	public LoginVO find_pwd(String mem_id);
+
 	
 
 
