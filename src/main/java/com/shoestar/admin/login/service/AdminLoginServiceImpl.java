@@ -1,43 +1,40 @@
-package com.shoestar.client.login.service;
+package com.shoestar.admin.login.service;
 
 
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shoestar.client.login.dao.LoginDao;
-import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.admin.login.dao.AdminLoginDao;
+import com.shoestar.admin.login.vo.AdminLoginVO;
 
 import lombok.Setter;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class AdminLoginServiceImpl implements AdminLoginService{
 	
 	@Setter(onMethod_=@Autowired)
-	private LoginDao loginDao;
+	private AdminLoginDao adminLoginDao;
 	
 	@Override
-	public LoginVO userIdSelect(String mem_id) {
-		return loginDao.userIdSelect(mem_id);
+	public AdminLoginVO adminUserIdSelect(String adm_id) {
+		return adminLoginDao.adminUserIdSelect(adm_id);
 	}
 
 	@Override
 	//로그인처리//
-	public LoginVO loginSelect(String mem_id, String mem_pwd) {
+	public AdminLoginVO adminLoginSelect(String mem_id, String mem_pwd) {
 
-		LoginVO lvo = new LoginVO();
-		lvo.setMem_id(mem_id);
-		lvo.setMem_pwd(mem_pwd);
+		AdminLoginVO lvo = new AdminLoginVO();
+		lvo.setAdm_id(mem_id);
+		lvo.setAdm_pwd(mem_pwd);
 
-		LoginVO vo = loginDao.loginSelect(lvo);
+		AdminLoginVO vo = adminLoginDao.adminLoginSelect(lvo);
 		return vo;
 	}
 
-	@Override
-	public LoginVO find_id(HttpServletResponse response, String mem_email) throws Exception {
+	/*@Override
+	public AdminLoginVO find_adminId(HttpServletResponse response, String adm_email) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		LoginVO mem_id = loginDao.find_id(mem_email);
@@ -70,7 +67,7 @@ public class LoginServiceImpl implements LoginService{
 		} else {
 			return mem_pwd;
 		}
-	}
+	}*/
 	
 	
 

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <!-- 아래 fn:split을 쓰기위해 반드시 명시 -->
-<c:set var="email"  value="${fn:split(member.mem_email,'@')}" /> <!-- DB에서 불러오는 풀네임 email값에서 @를 분리시켜줌 -->
+<%-- <c:set var="contextPath"  value="${pageContext.request.contextPath}" /> --%>
 <!DOCTYPE html>
    <html>
       <head>
@@ -12,9 +11,9 @@
          <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
          
-         <title>회원 정보 수정</title>
+         <title>관리자 계정 생성</title>
          
-         <!--모바일 웹 페이지 설정-->
+          <!--모바일 웹 페이지 설정-->
          <link rel="shortcut icon" href="../image/icon.png"/>
          <link rel="apple-touch-icon" href="../image/icon.png"/>
       <!--    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"> -->
@@ -27,54 +26,63 @@
          <!-- jQuery프레임워크 참조 -->         
            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-          	<!-- <script type="text/javascript" src="/resources/include/js/join.js"></script>
-            <script type="text/javascript" src="/resources/include/js/login.js"></script> -->
+           <script type="text/javascript" src="/resources/include/js/join.js"></script>
+           <script type="text/javascript" src="/resources/include/js/login.js"></script>
            <script type="text/javascript" src="/resources/include/js/pwdPattern.js"></script>
            <script type="text/javascript" src="/resources/include/js/html5shiv.js"></script>
-           <script type="text/javascript" src="/resources/include/js/modify.js"></script>
+           
+           <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+           <!-- <script type="text/javascript" src="/resources/include/js/modify.js"></script> -->
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
-            <!-- <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
+           <!--  <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
+          
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+           <!--  <script type="text/javascript" src="resources/include/css/ec-base-box.css"></script> -->
+            <link rel="stylesheet" type="text/css" href="/resources/include/css/ec-base-box.css">
+            
+            <style>
+            /* .agree{
+            height:120px;} */
+            </style>
+            
+            
             <!-- lightbox 라이브러리 -->
            <!--  <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
             <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
-           <script type="text/javascript">
-				function codeCheck(){
-					var codeNumber = '<c:out value ="${codeNumber}"/>';
-					if(codeNumber !=""){
-						alert("기존 비밀번호 검증에 실패하였습니다 \n기존 비밀번호를 다시 확인해 주세요");
-						}
-					
+            
+            <style>
+            	.agree {
+					width: 100%;
+					height: 170px;
+					overflow: scroll;
 					}
-				
-		       	loginUserId = "${member.mem_id}";
-				function emailCheck(){
-					var mem_email = "${email[1]}";
-					$("#emailDomain").val(mem_email).prop("selected", "true");
-				}
-			</script>
+            </style>
+           <script type="text/javascript">
+           
+     
+           </script>
+			
 		</head>
 	<body>
-		<div class="contentContainer">
-			<div class="well">
+	
+		<div class="contentContainer" >
+			<div class="well"> 
 				<form id="memberForm" class="form-horizontal">
-					<%-- <input type="hidden" name="mem_no" id="mem_no" value="${member.mem_no}"/>
-					<input type="hidden" name="mem_email" id="mem_no"> --%>
+				
+				
+					<!-- <input type="hidden" name="mem_email" id="mem_email">
+					<input type="hidden" name="mem_birth" id="mem_birth"> -->
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_id" class="col-sm-2 control-label">아이디</label>
-						<div class="col-sm-3">
-							${member.mem_id}
-						</div>
-					</div>
-					
-					<div class="form-group form-group-sm">
-						<label for="oldUserPwd" class="col-sm-2 control-label">기존 비밀번호</label>
+						<label for="mem_id" class="col-sm-2 control-label">관리자 ID</label>
 							<div class="col-sm-3">
-								<input type="password" id="oldUserPwd" name="oldUserPwd" maxlength="15" 
-								class="form-control" placeholder="기존 비밀번호 입력">
+								<input type="text" id="mem_id" name="mem_id" maxlength="12" class="form-conrtrol" placeholder="아이디입력"/>
+							</div>
+							
+							<div class="col-sm-2">
+								<input type="button" id="idConfirmBtn" name="idConfirmBtn" value="아이디 중복체크" class="form-control btn-primary">
 							</div>
 							
 							<div class="col-sm-5">
@@ -83,10 +91,10 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_pwd" class="col-sm-2 control-label">변경할 비밀번호</label>
+						<label for="mem_pwd" class="col-sm-2 control-label">비밀번호</label>
 							<div class="col-sm-3">
 								<input type="password" id="mem_pwd" name="mem_pwd" maxlength="15" 
-								class="form-control" placeholder="변경할 비밀번호 입력">
+								class="form-control" placeholder="비밀번호입력">
 							</div>
 							
 							<div class="col-sm-5">
@@ -97,8 +105,8 @@
 					<div class="form-group form-group-sm">
 						<label for="userPwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
 							<div class="col-sm-3">
-								<input type="password" id="userPwdCheck" name="userPwdCheck" maxlength="15" 
-								class="form-control" placeholder="변경할 비밀번호 입력">
+								<input type="password" id="userPwdCheck" name="userPwdCheck" 
+								class="form-control" maxlength="15" placeholder="비밀번호확인">
 							</div>
 							
 							<div class="col-sm-5">
@@ -110,8 +118,37 @@
 						<label for="mem_phone" class="col-sm-2 control-label">휴대폰번호</label>
 							<div class="col-sm-3">
 								<input type="text" id="mem_phone" name="mem_phone" maxlength="15" 
-								class="form-control" placeholder="변경할 비밀번호 입력" value="${member.mem_phone}">
+								class="form-control" placeholder="휴대폰 번호">
+							</div>	
+							
+							<div class="col-sm-5">
+								<p class="form-control-static error"></p>
 							</div>
+					</div>
+					
+					<!-- <div class="form-group form-group-sm">
+						<label for="mem_birth" class="col-sm-2 control-label">생년월일</label>
+							<div class="col-sm-3">
+								<input type="text" id="mem_birth" name="mem_birth" maxlength="6" 
+								class="form-control" placeholder="주민등록번호 앞 6자리">
+							</div>	
+							
+							<div class="col-sm-1">
+								<input type="text" id="mem_sex" name="mem_sex" maxlength="1"
+								class="form-control" placeholder="앞1자리"/>
+							</div>	
+							
+							<div class="col-sm-5">
+								<p class="form-control-static error"></p>
+							</div>
+					</div> -->
+					
+					<div class="form-group form-group-sm">
+						<label for="mem_name" class="col-sm-2 control-label">관리자이름</label>
+							<div class="col-sm-3">
+								<input type="text" id="mem_name" name="mem_name" maxlength="10" 
+								class="form-control" placeholder="이름입력">
+							</div>	
 							
 							<div class="col-sm-5">
 								<p class="form-control-static error"></p>
@@ -119,26 +156,12 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_phone" class="col-sm-2 control-label">생년월일</label>
-							<div class="col-sm-3">
-								${member.mem_birth}
-							</div>
-					</div>
-					
-					<div class="form-group form-group-sm">
-						<label for="userName" class="col-sm-2 control-label">회원이름</label>
-							<div class="col-sm-3">
-								${member.mem_name}
-							</div>
-					</div>
-					
-					<div class="form-group form-group-sm">
 						<label for="mem_email" class="col-sm-2 control-label">이메일</label>
 							<div class="col-sm-3">
-								<input type="text" id="mem_email" name="mem_email" maxlength="60" 
-								class="form-control" value="${email[0]}">
-							</div>
-							 <%--  --%>
+								<input type="text" id="mem_email" name="mem_email" maxlength="60"
+								class="form-control" placeholder="이메일주소">
+							</div>	
+						
 							
 							<div class="col-sm-2">
 								<select id="emailDomain" class="form-control">
@@ -151,28 +174,41 @@
 								</select>
 							</div>
 							
-							<div class="col-sm-3">
+							<div class="col-sm-5">
 								<p class="form-control-static error"></p>
 							</div>
 					</div>
 					
-					<div class="form-group form-group-sm">
-						<label for="userName" class="col-sm-2 control-label">등록된주소</label>
-							<div class="col-sm-3">
-								${member.mem_addr1}  ${member.mem_addr2}  ${member.mem_addr3}
+						
+					
+					
+					
+					<!-- <div class="form-group form-group-sm">
+						<label for="phone" class="col-sm-2 control-label">주소</label>
+							<div class="col-sm-6">
+								<input type="text" id="mem_zip" name="mem_zip" placeholder="우편번호">
+								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+								<input type="text" id="mem_addr1" name="mem_addr1" placeholder="도로명주소">
+								<input type="text" id="mem_addr2" name="mem_addr2" placeholder="지번주소"><br>
+								<span id="guide" style="color:#999;display:none"></span>
+								<input type="text" id="mem_addr3" name="mem_addr3" placeholder="상세주소">
+								<input type="text" id="sample4_extraAddress" placeholder="참고항목">
 							</div>
-					</div>
-					
-					<div class="form-group">
+					</div>	 -->
+  
+
+				    
+		<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6">
-							<input type="button" value="확인" id="modify"  class="btn btn-default"/>
-							<input type="button" value="재작성" id="modifyReset" class="btn btn-default"/>
-							<input type="button" value="취소" id="modifyCancel" class="btn btn-default"/>
+								<input type="button" value="가입하기" id="joinInsert" class="btn btn-default"/>
+								<input type="button" value="재작성" id="joinReset" class="btn btn-default"/>
+								<input type="button" value="취소" id="joinCancel" class="btn btn-default"/>
 						</div>
-					</div>
+		</div>			
 					
+				 
 				</form>
 			</div>
-		</div>	
+		</div> 
 	</body>
 </html>

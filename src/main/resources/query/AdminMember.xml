@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query.AdminMember">
+	
+	<select id="adminMemberSelect" parameterType="String" resultType="AdminMember">
+		select adm_no, adm_id, adm_pwd, adm_name, adm_birth, adm_email, adm_phone, adm_zip, mem_addr1, mem_addr2, mem_addr3, mem_rdate
+		from member
+		where mem_id = #{mem_id}
+	</select>
+	
+	<insert id="adminMemberInsert" parameterType="AdminMember">
+		/*member - memberInsert*/
+		<selectKey keyProperty="mem_no" resultType="int" order="BEFORE">
+			select member_seq.nextval from dual
+		</selectKey>
+		insert into member(mem_no, mem_id, mem_pwd, mem_name, mem_birth, mem_email, mem_phone, mem_sex, mem_zip, mem_addr1, mem_addr2, mem_addr3, mem_rdate)
+		values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, #{mem_birth}, #{mem_email}, #{mem_phone}, #{mem_sex}, #{mem_zip}, #{mem_addr1}, #{mem_addr2}, #{mem_addr3}, sysdate)
+	</insert>
+	
+	<!-- <insert id="memberInsert" parameterType="member">
+		/*member - memberInsert*/
+		<selectKey keyProperty="mem_no" resultType="int" order="BEFORE">
+			select member_seq.nextval from dual
+		</selectKey>
+		insert into member(mem_no, mem_id, mem_pwd, mem_name, mem_birth, mem_email, mem_phone, mem_zip, mem_addr1, mem_addr2)
+		values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, #{mem_birth}, #{mem_email}, #{mem_phone}, #{mem_zip}, #{mem_addr1}, #{mem_addr2})
+	</insert> -->
+	
+	<update id="adminMemberUpdate" parameterType="AdminMember">
+		update member set
+		<if test="mem_pwd != ''">
+			mem_pwd=#{mem_pwd},
+		</if>
+			mem_phone=#{mem_phone}, mem_email=#{mem_email}
+			where mem_id=#{mem_id}
+	</update>
+	
+	<delete id="adminMemberDelete" parameterType="String">
+		delete from member where mem_id = #{mem_id}
+	</delete>
+
+</mapper>

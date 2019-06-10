@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
    <html>
@@ -11,7 +10,7 @@
          <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
          
-         <title>아이디찾기</title>
+         <title>회원가입 완료</title>
          
          <!--모바일 웹 페이지 설정-->
          <link rel="shortcut icon" href="../image/icon.png"/>
@@ -24,51 +23,41 @@
          <!-- [if it IE 9] > <script src="js/html5shiv.js"></script><![endif] -->
          <!-- <link rel="stylesheet" type="text/css" href="../js/jquery-1.12.4.min.js">
          <!-- jQuery프레임워크 참조 -->         
-            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+           <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-           <script type="text/javascript" src="/resources/include/js/login.js"></script>
-           <script type="text/javascript" src="/resources/include/js/pwdPattern.js"></script>
-           
+           <!-- <script type="text/javascript" src="/resources/include/js/common.js"></script> -->
+           <script type="text/javascript" src="/resources/include/js/html5shiv.js"></script>
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
             <!-- <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
-           <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
             
-
-	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/main.css">
-	
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
+            <style>
+            	#loginAfter{
+            	float:center;}
+            </style>
+            <!-- lightbox 라이브러리 -->
+           <!--  <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
+            <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
            <script type="text/javascript">
-      
-           $(function(){
-        	   $("#logins").click(function(){
-        		   location.href="/member/login";
+         /*   $(function(){
+        	   $("#loginBtn").click(function(){
+        		   location.href="/member";
         	   });
-           });
-			</script>
+           }); */
+		   </script>
 		</head>
 	<body>
-		<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<div class="w3-center w3-large w3-margin-top">
-				<h3>아이디 찾기 검색결과</h3>
-			</div>
-			<div>
-				<h5>
-					<label>고객님의 아이디는${mem_id}입니다</label>
-				</h5>
-				<p class="w3-center">
-					<button type="button" id="logins" name="logins" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">로그인하기</button>
-					<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">취소</button>
-				</p>
-			</div>
-		</div>
-	</div>
-
+		
+		  	<fieldset id="loginAfter">
+		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
+			  		<span id="memberMenu" class="tac">
+			  			<a href="/member/logout">로그아웃</a>
+			  			<a href="/member/modify">정보수정</a>
+			  			<a href="/member/delete">회원탈퇴</a>
+			  		</span>
+		  	</fieldset>
+		  
 	</body>
 </html>

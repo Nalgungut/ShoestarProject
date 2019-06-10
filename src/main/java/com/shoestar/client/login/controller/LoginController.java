@@ -45,7 +45,6 @@ public class LoginController {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ModelAndView loginInsert(@ModelAttribute LoginVO lvo, ModelAndView mav){
 		log.info("login post 호출 성공");
-		
 		String mem_id = lvo.getMem_id();
 		String mem_pwd = lvo.getMem_pwd();
 		log.info(mem_id + " / " + mem_pwd);
@@ -59,7 +58,7 @@ public class LoginController {
 		}else{ //일치할 시
 			mav.addObject("login", loginCheckResult);
 			log.info("loginCheckResult"+loginCheckResult);
-			mav.setViewName("client/member/login");
+			mav.setViewName("client/member/login_success");
 			return mav;
 		}
 	}
@@ -86,14 +85,16 @@ public class LoginController {
 		// 아이디 찾기
 		@RequestMapping(value = "/find_id", method = RequestMethod.POST)
 		public String find_id(HttpServletResponse response, @RequestParam("email") String mem_email, Model md) throws Exception{
-			md.addAttribute("mem_id", loginService.find_id(response, mem_email));
+			LoginVO vo = loginService.find_id(response, mem_email);
+			md.addAttribute("mem_id", vo.getMem_id());
 			return "client/member/find_id";
 		}
 		
 		// 비밀번호
 		@RequestMapping(value = "/find_pwd", method = RequestMethod.POST)
 		public String find_pwd(HttpServletResponse response, @RequestParam("mem_id") String mem_id, Model md) throws Exception{
-			md.addAttribute("mem_pwd", loginService.find_pwd(response, mem_id));
+			LoginVO vo = loginService.find_pwd(response, mem_id);
+			md.addAttribute("mem_pwd", vo.getMem_pwd());
 			return "client/member/find_pwd";
 		}
 	
