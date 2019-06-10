@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.shoestar.client.cscenter.service.QNAService;
+import com.shoestar.client.cscenter.vo.FAQ_ctgVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.login.vo.LoginVO;
 
@@ -44,5 +45,23 @@ public class QNAController {
 		@RequestMapping(value="/writeForm")
 		public String writeForm() {
 			return "client/cscenter/writeForm";
+		}
+		
+		//1:1문의 상세내역
+		@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)
+		public String qnaDetail(@ModelAttribute("data") QNAVO qvo, Model model) {
+			
+			QNAVO detail = qnaService.qnaDetail(qvo);
+			model.addAttribute("detail", detail);
+			
+			return "client/cscenter/qnaDetail";
+		}
+		
+		@RequestMapping(value="/qnaUpdateForm")
+		public String updateForm(QNAVO qvo, Model model) {
+			QNAVO updateData = qnaService.qnaUpdateForm(qvo);
+			
+			model.addAttribute("updateData", updateData);
+			return "client/cscenter/qnaUpdateForm";
 		}
 }

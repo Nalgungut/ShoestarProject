@@ -59,7 +59,15 @@
 					</div>
 					<div class="form-group">
 						<label for="od_no">주문번호</label>
-						
+						<select id="od_no">
+							<c:choose>
+								<c:when test="${not empty qna.od_no }">
+									<c:forEach var="od_no" items="${qna.od_no}" varStatus="status">
+										<option>${qna.od_no}</option>
+									</c:forEach>
+								</c:when>
+							</c:choose>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="qna_title">제목</label>

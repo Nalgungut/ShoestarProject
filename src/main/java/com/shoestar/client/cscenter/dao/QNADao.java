@@ -8,4 +8,8 @@ public interface QNADao {
 
 	public List<QNAVO> qnaList(QNAVO qvo);
 
+	public QNAVO qnaDetail(QNAVO qvo);
+
+
+
 }

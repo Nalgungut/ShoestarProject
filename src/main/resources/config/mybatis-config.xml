@@ -6,12 +6,16 @@
 		<typeAlias type="com.shoestar.client.prod.vo.ProdVO" alias="prod"/>
 		<typeAlias type="com.shoestar.client.prod.vo.ProdCtgVO" alias="prodctg"/>
 		<typeAlias type="com.shoestar.client.login.vo.LoginVO" alias="login"/>
+		<typeAlias type="com.shoestar.admin.login.vo.AdminLoginVO" alias="AdminLogin"/>
 		<typeAlias type="com.shoestar.client.member.vo.MemberVO" alias="member"/>
+		<typeAlias type="com.shoestar.admin.member.vo.AdminMemberVO" alias="AdminMember"/>
 		<typeAlias type="com.shoestar.client.event.vo.EventVO" alias="event" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdColorVO" alias="prodcolor" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdInsVO" alias="prodins" />
 		<typeAlias type="com.shoestar.client.notice.vo.NoticeVO" alias="notice" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdStockVO" alias="prodstock" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdImageVO" alias="prodimage" />
+		<typeAlias type="com.shoestar.client.cscenter.vo.QNAVO" alias="qna" />
+		<typeAlias type="com.shoestar.client.event.vo.Range_DiscountVO" alias="rds" />
 	</typeAliases>
 </configuration>
