@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body > .container {
+body > .container > .sidebar {
 	margin-top: 30px;
 }
 
