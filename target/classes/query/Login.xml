@@ -16,7 +16,14 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="find_id" parameterType="String" resultType="String">
+	<select id="find_id" parameterType="String" resultType="login">
 		select mem_id from member where mem_email = #{mem_email}
 	</select>
+	
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="find_pwd" parameterType="String" resultType="login">
+		select mem_pwd from member where mem_id = #{mem_id}
+	</select>
+	
 </mapper>

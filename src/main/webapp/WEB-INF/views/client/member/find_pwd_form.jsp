@@ -9,7 +9,7 @@
          <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
          
-         <title>아이디찾기</title>
+         <title>비밀번호 찾기</title>
          
          <!--모바일 웹 페이지 설정-->
          <link rel="shortcut icon" href="../image/icon.png"/>
@@ -42,29 +42,29 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
            <script type="text/javascript">
-      
-           $(function(){
-        	   $("#logins").click(function(){
-        		   location.href="/member/login";
-        	   });
-           });
+       
 			</script>
 		</head>
 	<body>
-		<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
-			<div class="w3-center w3-large w3-margin-top">
-				<h3>아이디 찾기 검색결과</h3>
-			</div>
-			<div>
-				<h5>
-					<label>고객님의 아이디는${mem_id}입니다</label>
-				</h5>
-				<p class="w3-center">
-					<button type="button" id="logins" name="logins" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">로그인하기</button>
-					<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">취소</button>
-				</p>
-			</div>
+		<div class="contentContainer">
+		<div class="limiter">
+		<fieldset id="loginAfter">
+			<form action="/member/find_pwd" method="post">
+				<div class="w3-center w3-large w3-margin-top">
+					<h3>비밀번호 찾기</h3>
+				</div>
+				<div>
+					<p>
+						<label>아이디입력</label>
+						<input class="w3-input" type="text" id="mem_id" name="mem_id" required>
+					</p>
+					<p class="w3-center">
+						<button type="submit" id="findBtn" name="findBtn" class="btn btn-default">비밀번호 찾기</button>
+						<button type="button" onclick="history.go(-1);" class="btn btn-default">로그인</button>
+					</p>
+				</div>
+			</form>
+			</fieldset>
 		</div>
 	</div>
 

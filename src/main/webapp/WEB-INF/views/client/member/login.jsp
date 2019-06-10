@@ -76,6 +76,10 @@
         	   $("#find_id_btn").click(function(){
         		   location.href="/member/find_id_form";
         	   });
+        	   
+        	   $("#find_pwd_btn").click(function(){
+        		   location.href="/member/find_pwd_form";
+        	   });
            });
          
            //에러코드체크
@@ -134,6 +138,7 @@
 					</div>
 					
 					<input type="button" id="find_id_btn" name="find_id_btn" class="btn btn-default" value="아이디찾기">
+					<input type="button" id="find_pwd_btn" name="find_pwd_btn" class="btn btn-default" value="비밀번호 찾기">
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">

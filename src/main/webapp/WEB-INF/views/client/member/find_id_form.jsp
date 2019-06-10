@@ -40,6 +40,26 @@
 	
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/include/css/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/main.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!--===============================================================================================-->
            <script type="text/javascript">
           		
@@ -47,8 +67,9 @@
 			</script>
 		</head>
 	<body>
-		<div class="w3-content w3-container w3-margin-top">
-		<div class="w3-container w3-card-4">
+	<div class="contentContainer">
+		<div class="limiter">
+		<fieldset id="loginAfter">
 			<form action="/member/find_id" method="post">
 				<div class="w3-center w3-large w3-margin-top">
 					<h3>아이디 찾기</h3>
@@ -59,13 +80,14 @@
 						<input class="w3-input" type="text" id="email" name="email" required>
 					</p>
 					<p class="w3-center">
-						<button type="submit" id=findBtn class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-round">find</button>
-						<button type="button" onclick="history.go(-1);" class="w3-button w3-block w3-black w3-ripple w3-margin-top w3-margin-bottom w3-round">Cancel</button>
+						<button type="submit" id=findBtn class="btn btn-default">아이디찾기</button>
+						<button type="button" onclick="history.go(-1);" class="btn btn-default">로그인</button>
 					</p>
 				</div>
 			</form>
+			</fieldset>
 		</div>
 	</div>
-
+	
 	</body>
 </html>

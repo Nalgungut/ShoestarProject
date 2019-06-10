@@ -37,7 +37,9 @@ public class LoginController {
 	public String loginForm(){
 		log.info("login 호출 성공");
 		return "client/member/login";
-	}
+	} 
+	
+
 	
 	/////////////////////[로그인 처리 (실패 횟수 제한 X)]//////////////////////////
 	@RequestMapping(value="/login", method = RequestMethod.POST)
@@ -76,18 +78,23 @@ public class LoginController {
 		}
 		
 		///////////////////// [비밀번호 찾기 폼]///////////////////////////
-		@RequestMapping(value = "/find_pwd")
+		@RequestMapping(value = "/find_pwd_form")
 		public String find_pwd() throws Exception{
-		return "client/member/find_pwd";
+		return "client/member/find_pwd_form";
 		}
 		
 		// 아이디 찾기
 		@RequestMapping(value = "/find_id", method = RequestMethod.POST)
 		public String find_id(HttpServletResponse response, @RequestParam("email") String mem_email, Model md) throws Exception{
-			md.addAttribute("mem_id", find_id(response, mem_email));
+			md.addAttribute("mem_id", loginService.find_id(response, mem_email));
 			return "client/member/find_id";
 		}
-					
+		
+		// 비밀번호
+		@RequestMapping(value = "/find_pwd", method = RequestMethod.POST)
+		public String find_pwd(HttpServletResponse response, @RequestParam("mem_id") String mem_id, Model md) throws Exception{
+			md.addAttribute("mem_pwd", loginService.find_pwd(response, mem_id));
+			return "client/member/find_pwd";
+		}
 	
-
 }
