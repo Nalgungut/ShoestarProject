@@ -38,7 +38,7 @@
 	
 	<div class="container" style="width: 80%">
 		<!-- Begin page content -->
-		<div class="col-md-2">
+		<div class="col-md-2 sidebar">
 			<tiles:insertAttribute name="sidebar" />
 		</div>
 		<!-- Begin page content -->
