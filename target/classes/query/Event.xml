@@ -113,11 +113,21 @@
 	<update id="eventUpdate" parameterType="event">
 		UPDATE event
 			SET	
-				ev_title = #{ev_title},
-				ev_content = #{ev_content},
-				ev_img = #{ev_img},
-				ev_thumb = #{ev_thumb},
-				ev_date = sysdate
+				  ev_title = #{ev_title}
+				, ev_content = #{ev_content}
+				
+				<if test="ev_img!=''">
+				, ev_img = #{ev_img}
+				</if>
+				
+				<if test="ev_thumb!=''">
+				, ev_thumb = #{ev_thumb}
+				</if>
+				
+				, ev_date = sysdate
+				<if test= "ev_edate != null">
+				, ev_edate = #{ev_edate} 
+			</if>
 			where ev_no = #{ev_no}
 	</update>
 	

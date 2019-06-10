@@ -22,8 +22,8 @@
 	#Event_note_title{font-size: 20px; font-weight: bold;}
 	#Event_note_title:{}
 	#ev_img{size: 500px;}
-	hr {color: black; width: 70%; float: left;}
-	#ev_content{float: left;}
+	hr {color: black; width: 70%;  float: left;  }
+	#ev_content{clear: both;}
 </style>
 
 <script type="text/javascript">
@@ -75,7 +75,8 @@
 			</div>
 			
 			<hr />
-			<br />
+			<br id="flet" />
+			
 			<div id="ev_content">
 					${detail.ev_content}
 			</div>

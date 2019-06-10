@@ -251,19 +251,6 @@ function createRatingLabel(prodVO, enlarge) {
 	return null;
 }
 
-/**
- * 원가와 할인율을 입력하면 할인가를 계산해주는 함수
- * @param normalPrice 원가
- * @param discountRate 할인율. 15%일 시 15 입력
- * @returns 할인가
- */
-function calculateDiscount(normalPrice, discountRate) {
-	if(discountRate < 1) {
-		discountRate = discountRate * 100;
-	}
-	return Math.floor(parseInt(normalPrice) * (100 - discountRate) / 1000) * 10;
-}
-
 
 
 

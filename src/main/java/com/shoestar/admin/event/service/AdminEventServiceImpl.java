@@ -104,9 +104,55 @@ public class AdminEventServiceImpl implements AdminEventService {
 	//글 수정 DAO 접속
 	@Override
 	public int eventUpdate(EventVO evo) {
-			int result = 0;
-			result = aEventDao.eventUpdate(evo);
-			return result;
+		int result = 0;
+		
+		List<MultipartFile> list= evo.getFiles();
+
+		try {
+						
+			if(!list.isEmpty()) { // 안 비어 있으면
+			
+			// 삭제
+			for(int i = 0; i <=1; i++) {
+				if(i == 0) {
+					if(list.get(i) != null ) {
+						FileUploadUtil.fileDelete(evo.getEv_img());			
+					}
+				} else if( i == 1 ) {
+					if (list.get(i) != null) {
+						FileUploadUtil.fileDelete(evo.getEv_thumb());	
+						// 썸네일의 썸네일 이미지 삭제하기 (완)
+						FileUploadUtil.fileDelete("thumbnail_"+evo.getEv_thumb());
+					}
+				}
+			} // for
+			
+			// 다시 입력
+			for(int i = 0; i <=1; i++) {
+				if(i == 0) {
+						String fileName1 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "event");
+						evo.setEv_img(fileName1);
+				} else if( i == 1 ) {
+						String fileName2 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "eventThumb");
+						evo.setEv_thumb(fileName2);
+						
+						String thumbName = FileUploadUtil.makeThumbnail(fileName2);
+				}
+			} // for
+			
+		} else { // 변경이 아니면
+			log.info("첨부파일 없음");
+			evo.setEv_img("");
+			evo.setEv_thumb("");
+		}
+		
+		result = aEventDao.eventUpdate(evo);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 		
 	}
 	

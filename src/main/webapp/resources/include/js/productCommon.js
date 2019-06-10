@@ -14,10 +14,19 @@ function splitRequest(requestParam, ...allowThese) {
 	var requestToAppend = "";
 	
 	$.each(requestParam.replace("?","").split("&"), function(index, stack) {
-		for(var paramIndex in allowThese) {
-			if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
-				requestToAppend = requestToAppend + "&" + stack;
-				break;
+		if(Array.isArray(allowThese[0])) {
+			for(var paramIndex in allowThese[0]) {
+				if(stack.toLowerCase().startsWith(allowThese[0][paramIndex].toLowerCase())) {
+					requestToAppend = requestToAppend + "&" + stack;
+					break;
+				}
+			}
+		} else {
+			for(var paramIndex in allowThese) {
+				if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
+					requestToAppend = requestToAppend + "&" + stack;
+					break;
+				}
 			}
 		}
 	});
@@ -51,5 +60,50 @@ function createErrorList(msg, tagName) {
 	if(tagName == null || tagName == undefined || tagName == "") {
 		tagName = "li";
 	}
-	return $("<"+tagName+">").addClass("listHasError").text(msg);
+	
+	var errorTag = $("<"+tagName+">").addClass("listHasError").text(msg);
+	
+	if(tagName == "option")
+		errorTag.prop("disabled", true);
+	
+	return errorTag;
+}
+
+
+/**
+ * 원가와 할인율을 입력하면 할인가를 계산해주는 함수
+ * @param normalPrice 원가
+ * @param discountRate 할인율. 15%일 시 15 입력
+ * @returns 할인가
+ */
+function calculateDiscount(normalPrice, discountRate) {
+	if(discountRate < 1) {
+		discountRate = discountRate * 100;
+	}
+	return Math.floor(parseInt(normalPrice) * (100 - discountRate) / 1000) * 10;
+}
+
+
+/**
+ * 출처: https://stove99.tistory.com/113 [스토브 훌로구]
+ * 숫자 사이에 , 찍어주는 함수
+ */
+Number.prototype.formatComma = function(){
+	if(this==0) return 0;
+	
+	var reg = /(^[+-]?\d+)(\d{3})/;
+	var n = (this + '');
+	
+	while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+	
+	return n;
+};
+
+
+/**
+ * 문자가 비어있는지 확인하는 함수
+ * @returns 비어있는 함수라면 true
+ */
+String.prototype.isEmpty = function() {
+	return this.replace(/\s/g, "") == "";
 }

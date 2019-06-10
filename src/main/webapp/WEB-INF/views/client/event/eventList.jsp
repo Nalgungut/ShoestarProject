@@ -7,19 +7,18 @@
 	<meta charset="UTF-8">
 	<title>이벤트</title>
 
-
-      <!-- 상위 버전 링크 추가 --> 
-      <!-- 합쳐지고 최소화된 최신 CSS -->
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-      <!-- <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css" /> -->
+	
+      <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css" />
 	  <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css" />
 
 	  <link rel="stylesheet" href="/resources/include/css/eventList.css" >
 	  <script type="text/javascript" src="/resources/include/js/eventList.js" ></script>
 
-	  <!-- 상위 버전 링크 추가 -->
-	  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-	  <!-- <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js" ></script> -->
+	  <!-- 상위 버전 링크 추가 + jquery + bootstrap.js : 쓸 시 아래 주석 -->
+	  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> -->
+	  
+	  <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js" ></script>
       <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 
 
@@ -27,6 +26,11 @@
 		img{width: 500px; height: 400px;}
 		li{list-style: none; }
 		*{text-align: left;}
+		#rowEventArea{margin-top: 100px;}
+		.thumbnail{width: 315px; height: 145px; }
+		#thumImg{width: 315px; height: 138px;}
+		#cols{width: 340px;}
+		.Event_td{padding: 0px;}
 	</style>
 
 	<script type="text/javascript">
@@ -44,79 +48,45 @@
 			         $("#EventListform").submit();
 		      });
 			
-			/* $(".EventTitle").hover(function(){
+			$(".EventTitle").hover(function(){
+				
+			/* 	// 이미지 속성 부여하면 같은 이미지로만 슬라이드..
 				var ss = $(this).attr("data-thumb");
 				//console.log(ss);
 				var uThumb = "/shoestarStorage/eventThumb/"+ss;
-				
 				$(this).parents().find(".item").find("img").attr("src",uThumb);
-				
-				var tt = $(this).attr("data-title");
-				console.log(tt);
-				$(this).parents().find(".item").find("img").attr("data-slide-to",tt);
-				
-				// 부트 스트랩 마우스 오버
-				
+	
+				 */
+				 
+				// 제목 부트 스트랩 마우스 오버시 CSS 
 				$("li").css("list-style","none");
 				
 				$(this).parent().css("list-style","disc");
-			}); */
+			});
 			
-			$('.EventTitle').hover(function(e){ // e는  작동하기 위해? 누른 값을 가져오는 얘 (없어도 있어도 상관 X)
+			
+			// 부트스트랩 + 제이쿼리 상위 버전으로 제목에 커서 올릴 시 이동.. (상위버전 쓰면 충돌.. 사용 불가)
+			/* $('.EventTitle').hover(function(){ // (e)는  작동하기 위해? 누른 값을 가져오는 얘 (없어도 있어도 상관 X)
 				var value = $(this).attr("data-title");
 				console.log(parseInt(value));
 				
-				$(this).parents().find(".item").find("img").attr("data-slide-to",value);
-				//$('.carousel ol li').attr("data-slide-to", value);
+				//$(this).parents().find(".item").find("img").attr("data-slide-to",value);
+				$('.carousel ol li').attr("data-slide-to", value);
 				$('.carousel').carousel(parseInt(value));
 				
+			}, function() { // 이거는 썸네일이미지로 속성 변경시로 쓰면 될 듯.
+				console.log("아닐시~");
+				$('.carousel').carousel({
+					  interval: 2000
+					})
 			});
+			*/
 		
+			
+			
 		}); // function 종료
 	
-		 
-		/*  function listData(){
-			 $(${eventList}).each(function() {
-					var ev_title = this.ev_title;
-					var ev_content = this.ev_content;
-					var ev_thumb = this.ev_thumb;
-					var ev_file = this.ev_file;
-					var ev_date = this.ev_date;
-					var ev_edate = this.ev_edate;
-   			
-   				
-   				thumbnailList(ev_no, ev_title, ev_content, ev_thumb, ev_file, ev_date, ev_edate);
 
-   			});
-   			
-   		}).fail(function() {
-   			alert("목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
-   		});
-		 */
-		 
-		   // 섬네일 틀 생성 함수			// 카페서 작업 ★★														
-		 function thumbnailList(ev_no, ev_title, ev_content, ev_thumb, ev_file, ev_date, ev_edate) {
-		  		// body안에 있는 요소 접근 $("div") || 요소 생성 $("<div>")
-		  		
-		  		
-		  		var column = $("<div>");
-				column.attr("data-num", ev_no);
-				column.addClass("col-sm-6 col-md-4");
-					
-				var thumbnail = $("<div>");
-				thumbnail.addClass("eventThumbnail");
-				
-				var img = $("<img>");
-				img.attr("src", "/shoestarStorage/eventThumb/thumbnail/thumbnail_"+ev_thumb);
-				
-					
-				// 조립하기
-				column.append(thumbnail.append(img));
-					
-				$("#rowEventArea").append(column);
-		  	}  // thumbnailList 끝
-			
-	
 	</script>
 
 	</head>
@@ -138,7 +108,7 @@
 							<!-- 시작 -->
 							
 							<!-- 이벤트 제목인  event_tab_A~D를 hover하면 그 제목에 해당하는 이미지로 뜬다. -->
-							<td rowspan="5" class="Event_td">
+							<td rowspan="5" class="Event_td" id="liSize">
 
 									<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 									
@@ -158,7 +128,7 @@
 										  		<c:when test="${status.index == 0}">
 											    <div class="item active">
 												      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-												      		<img src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
+												      		<img class="siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 												      </a>
 											    </div>
 											    </c:when>
@@ -166,7 +136,7 @@
 											    <c:otherwise>
 											    <div class="item">
 											      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-											      		<img src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
+											      		<img class="siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 											      </a>
 											    </div>
 										    	</c:otherwise>
@@ -195,7 +165,7 @@
 						<c:forEach var="evt" items="${eventList}" varStatus="status" end="3">
 							<tr class="evtno" data-num="${evt.ev_no}">
 								
-								<td class="Event_td">
+								<td class="Event_td" style="padding: 30px">
 									<ul>
 										<li>
 											<a class="EventTitle" data-title="${status.index}" data-thumb="${evt.ev_thumb}">
@@ -222,12 +192,23 @@
 			</form>
 		</div>
 		
-		 			<%-- 페이징 처리를 위한 FORM --%>
-					<form  name="f_search" id="f_search"></form>
-					<!-- 
-						동적 생성할 event 리스트  : 생성 할 때마다 추가됨. -->
-					<%-- 이벤트 리스트 영역 --%>
-					<div class="row" id="rowEventArea"></div>
+		<!-- 
+						동적 생성할 event 리스트  : 생성 할 때마다 추가됨. >> 동적 말고 c:forEach 로 ㄱㄱ  여기서 forEach로 썸네일 이미지 + 링크 보여주기 > detail-->
+		<%-- 이벤트 리스트 영역 --%>
+		<div class="row" id="rowEventArea">
+					
+					 
+		<c:forEach var="evt" items="${eventList}" varStatus="status">
+			<div class="col-sm-6 col-md-4" id="cols">
+				<div class="thumbnail">
+					<a href="/event/detail?ev_no=${evt.ev_no}" data-lightbox="roadtrip">
+						<img id="thumImg" src= "/shoestarStorage/eventThumb/thumbnail/thumbnail_${evt.ev_thumb}" alt="${evt.ev_title}">
+					</a>
+				</div>
+			</div>
+		</c:forEach>
+	
+		</div>
 	</div>
 </body>
 </html>

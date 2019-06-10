@@ -56,6 +56,10 @@
 	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/main.css">
 <!--===============================================================================================-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
             
            
             
@@ -68,6 +72,15 @@
             <!-- <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
             <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
            <script type="text/javascript">
+           $(function(){
+        	   $("#find_id_btn").click(function(){
+        		   location.href="/member/find_id_form";
+        	   });
+        	   
+        	   $("#find_pwd_btn").click(function(){
+        		   location.href="/member/find_pwd_form";
+        	   });
+           });
          
            //에러코드체크
            function codeCheck(){
@@ -123,6 +136,9 @@
 						<input class="input100" type="password" id="mem_pwd" name="mem_pwd">
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
 					</div>
+					
+					<input type="button" id="find_id_btn" name="find_id_btn" class="btn btn-default" value="아이디찾기">
+					<input type="button" id="find_pwd_btn" name="find_pwd_btn" class="btn btn-default" value="비밀번호 찾기">
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">

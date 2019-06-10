@@ -48,8 +48,6 @@
 		values(#{no_no}, #{no_kind}, #{no_subject}, #{no_content},  #{adm_no}, #{no_date})
 	</insert>
 	
-	
-	
 	<!-- 공지사항 수정 -->
 	<update id="noticeUpdate" parameterType="com.shoestar.client.notice.vo.NoticeVO">
 		/* Notice - noticeUpdate */
