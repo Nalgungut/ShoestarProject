@@ -20,7 +20,7 @@
 				
 				// 항목별 상세 페이지 링크
 				$(".pd_name").on("click", function() {
-					location.href = "/admin/product/detail/" + $(this).attr("data-pdno");
+					alert($(this).attr("data-pdno"));
 				});
 				
 				// 전체 선택 버튼
@@ -35,106 +35,7 @@
 						$("#selectAllRecords").prop("checked", false);
 					}
 				});
-				
-				// 카테고리 정보 읽어오기
-				getProdCtgList();
-				// 색상 정보 읽어오기
-				getColorList();
-				
-				// 검색 버튼 설정
-				$("#btnSearch").on("click", function() {
-					submitSearch();
-				});
 			});
-			
-			function getProdCtgList() {
-				$("#ctgList").html("");
-				$("#updateCategoryList").html("");
-				$("#ctgList").append(emptyOption());
-				$("#updateCategoryList").append(emptyOption());
-				
-				$.ajax({
-					url: "/pctg/getList?pd_age=all&includeItemless=true",
-					type: "get",
-					dataType: "json",
-					error: function() {
-						alert("카테고리 정보를 읽어올 수 없었습니다.");
-					},
-					success: function(data) {
-						if(!jQuery.isEmptyObject(data)) {
-							$.each(data, function(index, ctgData) {
-								$("#ctgList").append(
-									$("<option>").attr("val", ctgData.pct_no).text(ctgData.pct_name)
-								);
-								$("#updateCategoryList").append(
-									$("<option>").attr("val", ctgData.pct_no).text(ctgData.pct_name)
-								);
-							});
-						} else {
-							$("#ctgList").append(createErrorList("항목없음", "option"));
-							$("#updateCategoryList").append(createErrorList("항목없음", "option"));
-						}
-					}
-				});
-			}
-			
-			function getColorList() {
-				$("#colorList").html("");
-				$("#colorList").append(emptyOption());
-				
-				$.ajax({
-					url: "/pctg/getColor",		
-					type: "get",
-					dataType: "json",
-					error: function() {
-						alert("색상 정보를 불러올 수 없었습니다.");
-					},
-					success: function(data) {
-						if(!jQuery.isEmptyObject(data)) {
-							// li 태그 생성 및 추가
-							$.each(data, function(index, stack) {
-								$("#colorList").append(
-									$("<option>").attr("val", stack.pcl_no).text(stack.pcl_name)	
-								);
-							});
-						} else {
-							$("#colorList").append(createErrorList("색상 정보가 없습니다.", "option"));
-						}
-					}
-				});
-			}
-			
-			function emptyOption() {
-				return $("<option>").prop({"hidden": true, "value" : "0"});
-			}
-			
-			function submitSearch() {
-				var searchRequest = $("#searchForm").serialize();
-				var allowThese = ["pd_sex", "pd_age"];
-				
-				if(!$("#keyword").val().isEmpty()) {
-					allowThese.push("search", "keyword");
-				}
-				
-				if($("#ctgList").val() != "0") {
-					allowThese.push("pct_no");
-				}
-				
-				if($("#colorList").val() != "0") {
-					allowThese.push("pcl_no");
-				}
-				
-				if(!$("#priceBottom").val().isEmpty()) {
-					allowThese.push("priceBottom");
-				}
-				
-				if(!$("#priceTop").val().isEmpty()) {
-					allowThese.push("priceTop");
-				}
-				
-				searchRequest = splitRequest(searchRequest, allowThese);
-				location.href = "/admin/product/list?" + searchRequest;
-			}
 		</script>
 	</head>
 	
@@ -201,9 +102,9 @@
 						<tr>
 							<th>가격</th>
 							<td class="form-inline">
-								<input type="number" id="priceBottom" name="priceBottom" class="form-control"> 이상
+								<input type="number" name="priceBottom" class="form-control"> 이상
 								&nbsp;~&nbsp;
-								<input type="number" id="priceTop" name="priceTop" class="form-control"> 미만
+								<input type="number" name="priceTop" class="form-control"> 미만
 							</td>
 						</tr>
 					</tbody>
@@ -226,41 +127,34 @@
 		
 		<!-- 결과 목록란 -->
 		<div class="resultBox">
-			<form id="recordForm"><table class="table table-hover prodList">
-				<colgroup>
-					<col width="5%">
-					<col width="10%">
-					<col width="10%">
-					<col width="35%">
-					<col width="10%">
-					<%-- <col width=""> 컬렉션 기능 사용시 해제 --%>
-					<col width="10%">
-					<col width="10%">
-					<col width="10%">
-				</colgroup>
-				<thead>
-					<tr><td colspan="8" class="listActionBar form-inline">
-						<label for="updateCategoryList">분류 수정</label>
-						<select id="updateCategoryList" class="form-control"></select>
-						<button type="button" id="startSales" class="btn btn-default">판매개시</button>
-						<button type="button" id="endSales" class="btn btn-default">판매완료</button>
-						<button type="button" id="deleteProd" class="btn btn-default">삭제</button>
-					</td></tr>
-					<tr>
-						<th><input type="checkbox" id="selectAllRecords"> </th>
-						<th>상품번호</th>
-						<th>이미지</th>
-						<th>상품명</th>
-						<th>카테고리</th>
-						<%-- <th>컬렉션</th> 컬렉션 기능 사용시 해제 --%>
-						<th>가격</th>
-						<th>할인가</th>
-						<th>등록일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-						<c:when test="${not empty prodlist}">
+			<c:choose>
+				<c:when test="${not empty prodlist}">
+					<form id="recordForm"><table class="table table-hover prodList">
+						<colgroup>
+							<col width="5%">
+							<col width="10%">
+							<col width="10%">
+							<col width="35%">
+							<col width="10%">
+							<%-- <col width=""> 컬렉션 기능 사용시 해제 --%>
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selectAllRecords"> </th>
+								<th>상품번호</th>
+								<th>이미지</th>
+								<th>상품명</th>
+								<th>카테고리</th>
+								<!-- <th>컬렉션</th> 컬렉션 기능 사용시 해제 -->
+								<th>가격</th>
+								<th>할인가</th>
+								<th>등록일</th>
+							</tr>
+						</thead>
+						<tbody>
 							<c:forEach items="${prodlist}" var="stack"><tr class="productRecord">
 								<td class="selectionCell"><input type="checkbox" name="pd_no" value="${stack.pd_no}" class="recordCheckbox"></td>
 								<td class="pd_no">${stack.pd_no}</td>
@@ -274,18 +168,18 @@
 								</c:choose></td>
 								<td class="pd_name" data-pdno="${stack.pd_no}">${stack.pd_name}</td>
 								<td class="pct_name">${stack.pct_name}</td>
-								<%-- <td>컬렉션</td> 컬렉션 기능 사용시 해제 --%>
+								<!-- <td>컬렉션</td> 컬렉션 기능 사용시 해제 -->
 								<td class="pd_price"><fmt:formatNumber value="${stack.pd_price}" pattern="#,###"/></td>
 								<td data-price="${stack.pd_price}" data-dcrate="${stack.pd_discount}" class="pd_discount"></td>
 								<td class="pd_date"><fmt:formatDate value="${stack.pd_date}" pattern="yyyy-MM-dd"/></td>
 							</tr></c:forEach>
-						</c:when>
-						<c:otherwise><tr>
-							<td class="emptyResult text-center" colspan="8">검색 결과가 없습니다.</td>
-						</tr></c:otherwise>
-					</c:choose>
-				</tbody>
-			</table></form>
+						</tbody>
+					</table></form>
+				</c:when>
+				<c:otherwise>
+					<div class="emptyResult text-center">검색 결과가 없습니다.</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		
 		<!-- 페이지네이션 -->

@@ -14,19 +14,10 @@ function splitRequest(requestParam, ...allowThese) {
 	var requestToAppend = "";
 	
 	$.each(requestParam.replace("?","").split("&"), function(index, stack) {
-		if(Array.isArray(allowThese[0])) {
-			for(var paramIndex in allowThese[0]) {
-				if(stack.toLowerCase().startsWith(allowThese[0][paramIndex].toLowerCase())) {
-					requestToAppend = requestToAppend + "&" + stack;
-					break;
-				}
-			}
-		} else {
-			for(var paramIndex in allowThese) {
-				if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
-					requestToAppend = requestToAppend + "&" + stack;
-					break;
-				}
+		for(var paramIndex in allowThese) {
+			if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
+				requestToAppend = requestToAppend + "&" + stack;
+				break;
 			}
 		}
 	});
@@ -60,13 +51,7 @@ function createErrorList(msg, tagName) {
 	if(tagName == null || tagName == undefined || tagName == "") {
 		tagName = "li";
 	}
-	
-	var errorTag = $("<"+tagName+">").addClass("listHasError").text(msg);
-	
-	if(tagName == "option")
-		errorTag.prop("disabled", true);
-	
-	return errorTag;
+	return $("<"+tagName+">").addClass("listHasError").text(msg);
 }
 
 
@@ -98,12 +83,3 @@ Number.prototype.formatComma = function(){
 	
 	return n;
 };
-
-
-/**
- * 문자가 비어있는지 확인하는 함수
- * @returns 비어있는 함수라면 true
- */
-String.prototype.isEmpty = function() {
-	return this.replace(/\s/g, "") == "";
-}
