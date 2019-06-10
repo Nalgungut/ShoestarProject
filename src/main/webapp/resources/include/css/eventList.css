@@ -16,9 +16,22 @@ hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px
 
 .EventTitle:hover{text-decoration: none;}
 
+#EvnetViewTable{height: 480; overflow: hidden;}
 
+ a.EventImage img{
+ 	width: 700px; height: 300px; 
+ 
+ } 
+ 
+ 
+ 
+/* .siz{
 
-a.EventImage img{width: 700px; height: 400px; }
+	width: 100%;
+	height: 100%;
+	
+} */
+
 
 table{text-align: center;}
 
@@ -50,7 +63,7 @@ table{text-align: center;}
 	background-color: #D2D7D9;
 }
 
-#insertBtn, #insertFormBtn, #eventCancelBtn, #eventListBtn{
+#insertBtn, #insertFormBtn, #eventCancelBtn, #eventListBtn, #updateFormBtn, #rang_disBtn{
 	
 	font-size: 17px;
 	height: 50px; border:none;
@@ -59,8 +72,13 @@ table{text-align: center;}
 
 #insertBtn{
 	font-size: 16px;
- 	margin-left: 1060px; width: 120px;
+ 	/* margin-left: 1060px; */ width: 120px;
  }
+ 
+#rang_disBtn{
+	font-size: 16px;
+ 	margin-left: 560px; width: 140px;
+}
 
 .daNum:hover{
 	background-color: #F2F2F5;
@@ -75,20 +93,22 @@ table{text-align: center;}
 	background-color: #2166B5; color: white; width: 90px; margin-top: 15px;
 }
 
-#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, #eventListBtn:hover, #searchData:hover{
+#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, #eventListBtn:hover, #searchData:hover, #updateFormBtn:hover, #rang_disBtn:hover{
 	background-color: #1C589C;
 }
 
-/* 이벤트 등록 화면 */
-#insertTable {
+/* 이벤트 등록 + 수정 화면 */
+#insertTable, #updateTable {
 	border-collapse: collapse; text-align: left; width: 1200px; height: 50px;
 }
 
-#insertTable td{height: 30px;}
+#insertTable td, #updateTable td{height: 30px;}
 
-#insertTable td.Avent_td{ width:150px; padding: 10px; padding-left: 5px; padding-right: 5px;}
+#insertTable td.Avent_td, #updateTable td.Avent_td{ width:150px; padding: 10px; padding-left: 5px; padding-right: 5px; }
 
-#insertTable td.Avent_tdInput{width: 80px; }
+#insertTable td.Avent_tdInput, #updateTable td.Avent_tdInput{width: 80px;}
+
+.marginLeft{padding: 0px; margin: 0px; }
 
 .btns {margin-top: 20px; text-align: center;}
 

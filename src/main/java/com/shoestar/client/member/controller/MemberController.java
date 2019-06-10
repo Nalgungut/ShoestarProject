@@ -150,12 +150,5 @@ import lombok.extern.log4j.Log4j;
 				return mav;
 			}
 			
-			// 마이페이지 이동
-			@RequestMapping(value = "/mypage")
-			public String mypage() throws Exception{
-				return "client/member/mypage";
-			}
-			
-			
 		
 	}

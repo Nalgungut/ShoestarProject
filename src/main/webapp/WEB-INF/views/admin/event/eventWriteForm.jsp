@@ -68,7 +68,7 @@
 		
 		// 목록 가기
 		$("#eventListBtn").click(function(){
-			if($("#ev_title") )
+			//if($("#ev_title") )
 			
 			location.href="/admin/event/list";
 		});
@@ -105,7 +105,7 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 내용</td>
-						<td class="Avent_tdInput"><textarea id="ev_content" name="ev_content" rows="2" cols="150" maxlength="1000"></textarea></td>
+						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="140" maxlength="1000"></textarea></td>
 					</tr>
 					
 					<tr>

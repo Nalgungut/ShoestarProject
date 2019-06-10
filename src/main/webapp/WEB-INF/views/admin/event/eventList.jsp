@@ -113,6 +113,7 @@
 <body>
 	<div class="Aventcontainer">
 		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 관리
+		<input type="button" value="범위할인 리스트" id="rang_disBtn" />
 		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
 				

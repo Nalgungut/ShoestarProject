@@ -13,6 +13,6 @@ public interface MemberService {
 	public int memberUpdate(MemberVO mvo);
 
 	public int memberDelete(String mem_id);
-	
+
 
 }

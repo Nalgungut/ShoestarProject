@@ -36,7 +36,7 @@
 		<tiles:insertAttribute name="header" />
 	</nav>
 	
-	<div class="container" style="width: 80%">
+	<div>
 		<!-- Begin page content -->
 		<div class="col-md-2">
 			<tiles:insertAttribute name="sidebar" />
