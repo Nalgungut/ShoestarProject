@@ -74,7 +74,6 @@
 				// 페이지네이션 버튼 제어
 				$(".paginate_button a").click(function(event) {
 					event.preventDefault();
-					// TODO: 페이지 넘어가는 기능 만들기
 					var pageReq = window.location.search.replace(/&?pageNum=\d/, "");
 					pageReq = pageReq + "&pageNum=" + $(this).attr("href");
 					location.href = "/admin/product/list?" + pageReq;

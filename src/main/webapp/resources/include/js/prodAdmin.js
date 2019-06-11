@@ -103,6 +103,8 @@ function createImageActions(pimVO, pim_main) {
 		"name":"pim_no",
 		"value":pimVO.pim_no
 	});
+	
+	
 	var pimPriority = $("<input>").prop({
 		"type":"number",
 		"name":"pim_priority",
@@ -110,5 +112,5 @@ function createImageActions(pimVO, pim_main) {
 		"required":true
 	});
 	
-	// TODO: 집가서 할 것
+	
 }

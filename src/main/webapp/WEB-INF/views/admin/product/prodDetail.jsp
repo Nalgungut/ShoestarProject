@@ -179,7 +179,7 @@
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
 								var pimli = createImageBox(stack, null, 120);
-								// TODO: 집가서 이미지 수정 폼 자동 생성 ㄱ
+								pimli.append(createImageActions(stack, pimmain));
 								target.append(pimli);
 							});
 						} else {
