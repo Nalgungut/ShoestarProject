@@ -1,5 +1,7 @@
 package com.shoestar.client.member.controller;
 
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -86,7 +88,6 @@ import lombok.extern.log4j.Log4j;
 			public ModelAndView memberModify(@SessionAttribute("login") LoginVO login){
 				log.info("modify get 방식에 의한 메서드 호출 성공");
 				ModelAndView mav = new ModelAndView();
-				
 				
 				
 				if(login==null){
