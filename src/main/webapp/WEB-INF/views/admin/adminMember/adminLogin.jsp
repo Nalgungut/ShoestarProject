@@ -10,7 +10,7 @@
          <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
          
-         <title>로그인</title>
+         <title>관리자로그인</title>
          
          <!--모바일 웹 페이지 설정-->
          <link rel="shortcut icon" href="../image/icon.png"/>
@@ -25,7 +25,7 @@
          <!-- jQuery프레임워크 참조 -->         
            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-           <script type="text/javascript" src="/resources/include/js/login.js"></script>
+           <script type="text/javascript" src="/resources/include/js/adminLogin.js"></script>
            <script type="text/javascript" src="/resources/include/js/pwdPattern.js"></script>
            
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
@@ -76,12 +76,12 @@
             <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
            <script type="text/javascript">
            $(function(){
-        	   $("#find_id_btn").click(function(){
+        	   $("#find_admId_btn").click(function(){
         		   location.href="/member/find_id_form";
         	   });
         	   
-        	   $("#find_pwd_btn").click(function(){
-        		   location.href="/member/find_pwd_form";
+        	   $("#find_admPwd_btn").click(function(){
+        		   location.href="/member/find_admPwd_form";
         	   });
            });
          
@@ -103,19 +103,19 @@
 	<div class="contentContainer">
 	
 		<div class="limiter">
-		<c:if test="${login.mem_id != null and login.mem_id != ''}">
+		<c:if test="${adminLogin.adm_id != null and adminLogin.adm_id != ''}">
 		  	<fieldset id="loginAfter">
 		  		<%-- <legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend> --%>
 			  		<span id="memberMenu" class="tac">
-			  			<a href="/member/logout">로그아웃</a>
-			  			<a href="/member/modify">정보수정</a>
-			  			<a href="/member/delete">회원탈퇴</a>
+			  			<a href="/member/adminLogout">로그아웃</a>
+			  			<a href="/member/adminModify">정보수정</a>
+			  			<a href="/member/adminDelete">회원탈퇴</a>
 			  		</span>
 		  	</fieldset>
 		  </c:if> 
 		<div class="container-login100">
 			<div class="wrap-login100">
-			<c:if test="${login.mem_id == null or login.mem_id == ''}"> 
+			<c:if test="${adminLogin.adm_id == null or adminLogin.adm_id == ''}"> 
 				<form id="loginForm" class="form-horizontal">
 					<span class="login100-form-title p-b-26">
 						ShoeStar<br>슈즈스타
@@ -128,7 +128,7 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-						<input class="input100" id="mem_id" name="mem_id" type="text">
+						<input class="input100" id="adm_id" name="adm_id" type="text">
 						<span class="focus-input100" data-placeholder="아이디"></span>
 					</div>
 
@@ -136,17 +136,17 @@
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
-						<input class="input100" type="password" id="mem_pwd" name="mem_pwd">
+						<input class="input100" type="password" id="adm_pwd" name="adm_pwd">
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
 					</div>
 					
-					<input type="button" id="find_id_btn" name="find_id_btn" class="btn btn-default" value="아이디찾기">
-					<input type="button" id="find_pwd_btn" name="find_pwd_btn" class="btn btn-default" value="비밀번호 찾기">
+					<input type="button" id="find_adminId_btn" name="find_adminId_btn" class="btn btn-default" value="아이디찾기">
+					<input type="button" id="find_adminPwd_btn" name="find_adminPwd_btn" class="btn btn-default" value="비밀번호 찾기">
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button id="loginBtn" class="login100-form-btn">
+							<button id="adminLoginBtn" class="login100-form-btn">
 								로그인
 							</button>
 						</div>
@@ -154,11 +154,11 @@
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
-							계정이 없으시다면? &nbsp;
+							관리자계정생성 &nbsp;
 						</span>
 
-						<a class="txt2" id="joinBtn">
-							회원가입
+						<a class="txt2" id="adminJoinBtn">
+							클릭
 						</a>
 					</div>
 					
