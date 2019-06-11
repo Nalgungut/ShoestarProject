@@ -6,9 +6,9 @@
 		<typeAlias type="com.shoestar.client.prod.vo.ProdVO" alias="prod"/>
 		<typeAlias type="com.shoestar.client.prod.vo.ProdCtgVO" alias="prodctg"/>
 		<typeAlias type="com.shoestar.client.login.vo.LoginVO" alias="login"/>
-		<typeAlias type="com.shoestar.admin.login.vo.AdminLoginVO" alias="AdminLogin"/>
+		<typeAlias type="com.shoestar.admin.adminLogin.vo.AdminLoginVO" alias="AdminLogin"/>
 		<typeAlias type="com.shoestar.client.member.vo.MemberVO" alias="member"/>
-		<typeAlias type="com.shoestar.admin.member.vo.AdminMemberVO" alias="AdminMember"/>
+		<typeAlias type="com.shoestar.admin.adminMember.vo.AdminMemberVO" alias="AdminMember"/>
 		<typeAlias type="com.shoestar.client.event.vo.EventVO" alias="event" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdColorVO" alias="prodcolor" />
 		<typeAlias type="com.shoestar.client.prod.vo.ProdInsVO" alias="prodins" />
