@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body > .container > .sidebar {
+	margin-top: 30px;
+}
+
+.searchBox {
+	margin: 0 0 50px;
+}
+
+.searchTable {
+	margin-bottom: 0;
+}
+
+.searchTable > tfoot > tr > td {
+	padding: 0;
+}
+
+.searchTable input[type="radio"] {
+	margin-right: 3px;
+	margin-left: 3px;
+}
+
+.searchTable label {
+	margin-right: 10px;
+}
+
+.btnAdvanced {
+	border-radius: 0;
+	border-top: none;
+}
+
+.blackLine {
+	border-bottom: 2px solid #333;
+}
+
+.prodList > tbody > tr > td {
+	vertical-align: middle;
+}
+
+.pd_name {
+	cursor: pointer;
+}

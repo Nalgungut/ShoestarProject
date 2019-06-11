@@ -156,6 +156,13 @@
 							</div>
 					</div>
 					
+					<div class="form-group form-group-sm">
+						<label for="userName" class="col-sm-2 control-label">등록된주소</label>
+							<div class="col-sm-3">
+								${member.mem_addr1}  ${member.mem_addr2}  ${member.mem_addr3}
+							</div>
+					</div>
+					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6">
 							<input type="button" value="확인" id="modify"  class="btn btn-default"/>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.event.dao.AdminRange_DiscountDAO">
+
+	<!-- 조회 쿼리 -->
+	<select id="AdminRDiscountList" resultType="rds">
+				SELECT
+				    rd_no ,
+				    rd_title ,
+					rd_content ,
+					rd_discount ,
+					rd_date ,
+					rd_edate
+				FROM
+				    range_discount
+				ORDER BY rd_date ASC
+	</select>
+	
+</mapper>
+

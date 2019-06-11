@@ -1,6 +1,6 @@
 package com.shoestar.client.member.vo;
 
-import java.sql.Timestamp;
+
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;

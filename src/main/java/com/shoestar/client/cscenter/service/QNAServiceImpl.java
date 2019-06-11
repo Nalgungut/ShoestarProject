@@ -25,4 +25,23 @@ public class QNAServiceImpl implements QNAService {
 		return list;
 	}
 
+	@Override
+	public QNAVO qnaDetail(QNAVO qvo) {
+		QNAVO detail = new QNAVO();
+		detail = qdao.qnaDetail(qvo);
+		if(detail != null) {
+			detail.setQna_content(detail.getQna_content().toString().replaceAll("\n", "<br>"));
+		}
+		return detail;
+	}
+
+	@Override
+	public QNAVO qnaUpdateForm(QNAVO qvo) {
+		QNAVO detail = null;
+		detail = qdao.qnaDetail(qvo);
+		return detail;
+	}
+	
+	
+
 }

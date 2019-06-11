@@ -2,53 +2,152 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoestar.admin.prod.dao.ProdAdminDao">
 	
-	
-	<!--##################################### 최대 할인율 검색하는 쿼리문 #####################################-->
-	<sql id="dcmax">
-		(
-		SELECT
-			MAX(rd_discount) AS maximum
-		FROM
-			range_discount r
-			LEFT OUTER JOIN
-				rd_type rt
-			ON
-				r.rd_no = rt.rd_no
-			LEFT OUTER JOIN
-				rd_product rp
-			ON
-				r.rd_no = rp.rd_no
+	<!-- 여러 개의 항목을 동시에 수정 -->
+	<update id="updateMultiple">
+		UPDATE
+			prod
+		SET
+			<trim suffixOverrides="AND">
+				<if test="pvo.pct_no != 0">
+					pct_no = #{pvo.pct_no} AND
+				</if>
+				<if test="pvo.pd_status != null"><choose>
+					<when test='pvo.pd_status == "null"'>
+						pd_status = NULL
+					</when>
+					<otherwise>
+						pd_status = #{pvo.pd_status}
+					</otherwise>
+				</choose></if>
+			</trim>
 		WHERE
-			(
-				RD_EDATE >= TRUNC(sysdate) OR
-				RD_EDATE IS NULL
-			)
-			AND	rp.pd_no = prod.pd_no
-			OR rt.pct_no = prod.pct_no
-		)
-	</sql>
+			pd_no IN
+			<foreach collection="pdnos" item="pdno" open="(" close=")" separator=",">
+				#{pdno}
+			</foreach>
+	</update>
 	
-	<!--##################################### 검색해오는 prodvo 정보 #####################################-->
-	<sql id="prodInfo">
-		pd_no, pd_name, pd_sex, pd_age, pct_no, co_no, pd_price,
-		pd_fabric, pd_country, pd_year, pd_manu, pd_import, pi_no, pd_date, pd_status, pim_main,
-		<!-- 카테고리 이름 받기 -->
-		(
-		SELECT
-			pct_name
-		FROM
-			prod_ctg
+	<!-- 여러 개의 항목을 동시에 삭제 -->
+	<delete id="deleteMultiple">
+		DELETE FROM
+			prod
 		WHERE
-			pct_no = prod.pct_no
-		) AS pct_name,
-		<!-- 할인율 계산 하기 -->
-		(
-		NVL((
-			<include refid="dcmax"/>
-		), 0)
-		) AS pd_discount
-	</sql>
+			pd_no IN
+			<foreach collection="pdnos" item="pdno" open="(" close=")" separator=",">
+				#{pdno}
+			</foreach>
+	</delete>
 	
+	<!-- 항목 수정 -->
+	<update id="updateProd" parameterType="prod">
+		UPDATE
+			prod
+		SET
+		<trim suffixOverrides="AND">
+			<if test="pd_name != null">
+				pd_name = #{pd_name} AND
+			</if>
+			<if test="pd_sex != null">
+				pd_sex = #{pd_sex} AND
+			</if>
+			<if test="pd_age != null">
+				pd_age = #{pd_age} AND
+			</if>
+			<trim suffix="AND"><choose>
+				<when test="pct_no == -1">
+					pct_no = NULL
+				</when>
+				<when test="pct_no == 0"></when>
+				<otherwise>
+					pct_no = #{pct_no}
+				</otherwise>
+			</choose></trim>
+			<trim suffix="AND"><choose>
+				<when test="co_no == -1">
+					co_no = NULL
+				</when>
+				<when test="co_no == 0"></when>
+				<otherwise>
+					co_no = #{co_no}
+				</otherwise>
+			</choose></trim>
+			<if test="pd_price != 0">
+				pd_price = #{pd_price} AND
+			</if>
+			<if test="pd_fabric != null">
+				pd_fabric = #{pd_fabric} AND
+			</if>
+			<if test="pd_country != null">
+				pd_country = #{pd_country} AND
+			</if>
+			<if test="pd_year != null">
+				pd_year = #{pd_year} AND
+			</if>
+			<if test="pd_manu != null">
+				pd_manu = #{pd_manu} AND
+			</if>
+			<if test="pd_import != null">
+				pd_import = #{pd_import} AND
+			</if>
+			<trim suffix="AND"><choose>
+				<when test="pi_no == -1">
+					pi_no = NULL
+				</when>
+				<when test="pi_no == 0"></when>
+				<otherwise>
+					pi_no = #{pi_no}
+				</otherwise>
+			</choose></trim>
+			<if test="pd_status != null"><choose>
+				<when test='pd_status == "null"'>
+					pd_status = NULL
+				</when>
+				<otherwise>
+					pd_status = #{pd_status}
+				</otherwise>
+			</choose></if>
+			<if test="pim_main != null"><choose>
+				<when test='pim_main == "null"'>
+					pim_main = NULL
+				</when>
+				<otherwise>
+					pim_main = #{pim_main}
+				</otherwise>
+			</choose></if>
+		</trim>
+		WHERE
+			pd_no = #{pd_no}
+	</update>
 	
-	
+	<!-- 항목 입력 -->
+	<insert id="insertProd" parameterType="prod">
+		<selectKey keyProperty="pd_no" resultType="int" order="BEFORE">
+			SELECT
+				prod_seq.nextval
+			FROM
+				DUAL
+		</selectKey>
+		
+		INSERT INTO
+			prod(
+				pd_no, pd_name, pd_sex, pd_age, pct_no, co_no,	pd_price,
+				pd_fabric, pd_country, pd_year, pd_manu, pd_import, pd_status
+				)
+		VALUES
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				${pd_no},
+				#{pd_name},
+				#{pd_sex},
+				#{pd_age},
+				<choose><when test="pct_no != 0">#{pct_no},</when><otherwise>NULL,</otherwise></choose>
+				<choose><when test="co_no != 0">#{co_no},</when><otherwise>NULL,</otherwise></choose>
+				#{pd_price},
+				#{pd_fabric},
+				#{pd_country},
+				#{pd_year},
+				#{pd_manu},
+				#{pd_import},
+				<choose><when test="pd_status != null">#{pd_status}</when><otherwise>NULL</otherwise></choose>
+			</trim>
+	</insert>
 </mapper>

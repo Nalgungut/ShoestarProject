@@ -21,13 +21,15 @@
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
    $(function() {
-   		$("#insertFormBtn").click(function(){
-   			alert("확인");
-   			//location.href = "/cscenter/writeForm";
+	   
+	  
+	   $("#insertFormBtn").click(function(){
+   			location.href = "/cscenter/writeForm";
    		});
-   		$(".goDetail").click(function(){
-   			alert("확인2");
-   			//location.href = "/cscenter/qnaDetail";
+   		
+	   $(".goDetail").click(function(){
+		   var page_no = $(this).closest("tr").attr("data-num");
+   			location.href = "/cscenter/qnaDetail?qna_no="+page_no;
    		});
    });
 </script>
@@ -63,9 +65,10 @@
          <table summary="게시판리스트" class="table table-striped">
             <colgroup>
                <col width="10%" />
-               <col width="62%" />
+               <col width="42%" />
                <col width="15%" />
                <col width="13%" />
+               <col width="20%" />
             </colgroup>
             <thead>
                <tr>
@@ -73,6 +76,7 @@
                   <th>글제목</th>
                   <th data-value="qna_date" class="order">작성일</th>
                   <th data-value="mem_name">작성자</th>
+                  <th data-value="qna_state" class="order">답변현황</th>
                </tr>
             </thead>
             <tbody id="list">
@@ -80,11 +84,12 @@
                <c:choose>
                   <c:when test="${not empty qnaList}">
                      <c:forEach var="qna" items="${qnaList}" varStatus="status">
-                        <tr class="tac" data-num="${qna.qna_no}" data-num2="${qna.mem_no}">
+                        <tr class="tac" data-num="${qna.qna_no}" data-num2="${qna.mem_no}" data-num3="${qna.od_no}">
                            <td>${qna.qna_ctgr}</td>
                            <td class="goDetail tal">${qna.qna_title}</td>          
                            <td>${qna.qna_date}</td>
                            <td class="name">${qna.mem_name}</td>
+                           <td>${qna.qna_state}</td>
                         </tr>
                      </c:forEach>
                   </c:when>

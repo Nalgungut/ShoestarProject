@@ -18,7 +18,7 @@ const PROD_LIST_URL = "/product/showList";
 /**
  * 상품 카테고리 정보를 읽고 상품 정보 리스트를 표시하는 함수
  * @param prodCtgVO 상품 카테고리 정보
- * @returns 상품 카테고리 정보를 
+ * @returns 상품 카테고리 정보를 li 객체로 반환
  */
 function createProdCtgLink(prodCtgVO) {
 	var linkUrl =  PROD_LIST_URL + "?" +
@@ -41,6 +41,14 @@ function createProdCtgLink(prodCtgVO) {
 	pcli.append(pca.append(pcnt));
 	
 	return pcli;
+}
+/**
+ * 카테고리 필터를 적용할 option 생성 함수
+ * @param prodCtgVO 상품 카테고리 정보
+ * @returns jQuery option 객체
+ */
+function createCtgOption(prodCtgVO) {
+	
 }
 
 /**

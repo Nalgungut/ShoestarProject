@@ -1,0 +1,2 @@
+CREATE SEQUENCE prod_seq
+CACHE 2;

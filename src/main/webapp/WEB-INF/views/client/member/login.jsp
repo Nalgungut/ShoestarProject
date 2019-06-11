@@ -56,6 +56,10 @@
 	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/resources/include/css/login/css/main.css">
 <!--===============================================================================================-->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
             
            
             
@@ -63,11 +67,23 @@
             	#loginAfter{
             	font-size:14px;}
             	
+            	.tac{float:right;
+            		text-color:blue;}
+            	
             </style>
             <!-- lightbox 라이브러리 -->
             <!-- <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
             <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
            <script type="text/javascript">
+           $(function(){
+        	   $("#find_id_btn").click(function(){
+        		   location.href="/member/find_id_form";
+        	   });
+        	   
+        	   $("#find_pwd_btn").click(function(){
+        		   location.href="/member/find_pwd_form";
+        	   });
+           });
          
            //에러코드체크
            function codeCheck(){
@@ -89,17 +105,17 @@
 		<div class="limiter">
 		<c:if test="${login.mem_id != null and login.mem_id != ''}">
 		  	<fieldset id="loginAfter">
-		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
+		  		<%-- <legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend> --%>
 			  		<span id="memberMenu" class="tac">
 			  			<a href="/member/logout">로그아웃</a>
 			  			<a href="/member/modify">정보수정</a>
 			  			<a href="/member/delete">회원탈퇴</a>
 			  		</span>
 		  	</fieldset>
-		  </c:if>
+		  </c:if> 
 		<div class="container-login100">
 			<div class="wrap-login100">
-			<c:if test="${login.mem_id == null or login.mem_id == ''}">
+			<c:if test="${login.mem_id == null or login.mem_id == ''}"> 
 				<form id="loginForm" class="form-horizontal">
 					<span class="login100-form-title p-b-26">
 						ShoeStar<br>슈즈스타
@@ -123,6 +139,9 @@
 						<input class="input100" type="password" id="mem_pwd" name="mem_pwd">
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
 					</div>
+					
+					<input type="button" id="find_id_btn" name="find_id_btn" class="btn btn-default" value="아이디찾기">
+					<input type="button" id="find_pwd_btn" name="find_pwd_btn" class="btn btn-default" value="비밀번호 찾기">
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
@@ -144,7 +163,7 @@
 					</div>
 					
 				</form>
-				</c:if>
+				</c:if> 
 				
 			</div>
 		</div>
