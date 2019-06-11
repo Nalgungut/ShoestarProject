@@ -38,9 +38,9 @@
 				});
 				
 				// 카테고리 정보 읽어오기
-				getProdCtgList($("#ctgList"), $("#updateCategoryList"));
+				getProdCtgList(null, $("#ctgList"), $("#updateCategoryList"));
 				// 색상 정보 읽어오기
-				getColorList($("#colorList"));
+				getColorList(null, $("#colorList"));
 				
 				// 검색 버튼 설정
 				$("#btnSearch").on("click", function() {
@@ -95,7 +95,7 @@
 			
 			function submitSearch() {
 				var searchRequest = $("#searchForm").serialize();
-				var allowThese = ["pd_sex", "pd_age"];
+				var allowThese = ["pd_sex", "pd_age", "pd_status"];
 				
 				if(!$("#keyword").val().isEmpty()) {
 					allowThese.push("search", "keyword");

@@ -134,8 +134,9 @@ function createPinsBox(pinsVO, pinoToExclude) {
 	}
 	
 	var pia = $("<a>").attr({
-		"href" : PROD_URI_MAPPING + "prod/?pi_no=" + pinsVO.pi_no
+		"href" : "?pi_no=" + pinsVO.pi_no
 	});
+	
 	var imagesrc = pinsVO.mainImage != null ? PROD_THUMB_STORATE_URL + pinsVO.mainImage : PROD_NO_IMAGE;
 	var pimg = $("<img>").attr({
 			"src" : imagesrc,
@@ -155,13 +156,14 @@ function createPinsBox(pinsVO, pinoToExclude) {
  * 섬네일 리스트를 만들어 li 객체를 리턴하는 ㅎ마수
  * @param pimVO prodImageVO의 json 정보
  * @param largeImage 큰 이미지를 표시할 img 객체
+ * @param thumbSize 표시할 이미지 섬네일의 가로 세로 크기. 기본 값 80px
  * @returns li 객체
  */
-function createImageBox(pimVO, largeImage) {
+function createImageBox(pimVO, largeImage, thumbSize) {
 	
 	// li
 	var pimli = $("<li>").addClass("pimThumbList");
-	if(largeImage.attr("src") == "") {
+	if(largeImage && largeImage.attr("src") == "") {
 		largeImage.attr("src", PROD_IMAGE_STORATE_URL + pimVO.pim_file);
 		pimli.addClass("pimSelected");
 	}
@@ -171,19 +173,25 @@ function createImageBox(pimVO, largeImage) {
 		"href" : PROD_IMAGE_STORATE_URL + pimVO.pim_file
 	}).on("click mouseover", function(event) { // 클릭 시 큰 이미지 src 변경
 		event.preventDefault();
-		largeImage.attr("src", $(this).attr("href"));
-		$(".pimThumbList").each(function() {
-			$(this).removeClass("pimSelected");
-		});
-		$(this).closest("li.pimThumbList").addClass("pimSelected");
+		if(largeImage) {
+			largeImage.attr("src", $(this).attr("href"));
+			$(".pimThumbList").each(function() {
+				$(this).removeClass("pimSelected");
+			});
+			$(this).closest("li.pimThumbList").addClass("pimSelected");
+		}
 	});
+	
+	if(!thumbSize) {
+		thumbSize = "80";
+	}
 	
 	// img
 	var pimg = $("<img>").attr({
 		"src" : PROD_THUMB_STORATE_URL + pimVO.pim_file
 	}).css({
-		"width":"80",
-		"height":"80"
+		"width":thumbSize+"px",
+		"height":thumbSize+"px"
 	});
 	
 	// 조립

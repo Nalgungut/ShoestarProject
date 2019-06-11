@@ -10,28 +10,65 @@
 		<script type="text/javascript" src="/resources/include/js/productCommon.js"></script>
 		<script type="text/javascript" src="/resources/include/js/product.js"></script>
 		<script type="text/javascript" src="/resources/include/js/prodctg.js"></script>
+		<style type="text/css">
+			.loadingLightbox {
+				left: 0;
+				top: 0;
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				background-color: #999;
+				opacity: 0.5;
+			}
+			.lightboxText {
+				position: fixed;
+				top: calc(50% - 50px);
+				left: calc(50% - 50px);
+				width: 100px;
+				height: 100px;
+			}
+		</style>
 		<script type="text/javascript">
+			// 요청 기본값
 			var defaultRequest = "/product/showList?" + splitRequest(window.location.search, "pd_sex", "pd_age");
+			// 다음에 검색할 페이지 번호
+			var pageNum = 1;
+			// 추가로 검색할 요소가 없음
+			var endOfSearch = false;
+			// 동기식 검색 반응을 위한 변수
+			var stopSearchForSecond = false;
 			
 			$(function() {
 				$("#resetCategory").attr("href", defaultRequest);
 				
-				showProductList();
+				showProductList(window.location.search + "&pageNum=" + pageNum++);
 				showProductCategory();
 				showSizeCategory();
 				showColorCategory();
 				resetPriceList($("#priceList"));
+				
+				
+				// 페이지 스크롤시 상품 추가 로드
+				window.onscroll = function(event) {
+					if(!endOfSearch && !stopSearchForSecond) {
+					    if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+							showProductList(window.location.search + "&pageNum=" + pageNum++);
+					    }
+					}
+				};
 			});
 			
-			function showProductList() {
-				$("#itemList").html("");
+			function showProductList(searchReq) {
+				stopSearchForSecond = true;
+				toggleLightbox(true);
 				
 				$.ajax({
-					url: "/product/getList" + window.location.search,
+					url: "/product/getList" + searchReq,
 					type: "get",
 					dataType: "json",
 					error: function() {
 						$("#itemList").append(createErrorList("상품 정보를 불러올 수 없었습니다.", "div").addClass("text-center emptyResult"));
+						toggleLightbox(false);
 					},
 					success: function(data) {
 						if(!jQuery.isEmptyObject(data)) {
@@ -43,8 +80,14 @@
 								$("#itemList").append(createProductDiv(stack));
 							});
 						} else {
-							$("#itemList").append(createErrorList("검색 결과가 없습니다.", "div").addClass("text-center emptyResult"));
+							if($("#itemList").html().isEmpty()) {
+								$("#itemList").append(createErrorList("검색 결과가 없습니다.", "div").addClass("text-center emptyResult"));
+							} else {
+								endOfSearch = true;
+							}
 						}
+						stopSearchForSecond = false;
+						toggleLightbox(false);
 					}
 				});
 			}
@@ -119,6 +162,11 @@
 					}
 				});
 			}
+			
+			function toggleLightbox(toggleTo) {
+				$("body").append($(".loadingLightbox"));
+				$(".loadingLightbox").prop("hidden", !toggleTo);
+			}
 		</script>
 	</head>
 	
@@ -176,13 +224,13 @@
 			</div>
 			
 			<div class="container col-md-9" id="itemListContainer">
-				<!-- ############################## 페이지 ############################## -->
-				<div id="pagination" class="text-right">페이지네이션 자리</div>
-				
 				<!-- ############################## 상품란 ############################## -->
 				<div class="row" id="itemList"></div>
 			</div>
 			
+			<div class="loadingLightbox" hidden="hidden">
+				<img class="lightboxText" src="/resources/images/product/loading.gif"/>
+			</div>
 		</div>
 	</body>
 </html>

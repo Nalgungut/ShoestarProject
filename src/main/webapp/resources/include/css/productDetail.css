@@ -79,6 +79,10 @@ body > .container {
 	margin-bottom: 5px;
 }
 
+.colorSelected {
+	border: 2px solid #C73232;
+}
+
 .detailSubmitSection button {
 	font-weight: bold;
 }
@@ -94,6 +98,17 @@ body > .container {
 
 .productInfoTable th {
 	text-align: center;
+}
+
+#pimList {
+	padding: 0;
+}
+
+#pimList > li {
+	display: inline-block;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	list-style: none;
 }
 
 /* ------------------------------------- 정보란 ------------------------------------- */

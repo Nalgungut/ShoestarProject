@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shoestar.admin.prod.service.ProdAdminService;
+import com.shoestar.client.prod.service.ProdInsService;
+import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdVO;
 import com.shoestar.common.exception.BadRequestException;
 import com.shoestar.common.exception.ResourceNotFoundException;
@@ -26,6 +28,8 @@ public class ProdAdminController {
 	
 	private ProdAdminService prodAdminService;
 	
+	private ProdInsService pinsService;
+	
 	@RequestMapping(value="/list", method={RequestMethod.GET, RequestMethod.POST})
 	public String prodList(ProdVO pvo, Model model) {
 		List<ProdVO> result = prodAdminService.prodlist(pvo);
@@ -38,7 +42,7 @@ public class ProdAdminController {
 	}
 	
 	@RequestMapping(value="/detail/{pd_no}", method={RequestMethod.GET})
-	public String prodDetail(@PathVariable("pd_no") Integer pd_no, Model model) {
+	public String prodDetail(@PathVariable("pd_no") Integer pd_no, Integer pi_no, Model model) {
 		if(pd_no == null) {
 			throw new BadRequestException("잘못 된 요청");
 		}
@@ -47,8 +51,18 @@ public class ProdAdminController {
 		if(pvo == null) {
 			throw new ResourceNotFoundException("대상 제품을 찾을 수 없습니다.");
 		}
+		List<ProdInsVO> pinslist = pinsService.pinsListByProd(pvo);
+		
+		Integer pinoToShow = 0;
+		if(pi_no == null) {
+			pinoToShow = pinslist.get(0).getPi_no();
+		} else {
+			pinoToShow = pi_no;
+		}
 		
 		model.addAttribute("prodVO", pvo);
+		model.addAttribute("pinslist", pinslist);
+		model.addAttribute("pi_no", pinoToShow);
 		
 		return "admin/product/prodDetail";
 	}

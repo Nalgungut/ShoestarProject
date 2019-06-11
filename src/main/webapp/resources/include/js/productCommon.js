@@ -14,10 +14,19 @@ function splitRequest(requestParam, ...allowThese) {
 	var requestToAppend = "";
 	
 	$.each(requestParam.replace("?","").split("&"), function(index, stack) {
-		for(var paramIndex in allowThese) {
-			if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
-				requestToAppend = requestToAppend + "&" + stack;
-				break;
+		if(Array.isArray(allowThese[0])) {
+			for(var paramIndex in allowThese[0]) {
+				if(stack.toLowerCase().startsWith(allowThese[0][paramIndex].toLowerCase())) {
+					requestToAppend = requestToAppend + "&" + stack;
+					break;
+				}
+			}
+		} else {
+			for(var paramIndex in allowThese) {
+				if(stack.toLowerCase().startsWith(allowThese[paramIndex].toLowerCase())) {
+					requestToAppend = requestToAppend + "&" + stack;
+					break;
+				}
 			}
 		}
 	});

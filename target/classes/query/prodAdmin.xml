@@ -43,17 +43,17 @@
 		UPDATE
 			prod
 		SET
-		<trim suffixOverrides="AND">
+		<trim suffixOverrides=",">
 			<if test="pd_name != null">
-				pd_name = #{pd_name} AND
+				pd_name = #{pd_name},
 			</if>
 			<if test="pd_sex != null">
-				pd_sex = #{pd_sex} AND
+				pd_sex = #{pd_sex},
 			</if>
 			<if test="pd_age != null">
-				pd_age = #{pd_age} AND
+				pd_age = #{pd_age},
 			</if>
-			<trim suffix="AND"><choose>
+			<trim suffix=","><choose>
 				<when test="pct_no == -1">
 					pct_no = NULL
 				</when>
@@ -62,7 +62,7 @@
 					pct_no = #{pct_no}
 				</otherwise>
 			</choose></trim>
-			<trim suffix="AND"><choose>
+			<trim suffix=","><choose>
 				<when test="co_no == -1">
 					co_no = NULL
 				</when>
@@ -72,24 +72,24 @@
 				</otherwise>
 			</choose></trim>
 			<if test="pd_price != 0">
-				pd_price = #{pd_price} AND
+				pd_price = #{pd_price},
 			</if>
 			<if test="pd_fabric != null">
-				pd_fabric = #{pd_fabric} AND
+				pd_fabric = #{pd_fabric},
 			</if>
 			<if test="pd_country != null">
-				pd_country = #{pd_country} AND
+				pd_country = #{pd_country},
 			</if>
 			<if test="pd_year != null">
-				pd_year = #{pd_year} AND
+				pd_year = #{pd_year},
 			</if>
 			<if test="pd_manu != null">
-				pd_manu = #{pd_manu} AND
+				pd_manu = #{pd_manu},
 			</if>
 			<if test="pd_import != null">
-				pd_import = #{pd_import} AND
+				pd_import = #{pd_import},
 			</if>
-			<trim suffix="AND"><choose>
+			<trim suffix=","><choose>
 				<when test="pi_no == -1">
 					pi_no = NULL
 				</when>
@@ -98,14 +98,14 @@
 					pi_no = #{pi_no}
 				</otherwise>
 			</choose></trim>
-			<if test="pd_status != null"><choose>
+			<if test='pd_status != null and pd_status != ""'><trim suffix=","><choose>
 				<when test='pd_status == "null"'>
 					pd_status = NULL
 				</when>
 				<otherwise>
 					pd_status = #{pd_status}
 				</otherwise>
-			</choose></if>
+			</choose></trim></if>
 			<if test="pim_main != null"><choose>
 				<when test='pim_main == "null"'>
 					pim_main = NULL
