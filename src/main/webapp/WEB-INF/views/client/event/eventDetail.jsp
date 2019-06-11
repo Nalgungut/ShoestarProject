@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>이벤트 상세 페이지</title>
 
+<script type="text/javascript"
+	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
+
 <style type="text/css">
 	#htitle{text-align: center;}
 	.gray{color: gray;}
@@ -22,8 +25,8 @@
 	#Event_note_title{font-size: 20px; font-weight: bold;}
 	#Event_note_title:{}
 	#ev_img{size: 500px;}
-	hr {color: black; width: 70%; float: left;}
-	#ev_content{float: left;}
+	hr {color: black; width: 70%;  float: left;  }
+	#ev_content{clear: both;}
 </style>
 
 <script type="text/javascript">
@@ -75,7 +78,8 @@
 			</div>
 			
 			<hr />
-			<br />
+			<br id="flet" />
+			
 			<div id="ev_content">
 					${detail.ev_content}
 			</div>

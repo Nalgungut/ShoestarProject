@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="now" value="<%=new java.util.Date()%>" />
-									
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이벤트 조회</title>
+<title>Insert title here</title>
 
 <link rel="stylesheet" href="/resources/include/css/eventList.css" >
 <script type="text/javascript"
@@ -21,103 +21,19 @@
  a:hover {text-decoration: underline;}
 </style>
 
-
 <script type="text/javascript">
 	$(function() {
-		  //검색후 검색 대상과 검색 단어 출력
-		   var word= "<c:out value='${data.keyword}'/>";
-		   var value = "";
-		   if(word!=""){
-			  $("#keyword").val("<c:out value='${data.keyword}'/>");
-			  $("#search").val("<c:out value='${data.search}'/>");
-			 
-		   /* if() */
-	 	 }
-		
-		
-		// 미리보기 선택
-		$(".AventPreviewBtn").click(function() {
-			   var ev_no = $(this).parents("tr").attr("data-num");
-		         $("#ev_no").val(ev_no);
-		
-		         $("#AventListForm").attr({
-		            "method" : "get",
-		            "action" : "/event/detail"
-		         });
-		         $("#AventListForm").submit();
-	      });
-		
-		// 수정하기 선택 (미완)
-		$(".AventUpdateBtn").click(function() {
-			 var ev_no = $(this).parents("tr").attr("data-num");
-	         $("#ev_no").val(ev_no);
-	
-	          $("#AventListForm").attr({
-	            "method" : "get",
-	            "action" : "/admin/event/updateForm"
-	         });
-	
-	          $("#AventListForm").submit();
-			}); // 수정 끝
-		
-		// 삭제하기 선택 (완)
-		$(".AventDeleteBtn").click(function() {
-			
-			if(confirm("선택한 내용을 삭제하시겠습니까?")) {
-      		
-			 var ev_no = $(this).parents("tr").attr("data-num");
-	         $("#ev_no").val(ev_no);
-	
-	         $("#AventListForm").attr({
-	            "method" : "get",
-	            "action" : "/admin/event/delete"
-	         });
-	         $("#AventListForm").submit();
-	         
-			}
-			
-		});
-		
-		 // 새로 만들기 버튼 선택
-	      $("#insertBtn").click(function() {
-		         location.href = "/admin/event/writeForm";
-		      });
-		 
-		 
-		 // 범위할인 리스트 버튼 선택
-		 $("#rang_disBtn").click(function() {
-			 location.href = "/admin/event/rds/list";
-		 });
-		 
-		// 검색 버튼 선택
-		$("#searchData").click(function() {
-			
-		});
-		
-	}); // function
-	
-	 /* 검색을 위한 실질적인 처리 함수 */
-	   function goPage() {
-	      if($("#search").val()=="all"){
-	         $("#keyword").val("");
-	      }
-	      $("#search").attr({
-	         "method" : "get",
-	         "action" : "/admin/event/list"
-	      });
-	      $("#AventSearchForm").submit();
-	   }
-	   
-	
-	
-	
+		$("#eventBtn").click(function() {
+			location.href="/admin/event/list";
+		}); // 이벤트 리스트로 가기~
+	}); // 종료 function
 </script>
 
 </head>
 <body>
-	<div class="Aventcontainer">
+		<div class="Aventcontainer">
 		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 관리
-		<input type="button" value="범위할인 리스트" id="rang_disBtn" />
+		<input type="button" value="이벤트 리스트" id="eventBtn" />
 		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
 				
@@ -137,7 +53,7 @@
 						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>
-						<td class="Avent_td gray" id="Aev_title">이벤트명</td>
+						<td class="Avent_td gray" id="Aev_title">할인명</td>
 						<td class="Avent_tdInput"><input type="text" id="name_text" class="keyword" placeholder="이벤트명을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>	
@@ -158,7 +74,7 @@
 		
 		<div id="AventList" class="">
 			<form id="AventListForm">
-				<input type="hidden" name="ev_no" id="ev_no" />
+				<input type="hidden" name="rd_no" id="rd_no" />
 				
 				<table id="AventListTable" class="table">
 					<caption class="Acaption">이벤트 목록</caption>
@@ -174,13 +90,13 @@
 							<td class="Avent_td bgray tdW">수정</td>
 							<td class="Avent_td bgray tdW">삭제</td>
 						</tr>
-						<c:forEach var="evt" items="${AdmineventList}" varStatus="status">
-							<tr class="daNum" data-num="${evt.ev_no}">
-								<td class="Avent_td tdW">${evt.ev_no}</td>
-								<td class="Avent_td"><a class="AventUpdateBtn">${evt.ev_title}</a></td>
-								<td class="Avent_td">${evt.ev_content}</td>
-								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_date}" /></td>
-								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_edate}" /></td>
+						<c:forEach var="ard" items="${ARDList}" varStatus="status">
+							<tr class="daNum" data-num="${ard.rd_no}">
+								<td class="Avent_td tdW">${ard.rd_no}</td>
+								<td class="Avent_td"><a class="AventUpdateBtn">${ard.rd_title}</a></td>
+								<td class="Avent_td">${ard.rd_content}</td>
+								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_date}" /></td>
+								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_edate}" /></td>
 								<td class="Avent_td tdW">
 									<div id="AventSituation" class="tdW">
 										<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${now}" var="Ave_date"/>
