@@ -53,7 +53,7 @@ public class NoticeReplyController {
 	
 	
 	
-	/*@GetMapping(value = "/{no_no)",
+	@GetMapping(value = "/{no_no)",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<NoticeReplyVO> replySelect(@PathVariable("no_no")Integer no_no){
@@ -62,7 +62,7 @@ public class NoticeReplyController {
 		ResponseEntity<NoticeReplyVO> entity = null;
 		entity = new ResponseEntity<>(noticeReplyService.replySelect(no_no), HttpStatus.OK);
 			return entity;
-			}*/
+			}
 	
 	
 

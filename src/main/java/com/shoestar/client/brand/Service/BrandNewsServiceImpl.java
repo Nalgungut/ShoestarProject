@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 
 public class BrandNewsServiceImpl implements BrandNewsService {
 
-	/*@Setter(onMethod_=@Autowired)
+	@Setter(onMethod_=@Autowired)
 	private BrandNewsDao brandNewsDao;
 	
 	@Override
@@ -31,7 +31,7 @@ public class BrandNewsServiceImpl implements BrandNewsService {
 
 	@Override
 	public BrandVO brandNewsDetail(BrandVO bvo) {
-		log.info("브랜드 뉴스 디테일 페이지 호출");
+		log.info("브랜드 뉴스 디테일 페이지 호출 serviceimpl");
 		
 		BrandVO detail = null;
 		detail = brandNewsDao.brandNewsDetail(bvo);
@@ -39,6 +39,6 @@ public class BrandNewsServiceImpl implements BrandNewsService {
 			detail.setAr_content(detail.getAr_content().toString().replaceAll("\n","<br>"));
 		}
 		return detail;
-	}*/
+	}
 
 }
