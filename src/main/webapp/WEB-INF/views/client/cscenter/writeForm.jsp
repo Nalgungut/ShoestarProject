@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,7 +11,8 @@
       	<script type="text/javascript" src="/resources/include/js/common.js"></script>
       	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
-      	
+      	<script type="text/javascript" src="/resources/include/js/qna.js"></script>
+ 
 	</head>
 	
    	<script type="text/javascript">
@@ -21,15 +22,15 @@
    			});
    			
    			$("#qnaInsertBtn").click(function(){
-   				/* if(!chkSubmit($('#qna_title'), '질문제목을')) return;
+   				if(!chkSubmit($('#qna_title'), '질문제목을')) return;
    				else if(!chkSubmit($("#qna_content"), '질문 내용을')) return;
-   				else{ */
+   				else{ 
    					$("#f_writeForm").attr({
    						"method" : "post",
    						"action" : "/cscenter/qnaInsert"
    					});
    					$("#f_writeForm").submit();
-   				//}
+   				}
    			});
    			
    			$("#qnaCancelBtn").click(function(){
@@ -40,10 +41,11 @@
    		});
    	</script>
 	<body>
-			<div class="contentContainer container-fluid">
+		<div class="contentContainer container-fluid">
 			<div class="contentTit page-header"><h3 class="text-center">1:1게시판 문의</h3></div>
 			<div class="contentTB ">
 				<form id="f_writeForm">
+					<input type="hidden" name="mem_no" id="mem_no" value="${login.mem_no}"/>
 					<div class="form-group">
 						<label for="mem_name">작성자</label>
 						<input type="text" id="mem_name" name="mem_name" class="form-control" readonly="readonly" value="${login.mem_name}"/>
@@ -59,14 +61,14 @@
 					</div>
 					<div class="form-group">
 						<label for="od_no">주문번호</label>
-						<select id="od_no">
-							<c:choose>
-								<c:when test="${not empty qna.od_no }">
-									<c:forEach var="od_no" items="${qna.od_no}" varStatus="status">
-										<option>${qna.od_no}</option>
-									</c:forEach>
-								</c:when>
-							</c:choose>
+						<select id="od_no" name="od_no">
+							<c:if test="${not empty orders}">
+								<c:forEach var="odata" items="${orders}" varStatus="status">
+									<option value="${odata.od_no}">
+										${odata.od_no}번 주문 (<fmt:formatDate value="${odata.od_date}" pattern="yyyy-MM-dd" />일)
+									</option>
+								</c:forEach>
+							</c:if>
 						</select>
 					</div>
 					<div class="form-group">

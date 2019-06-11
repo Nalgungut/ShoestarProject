@@ -19,20 +19,42 @@
  a:link { text-decoration: none;}
  a:visited {text-decoration: none;}
  a:hover {text-decoration: underline;}
+ .mins{width: 95px;}
 </style>
 
 <script type="text/javascript">
 	$(function() {
+		
 		$("#eventBtn").click(function() {
 			location.href="/admin/event/list";
 		}); // 이벤트 리스트로 가기~
+		
+		$("#insertBtn").click(function() {
+			location.href="/admin/event/rds/writeForm";
+		}); // 새로 만들기~
+		
+		
+		
+		
+		// 상세보기 가기~
+		$("#RDViewBtn").click(function() {
+			var rd_no = $(this).parents("tr").attr("data-num");
+			$("#rd_no").val(rd_no);
+			
+			$("#RDListForm").attr({
+				"method" : "get",
+				"action" : "/admin/event/rds/detail"
+			});
+			
+			$("#RDListForm").submit();
+		});
 	}); // 종료 function
 </script>
 
 </head>
 <body>
-		<div class="Aventcontainer">
-		<div class="Avent_header"><h2 id="AEvconTitle">범위할인 관리
+		<div class="RDcontainer">
+		<div class="RD_header"><h2 id="RDconTitle">범위할인 관리
 		<input type="button" value="이벤트 리스트" id="eventBtn" />
 		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
@@ -40,25 +62,25 @@
 		 <hr /></div>
 			
 		<!-- 검색 기능 -->
-		<div id="AventSearchDiv">	
-			<form id="AventSearchForm" >
+		<div id="RDSearchDiv">	
+			<form id="RDSearchForm" >
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
            		<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
            		
            		
-      			<table id="AvnetViewTable" class="table" >
+      			<table id="RDViewTable" class="table" >
 					<caption class="Acaption">범위할인 검색</caption>
 					<tr>
-						<td class="Avent_td gray" id="Aev_no">번호</td>
-						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
+						<td class="RD_td gray" id="Aev_no">번호</td>
+						<td class="RD_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>
-						<td class="Avent_td gray" id="Aev_title">할인명</td>
-						<td class="Avent_tdInput"><input type="text" id="name_text" class="keyword" placeholder="이벤트명을 입력하세요" size="50" /></td>
+						<td class="RD_td gray" id="Aev_title">할인명</td>
+						<td class="RD_tdInput"><input type="text" id="name_text" class="keyword" placeholder="이벤트명을 입력하세요" size="50" /></td>
 					</tr>
 					<tr>	
-						<td class="Avent_td gray" id="Aev_date">등록일</td>
-						<td class="Avent_tdInput"><input type="date" id="date_text" class="keyword" placeholder="이벤트 등록날짜를 입력하세요" /></td>
+						<td class="RD_td gray" id="Aev_date">등록일</td>
+						<td class="RD_tdInput"><input type="date" id="date_text" class="keyword" placeholder="이벤트 등록날짜를 입력하세요" /></td>
 					</tr>
 					<tr>
 						<td colspan="2" style="text-align: center;">
@@ -72,39 +94,48 @@
 		
 		<hr />
 		
-		<div id="AventList" class="">
-			<form id="AventListForm">
+		<div id="RDList" class="">
+			<form id="RDListForm">
 				<input type="hidden" name="rd_no" id="rd_no" />
 				
-				<table id="AventListTable" class="table">
+				<table id="RDListTable" class="table">
 					<caption class="Acaption">범위할인 목록</caption>
 						
 						<tr>
-							<td class="Avent_td bgray tdW">번호</td>
-							<td class="Avent_td bgray">할인명</td>
-							<td class="Avent_td bgray">할인 내용</td>
-							<td class="Avent_td bgray">할인율</td>
-							<td class="Avent_td bgray">시작일</td>
-							<td class="Avent_td bgray">종료일</td>
-							<td class="Avent_td bgray tdW">상태</td>
-							<td class="Avent_td bgray tdW">보기</td>
-							<td class="Avent_td bgray tdW">수정</td>
-							<td class="Avent_td bgray tdW">삭제</td>
+							<td class="RD_td bgray tdW">번호</td>
+							<td class="RD_td bgray">할인명</td>
+							<td class="RD_td bgray">할인 내용</td>
+							<td class="RD_td bgray mins">할인가</td>
+							<td class="RD_td bgray mins">시작일</td>
+							<td class="RD_td bgray mins">종료일</td>
+							<td class="RD_td bgray tdW">상태</td>
+							<td class="RD_td bgray tdW">상세 보기</td>
+							<td class="RD_td bgray tdW">수정</td>
+							<td class="RD_td bgray tdW">삭제</td>
 						</tr>
 						<c:forEach var="ard" items="${ARDList}" varStatus="status">
 							<tr class="daNum" data-num="${ard.rd_no}">
-								<td class="Avent_td tdW">${ard.rd_no}</td>
-								<td class="Avent_td"><a class="AventUpdateBtn">${ard.rd_title}</a></td>
-								<td class="Avent_td">${ard.rd_content}</td>
-								<td class="Avent_td">${ard.rd_discount}</td>
-								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_date}" /></td>
-								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_edate}" /></td>
-								<td class="Avent_td tdW">
-									<div id="AventSituation" class="tdW">
-										<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${now}" var="Ave_date"/>
-										<fmt:parseNumber var="day" value="${(now.time - evt.ev_edate.time) / (1000*60*60*24) }" integerOnly="true" /> 
+								<td class="RD_td tdW">${ard.rd_no}</td>
+								<td class="RD_td"><a class="AventUpdateBtn">${ard.rd_title}</a></td>
+								<td class="RD_td">${ard.rd_content}</td>
+								<td class="RD_td">${ard.rd_discount}
+									<c:choose>
+										<c:when test="${ard.rd_discount < 100}">
+											%
+										</c:when>
+										<c:otherwise>
+											원
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class="RD_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_date}" /></td>
+								<td class="RD_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_edate}" /></td>
+								<td class="RD_td tdW">
+									<div id="RDSituation" class="tdW">
+										<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${now}" var="ARD_date"/>
+										<fmt:parseNumber var="day" value="${(now.time - ard.rd_edate.time) / (1000*60*60*24) }" integerOnly="true" /> 
 										 <c:choose>
-											<c:when test="${evt.ev_edate == null}" >
+											<c:when test="${ard.rd_edate == null}" >
 												&nbsp;진행중<%--  | ${day} --%>&nbsp;
 											</c:when>
 										 	<c:when test="${day < 0 }">
@@ -116,14 +147,14 @@
 										  </c:choose>	
 									</div>
 								</td>
-								<td class="Avent_td">
-									<button type="button" class="AventPreviewBtn tdW Abtn">확인</button>
+								<td class="RD_td">
+									<button type="button" id="RDViewBtn" class="RDViewBtn tdW Abtn">확인</button>
 								</td>
-								<td class="Avent_td">
-									<button type="button" class="AventUpdateBtn tdW Abtn">수정</button>
+								<td class="RD_td">
+									<button type="button" id="RDUpdateBtn" class="RDUpdateBtn tdW Abtn">수정</button>
 								</td>
-								<td class="Avent_td">
-									<button type="button" class="AventDeleteBtn tdW Abtn">삭제</button>
+								<td class="RD_td">
+									<button type="button" id="RDDeleteBtn" class="RDDeleteBtn tdW Abtn">삭제</button>
 								</td>
 							</tr>
 							

@@ -8,16 +8,16 @@
 		<meta charset="UTF-8">
 		<title>1:1문의 상세내역</title>
       <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-      <script type="text/javascript">
-	      var butChk = 0;	
+      <script type="text/javascript">	
 	      $(function(){
 	     		
 	      		$("#updateFormBtn").click(function(){
-	     			butChk = 1;
+	     			
 	     			var qna_no = $("#f_data").children("input[type=hidden]").val();
-	     			//$("#qna_form").submit();
+	     			
 	     			location.href="/cscenter/qnaUpdateForm?qna_no="+qna_no;
-	     		});
+						     		
+	      		});
 	     		
 	     		$("#qnaListBtn").click(function(){
 	     			location.href="/cscenter/qnaBoard";
@@ -28,27 +28,7 @@
 	     		});
 	      	});
 	      
-	      /* function updateForm(){
-	    	  $.ajax({
-	    		 url : "/cscenter/qnaUpdateForm",
-	    		 type : "post",
-	    			
-	    		 datatype : "text",
-	    		 error : function(){
-	    			 alert("시스템 오류입니다. 관리자에게 문의해주세요");
-	    		 },
-	    		 success : function(resultData){
-	    			 var goUrl="";
-	    			 if(butChk == 1){
-	    				 goUrl = "/cscenter/qnaUpdateForm";
-	    			 }else if(butChk == 2){
-	    				 goUrl = "/cscenter/qnaDelete";
-	    			 }
-	    			 $("#f_data").attr("action", goUrl);
-	    			 $("#f_data").submit();
-	    		 }
-	    	  });
-	      } */
+	      
       </script>
 	</head>
    
@@ -57,7 +37,7 @@
 			<div class="contentTit page-header"><h3 class="text-center">1:1문의 상세보기</h3></div>
 			
 			<form name="f_data" id="f_data" method="post">
-				<input type="hidden" name="b_num" value="${detail.qna_no}">
+				<input type="hidden" id="qna_no" name="qna_no" value="${detail.qna_no}">
 			</form>
 				<div class="btnArea col-md-4">
 					<input type="button" value="수정" id="updateFormBtn"  class="btn btn-primary">

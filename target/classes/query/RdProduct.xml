@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.event.dao.AdminRdProductDAO">
+
+	<!-- 조회 -->
+	<select id="RdProductList" resultType="rdprod">
+		    SELECT 
+		        RD_NO ,
+		        PD_NO  
+		    FROM rd_product
+	</select>
+	
+	<!-- 등록 -->
+<!-- 	<insert id="RdProductInsert">
+			INSERT INTO rd_product(
+					rd_no, 
+					pd_no
+				) 
+			VALUES (#{rd_no}, #{pd_no});
+	</insert> -->
+</mapper>

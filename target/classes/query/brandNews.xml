@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.shoestar.client.brand.dao.BrandNewsDao">
+	
+	
+	<!-- 브랜드 전체조회 -->
+	<select id="brandNewsList" parameterType="com.shoestar.client.brand.vo.BrandVO">
+		select 
+			ar_no, ar_subject, ar_content, ar_file
+		from brand
+		order by ar_no desc
+	</select>
+	
+	
+	<!-- 브랜드 뉴스 상세조회 -->
+	<select id="brandNewsDetail" parameterType="com.shoestar.client.brand.vo.BrandVO">
+		select
+			ar_no, ar_subject, ar_content, ar_file
+		from brand
+		where ar_no=#{ar_no}
+		order by ar_no desc
+	</select>
 	
 </mapper>
