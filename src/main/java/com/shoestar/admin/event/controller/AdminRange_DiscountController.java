@@ -14,14 +14,16 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/admin/event/rds/*")
+@RequestMapping("/admin/event/*")
 @Log4j
 @AllArgsConstructor
 public class AdminRange_DiscountController {
 
 	private AdminRange_DiscountService ARDService;
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	// 검색 페이지는 나중에~
+	// 조회
+	@RequestMapping(value="/rds/list", method=RequestMethod.GET)
 	public String AdminRDiscountList(@ModelAttribute("data") Range_DiscountVO rvo, Model model) {
 		log.info("AdminRDiscountList 호출 성공");
 /*		log.info("keyword : " + rvo.getKeyword());
@@ -35,4 +37,14 @@ public class AdminRange_DiscountController {
 		
 		return "admin/event/Range_DiscountList";
 	}
+	
+	// 입력폼
+	@RequestMapping(value="/rds/writeForm")
+	public String writeForm(@ModelAttribute("data") Range_DiscountVO rvo) {
+		
+		log.info("writeForm 호출 성공");
+		
+		return "/admin/event/rdisWriteForm";
+	}
+	
 }

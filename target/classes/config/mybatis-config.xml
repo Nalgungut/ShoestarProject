@@ -17,5 +17,7 @@
 		<typeAlias type="com.shoestar.client.prod.vo.ProdImageVO" alias="prodimage" />
 		<typeAlias type="com.shoestar.client.cscenter.vo.QNAVO" alias="qna" />
 		<typeAlias type="com.shoestar.client.event.vo.Range_DiscountVO" alias="rds" />
+		<typeAlias type="com.shoestar.client.event.vo.Rd_ProductVO" alias="rdprod" />
+		<typeAlias type="com.shoestar.client.event.vo.Rd_TypeVO" alias="rdtype" />
 	</typeAliases>
 </configuration>
