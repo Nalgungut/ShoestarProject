@@ -32,7 +32,7 @@
 </head>
 <body>
 		<div class="Aventcontainer">
-		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 관리
+		<div class="Avent_header"><h2 id="AEvconTitle">범위할인 관리
 		<input type="button" value="이벤트 리스트" id="eventBtn" />
 		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
@@ -47,7 +47,7 @@
            		
            		
       			<table id="AvnetViewTable" class="table" >
-					<caption class="Acaption">이벤트 검색</caption>
+					<caption class="Acaption">범위할인 검색</caption>
 					<tr>
 						<td class="Avent_td gray" id="Aev_no">번호</td>
 						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
@@ -77,7 +77,7 @@
 				<input type="hidden" name="rd_no" id="rd_no" />
 				
 				<table id="AventListTable" class="table">
-					<caption class="Acaption">이벤트 목록</caption>
+					<caption class="Acaption">범위할인 목록</caption>
 						
 						<tr>
 							<td class="Avent_td bgray tdW">번호</td>
