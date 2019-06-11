@@ -55,12 +55,12 @@ public class AdminLoginController {
 		//입력받은 아이디와 비밀번호로 DB확인 시, 일치 데이터가 존재하지 않으면
 		if(adminLoginCheckResult == null){
 			mav.addObject("codeNumber", 1); //없을시 '1'
-			mav.setViewName("admin/member/adminLogin");
+			mav.setViewName("admin/adminMember/adminLogin");
 			return mav;
 		}else{ //일치할 시
 			mav.addObject("adminLogin", adminLoginCheckResult);
 			log.info("adminLoginCheckResult"+adminLoginCheckResult);
-			mav.setViewName("admin/member/adminLogin_success");
+			mav.setViewName("admin/adminMember/adminLogin_success");
 			return mav;
 		}
 	}

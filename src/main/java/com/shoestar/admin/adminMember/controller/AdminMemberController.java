@@ -32,7 +32,7 @@ import lombok.extern.log4j.Log4j;
 			@RequestMapping(value="/adminJoin", method = RequestMethod.GET)
 			public String adminJoinForm(Model model){
 				log.info("join get방식에 의한 메서드 호출 성공");
-				return "admin/member/adminJoin";
+				return "admin/adminMember/adminJoin";
 			}
 			
 	/*
@@ -66,15 +66,15 @@ import lombok.extern.log4j.Log4j;
 			switch(result){
 			case 1:
 				mavv.addObject("codeNumber", 1); //관리자 아이디가 이미 존재함
-				mavv.setViewName("admin/member/adminJoin");
+				mavv.setViewName("admin/adminMember/adminJoin");
 					break;
 			case 3:
 				mavv.addObject("codeNumber", 3);
-				mavv.setViewName("admin/member/adminJoin_success"); //새로운 관리자ID 추가시, 로그인페이지 이동
+				mavv.setViewName("admin/adminMember/adminJoin_success"); //새로운 관리자ID 추가시, 로그인페이지 이동
 					break;
 			default:
 				mavv.addObject("codeNumber", 2); //맴버추가 실패
-				mavv.setViewName("admin/member/adminJoin");
+				mavv.setViewName("admin/adminMember/adminJoin");
 					break;
 			}
 			return mavv;
@@ -89,24 +89,24 @@ import lombok.extern.log4j.Log4j;
 				
 				
 				if(adminLogin==null){
-					mavv.setViewName("client/member/login");
+					mavv.setViewName("admin/adminMember/adminLogin");
 					return mavv;
 				}
 				
 				AdminMemberVO vo = adminMemberService.adminMemberSelect(adminLogin.getAdm_id());
 				mavv.addObject("adminMember", vo);
-				mavv.setViewName("admin/member/adminModify");
+				mavv.setViewName("admin/adminMember/adminModify");
 				return mavv;
 			}
 			
 			//////////////////////[회원수정처리 AOP 예외 처리 전]/////////////////////////////
-			@RequestMapping(value="/modify", method = RequestMethod.POST)
+			@RequestMapping(value="/adminModify", method = RequestMethod.POST)
 			public ModelAndView adminMemberModifyProcess(AdminMemberVO mvo, @SessionAttribute("adminLogin") AdminLoginVO adminLogin, ModelAndView mavv){
 				log.info("modify post방식에 의한 메서드 호출 성공");
 				log.info("mvo" + mvo);
 				log.info("login" + adminLogin);
 				if(adminLogin==null){ 
-					mavv.setViewName("admin/member/adminLogin");
+					mavv.setViewName("admin/adminMember/adminLogin");
 					return mavv;
 				}
 				mvo.setAdm_id(adminLogin.getAdm_id());
@@ -115,24 +115,24 @@ import lombok.extern.log4j.Log4j;
 				if(adminLoginService.adminLoginSelect(mvo.getAdm_id(), mvo.getAdm_oldUserPwd()) == null){
 					mavv.addObject("codeNumber", 1);
 					mavv.addObject("adminMember", vo);
-					mavv.setViewName("admin/member/adminModify");
+					mavv.setViewName("admin/adminMember/adminModify");
 					return mavv;
 				}
 				
 				adminMemberService.adminMemberUpdate(mvo);
-				mavv.setViewName("redirect:/member/logout");
+				mavv.setViewName("redirect:/adminMember/adminLogout");
 				return mavv;
 			}
 			
 			/////////////////////[회원 탈퇴처리 AOP 예외 처리 전]/////////////////////////
-			@RequestMapping("/delete")
+			@RequestMapping("/adminDelete")
 			public ModelAndView adminMemberDelete(@SessionAttribute("adminLogin") AdminLoginVO adminLogin){
 				log.info("delete.do get방식에 의한 메서드 호출 성공");
 				
 				ModelAndView mavv = new ModelAndView();
 				
 				if(adminLogin==null){
-					mavv.setViewName("admin/member/adminLogin");
+					mavv.setViewName("admin/adminMember/adminLogin");
 					return mavv;
 				}
 				
@@ -140,11 +140,11 @@ import lombok.extern.log4j.Log4j;
 				switch(errCode){
 				case 2:
 					
-					mavv.setViewName("redirect:/member/adminLogout");
+					mavv.setViewName("redirect:/adminMember/adminLogout");
 						break;
 				case 3:
 					mavv.addObject("codeNumber", 3);
-					mavv.setViewName("client/member/adminLogin");
+					mavv.setViewName("client/adminMember/adminLogin");
 						break;
 				}
 				return mavv;

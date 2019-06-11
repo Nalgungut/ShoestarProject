@@ -19,7 +19,7 @@
 			<li><a href="/cscenter/">문의</a></li>   
 			<li><a href="/member/login">로그인</a></li>
 			<li><a href="/member/join">회원가입</a></li>
-			<li><a href="/member/adminLogin">관리자테스트</a></li>
+			<li><a href="/adminMember/adminLogin">관리T</a></li>
 			<%-- 
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
