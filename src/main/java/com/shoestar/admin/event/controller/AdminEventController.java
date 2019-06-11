@@ -40,11 +40,8 @@ public class AdminEventController {
 					// null을 설정하기 위한 클래스
 	}
 	
-	/***
-	 * 이벤트 리스트 페이지 구현하기
-	 * @param EventVO
-	 * @return String
-	 */
+	// 이벤트 리스트 페이지 구현하기
+
 /*	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
 		log.info("eventList 호출 성공");
@@ -62,14 +59,14 @@ public class AdminEventController {
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
 		log.info("eventList 호출 성공");
-/*		log.info("keyword : " + evo.getKeyword());
-		log.info("search : " + evo.getSearch());*/
+		//log.info("keyword : " + evo.getKeyword());
+		//log.info("search : " + evo.getSearch());
 			
 		model.addAttribute("AdmineventList", eventService.AdmineventList(evo));
 		
-		int total = eventService.AdmineventCnt(evo);
+		//int total = eventService.AdmineventCnt(evo);
 		
-		model.addAttribute("pageMaker", new PageDTO(evo, total));
+		//model.addAttribute("pageMaker", new PageDTO(evo, total));
 		
 		return "admin/event/eventList";
 	}
@@ -112,7 +109,9 @@ public class AdminEventController {
 	 @RequestMapping(value="/updateForm")
 	 public String updateForm(@ModelAttribute("data") EventVO evo, Model model) {
 		 log.info("updateForm 호출 성공");
-		 log.info("ev_no = " + evo.getEv_no());
+		 //log.info("ev_no = " + evo.getEv_no());
+		 log.info("evo.getEv_content = " + evo.getEv_content());
+		 log.info(evo);
 		 
 		 EventVO up = eventService.updateForm(evo);
 		 
@@ -129,6 +128,8 @@ public class AdminEventController {
 	@RequestMapping(value="/update",  method=RequestMethod.POST)
 	public String eventUpdate(@ModelAttribute EventVO evo, RedirectAttributes rab) {
 		log.info("eventList 호출 성공");
+		
+		log.info(evo);
 		
 		String url = "";
 		int result = 1;
@@ -162,5 +163,8 @@ public class AdminEventController {
 		return "redirect:"+url;
 		
 	}
+	
+	
+	// 게시글 
 	
 }

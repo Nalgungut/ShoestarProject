@@ -52,15 +52,15 @@
 			 var ev_no = $(this).parents("tr").attr("data-num");
 	         $("#ev_no").val(ev_no);
 	
-	         $("#AventListForm").attr({
+	          $("#AventListForm").attr({
 	            "method" : "get",
 	            "action" : "/admin/event/updateForm"
 	         });
-	         $("#AventListForm").submit();
-		});
+	
+	          $("#AventListForm").submit();
+			}); // 수정 끝
 		
-		
-		// 삭제하기 선택 (미완)
+		// 삭제하기 선택 (완)
 		$(".AventDeleteBtn").click(function() {
 			
 			if(confirm("선택한 내용을 삭제하시겠습니까?")) {
@@ -84,6 +84,10 @@
 		      });
 		 
 		 
+		 // 범위할인 리스트 버튼 선택
+		 $("#rang_disBtn").click(function() {
+			 location.href = "/admin/event/rds/list";
+		 });
 		 
 		// 검색 버튼 선택
 		$("#searchData").click(function() {

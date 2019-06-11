@@ -19,6 +19,13 @@
 <script type="text/javascript" src="/resources/include/js/eventList.js"></script>
 <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 
+<style type="text/css">
+	/* .Aventcontainer{height: 50%; width: 50%;} */
+	#ViewImg img{width: 220px; height: 170px; margin-top: 6px;}
+	#ViewThumb img{width: 150px; height: 70px; margin-top: 6px;}
+	#ViewThumb img#min{width: 150px; height: 70px; margin-top: 6px; margin-left: 3px;}
+</style>
+
 <script type="text/javascript">
 	$(function() {
 		
@@ -66,12 +73,14 @@
 </head>
 <body>
 		<div class="Aventcontainer">
-		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 등록</h2>		
+		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 수정</h2>		
 		 <hr />
 		 </div>
 
 		<div id="updateDiv">		
 			<form id="updateForm">
+				<input type="hidden" id="ev_no" value="${up.ev_no}" name="ev_no" />
+			
 				<table id="updateTable">
 					<caption class="Acaption">이벤트 정보</caption>
 					
@@ -82,17 +91,30 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 내용</td>
-						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="140" maxlength="1000" >${up.ev_content}</textarea></td>
+						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="130" maxlength="1000" >${up.ev_content}</textarea></td>
 					</tr>
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 이미지</td>
-						<td class="Avent_tdInput"><input type="file" id="ev_img" name="files[0]"  /></td>
+						<td class="Avent_tdInput">
+							<input type="file" id="ev_img" name="files[0]"  />
+							<input type="hidden" name="ev_img" value="${up.ev_img}" /> <!-- 기존값 가져오는 거 -->
+							<div id="ViewImg">
+								<img src="/shoestarStorage/event/${up.ev_img}">
+							</div>
+						</td>
 					</tr>
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 썸네일</td>
-						<td class="Avent_tdInput"><input type="file" id="ev_thumb" name="files[1]" /></td>
+						<td class="Avent_tdInput"><input type="file" id="ev_thumb" name="files[1]" />
+							<input type="hidden" name="ev_thumb" value="${up.ev_thumb}" /> <!-- 기존값 가져오는 거 -->
+							<div id="ViewThumb">
+								<img src="/shoestarStorage/eventThumb/${up.ev_thumb}">
+								<img id="min" src="/shoestarStorage/eventThumb/thumbnail/thumbnail_${up.ev_thumb}">
+							</div>
+						</td>
+					
 					</tr>
 					
 					<tr>

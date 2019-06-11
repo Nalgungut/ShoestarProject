@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>이벤트 상세 페이지</title>
 
+<script type="text/javascript"
+	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
+
 <style type="text/css">
 	#htitle{text-align: center;}
 	.gray{color: gray;}

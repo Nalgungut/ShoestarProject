@@ -43,7 +43,7 @@ table{text-align: center;}
 .Acaption{text-align: left; margin-bottom: 15px; font-weight: bold; color: black; font-size: 15pt;}
 .table{border-collapse: collapse;}
 .Avent_td, .Avent_tdInput{border: 1px solid black; padding: 7px;}
-#AvnetViewTable .Avent_td{width: 120px;}
+#AvnetViewTable .Avent_td{width: 150px;}
 #AventSearchBtn{margin: 5px;}
 .gray {background-color: #EDF0F5; font-weight: bold;}
 .bgray {background-color: #B1BDC7; color: white; font-weight: bold;}
@@ -63,7 +63,8 @@ table{text-align: center;}
 	background-color: #D2D7D9;
 }
 
-#insertBtn, #insertFormBtn, #eventCancelBtn, #eventListBtn, #updateFormBtn, #rang_disBtn{
+#insertBtn, #insertFormBtn, #eventCancelBtn, 
+#eventListBtn, #updateFormBtn, #rang_disBtn, #eventBtn{
 	
 	font-size: 17px;
 	height: 50px; border:none;
@@ -75,7 +76,7 @@ table{text-align: center;}
  	/* margin-left: 1060px; */ width: 120px;
  }
  
-#rang_disBtn{
+#rang_disBtn, #eventBtn{
 	font-size: 16px;
  	margin-left: 560px; width: 140px;
 }
@@ -86,6 +87,9 @@ table{text-align: center;}
 
 
 
+/* 관리자 검색 리스트 td 사이즈 변경 */
+#AvnetViewTable td.gray {width: }
+
 /* 관리자 검색 버튼 */
 #searchData{
 	font-size: 17px;
@@ -93,13 +97,15 @@ table{text-align: center;}
 	background-color: #2166B5; color: white; width: 90px; margin-top: 15px;
 }
 
-#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, #eventListBtn:hover, #searchData:hover, #updateFormBtn:hover, #rang_disBtn:hover{
+#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, 
+#eventListBtn:hover, #searchData:hover, #updateFormBtn:hover, #rang_disBtn:hover,
+#eventBtn:hover{
 	background-color: #1C589C;
 }
 
 /* 이벤트 등록 + 수정 화면 */
 #insertTable, #updateTable {
-	border-collapse: collapse; text-align: left; width: 1200px; height: 50px;
+	border-collapse: collapse; text-align: left; width: 1100px; height: 50px;
 }
 
 #insertTable td, #updateTable td{height: 30px;}
@@ -114,5 +120,6 @@ table{text-align: center;}
 
 
 /* admin 전체 페이지 margin */
-.Aventcontainer{margin-top: 80px; }
-#AventList{margin-bottom: 140px;}
+
+/* .Aventcontainer{margin-top: 80px; }
+#AventList{margin-bottom: 140px;} */
