@@ -16,6 +16,7 @@ import com.shoestar.client.cscenter.service.QNAService;
 import com.shoestar.client.cscenter.vo.FAQ_ctgVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.client.orders.vo.OrdersVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -42,11 +43,6 @@ public class QNAController {
 			return "client/cscenter/qnaBoard"; 
 		}
 		
-		@RequestMapping(value="/writeForm")
-		public String writeForm() {
-			return "client/cscenter/writeForm";
-		}
-		
 		//1:1문의 상세내역
 		@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)
 		public String qnaDetail(@ModelAttribute("data") QNAVO qvo, Model model) {
@@ -58,10 +54,47 @@ public class QNAController {
 		}
 		
 		@RequestMapping(value="/qnaUpdateForm")
-		public String updateForm(QNAVO qvo, Model model) {
-			QNAVO updateData = qnaService.qnaUpdateForm(qvo);
+		public String updateForm(@SessionAttribute("login") LoginVO lvo, QNAVO qvo, Model model) {
+			int mem_no = lvo.getMem_no();
+			List<OrdersVO> result = qnaService.qnaOrders(mem_no);
 			
-			model.addAttribute("updateData", updateData);
+			model.addAttribute("orders", result);
+			
 			return "client/cscenter/qnaUpdateForm";
 		}
+		
+		@RequestMapping(value="/qnaUpdate", method=RequestMethod.POST)
+		public String qnaUpdate(@ModelAttribute QNAVO qvo, Model model) {
+			int result = 0;
+			String url = "";
+			result = qnaService.qnaUpdate(qvo);
+			if(result == 1) {
+				url = "/cscenter/qnaBoard";
+			}
+			return "redirect:" + url;
+		}
+		
+
+		@RequestMapping(value="/writeForm")
+		public String writeForm(@SessionAttribute("login") LoginVO lvo, QNAVO qvo, Model model) {
+			int mem_no = lvo.getMem_no();
+			List<OrdersVO> result = qnaService.qnaOrders(mem_no);
+			
+			model.addAttribute("orders", result);
+			
+			return "client/cscenter/writeForm";
+		}
+		
+		@RequestMapping(value="/qnaInsert", method=RequestMethod.POST)
+		public String qnaInsert(@ModelAttribute QNAVO qvo, Model model) {
+			int result = 0;
+			String url = "";
+			
+			result = qnaService.qnaInsert(qvo);
+			if(result == 1) {
+				url = "/cscenter/qnaBoard";
+			}
+			return "redirect:" + url;
+		}
+		
 }
