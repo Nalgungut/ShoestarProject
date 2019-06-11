@@ -24,12 +24,12 @@
 	$(function() {
 		$("#insertFormBtn").click(function(){
 			if(!chkSubmit($('#ev_title'),"이벤트 제목을")) return;
-			else if (!chkSubmit($('#ev_content'),"이벤트 내용을 ")) return;
+			else if (!chkSubmit($('#ev_content'),"이벤트 내용을")) return;
 			
-			else if (!chkSubmit($('#ev_img'),"이벤트 이미지를 ")) return;
+			else if (!chkSubmit($('#ev_img'),"이벤트 이미지를")) return;
 			else if (!chkFile($('#ev_img'))) return;
 			
-			else if (!chkSubmit($('#ev_thumb'),"이벤트 썸네일을 ")) return;
+			else if (!chkSubmit($('#ev_thumb'),"이벤트 썸네일을")) return;
 			else if (!chkFile($('#ev_thumb'))) return;
 			else{
 				$("#insertForm").attr({
@@ -105,7 +105,7 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 내용</td>
-						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="130" maxlength="1000"></textarea></td>
+						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="130" maxlength="100"></textarea></td>
 					</tr>
 					
 					<tr>
