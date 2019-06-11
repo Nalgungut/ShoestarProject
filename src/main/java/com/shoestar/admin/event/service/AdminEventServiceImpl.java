@@ -15,7 +15,7 @@ import com.shoestar.admin.event.dao.AdminEventDAO;
 import com.shoestar.client.event.vo.EventVO;
 import com.shoestar.common.file.EventFileUploadUtil;
 import com.shoestar.common.file.EventThumbUploadUtil;
-
+import com.shoestar.common.file.FileUploadUtil;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -42,22 +42,14 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return list;
 	
 	}
-	//글 수정 DAO 접속
-	@Override
-	public int eventUpdate(EventVO evo) {
-			int result = 0;
-			result = aEventDao.eventUpdate(evo);
-			return result;
-		
-	}
-	
+
 	// 이벤트 글 입력 구현
 	
 	@Override
 	public int eventInsert(EventVO evo) {
 		int result = 0;
 		
-		List<MultipartFile> list= evo.getFile();
+		List<MultipartFile> list= evo.getFiles();
 		
 		/*
 		 * 1번은 광고 이미지 : 원본만 앞에 경로_ 붙여서 저장
@@ -76,13 +68,17 @@ public class AdminEventServiceImpl implements AdminEventService {
 			for(int i = 0; i <=1; i++) {
 				if(i == 0) {
 					if(list.get(i) != null ) {
-						String fileName1 = EventFileUploadUtil.fileUpload(evo.getFile().get(i), "eventImage");
+						String fileName1 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "event");
 						evo.setEv_img(fileName1);
 					}
 				} else if( i == 1 ) {
 					if (list.get(i) != null) {
-						String fileName2 = EventThumbUploadUtil.fileUpload(evo.getFile().get(i), "eventThumb");
+						String fileName2 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "eventThumb");
+						//evo.setEv_img(fileName2);
 						evo.setEv_thumb(fileName2);
+						
+						String thumbName = FileUploadUtil.makeThumbnail(fileName2);
+//						evo.setEv_thumb(thumbName);
 					}
 				}
 			} // for
@@ -97,11 +93,91 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return result;
 	}
 	
+	// 창 이동시 값 세팅용 update
+	@Override
+	public EventVO updateForm(EventVO evo) {
+		EventVO detail = null;
+		detail = aEventDao.eventDetail(evo);
+		return detail;
+	}
+	
+	//글 수정 DAO 접속
+	@Override
+	public int eventUpdate(EventVO evo) {
+		int result = 0;
+		
+		List<MultipartFile> list= evo.getFiles();
+
+		try {
+			for(int i = 0; i <=1; i++) {
+				if(i == 0) {
+					if( list.get(i).getSize() > 0  ) { // img 이면
+						
+						FileUploadUtil.fileDelete(evo.getEv_img());
+						
+						// 생성하기
+						String fileName1 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "event");
+						evo.setEv_img(fileName1);
+					} else { // 변경이 아니면
+						log.info("첨부파일 없음");
+						evo.setEv_img("");
+					}
+					
+				} else if( i == 1 ) {
+					if ( list.get(i).getSize() > 0 ) { // thumb 이면
+						
+						FileUploadUtil.fileDelete(evo.getEv_thumb());	
+						// 썸네일의 썸네일 이미지 삭제하기 (완)
+						FileUploadUtil.fileDelete("thumbnail_"+evo.getEv_thumb());
+						
+						// 생성하기
+						String fileName2 = FileUploadUtil.fileUpload(evo.getFiles().get(i), "eventThumb");
+						evo.setEv_thumb(fileName2);
+						
+						String thumbName = FileUploadUtil.makeThumbnail(fileName2);
+					} else { // 변경이 아니면
+						log.info("첨부파일 없음");
+						evo.setEv_thumb("");
+					}
+				}
+			} // for
+		
+		result = aEventDao.eventUpdate(evo);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+	}
+	
+	// 글 삭제 
+	@Override
+	public  int eventDelete(EventVO evo) {
+		int result = 0;
+		
+		try {
+			EventVO vo = aEventDao.eventDetail(evo);
+			
+			FileUploadUtil.fileDelete(vo.getEv_img());
+			FileUploadUtil.fileDelete(vo.getEv_thumb());
+			
+			// 썸네일의 썸네일 이미지 삭제하기 (완)
+			FileUploadUtil.fileDelete("thumbnail_"+vo.getEv_thumb());
+			
+			result = aEventDao.eventDelete(evo.getEv_no());
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		return result;
+	}
+	
 	// 
 	@Override
 	public int AdmineventCnt(EventVO evo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return aEventDao.AdmineventCnt(evo);
 	}
 
 
