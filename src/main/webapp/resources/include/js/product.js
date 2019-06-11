@@ -15,6 +15,8 @@ const PROD_THUMB_STORATE_URL = "/shoestarStorage/prod/thumb/";
 /** 상품 페이지의 uri */
 const PROD_URI_MAPPING = "/product/";
 
+const PROD_NO_IMAGE = "/resources/images/product/noimage.png";
+
 
 /* ------------------------------------- prod 관련 함수들 ------------------------------------- */
 
@@ -29,7 +31,7 @@ function createProductDiv(prodVO) {
 	var pImageSection = $("<div>").addClass("prodImage text-center");
 	var imgUrl;
 	if(prodVO.pim_main == null) {
-		imgUrl = PROD_THUMB_STORATE_URL + "default.jpg";
+		imgUrl = PROD_NO_IMAGE;
 	} else {
 		imgUrl = PROD_THUMB_STORATE_URL + prodVO.pim_main;
 	}
@@ -134,8 +136,9 @@ function createPinsBox(pinsVO, pinoToExclude) {
 	var pia = $("<a>").attr({
 		"href" : PROD_URI_MAPPING + "prod/?pi_no=" + pinsVO.pi_no
 	});
+	var imagesrc = pinsVO.mainImage != null ? PROD_THUMB_STORATE_URL + pinsVO.mainImage : PROD_NO_IMAGE;
 	var pimg = $("<img>").attr({
-			"src" : PROD_THUMB_STORATE_URL + (pinsVO.mainImage != null ? pinsVO.mainImage : "default.jpg"),
+			"src" : imagesrc,
 			"title" : pinsVO.pcl_name
 		}).css({
 		"width" : 50,
