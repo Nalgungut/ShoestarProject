@@ -22,5 +22,6 @@ public class QNAVO{
 	private Date qna_date = null;
 	private String qna_ctgr = "";
 	private String r_cnt = "";
+	private String qna_state = "";
 	
 }

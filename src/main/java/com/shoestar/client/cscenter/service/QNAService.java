@@ -8,4 +8,12 @@ public interface QNAService {
 
 	public List<QNAVO> qnaList(QNAVO qvo);
 
+	public QNAVO qnaDetail(QNAVO qvo);
+
+	public QNAVO qnaUpdateForm(QNAVO qvo);
+
+	
+
+	
+	
 }

@@ -8,6 +8,7 @@
 		
 		<link rel="stylesheet" href="/resources/include/css/prodAdmin.css" />
 		<script type="text/javascript" src="/resources/include/js/productCommon.js"></script>
+		<script type="text/javascript" src="/resources/include/js/prodAdmin.js"></script>
 		<script type="text/javascript" src="/resources/include/js/product.js"></script>
 		<script type="text/javascript" src="/resources/include/js/prodctg.js"></script>
 		<script type="text/javascript">
@@ -37,75 +38,59 @@
 				});
 				
 				// 카테고리 정보 읽어오기
-				getProdCtgList();
+				getProdCtgList($("#ctgList"), $("#updateCategoryList"));
 				// 색상 정보 읽어오기
-				getColorList();
+				getColorList($("#colorList"));
 				
 				// 검색 버튼 설정
 				$("#btnSearch").on("click", function() {
 					submitSearch();
 				});
+				
+				// 카테고리 변경 제어
+				$("#updateCategoryList").on("change", function() {
+					if($("#updateCategoryList").val() != 0) {
+						preConfirms("선택한 항목들의 분류를 수정하시겠습니까?",
+								updateMultipleRecords, "pct_no=" + $("#updateCategoryList").val());
+					}
+				});
+				
+				// '판매시작' 버튼 변경 제어
+				$("#startSales").on("click", function() {
+					preConfirms("선택한 항목들을 판매시작 상태로 변경하시겠습니까?", updateMultipleRecords, "pd_status=null");
+				});
+				
+				// '판매중지' 버튼 변경 제어
+				$("#endSales").on("click", function() {
+					preConfirms("선택한 항목들을 판매중지 상태로 변경하시겠습니까?", updateMultipleRecords, "pd_status=d");
+				});
+				
+				// '삭제' 버튼 변경 제어
+				$("#deleteProd").on("click", function() {
+					preConfirms("소분류 항목이나 판매 기록이 있는 데이터는 삭제할 수 없습니다.\n정말로 삭제하시겠습니까?",
+							deleteMultipleRecords);
+				});
+				
+				// 페이지네이션 버튼 제어
+				$(".paginate_button a").click(function(event) {
+					event.preventDefault();
+					// TODO: 페이지 넘어가는 기능 만들기
+					var pageReq = window.location.search.replace(/&?pageNum=\d/, "");
+					pageReq = pageReq + "&pageNum=" + $(this).attr("href");
+					location.href = "/admin/product/list?" + pageReq;
+				});
 			});
 			
-			function getProdCtgList() {
-				$("#ctgList").html("");
-				$("#updateCategoryList").html("");
-				$("#ctgList").append(emptyOption());
-				$("#updateCategoryList").append(emptyOption());
-				
-				$.ajax({
-					url: "/pctg/getList?pd_age=all&includeItemless=true",
-					type: "get",
-					dataType: "json",
-					error: function() {
-						alert("카테고리 정보를 읽어올 수 없었습니다.");
-					},
-					success: function(data) {
-						if(!jQuery.isEmptyObject(data)) {
-							$.each(data, function(index, ctgData) {
-								$("#ctgList").append(
-									$("<option>").attr("val", ctgData.pct_no).text(ctgData.pct_name)
-								);
-								$("#updateCategoryList").append(
-									$("<option>").attr("val", ctgData.pct_no).text(ctgData.pct_name)
-								);
-							});
-						} else {
-							$("#ctgList").append(createErrorList("항목없음", "option"));
-							$("#updateCategoryList").append(createErrorList("항목없음", "option"));
-						}
+			// 항목 수정/삭제 전 확인사항
+			function preConfirms(msg, callback, param) {
+				if($("#recordForm").serialize() == "") {
+					alert("대상을 선택해주세요.");
+					resetCtgSelect();
+				} else {
+					if(confirm(msg)) {
+						callback(param);
 					}
-				});
-			}
-			
-			function getColorList() {
-				$("#colorList").html("");
-				$("#colorList").append(emptyOption());
-				
-				$.ajax({
-					url: "/pctg/getColor",		
-					type: "get",
-					dataType: "json",
-					error: function() {
-						alert("색상 정보를 불러올 수 없었습니다.");
-					},
-					success: function(data) {
-						if(!jQuery.isEmptyObject(data)) {
-							// li 태그 생성 및 추가
-							$.each(data, function(index, stack) {
-								$("#colorList").append(
-									$("<option>").attr("val", stack.pcl_no).text(stack.pcl_name)	
-								);
-							});
-						} else {
-							$("#colorList").append(createErrorList("색상 정보가 없습니다.", "option"));
-						}
-					}
-				});
-			}
-			
-			function emptyOption() {
-				return $("<option>").prop({"hidden": true, "value" : "0"});
+				}
 			}
 			
 			function submitSearch() {
@@ -135,10 +120,61 @@
 				searchRequest = splitRequest(searchRequest, allowThese);
 				location.href = "/admin/product/list?" + searchRequest;
 			}
+			
+			var updateMultipleRecords = function(updateRequest) {
+				$.ajax({
+					url : "/admin/product/updateAll",
+					type : "post",
+					data : $("#recordForm").serialize() + "&" + updateRequest,
+					dataType : "text",
+					error : function() {
+						alert("서버 오류가 발생하여 항목을 수정할 수 없었습니다.");
+						resetCtgSelect();
+					},
+					success : function(data) {
+						if(resultNumbers[0] == "0") {
+							alert("항목을 수정할 수 없었습니다.");
+							resetCtgSelect();
+						} else {
+							alert("총 " + resultNumbers[1] + "개 항목 중 " + resultNumbers[0] + "개 항목을 수정했습니다.");
+							location.reload();
+						}
+					}
+				});
+			}
+			
+			var deleteMultipleRecords = function() {
+				$.ajax({
+					url : "/admin/product/deleteAll",
+					type : "post",
+					data : $("#recordForm").serialize(),
+					dataType : "text",
+					error : function() {
+						alert("서버 오류가 발생하여 항목을 삭제할 수 없었습니다.");
+					},
+					success : function(data) {
+						var resultNumbers = data.split("/");
+						if(resultNumbers[0] == "0") {
+							alert("항목을 삭제할 수 없었습니다.\n상품 소분류 등의 관련 데이터가 존재하는 상품은 삭제할 수 없습니다.");
+						} else {
+							alert("총 " + resultNumbers[1] + "개 항목 중 " + resultNumbers[0] + "개 항목을 삭제했습니다.");
+							location.reload();
+						}
+					}
+				});
+			}
+			
+			function resetCtgSelect() {
+				$("#updateCategoryList").prop("selectedIndex", 0);
+			}
 		</script>
 	</head>
 	
 	<body>
+		<div class="titleContainer">
+			<h3>상품 목록</h3>
+			<hr class="blackLine">
+		</div>
 		<!-- 검색란 -->
 		<div class="searchBox">
 			<form id="searchForm">
@@ -170,7 +206,9 @@
 							<td>
 								<input type="radio" name="pd_status" value="all" id="stall"><label for="stall">전체</label>
 								<input type="radio" name="pd_status" value="ok" id="stok"><label for="stok">판매중</label>
-								<input type="radio" name="pd_status" value="d" id="stde"><label for="stde">판매완료</label>
+								<input type="radio" name="pd_status" value="d" id="stde"><label for="stde">판매중지</label>
+								<input type="radio" name="pd_status" value="n" id="stnw"><label for="stnw">신상품</label>
+								<input type="radio" name="pd_status" value="h" id="stht"><label for="stht">인기상품</label>
 							</td>
 						</tr>
 					</thead>
@@ -199,7 +237,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>가격</th>
+							<th>판매 가격</th>
 							<td class="form-inline">
 								<input type="number" id="priceBottom" name="priceBottom" class="form-control"> 이상
 								&nbsp;~&nbsp;
@@ -226,7 +264,7 @@
 		
 		<!-- 결과 목록란 -->
 		<div class="resultBox">
-			<form id="recordForm"><table class="table table-hover prodList">
+			<table class="table table-hover prodList">
 				<colgroup>
 					<col width="5%">
 					<col width="10%">
@@ -243,7 +281,7 @@
 						<label for="updateCategoryList">분류 수정</label>
 						<select id="updateCategoryList" class="form-control"></select>
 						<button type="button" id="startSales" class="btn btn-default">판매개시</button>
-						<button type="button" id="endSales" class="btn btn-default">판매완료</button>
+						<button type="button" id="endSales" class="btn btn-default">판매중지</button>
 						<button type="button" id="deleteProd" class="btn btn-default">삭제</button>
 					</td></tr>
 					<tr>
@@ -260,16 +298,16 @@
 				</thead>
 				<tbody>
 					<c:choose>
-						<c:when test="${not empty prodlist}">
+						<c:when test="${not empty prodlist}"><form id="recordForm">
 							<c:forEach items="${prodlist}" var="stack"><tr class="productRecord">
-								<td class="selectionCell"><input type="checkbox" name="pd_no" value="${stack.pd_no}" class="recordCheckbox"></td>
+								<td class="selectionCell"><input type="checkbox" name="pdnos" value="${stack.pd_no}" class="recordCheckbox"></td>
 								<td class="pd_no">${stack.pd_no}</td>
 								<td class="pim_main"><c:choose>
 								<c:when test="${not empty stack.pim_main}">
 									<img width="70px" height="70px" class="img-thumbnail prodThumb" src="/shoestarStorage/prod/thumb/${stack.pim_main}">
 								</c:when>
 								<c:otherwise>
-									<img width="70px" height="70px" class="img-thumbnail" src="/shoestarStorage/prod/thumb/noimage.png">
+									<img width="70px" height="70px" class="img-thumbnail" src="/resources/images/product/noimage.png">
 								</c:otherwise>
 								</c:choose></td>
 								<td class="pd_name" data-pdno="${stack.pd_no}">${stack.pd_name}</td>
@@ -279,18 +317,39 @@
 								<td data-price="${stack.pd_price}" data-dcrate="${stack.pd_discount}" class="pd_discount"></td>
 								<td class="pd_date"><fmt:formatDate value="${stack.pd_date}" pattern="yyyy-MM-dd"/></td>
 							</tr></c:forEach>
-						</c:when>
+						</form></c:when>
 						<c:otherwise><tr>
 							<td class="emptyResult text-center" colspan="8">검색 결과가 없습니다.</td>
 						</tr></c:otherwise>
 					</c:choose>
 				</tbody>
-			</table></form>
+			</table>
 		</div>
 		
 		<!-- 페이지네이션 -->
 		<div>
-			
+			<div class="text-center">
+				<ul class="pagination">
+					<c:if test="${pageinfo.prev}">
+						<li class="paginate_button previous">
+							<a href="${pageinfo.startPage -1}">이전</a>
+						</li>
+					</c:if>
+					
+					<c:forEach var="num" begin="${pageinfo.startPage}" end="${pageinfo.endPage}">
+						<li class="paginate_button ${pageinfo.cvo.pageNum == num ? 'active':''}">
+							<a href="${num}">${num}</a>
+						</li>
+					</c:forEach>
+					
+					<c:if test="${pageinfo.next}">
+						<li class="paginate_button next">
+							<a href="${pageinfo.endPage + 1}">다음</a>
+						</li>
+					</c:if>
+				</ul>
+			</div>
 		</div>
+		
 	</body>
 </html>

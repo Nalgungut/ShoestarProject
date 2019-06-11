@@ -81,10 +81,11 @@
 						
 						<tr>
 							<td class="Avent_td bgray tdW">번호</td>
-							<td class="Avent_td bgray">이벤트명</td>
-							<td class="Avent_td bgray">이벤트 내용</td>
-							<td class="Avent_td bgray">이벤트 시작일</td>
-							<td class="Avent_td bgray">이벤트 종료일</td>
+							<td class="Avent_td bgray">할인명</td>
+							<td class="Avent_td bgray">할인 내용</td>
+							<td class="Avent_td bgray">할인율</td>
+							<td class="Avent_td bgray">시작일</td>
+							<td class="Avent_td bgray">종료일</td>
 							<td class="Avent_td bgray tdW">상태</td>
 							<td class="Avent_td bgray tdW">보기</td>
 							<td class="Avent_td bgray tdW">수정</td>
@@ -95,6 +96,7 @@
 								<td class="Avent_td tdW">${ard.rd_no}</td>
 								<td class="Avent_td"><a class="AventUpdateBtn">${ard.rd_title}</a></td>
 								<td class="Avent_td">${ard.rd_content}</td>
+								<td class="Avent_td">${ard.rd_discount}</td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_date}" /></td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${ard.rd_edate}" /></td>
 								<td class="Avent_td tdW">

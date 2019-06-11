@@ -10,14 +10,14 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/cscenter/*")
+@RequestMapping("/admin/cscenter/*")
 //@AllArgsConstructor
 public class AdminHomeCSController {
 	
 	
 	//private 
 	//어드민 고객센터 홈링크
-	@GetMapping("/admin")
+	@GetMapping("/")
 	public String csAdminMain() {
 		log.info("admin CS센터 홈 호출");
 		return "admin/cscenter/csAdminMain";
