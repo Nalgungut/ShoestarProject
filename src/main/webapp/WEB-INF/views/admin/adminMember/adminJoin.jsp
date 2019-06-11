@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <c:set var="contextPath"  value="${pageContext.request.contextPath}" /> --%>
+<c:set var="contextPath"  value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
    <html>
       <head>
@@ -22,16 +22,15 @@
          
          <!-- 인터넷익스8 이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다. -->
          <!-- [if it IE 9] > <script src="js/html5shiv.js"></script><![endif] -->
-         <!-- <link rel="stylesheet" type="text/css" href="../js/jquery-1.12.4.min.js">
+         <!-- <link rel="stylesheet" type="text/css" href="../js/jquery-1.12.4.min.js">adminJoin
          <!-- jQuery프레임워크 참조 -->         
            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-           <script type="text/javascript" src="/resources/include/js/join.js"></script>
-           <script type="text/javascript" src="/resources/include/js/login.js"></script>
+           <script type="text/javascript" src="/resources/include/js/adminLogin.js"></script>
+           <script type="text/javascript" src="/resources/include/js/adminJoin.js"></script>
            <script type="text/javascript" src="/resources/include/js/pwdPattern.js"></script>
            <script type="text/javascript" src="/resources/include/js/html5shiv.js"></script>
            
-           <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
            <!-- <script type="text/javascript" src="/resources/include/js/modify.js"></script> -->
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
            <!--  <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
@@ -42,11 +41,7 @@
            <!--  <script type="text/javascript" src="resources/include/css/ec-base-box.css"></script> -->
             <link rel="stylesheet" type="text/css" href="/resources/include/css/ec-base-box.css">
             
-            <style>
-            /* .agree{
-            height:120px;} */
-            </style>
-            
+           
             
             <!-- lightbox 라이브러리 -->
            <!--  <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
@@ -59,6 +54,7 @@
 					overflow: scroll;
 					}
             </style>
+            
            <script type="text/javascript">
            
      
@@ -69,20 +65,20 @@
 	
 		<div class="contentContainer" >
 			<div class="well"> 
-				<form id="memberForm" class="form-horizontal">
+				<form id="adminMemberForm" class="form-horizontal">
 				
 				
 					<!-- <input type="hidden" name="mem_email" id="mem_email">
 					<input type="hidden" name="mem_birth" id="mem_birth"> -->
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_id" class="col-sm-2 control-label">관리자 ID</label>
+						<label for="adm_id" class="col-sm-2 control-label">관리자 ID</label>
 							<div class="col-sm-3">
-								<input type="text" id="mem_id" name="mem_id" maxlength="12" class="form-conrtrol" placeholder="아이디입력"/>
+								<input type="text" id="adm_id" name="adm_id" maxlength="12" class="form-conrtrol" placeholder="아이디입력"/>
 							</div>
 							
 							<div class="col-sm-2">
-								<input type="button" id="idConfirmBtn" name="idConfirmBtn" value="아이디 중복체크" class="form-control btn-primary">
+								<input type="button" id="adminIdConfirmBtn" name="adminIdConfirmBtn" value="아이디 중복체크" class="form-control btn-primary">
 							</div>
 							
 							<div class="col-sm-5">
@@ -91,9 +87,9 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_pwd" class="col-sm-2 control-label">비밀번호</label>
+						<label for="adm_pwd" class="col-sm-2 control-label">비밀번호</label>
 							<div class="col-sm-3">
-								<input type="password" id="mem_pwd" name="mem_pwd" maxlength="15" 
+								<input type="password" id="adm_pwd" name="adm_pwd" maxlength="15" 
 								class="form-control" placeholder="비밀번호입력">
 							</div>
 							
@@ -103,9 +99,9 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="userPwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
+						<label for="adminUserPwdCheck" class="col-sm-2 control-label">비밀번호 확인</label>
 							<div class="col-sm-3">
-								<input type="password" id="userPwdCheck" name="userPwdCheck" 
+								<input type="password" id="adminUserPwdCheck" name="adminUserPwdCheck" 
 								class="form-control" maxlength="15" placeholder="비밀번호확인">
 							</div>
 							
@@ -115,9 +111,9 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_phone" class="col-sm-2 control-label">휴대폰번호</label>
+						<label for="adm_phone" class="col-sm-2 control-label">휴대폰번호</label>
 							<div class="col-sm-3">
-								<input type="text" id="mem_phone" name="mem_phone" maxlength="15" 
+								<input type="text" id="adm_phone" name="adm_phone" maxlength="15" 
 								class="form-control" placeholder="휴대폰 번호">
 							</div>	
 							
@@ -144,9 +140,9 @@
 					</div> -->
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_name" class="col-sm-2 control-label">관리자이름</label>
+						<label for="adm_name" class="col-sm-2 control-label">관리자이름</label>
 							<div class="col-sm-3">
-								<input type="text" id="mem_name" name="mem_name" maxlength="10" 
+								<input type="text" id="adm_name" name="adm_name" maxlength="10" 
 								class="form-control" placeholder="이름입력">
 							</div>	
 							
@@ -156,16 +152,16 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_email" class="col-sm-2 control-label">이메일</label>
+						<label for="adm_email" class="col-sm-2 control-label">이메일</label>
 							<div class="col-sm-3">
-								<input type="text" id="mem_email" name="mem_email" maxlength="60"
+								<input type="text" id="adm_email" name="adm_email" maxlength="60"
 								class="form-control" placeholder="이메일주소">
 							</div>	
 						
 							
 							<div class="col-sm-2">
 								<select id="emailDomain" class="form-control">
-									<option value="non">직접입력</option>
+									<option value="">직접입력</option>
 									<option value="naver.com">네이버</option>
 									<option value="hanmail.net">다음</option>
 									<option value="nate.com">네이트</option>
@@ -200,9 +196,9 @@
 				    
 		<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6">
-								<input type="button" value="가입하기" id="joinInsert" class="btn btn-default"/>
-								<input type="button" value="재작성" id="joinReset" class="btn btn-default"/>
-								<input type="button" value="취소" id="joinCancel" class="btn btn-default"/>
+								<input type="button" value="가입하기" id="adminJoinInsert" class="btn btn-default"/>
+								<input type="button" value="재작성" id="adminJoinReset" class="btn btn-default"/>
+								<input type="button" value="취소" id="adminJoinCancel" class="btn btn-default"/>
 						</div>
 		</div>			
 					

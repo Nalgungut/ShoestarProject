@@ -44,7 +44,7 @@ function chkData(item, msg){
 	}
 }
 
-/*formCheck(유효성 체크 대상, 출력 영역, 메시지 내용)*/
+/*formCheck(유효성 체크 대상, 출력 영역, 메시지 내용)
 function formCheck(main, item, msg){
 	if(main.val().replace(/\s/g,"")==""){
 		item.html(msg+" 입력해 주세요.");
@@ -53,9 +53,9 @@ function formCheck(main, item, msg){
 	} else {
 		return true;
 	}
-}
+}*/
 
-// 갤러리 05-21
+// 이미지
 /* 함수명 : chkFile(파일명)
  * 설명 : 이미지 파일 여부를 확인하기 위해 확장자 확인 함수
  * */
@@ -73,5 +73,44 @@ function chkFile(item) {
 	}
 }
 
+// 숫자 06-11
+/*
+ * 함수명 : (숫자)
+ * 설명 : 값이 비어있으면 false
+ * 출력영역: alert
+ * 예시: if(!chkNumber($("#number"), "숫자를")) return;
+ */
+function chkNumber(item, msg){
+	if(item.val() == null || item.val().replace(/\s/g,"")==""){
+		alert(msg+ " 입력해 주세요.");
+		item.val("");
+		item.focus();
+		return false;
+	} else {
+		return true;
+	}
+}
 
+// 퍼센트 값 할인율 1~99
+function chkPercent(item, msg){
+	if(item.val() <= 0 || item.val() >= 100){
+		alert(msg+ " 1~99값 사이의 숫자만 입력할 수 있습니다.");
+		item.val("");
+		item.focus();
+		return false;
+	} else {
+		return true;
+	}
+}
 
+// 할인가 값 1~999,999,999
+function chkKrw(item, msg){
+	if(item.val() <= 0 || item.val() >= 9999999){
+		alert(msg+ " 1 ~ 9,999,998 사이의 숫자만 입력할 수 있습니다.");
+		item.val("");
+		item.focus();
+		return false;
+	} else {
+		return true;
+	}
+}

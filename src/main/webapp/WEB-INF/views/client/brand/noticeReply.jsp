@@ -11,7 +11,7 @@
 		<link rel="shortcut icon" type="image⁄x-icon" href="/resources/images/icon.png" />
 		<link rel="apple-touch-icon" type="image⁄x-icon" href="/resources/images/icon.png" />
 		
-		
+		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="/resources/include/js/searchNotice.js"></script>
 		<!-- [if lt IE 9]>
 			<script src="/resources/include/js/html5shiv.js"></script>
@@ -19,7 +19,7 @@
            <script type="text/javascript">
            var message="",btnkind="";
            $(function(){
-        	   
+        	   //기존댓글 불러오기
                var no_no = ${detail.no_no};
                listAll(no_no);
                
@@ -90,7 +90,7 @@
                                	 "Content-Type":"application/json",
                                    "X-HTTP-Method-Override" : "PUT"},
                                 data:JSON.stringify({
-                               	 r_content:$("#r_content").val()
+                               	 re_content:$("#re_content").val()
                                	 }),
                                    dataType:'text',
                                    error:function(){
@@ -101,7 +101,7 @@
                                    	if(result == "SUCCESS"){
                                    		alert("수정이 완료되었습니다.")
                                    		$('#replyModal').modal('hide');
-                                   		listAll(b_num);
+                                   		listAll(no_no);
                                    	}
                                    }
                                 });
@@ -173,21 +173,24 @@
                      console.log("list count : "+data.length);
                      replyCnt = data.length;
                      $(data).each(function(){
-                        var re_content = this.re_content;
-                        re_content = re_content.replace(/(\r\n|\r|\n)/g, "<br/>");
-                        addItem(re_content);
+                    	 var re_no = this.re_no;
+                    	 var mem_no = this.mem_no;
+                    	 var re_date = this.re_date;
+                         var re_content = this.re_content;
+                         re_content = re_content.replace(/(\r\n|\r|\n)/g, "<br/>"); 
+                         addItem(re_no, mem_no, re_date, re_content);
                      });
                   }).fail(function(){
-                     /* alert("댓글 목록을 불러오는데 실패하였습니다."); */
+                     alert("댓글 목록을 불러오는데 실패하였습니다.");
                   });
                }
             
-               function addItem(r_content){
+                function addItem(re_content){
                    
                    //새로운 글이 추가될 div태그 객체
                    
                    var wrapper_div = $("<div>");
-                   wrapper_div.attr("data-num", r_num);
+                   wrapper_div.attr("data-num", re_no);
                    wrapper_div.addClass("panel panel-default");
                    
                    var new_div = $("<div>");
@@ -200,11 +203,11 @@
                    
                    //작성일시
                    var date_span = $("<span>");
-                   date_span.html(" / " + r_date + " ");
+                   date_span.html(" / " + re_date + " ");
                    
                    //수정하기 버튼
-                  /*  var upBtn = $("<input>");
-                   upBtn.attr({"type" : "button" , "value" : "수정하기"}); */
+                   // var upBtn = $("<input>");
+                   // upBtn.attr({"type" : "button" , "value" : "수정하기"}); 
                    var upBtn = $("<button>");
                    upBtn.attr({"type" : "button"});
                    upBtn.attr("data-btn", "upBtn");
@@ -212,8 +215,8 @@
                    upBtn.html("수정하기");
                    
                    //삭제하기 버튼
-                   /* var delBtn = $("<input>");
-                   delBtn.attr({"type" : "button" , "value" : "삭제하기"}); */
+                   // var delBtn = $("<input>");
+                   // delBtn.attr({"type" : "button" , "value" : "삭제하기"}); 
                    var delBtn = $("<button>");
                    delBtn.attr({"type" : "button"});
                    delBtn.attr("data-btn", "delBtn");
@@ -230,7 +233,7 @@
                    new_div.append(name_span).append(date_span).append(upBtn).append(delBtn);
                    wrapper_div.append(new_div).append(content_div);
                    $("#reviewList").append(wrapper_div);
-                }
+                } 
              
             
              //입력 폼 초기화

@@ -1,5 +1,5 @@
 $(function(){
-	/*codeCheck();*/ 
+	/*adminCodeCheck();*/
         		$('#adm_id, #adm_pwd').bind("keyup", function(){
         			$(this).parents("div").find(".error").html("");
         		});
@@ -12,14 +12,14 @@ $(function(){
         			else{
         				$("#adminLoginForm").attr({
         					"method":"POST",
-        					"action":"/member/adminLogin"
+        					"action":"/adminMember/adminLogin"
         				});
-        				$("#adminLoginForm").submit();
+        				$("#LoginForm").submit();
         			}
         		});
         		
         	 	//회원가입 버튼 클릭시 처리 이벤트
         		$("#adminJoinBtn").click(function(){
-        			location.href="/member/adminJoin";
+        			location.href="/adminMember/adminJoin";
         		}); 
         	});

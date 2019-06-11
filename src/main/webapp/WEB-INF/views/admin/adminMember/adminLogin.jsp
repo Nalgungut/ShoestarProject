@@ -77,11 +77,11 @@
            <script type="text/javascript">
            $(function(){
         	   $("#find_admId_btn").click(function(){
-        		   location.href="/member/find_id_form";
+        		   location.href="/adminMember/find_id_form";
         	   });
         	   
         	   $("#find_admPwd_btn").click(function(){
-        		   location.href="/member/find_admPwd_form";
+        		   location.href="/adminMember/find_admPwd_form";
         	   });
            });
          
@@ -105,20 +105,20 @@
 		<div class="limiter">
 		<c:if test="${adminLogin.adm_id != null and adminLogin.adm_id != ''}">
 		  	<fieldset id="loginAfter">
-		  		<%-- <legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend> --%>
+		  		<legend>[${adminLogin.adm_name}]님, 관리자로 로그인 되었습니다</legend>
 			  		<span id="memberMenu" class="tac">
-			  			<a href="/member/adminLogout">로그아웃</a>
-			  			<a href="/member/adminModify">정보수정</a>
-			  			<a href="/member/adminDelete">회원탈퇴</a>
+			  			<a href="/adminMember/adminLogout">로그아웃</a>
+			  			<a href="/adminMember/adminModify">정보수정</a>
+			  			<a href="/adminMember/adminDelete">회원탈퇴</a>
 			  		</span>
 		  	</fieldset>
 		  </c:if> 
 		<div class="container-login100">
 			<div class="wrap-login100">
 			<c:if test="${adminLogin.adm_id == null or adminLogin.adm_id == ''}"> 
-				<form id="loginForm" class="form-horizontal">
+				<form id="adminLoginForm" class="form-horizontal">
 					<span class="login100-form-title p-b-26">
-						ShoeStar<br>슈즈스타
+						ShoeStar<br>관리자로그인
 					</span>
 					<!-- <span class="login100-form-title p-b-48">
 						<i class="zmdi zmdi-font"></i>
@@ -140,8 +140,8 @@
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
 					</div>
 					
-					<input type="button" id="find_adminId_btn" name="find_adminId_btn" class="btn btn-default" value="아이디찾기">
-					<input type="button" id="find_adminPwd_btn" name="find_adminPwd_btn" class="btn btn-default" value="비밀번호 찾기">
+					<!-- <input type="button" id="find_adminId_btn" name="find_adminId_btn" class="btn btn-default" value="관리자ID찾기">
+					<input type="button" id="find_adminPwd_btn" name="find_adminPwd_btn" class="btn btn-default" value="관리자PWD찾기"> -->
 
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
@@ -150,9 +150,9 @@
 								로그인
 							</button>
 						</div>
-					</div>
+					</div>	
 
-					<div class="text-center p-t-115">
+					<!-- <div class="text-center p-t-115">
 						<span class="txt1">
 							관리자계정생성 &nbsp;
 						</span>
@@ -160,7 +160,7 @@
 						<a class="txt2" id="adminJoinBtn">
 							클릭
 						</a>
-					</div>
+					</div> -->
 					
 				</form>
 				</c:if> 

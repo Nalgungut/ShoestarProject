@@ -7,6 +7,7 @@
 			INNER JOIN member m ON q.mem_no = m.mem_no 
 			INNER JOIN orders o on o.od_no=q.od_no 
 			WHERE m.mem_no = #{mem_no}
+			order by q.qna_no desc
 	</select>
 	
 	<select id="qnaDetail" parameterType="int" resultType="qna">
@@ -17,4 +18,33 @@
 			WHERE qna_no = #{qna_no}
 			
 	</select>
+	
+	<update id="qnaUpdate" parameterType="qna">
+		UPDATE qna
+			SET qna_title = #{qna_title}
+				, qna_content = #{qna_content}
+				, qna_date = sysdate
+				, od_no = #{od_no}
+		where qna_no = #{qna_no}
+	</update>
+	
+	<select id="qnaOrders" parameterType="int" resultType="com.shoestar.client.orders.vo.OrdersVO">
+		SELECT
+			*
+		FROM
+			orders
+		WHERE
+			mem_no = #{mem_no}
+		ORDER BY
+			od_no DESC
+	</select>
+	
+	<insert id="qnaInsert" parameterType="qna">
+		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
+			select qna_seq.nextval from dual
+		</selectKey>
+		
+		INSERT INTO qna(qna_no, mem_no, od_no, qna_title, qna_content, qna_ctgr)
+		values(#{qna_no}, #{mem_no}, #{od_no}, #{qna_title}, #{qna_content}, #{qna_ctgr})	
+	</insert>
 </mapper>

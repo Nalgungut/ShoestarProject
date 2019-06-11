@@ -1,5 +1,5 @@
 $(function(){
-	/*codeCheck();*/ 
+	CodeCheck();
         		$('#mem_id, #mem_pwd').bind("keyup", function(){
         			$(this).parents("div").find(".error").html("");
         		});
@@ -14,7 +14,7 @@ $(function(){
         					"method":"POST",
         					"action":"/member/login"
         				});
-        				$("#loginForm").submit();
+        				$("#adminLoginForm").submit();
         			}
         		});
         		

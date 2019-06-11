@@ -165,12 +165,12 @@
 						
 						<tr>
 							<td class="Avent_td bgray tdW">번호</td>
-							<td class="Avent_td bgray">이벤트명</td>
-							<td class="Avent_td bgray">이벤트 내용</td>
+							<td class="Avent_td bgray tsize">이벤트명</td>
+							<td class="Avent_td bgray consize">이벤트 내용</td>
 							<td class="Avent_td bgray">이벤트 시작일</td>
 							<td class="Avent_td bgray">이벤트 종료일</td>
 							<td class="Avent_td bgray tdW">상태</td>
-							<td class="Avent_td bgray tdW">보기</td>
+							<td class="Avent_td bgray tdW">미리 보기</td>
 							<td class="Avent_td bgray tdW">수정</td>
 							<td class="Avent_td bgray tdW">삭제</td>
 						</tr>

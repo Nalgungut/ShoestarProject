@@ -16,5 +16,22 @@
 				ORDER BY rd_date ASC
 	</select>
 	
+	<!-- 상세 조회 -->
+	<select id="AdminRDiscountDetail" parameterType="rds" resultType="rds">
+				SELECT 
+					rd_no, 
+					rd_title, 
+					rd_content, 
+					rd_discount,
+					rd_date, 
+					rd_edate
+				FROM 
+					range_discount 
+				WHERE 
+					rd_no = #{rd_no}		
+	
+	
+	
+	</select>
 </mapper>
 

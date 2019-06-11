@@ -103,10 +103,6 @@
 		<script type="text/javascript">
            
            
-           /* 전역변수 */
-           var message = "입력한 비밀번호를 입력해 주세요.",  btnKind="", galleryNum = 0;
-
-           
            $(function(){
               listData();
               
@@ -286,95 +282,21 @@
                     $.getJSON("/gallery/galleryData", $("#f_search").serialize(), function(data){
                        console.log("length: " + data.length);
                        $(data).each(function(index){
-                          var g_num = this.g_num;
-                          var g_name = this.g_name;
-                          var g_subject = this.g_subject;
-                          var g_content = this.g_content;
-                          var g_thumb = this.g_thumb;
-                          var g_file = this.g_file;
-                          var g_date = this.g_date;
+                          var ar_no = this.ar_no;
+                          var ar_subject = this.ar_subject;
+                          var ar_content = this.ar_content;
+                          var ar_file = this.ar_file;
                           console.log("index : "+index);
-                          thumbnailList(g_num, g_name, g_subject, g_content, g_thumb, g_file, g_date, index);
+                          thumbnailList(ar_no, ar_subject, ar_content, ar_file, index);
                        });
                     }).fail(function(){
                        alert("목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
                     });
                  }
            
-                 /* 글 삭제를 위한 Ajax 연동 처리 */
-                 function deleteBtn(){
-                    if(confirm("선택한 내용을 삭제하시겠습니까?")){
-                       $.ajax({
-                          url : "/gallery/galleryDelete",
-                          type : "post",
-                          data : "g_num="+galleryNum,
-                          dataType : "text",
-                          error : function(){
-                             alert('시스템 오류입니다. 관리자에게 문의해주세요.');
-                          },
-                          success : function(data){
-                        	 /* alert('삭제 성공')
-                        	 listData(); */
-                             if(data == '성공'){ // 여기부분이 인식이 안되던거 xml 에서 select 가 아니라 delete 로 수정
-                            	console.log("삭제성공");
-                             	alert("삭제 성공");
-                                galleryNum = 0;
-                                listData();
-                             }
-                          }
-                       });
-                    }
-                 }
                  
-                 /*수정 폼 구현 함수*/
-                 function updateForm(){
-                    $("#f_writeForm > input[type='hidden'],#f_writeForm .image_area > img").remove();
-                    $.ajax({
-                       url : "/gallery/galleryDetail",
-                       type : "get",
-                       data : "g_num="+galleryNum,
-                       dataType : "json",
-                       error : function(){
-                          alert('시스템 오류 입니다. 관리자에게 문의하세요');
-                       },
-                       success : function(data){
-                          $("#g_name").val(data.g_name);
-                          $("#g_subject").val(data.g_subject);
-                          $("#g_content").val(data.g_content);
-                          
-                          var input_num = $("<input>");
-                          input_num.attr({"type":"hidden","name":"g_num"});
-                          input_num.val(data.g_num);
-                          
-                          var input_file = $("<input>");
-                          input_file.attr({"type":"hidden","name":"g_file"});
-                          input_file.val(data.g_file);
-                          
-                          var input_thumb = $("<input>");
-                          input_thumb.attr({"type":"hidden","name":"g_thumb"});
-                          input_thumb.val(data.g_thumb);
-                          
-                          var img = $("<img>");
-                          img.attr({"src":"/uploadStorage/gallery/thumbnail/"+data.g_thumb,
-                             "alt":data.g_subject});
-                          img.addClass("img-rounded margin_top");
-                          
-                          $("#f_writeForm").append(input_num).append(input_file).append(input_thumb);
-                          $(".image_area").append(img);
-                          $("#g_name").attr("readonly", "readonly");
-                          
-                          setModal("갤러리 수정", "updateBtn", "수정");
-                          $('#galleryModal').modal();
-                       }
-                    });
-                 }
            
-            /* 폼 초기화 작업 */
-            function dataReset(){
-               $("#f_writeForm").each(function(){
-                  this.reset();
-               });
-            }
+         
             
             //modal 초기화 작업
             function setModal(title, value, text){

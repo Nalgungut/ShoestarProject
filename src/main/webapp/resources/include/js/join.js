@@ -37,7 +37,7 @@ $(function(){
 		$('.error').eq(index).html(message[index]);
 	});
 	
-	$('#mem_id, #mem_pwd, #userPwdCheck, #phone').bind("focus", function(){
+	$('#mem_id, #mem_pwd, #userPwdCheck, #mem_phone').bind("focus", function(){
 		var mem_no = $("#mem_id, #mem_pwd, #userPwdCheck, #mem_phone").index(this);
 		//console.log("대상 : " + dix);
 		$(this).parents(".form-group").find(".error").html(message[mem_no]);

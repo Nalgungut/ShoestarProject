@@ -119,7 +119,7 @@
 					</div>
 					
 					<div class="form-group form-group-sm">
-						<label for="mem_phone" class="col-sm-2 control-label">생년월일</label>
+						<label for="mem_birth" class="col-sm-2 control-label">생년월일</label>
 							<div class="col-sm-3">
 								${member.mem_birth}
 							</div>

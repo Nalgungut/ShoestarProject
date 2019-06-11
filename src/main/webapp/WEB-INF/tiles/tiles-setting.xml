@@ -47,6 +47,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/brand/{1}.jsp"/>
 	</definition>
 	
+	<definition name="admin/adminMember/*" extends="content">
+		<put-attribute name="body" value="/WEB-INF/views/admin/adminMember/{1}.jsp"/>
+	</definition>
+	
 	
 	
 	<!-- ############################# 관리자 페이지 ############################# -->
@@ -64,6 +68,10 @@
 	<definition name="admin/product/*" extends="admin">
 		<put-attribute name="body" value="/WEB-INF/views/admin/product/{1}.jsp"></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/views/admin/product/prodSidebar.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="admin/adminMember/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/adminMember/{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>

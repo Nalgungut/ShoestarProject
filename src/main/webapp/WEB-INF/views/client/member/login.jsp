@@ -64,11 +64,8 @@
            
             
             <style>
-            	#loginAfter{
-            	font-size:14px;}
-            	
-            	.tac{float:right;
-            		text-color:blue;}
+            .hi{
+            text-align:center;}
             	
             </style>
             <!-- lightbox 라이브러리 -->
@@ -140,9 +137,12 @@
 						<span class="focus-input100" data-placeholder="비밀번호"></span>
 					</div>
 					
+					<div class="hi">
 					<input type="button" id="find_id_btn" name="find_id_btn" class="btn btn-default" value="아이디찾기">
 					<input type="button" id="find_pwd_btn" name="find_pwd_btn" class="btn btn-default" value="비밀번호 찾기">
+					</div>
 
+		
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>

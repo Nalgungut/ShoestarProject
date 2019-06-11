@@ -17,7 +17,8 @@
 			<li><a href="/admin/event/list">이벤트</a></li>
 			<li><a href="/admin/cscenter/csAdminMain">문의</a></li>
 			<li><a href="#">회원</a></li>
-			<li><a href="/member/adminLogin">관리자로그인</a></li> <!-- 임시 -->
+			<li><a href="/adminMember/adminLogin">관리자로그인</a></li>
+			<li><a href="/adminMember/adminJoin">관리자계정생성</a></li> <!-- 임시 -->
 			<%-- 
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
