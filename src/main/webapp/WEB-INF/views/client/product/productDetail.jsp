@@ -30,6 +30,9 @@
 				getColorInfo();
 				getImageList();
 				getSizeList();
+				
+				//purchaseNow 즉시 구매
+				//toCart 카트 추가
 			});
 			
 			// 색상 정보 읽어오기
@@ -176,7 +179,7 @@
 							<button type="button" id="purchaseNow"
 								class="btn btn-block">바로구매</button>
 							<!-- 장바구니 -->
-							<button type="button" id="cart"
+							<button type="button" id="toCart"
 								class="btn btn-default btn-block">장바구니</button>
 						</div>
 					</form>

@@ -162,7 +162,9 @@ function createPinsBox(pinsVO, pinoToExclude) {
 function createImageBox(pimVO, largeImage, thumbSize) {
 	
 	// li
-	var pimli = $("<li>").addClass("pimThumbList");
+	var pimli = $("<li>").addClass("pimThumbList text-center").css({
+		"width":thumbSize
+	});
 	if(largeImage && largeImage.attr("src") == "") {
 		largeImage.attr("src", PROD_IMAGE_STORATE_URL + pimVO.pim_file);
 		pimli.addClass("pimSelected");

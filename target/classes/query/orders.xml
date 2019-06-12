@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.client.orders.dao.OrdersDao">
+	
+	<sql id="cartInfo">
+		cart.pi_no, cart.mem_no, cart.ps_size, cart_qty,
+		<include refid="com.shoestar.client.prod.dao.ProdDao.prodInfo"/>
+	</sql>
+	
+	<select id="cartListByMemNo" parameterType="int" resultType="cart">
+		SELECT
+			<include refid="cartInfo"/>
+		FROM
+			cart
+			INNER JOIN
+				prod_ins
+			ON
+				prod_ins.pi_no = cart.pi_no
+			INNER JOIN
+				prod
+			ON
+				prod_ins.pd_no = prod.pd_no
+		WHERE
+			mem_no = #{mem_no}
+		ORDER BY
+			cart.pi_no
+	</select>
+	
+</mapper>

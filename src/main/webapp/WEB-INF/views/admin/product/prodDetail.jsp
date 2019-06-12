@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="/resources/include/css/product.css" />
 		<link rel="stylesheet" href="/resources/include/css/prodAdmin.css" />
 		<link rel="stylesheet" href="/resources/include/css/productDetail.css" />
+		<script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 		<script type="text/javascript" src="/resources/include/js/productCommon.js"></script>
 		<script type="text/javascript" src="/resources/include/js/prodAdmin.js"></script>
 		<script type="text/javascript" src="/resources/include/js/product.js"></script>
@@ -51,6 +52,8 @@
 				
 				// 색상 정보 읽어오기
 				getColorInfo($("#colorList"));
+				
+				// 이미지 정보 읽어오기
 				getImageList($("#pimList"));
 			});
 			
@@ -178,7 +181,7 @@
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
-								var pimli = createImageBox(stack, null, 120);
+								var pimli = createImageBox(stack, null, 180);
 								pimli.append(createImageActions(stack, pimmain));
 								target.append(pimli);
 							});
