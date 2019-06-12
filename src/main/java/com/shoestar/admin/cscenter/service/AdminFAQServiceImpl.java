@@ -23,4 +23,11 @@ public class AdminFAQServiceImpl implements AdminFAQService {
 		
 		return list;
 	}
+	
+	@Override
+	public int faqDelete(int faq_no) {
+		int result = 0;
+		result = fdao.faqDelete(faq_no);
+		return result;		
+	}
 }

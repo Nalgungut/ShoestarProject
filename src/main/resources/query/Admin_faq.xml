@@ -7,4 +7,8 @@
 		INNER JOIN faq_ctg fc 
 		ON f.fc_no = fc.fc_no
 	</select>
+	
+	<delete id="faqDelete" parameterType="com.shoestar.admin.cscenter.vo.AdminFAQVO">
+		DELETE FROM faq WHERE faq_no = #{faq_no}
+	</delete>
 </mapper>

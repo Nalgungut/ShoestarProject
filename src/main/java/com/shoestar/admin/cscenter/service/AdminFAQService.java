@@ -8,4 +8,6 @@ public interface AdminFAQService {
 
 	public List<AdminFAQVO> faqList(AdminFAQVO fvo);
 
+	public int faqDelete(int faq_no);
+
 }

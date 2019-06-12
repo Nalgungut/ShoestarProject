@@ -38,4 +38,19 @@ public class AdminHomeCSController {
 		return "admin/cscenter/csAdminMain";
 	}
 	
+	@RequestMapping(value="/faqDelete")
+	public String faqDelete(@ModelAttribute AdminFAQVO fvo) {
+		int result = 0;
+		String url = "";
+		result = faqService.faqDelete(fvo.getFaq_no());
+		
+		if(result == 1) {
+			url = "/admin/cscenter/";
+		}else {
+			url = "/admin/cscenter/";
+		}
+		
+		return "redirect:" + url;
+	}
+	
 }
