@@ -39,11 +39,12 @@
 	</head>
    
 	<body>
+		<%-- <h1>여기에 떠야함 ${qvo.qna_no}</h1> --%>
 		<div class="contentContainer container-fluid">
 			<div class="contentTit page-header"><h3 class="text-center">1:1게시판 수정</h3></div>
 			<div class="contentTB">
 				<form id="f_updateForm">
-					<input type="hidden" name="qna_no" id="qna_no" value= />
+					<input type="hidden" name="qna_no" id="qna_no" value= "${qvo.qna_no}"/>
 					<input type="hidden" name="mem_no" id="mem_no" value="${login.mem_no}"/>
 					<div class="form-group">
 						<label for="mem_name">작성자</label>

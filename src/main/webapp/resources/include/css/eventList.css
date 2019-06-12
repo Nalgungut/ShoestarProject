@@ -11,13 +11,15 @@ hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px
 
 #EventTable{border-collapse: collapse;}
 
-.Event_td{padding: 30px; border: 1px solid #595959;}
+.Event_td{padding: 30px; /* border: 1px solid #595959; */}
+
+.topBorder{border-top: 2px solid #595959;}
 
 #EviewImage{color: red;}
 
-.EventTitle{color: gray;}
+.EventTitle{color: black; margin-left: 10px; }
 
-.EventTitle:hover{text-decoration: none;}
+.EventTitle:hover{text-decoration: none; font-weight: bold; color: gray;}
 
 #EvnetViewTable{height: 480; overflow: hidden;}
 
@@ -26,7 +28,7 @@ hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px
  
  } 
  
- 
+ .thumbnail{border-color: black;border: none;}
  
 /* .siz{
 

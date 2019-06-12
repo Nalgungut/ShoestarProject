@@ -59,7 +59,7 @@ public class QNAController {
 			List<OrdersVO> result = qnaService.qnaOrders(mem_no);
 			
 			model.addAttribute("orders", result);
-			
+			model.addAttribute("qvo",qvo);
 			return "client/cscenter/qnaUpdateForm";
 		}
 		
@@ -67,6 +67,7 @@ public class QNAController {
 		public String qnaUpdate(@ModelAttribute QNAVO qvo, Model model) {
 			int result = 0;
 			String url = "";
+			
 			result = qnaService.qnaUpdate(qvo);
 			if(result == 1) {
 				url = "/cscenter/qnaBoard";
@@ -95,6 +96,22 @@ public class QNAController {
 				url = "/cscenter/qnaBoard";
 			}
 			return "redirect:" + url;
+		}
+		
+		@RequestMapping(value="/qnaDelete")
+		public String qnaDelete(@ModelAttribute QNAVO qvo) {
+			int result = 0;
+			String url = "";
+			result = qnaService.qnaDelete(qvo.getQna_no());
+			
+			
+			if(result == 1) {
+				url = "/cscenter/qnaBoard";
+			}else {
+				url = "/cscenter/qnaDetail?qna_no="+qvo.getQna_no();
+			}
+			
+			return "redirect:"+url;
 		}
 		
 }

@@ -1,0 +1,97 @@
+
+hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px;}
+
+table{text-align: center; border-collapse: collapse;}
+
+.Rcaption{text-align: left; margin-bottom: 15px; font-weight: bold; color: black; font-size: 15pt;}
+
+.RD_td, .RD_tdInput{border: 1px solid black; padding: 7px;}
+#AvnetViewTable .Avent_td, #RDViewTable .RD_td{width: 150px;}
+#AventSearchBtn{margin: 5px;}
+.gray {background-color: #EDF0F5; font-weight: bold;}
+.bgray {background-color: #B1BDC7; color: white; font-weight: bold;}
+#AventListTable, #AvnetViewTable, #insertTable, #RDViewTable, #RDListTable{width: 100%;}
+#AvnetViewTable tr, #RDViewTable tr{height: 30px;}
+#AvnetViewTable td, #AventListTable td , #RDViewTable td, #RDListTable td {border-top: 1px solid black; padding: 10px;}
+.Avent_tdInput, .RD_tdInput{
+    width: 1230px; text-align: left;
+}
+.AventPreviewBtn, .RDViewBtn{width: 5px;}
+
+.tdW, .AventUpdateBtn, .AventPreviewBtn, .RDViewBtn, .RDUpdateBtn{width: 60px;}
+.Abtn{
+	background-color: #E1E5E7; height: 40px; border: none; 
+}
+.Abtn:hover{
+	background-color: #D2D7D9;
+}
+
+#insertBtn, #insertFormBtn, #eventCancelBtn, 
+#eventListBtn, #updateFormBtn, #rang_disBtn, #eventBtn,
+#RDListBtn, #RDCancelBtn{
+	
+	font-size: 17px;
+	height: 50px; border:none;
+	background-color: #2166B5; color: white; width: 90px;
+}
+
+#insertBtn{
+	font-size: 16px;
+ 	/* margin-left: 1060px; */ width: 120px;
+ }
+ 
+#rang_disBtn, #eventBtn{
+	font-size: 16px;
+ 	margin-left: 560px; width: 140px;
+}
+
+.daNum:hover{
+	background-color: #F2F2F5;
+}
+
+
+
+/* 관리자 검색 리스트 td 사이즈 변경 */
+#AvnetViewTable td.gray , #RDViewTable td.gray{width: }
+
+/* 관리자 검색 버튼 */
+#searchData{
+	font-size: 17px;
+	height: 50px; border:none;
+	background-color: #2166B5; color: white; width: 90px; margin-top: 15px;
+}
+
+#insertBtn:hover, #insertFormBtn:hover, #eventCancelBtn:hover, 
+#eventListBtn:hover, #searchData:hover, #updateFormBtn:hover, 
+#rang_disBtn:hover, #eventBtn:hover, #RDListBtn:hover, #RDCancelBtn:hover{
+	background-color: #1C589C;
+}
+
+/* 이벤트 등록 + 수정 화면 */
+#insertTable, #updateTable {
+	border-collapse: collapse; text-align: left; width: 1100px; height: 50px;
+}
+
+#insertTable td, #updateTable td{height: 30px;}
+
+#insertTable td.Avent_td, #updateTable td.Avent_td, 
+#insertTable td.RD_td, #updateTable td.RD_td{ 
+	width:150px; padding: 10px; padding-left: 5px; padding-right: 5px; 
+}
+
+#insertTable td.Avent_tdInput, #updateTable td.Avent_tdInput, 
+#insertTable td.RD_tdInput, #updateTable td.RD_tdInput
+{width: 80px;}
+
+.marginLeft{padding: 0px; margin: 0px; }
+
+.btns {margin-top: 20px; text-align: center;}
+
+
+/* 범위할인 페이지 css */
+#disSelect{height: 28px;}
+
+/* admin 전체 페이지 margin */
+
+/* .Aventcontainer, .RDcontainer{margin-top: 80px; }
+#AventList, #RDList{margin-bottom: 140px;} */

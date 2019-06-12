@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="/resources/include/css/eventList.css" >
+<link rel="stylesheet" href="/resources/include/css/rdisList.css" >
 <script type="text/javascript"
 	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
 

@@ -27,10 +27,15 @@
 		li{list-style: none; }
 		*{text-align: left;}
 		#rowEventArea{margin-top: 100px;}
-		.thumbnail{width: 315px; height: 145px; }
-		#thumImg{width: 315px; height: 138px;}
+		.thumbnail{
+			/* width: 315px; height: 145px; */ 
+			width: 315px; height: 145px;
+			padding: 0px; 
+		}
+		#thumImg{/* width: 315px; height: 145px; */width: 100%; height: 100%;}
 		#cols{width: 340px;}
 		.Event_td{padding: 0px;}
+		.ts{width: 293px;}
 	</style>
 
 	<script type="text/javascript">
@@ -108,7 +113,7 @@
 							<!-- 시작 -->
 							
 							<!-- 이벤트 제목인  event_tab_A~D를 hover하면 그 제목에 해당하는 이미지로 뜬다. -->
-							<td rowspan="5" class="Event_td" id="liSize">
+							<td rowspan="7" class="Event_td" id="liSize">
 
 									<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 									
@@ -161,11 +166,14 @@
 							</td>
 						</tr>
 					
+						<tr>
+							<td style="border-bottom: 2px solid #595959;"></td></tr>
+					
 						<!-- 이벤트 4개 선택하면 그 항목 보이고 선택 안하면 최신별4개 ex: -->
 						<c:forEach var="evt" items="${eventList}" varStatus="status" end="3">
 							<tr class="evtno" data-num="${evt.ev_no}">
 								
-								<td class="Event_td" style="padding: 30px">
+								<td class="Event_td ts topBorder" style="padding: 30px">
 									<ul>
 										<li>
 											<a class="EventTitle" data-title="${status.index}" data-thumb="${evt.ev_thumb}">
@@ -178,6 +186,8 @@
 							</tr>
 						</c:forEach>
 						
+						<tr>
+							<td style="border-top: 2px solid #595959;"></td></tr>
 					</table>
 					
 <!-- 					

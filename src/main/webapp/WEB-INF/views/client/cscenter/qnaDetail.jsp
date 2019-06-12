@@ -24,7 +24,19 @@
 	     		});
 	     		
 	     		$("#qnaDeleteBtn").click(function(){
-	     			
+	     			$.ajax({
+	     				url : "/cscenter/qnaDelete",
+	     				type : "post",
+	     				data : "qna_no="+$("#qna_no").val(),
+	     				dataType : "text",
+	     				error: function(){
+	     					alert("답글이 달린글은 삭제할수 없습니다");	
+	     				},
+	     				success : function(){
+	     					qna_no = 0;
+	     					location.href="/cscenter/qnaBoard";
+	     				}
+	     			});
 	     		});
 	      	});
 	      

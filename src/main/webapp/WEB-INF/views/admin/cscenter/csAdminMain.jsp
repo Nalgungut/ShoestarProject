@@ -10,8 +10,45 @@
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap-theme.min.css">
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
-		<script type="text/javascript" src="/resources/include/js/common.js"></script>
 		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		$(function(){	
+    		
+    		$("#insertBtn").click(function(){
+    			
+    		});
+    		
+    		$(".faqDeleteBtn").click(function(){
+    			var faq_no = $(this).parents("tr").attr("data-num");
+    			console.log(faq_no);
+    			$.ajax({
+    				url : "/admin/cscenter/faqDelete",
+    				type : "post",
+    				data : "faq_no="+faq_no,
+    				dataType : "text",
+    				error : function(){
+    					alert("에러입니다 제작사에게 문의해주세요");    					
+    				},
+    				success : function(){
+
+    					alert('삭제성공');
+    					location.href="/admin/cscenter/";
+    				}
+    			});
+    		});
+    	});
+		
+		
+		/* function setModal(title, value, text){
+			$("#faqModalLabel").html(title);
+			
+			
+		}
+		
+		function dataReset(){
+			$("")
+		} */
+		</script>
 	</head>
    
 	<body>
@@ -84,11 +121,92 @@
 			</table>
 		</div>
 		
-			<h3>게시물 등록</h3>
-			<button type="button"  class="btn btn-primary">자주 묻는 질문 등록하기</button>
-			<button type="button"  class="btn btn-primary">자주 묻는 질문 수정하기</button>
-			<button type="button"  class="btn btn-primary">자주 묻는 질문 삭제하기</button>
-		
-		
+			<h3>자주묻는 질문 리스트</h3>
+			<button type="button" id="insertBtn" class="btn btn-primary">자주 묻는 질문 등록하기</button>
+			<!-- <button type="button"  class="btn btn-primary">자주 묻는 질문 수정하기</button>
+			<button type="button"  class="btn btn-primary">자주 묻는 질문 삭제하기</button> -->
+			<br>
+			<div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+	           <div class="modal-dialog">
+	             <div class="modal-content">
+	               <div class="modal-header">
+	                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                 <h4 class="modal-title" id="faqModalLabel">자주묻는질문 등록</h4>
+	               </div>
+	               <div class="modal-body">
+	                 <form id="f_writeForm" name="f_writeForm">
+	                   <div class="form-group">
+	                     <select id="fc_no">
+	                     	<option value="1">주문/결제</option>
+	                     	<option value="2">취소/반품</option>
+	                     	<option value="3">상품/배송</option>
+	                     	<option value="4">이벤트</option>
+	                     	<option value="5">기타</option>
+	                     </select>
+	                   </div>
+	                   <div class="form-group">
+	                     <label for="faq_title" class="control-label">글제목</label>
+	                     <input type="text" class="form-control" id="faq_title" name="faq_title" maxlength="5">
+	                   </div>
+	                   <div class="form-group">
+	                      <label for="faq_content" class="control-label">글내용</label>
+	                      <textarea class="form-control" name="faq_content" id="faq_content" rows="4"></textarea>
+	                   </div>
+	                 </form>
+	               </div>
+	               <div class="modal-footer">
+	                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	                 <button type="button" class="btn btn-primary" id="faqInsertBtn">등록</button>
+	               </div>
+	             </div>
+	           </div>
+	         </div>	
+	         <br>
+	         <div class="container-fluid">
+      <div class="row-fluid">
+      	
+        <div class="span9">
+          <!-- 리스트시작 -->
+          <div id="provisionList"> 	
+	          <div class="row-fluid">     
+			         <table summary="FAQ리스트" class="table">
+					 	<colgroup>
+					 		<col width="10%"/>
+					 		<col width="20%"/>
+					 		<col width="50%"/>
+					 		<col width="20%"/>
+					 	</colgroup>        	
+					 	<thead>
+					 		<tr>
+					 			<th data-value="fc_name">분류유형</th>
+					 			<th data-value="faq_title">제목</th>
+					 			<th data-value="faq_content">내용</th>
+					 			<th data-value="faq_date">작성일</th>
+					 		</tr>
+					 	</thead>
+					          <c:choose>
+					          	<c:when test="${not empty faqList}">
+					          		<c:forEach var="faq" items="${faqList}" varStatus="status">
+					          			<tr class="span4" data-num="${faq.faq_no}" data-value="${faq.fc_no}">
+					          				<td>${faq.fc_name}</td>
+											<td>${faq.faq_title}</td>
+					          				<td>${faq.faq_content}</td>
+					          				<td><input type="button" class="btn btn-default faqDeleteBtn" data-num="${faq.faq_no}"  value="삭제하기"/>&nbsp;<input type="button" class="btn btn-default faqUpdateBtn" id="faqUpdateBtn" value="수정하기"/></td>
+					          			</tr>
+					          		</c:forEach>
+					          	</c:when>
+					          	<c:otherwise>
+					        		<div class="span4">
+					        			<h2>게시글이 존재하지 않습니다</h2>
+					        		</div>
+					          	</c:otherwise>
+					          </c:choose>
+	            	</table>
+	          </div><!--/row-->
+	        </div><!--/span-->
+	      </div><!--/row-->
+		</div><!--/faqList  -->
+      <hr>
+    </div><!--/.fluid-container-->
 	</body>
 </html>

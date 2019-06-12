@@ -87,11 +87,11 @@
 			
 			new_div.append(qr_no_span).append(date_span).append(upBtn).append(delBtn);
 			wrapper_div.append(new_div).append(content_div);
-			$("#reviewList").append(wrapper_div);
+			$("#qnaReplyList").append(wrapper_div);
 		}
 		
 		function listAll(qna_no){
-			$("#reviewList").html("");
+			$("#qnaReplyList").html("");
 			var url = "/replies/all/" + qna_no + ".json";
 			
 			$.getJSON(url, function(data){
@@ -122,7 +122,7 @@
 			</p>
 			
 			<!-- 리스트 영역 -->
-			<div id="reviewList"></div>
+			<div id="qnaReplyList"></div>
 			
 			<!-- 등록 화면 영역(modal) -->
 			<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
