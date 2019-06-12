@@ -17,6 +17,8 @@
 					calculatePriceTotal(checkBoxSelected());
 				});
 				
+				// TODO: 구매 기능
+				
 				// 선택 구매 버튼
 				$("#purchaseSelected").click(function() {
 					alert(itemsIntoJson(true));
@@ -27,7 +29,23 @@
 					alert(itemsIntoJson(false));
 				});
 				
-				// TODO: 구매 기능
+				// 항목 삭제 버튼
+				$(".deleteCartItem").click(function() {
+					var i_pi_no = $(this).closest("tr.itemRecord").attr("data-pino");
+					var i_ps_size = $(this).closest("tr.itemRecord").attr("data-size");
+					var dataJson = [{"pi_no":i_pi_no,"ps_size":i_ps_size}];
+					var cartAjaxJson = removeFromCartAjax(dataJson);
+					
+					cartAjaxJson["success"] = function(data) {
+						if(data >= 1) {
+							location.reload();
+						} else {
+							alert("카트 상품 정보를 삭제할 수 없었습니다.");
+						}
+					}
+					
+					$.ajax(cartAjaxJson);
+				});
 			});
 			
 			// 선택 된 체크박스가 있는지 확인하는 함수
@@ -66,9 +84,9 @@
 			}
 			
 			
-			// 물품들을 결제 폼으로 넘길 json 형태로 만드는 함수
+			// 물품들을 결제 폼으로 넘길 json의 array 형태로 만드는 함수
 			function itemsIntoJson(onlySelected) {
-				var stringToFormat = "";
+				var resultData = [];
 				
 				$(".orderTable > tbody > tr").each(function() {
 					if(onlySelected && !$(this).find("input.itemSelect").prop("checked")) {
@@ -79,20 +97,11 @@
 					var i_ps_size = $(this).attr("data-size");
 					var i_oi_qty = $(this).find("select.itemQty").val();
 					
-					var priceSection = $(this).find(".priceSection");
-					
-					var i_oi_org_price = priceSection.attr("data-original");
-					var i_oi_price = priceSection.attr("data-finalPrice");
-					
-					var singleData = '{"pi_no":'+i_pi_no+',"ps_size":'+i_ps_size+',"oi_qty":'+i_oi_qty+
-						',"oi_org_price":'+i_oi_org_price+',"oi_price":'+i_oi_price+'}';
-					stringToFormat = stringToFormat + "," + singleData;
+					var singleData = {"pi_no":i_pi_no,"ps_size":i_ps_size,"oi_qty":i_oi_qty};
+					resultData.push(singleData);
 				});
 				
-				stringToFormat = stringToFormat.substring(1, stringToFormat.length);
-				stringToFormat = "[" + stringToFormat + "]";
-				
-				return stringToFormat;
+				return resultData;
 			}
 		</script>
 	</head>
@@ -123,7 +132,7 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th>번호</th>
+						<th>상품 번호</th>
 						<th>이미지</th>
 						<th>상품 이름</th>
 						<th>색상</th>
@@ -136,7 +145,7 @@
 				
 				<!-- 항목 아이템 -->
 				<tbody><c:choose><c:when test="${not empty cartlist}"><c:forEach items="${cartlist}" var="stack">
-					<tr data-pino="${stack.pi_no}" data-size="${stack.ps_size}">
+					<tr data-pino="${stack.pi_no}" data-size="${stack.ps_size}" class="itemRecord">
 						<td><input type="checkbox" name="itemSelect" class="itemSelect"></td>
 						<td>${stack.pi_no}</td>
 						<td><c:choose>

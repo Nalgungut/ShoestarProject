@@ -27,83 +27,113 @@
 				} catch (e) {
 				}
 				
-				getColorInfo();
-				getImageList();
-				getSizeList();
-				
-				//purchaseNow 즉시 구매
-				// 카트에 추가
-				$("#toCart").click("");
+				getColorInfo($("#colorList"));
+				getImageList($("#thumbList"));
+				getSizeList($("#ps_size"));
+
 				// TODO: 카트에 추가하는 작업 및 즉시 구매 작업
+				// 카트에 추가
+				$("#toCart").click(function() {
+					addToCart($("#purchaseForm"));
+				});
+				// 즉시 구매
+				$("#purchaseNow").click(function() {
+					
+				});
 			});
 			
 			// 색상 정보 읽어오기
-			function getColorInfo() {
-				$("#colorList").html("");
+			function getColorInfo(target) {
+				target.html("");
 				
 				$.ajax({
 					url : "/product/pinsList/" + pd_no,
 					type : "get",
 					dataType : "json",
 					error : function() {
-						$("#colorList").append(createErrorList("색상 정보를 불러오는데 실패했습니다."));
+						target.append(createErrorList("색상 정보를 불러오는데 실패했습니다."));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
-								$("#colorList").append(createPinsBox(stack, pi_no));
+								target.append(createPinsBox(stack, pi_no));
 							});
-							if($("#colorList").html() == "") {
-								$("#colorList").append(createErrorList("다른 색상이 없습니다."));
+							if(target.html() == "") {
+								target.append(createErrorList("다른 색상이 없습니다."));
 							}
 						} else {
-							$("#colorList").append(createErrorList("색상 정보가 비어있습니다."));
+							target.append(createErrorList("색상 정보가 비어있습니다."));
 						}
 					}
 				});
 			}
 			
 			// 이미지 정보 읽어오기
-			function getImageList() {
-				$("#thumbList").html("");
+			function getImageList(target) {
+				target.html("");
 				
 				$.ajax({
 					url : "/product/imageList/" + pi_no,
 					type : "get",
 					dataType : "json",
 					error : function() {
-						$("#thumbList").append(createErrorList("이미지 정보를 불러오는데 실패했습니다."));
+						target.append(createErrorList("이미지 정보를 불러오는데 실패했습니다."));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
-								$("#thumbList").append(createImageBox(stack, $("#productImageLarge")));
+								target.append(createImageBox(stack, $("#productImageLarge")));
 							});
 						} else {
-							$("#thumbList").append(createErrorList("이미지 정보가 없습니다."));
+							target.append(createErrorList("이미지 정보가 없습니다."));
 						}
 					}
 				});
 			}
 			
 			// 사이즈 정보 읽어오기
-			function getSizeList() {
-				$("#ps_no").html("");
+			function getSizeList(target) {
+				target.html("");
 				
 				$.ajax({
 					url : "/product/psList/" + pi_no,
 					type : "get",
 					dataType : "json",
 					error : function() {
-						$("#ps_no").append(createErrorList("사이즈 정보를 불러오는 데 실패했습니다.", "option").prop("disabled", true));
+						target.append(createErrorList("사이즈 정보를 불러오는 데 실패했습니다.", "option").prop("disabled", true));
 					},
 					success : function(data) {
 						if(!jQuery.isEmptyObject(data)) {
 							$.each(data, function(index, stack) {
-								$("#ps_no").append(createSizeOption(stack));
+								target.append(createSizeOption(stack));
 							});
 						} else {
-							$("#ps_no").append(createErrorList("사이즈 정보가 비어있습니다.", "option").prop("disabled", true));
+							target.append(createErrorList("사이즈 정보가 비어있습니다.", "option").prop("disabled", true));
+						}
+					}
+				});
+			}
+			
+			function addToCart(target) {
+				$.ajax({
+					url : "/orders/addCart",
+					type : "post",
+					data : target.serialize(),
+					dataType : "text",
+					error : function() {
+						alert("서버 오류로 장바구니에 상품을 추가할 수 없었습니다.");
+					},
+					success : function(result) {
+						if(result == "duplicate") {
+							if(confirm("이미 장바구니에 추가 된 상품입니다.\n장바구니 페이지로 이동하시겠습니까?")) {
+								location.href = "/orders/cart";
+							}
+						} else if(result == "success") {
+							if(confirm("성공적으로 장바구니에 추가되었습니다.\n장바구니 페이지로 이동하시겠습니까?")) {
+								location.href = "/orders/cart";
+							}
+						} else {
+							alert("장바구니에 상품을 추가할 수 없었습니다.");
 						}
 					}
 				});
@@ -156,19 +186,19 @@
 				
 				<!-- 상품 구매를 위한 색상/사이즈/수량 폼 -->
 				<div class="detailPurchaseSection">
-					<form class="purchaseForm form-horizontal col-md-12">
+					<form id="purchaseForm" class="purchaseForm form-horizontal col-md-12">
 						<div class="form-group">
 							<!-- 제품 번호 -->
 							<input type="hidden" name="pi_no" value="${pins.pi_no}" class="form-control">
 						</div>
 						<!-- 사이즈 -->
 						<div class="form-group">
-							<label for="ps_no">사이즈</label>
-							<select name="ps_no" id="ps_no" required="required" class="form-control input-lg">
+							<label for="ps_size">사이즈</label>
+							<select name="ps_size" id="ps_size" required="required" class="form-control input-lg">
 							</select>
 							<!-- 수량 -->
-							<label class="" for="ps_qty">수량</label>
-							<select name="ps_qty" id="ps_qty" required="required" class="form-control input-lg">
+							<label for="cart_qty">수량</label>
+							<select name="cart_qty" id="cart_qty" required="required" class="form-control input-lg">
 								<c:forEach begin="1" end="5" var="i">
 									<option value="${i}">${i}</option>
 								</c:forEach>

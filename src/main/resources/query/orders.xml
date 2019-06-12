@@ -27,4 +27,41 @@
 			cart.pi_no
 	</select>
 	
+	<select id="duplicateCheck" parameterType="cart" resultType="int">
+		SELECT
+			NVL((
+				SELECT
+					1
+				FROM
+					cart
+				WHERE
+					pi_no = #{pi_no} AND
+					ps_size = #{ps_size} AND
+					mem_no = #{mem_no}
+			), 0) AS dupcheck
+		FROM
+			DUAL
+	</select>
+	
+	<insert id="addToCart" parameterType="cart">
+		INSERT INTO
+			cart
+			(pi_no, ps_size, mem_no, cart_qty)
+		VALUES
+			(#{pi_no}, #{ps_size}, #{mem_no}, #{cart_qty})
+	</insert>
+	
+	<delete id="removeFromCart">
+		DELETE FROM
+			cart
+		WHERE
+			<foreach collection="cartlist" item="cvo" separator="OR">
+			(
+				pi_no = #{cvo.pi_no} AND
+				ps_size = #{cvo.ps_size} AND
+				mem_no = #{cvo.mem_no}
+			)
+			</foreach>
+	</delete>
+	
 </mapper>

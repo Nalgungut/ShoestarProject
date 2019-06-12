@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.orderTable > thead > tr > th, .orderTable > thead > tr > td, 
+.orderTable > thead > tr > th, .orderTable > thead > tr > td,
 .orderTable > tbody > tr > th, .orderTable > tbody > tr > td,
 .orderTable > tfoot > tr > th, .orderTable > tfoot > tr > td
 {

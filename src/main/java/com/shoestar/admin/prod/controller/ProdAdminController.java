@@ -27,9 +27,7 @@ import com.shoestar.common.exception.ResourceNotFoundException;
 import com.shoestar.common.vo.PageDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin/product/*")

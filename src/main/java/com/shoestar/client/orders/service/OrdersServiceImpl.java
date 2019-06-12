@@ -21,4 +21,23 @@ public class OrdersServiceImpl implements OrdersService {
 		return result;
 	}
 
+	@Override
+	public String addToCart(CartVO cvo) {
+		String result = "";
+		
+		if(ordersDao.duplicateCheck(cvo) == 1) {
+			result = "duplicate";
+		} else {
+			int insertResult = ordersDao.addToCart(cvo);
+			result = insertResult == 1 ? "success" : "failure";
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int removeFromCart(List<CartVO> cvo) {
+		int result = ordersDao.removeFromCart(cvo);
+		return result;
+	}
 }
