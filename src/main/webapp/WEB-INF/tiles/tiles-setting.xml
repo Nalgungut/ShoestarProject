@@ -35,6 +35,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp"/>
 	</definition>
 	
+	<definition name="client/myPage/*" extends="content">
+		<put-attribute name="body" value="/WEB-INF/views/client/myPage/{1}.jsp"/>
+	</definition>
+	
 	<definition name="client/cscenter/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/client/cscenter/{1}.jsp"/>
 	</definition>

@@ -60,6 +60,7 @@ public class LoginServiceImpl implements LoginService{
 		PrintWriter out = response.getWriter();
 		LoginVO mem_pwd = loginDao.find_pwd(mem_id);
 		
+		
 		if (mem_pwd == null) {
 			out.println("<script>");
 			out.println("alert('가입된 아이디가 없습니다.');");
