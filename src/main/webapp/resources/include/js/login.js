@@ -1,5 +1,5 @@
 $(function(){
-	CodeCheck();
+	/*CodeCheck();*/
         		$('#mem_id, #mem_pwd').bind("keyup", function(){
         			$(this).parents("div").find(".error").html("");
         		});
