@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.cscenter.dao.AdminFAQDao">
+	<select id="faqList" parameterType="com.shoestar.admin.cscenter.vo.AdminFAQVO" resultType="com.shoestar.admin.cscenter.vo.AdminFAQVO">
+		SELECT f.faq_no, f.faq_title, f.faq_content, f.faq_date, f.fc_no, fc.fc_name
+		FROM faq f 
+		INNER JOIN faq_ctg fc 
+		ON f.fc_no = fc.fc_no
+	</select>
+</mapper>

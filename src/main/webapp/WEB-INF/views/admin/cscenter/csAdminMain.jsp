@@ -12,6 +12,13 @@
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="/resources/include/js/common.js"></script>
 		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+		$(function(){	
+    		
+    		var fc_no = $(".span4").attr("data-value")
+    		
+    	});
+		</script>
 	</head>
    
 	<body>
@@ -86,9 +93,101 @@
 		
 			<h3>게시물 등록</h3>
 			<button type="button"  class="btn btn-primary">자주 묻는 질문 등록하기</button>
-			<button type="button"  class="btn btn-primary">자주 묻는 질문 수정하기</button>
-			<button type="button"  class="btn btn-primary">자주 묻는 질문 삭제하기</button>
-		
-		
+			<!-- <button type="button"  class="btn btn-primary">자주 묻는 질문 수정하기</button>
+			<button type="button"  class="btn btn-primary">자주 묻는 질문 삭제하기</button> -->
+			
+			<div class="modal fade" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+	           <div class="modal-dialog">
+	             <div class="modal-content">
+	               <div class="modal-header">
+	                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                 <h4 class="modal-title" id="replyModalLabel">자주묻는질문 등록</h4>
+	               </div>
+	               <div class="modal-body">
+	                 <form id="f_writeForm" name="f_writeForm">
+	                   <div class="form-group">
+	                     <select id="fc_no">
+	                     	<option value=1>주문/결제</option>
+	                     	<option value=2>취소/반품</option>
+	                     	<option value=3>상품/배송</option>
+	                     	<option value=4>이벤트</option>
+	                     	<option value=5>기타</option>
+	                     </select>
+	                   </div>
+	                   <div class="form-group">
+	                     <label for="g_subject" class="control-label">글제목</label>
+	                     <input type="text" class="form-control" id="faq_subject" name="faq_title" maxlength="5">
+	                   </div>
+	                   <div class="form-group">
+	                      <label for="g_content" class="control-label">글내용</label>
+	                      <textarea class="form-control" name="faq_content" id="faq_content" rows="4"></textarea>
+	                   </div>
+	                 </form>
+	               </div>
+	               <div class="modal-footer">
+	                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	                 <button type="button" class="btn btn-primary" id="faqInsertBtn">등록</button>
+	               </div>
+	             </div>
+	           </div>
+	         </div>	
+	         
+	         <div class="container-fluid">
+      <div class="row-fluid">
+      	<div class="buttonForm">
+	        <a id="order" class="btn btn-default">주문/결제</a>
+	        <a id="cancel" class="btn btn-default">취소/반품</a>
+	        <a id="goods" class="btn btn-default">상품/배송</a>
+	        <a id="event" class="btn btn-default">이벤트</a>
+	        <a id="exc" class="btn btn-default">기타</a>
+        </div>
+        <div class="span9">
+          <!-- 리스트시작 -->
+          <div id="provisionList"> 	
+	          <div class="row-fluid">     
+			         <table summary="FAQ리스트" class="table">
+					 	<colgroup>
+					 		<col width="10%"/>
+					 		<col width="20%"/>
+					 		<col width="50%"/>
+					 		<col width="20%"/>
+					 	</colgroup>        	
+					 	<thead>
+					 		<tr>
+					 			<th data-value="fc_name">분류유형</th>
+					 			<th data-value="faq_title">제목</th>
+					 			<th data-value="faq_content">내용</th>
+					 			<th data-value="faq_date">작성일</th>
+					 		</tr>
+					 	</thead>
+					          <c:choose>
+					          	<c:when test="${not empty faqList}">
+					          		<c:forEach var="faq" items="${faqList}" varStatus="status">
+					          			<div class="span4" data-num="${faq.faq_no}" data-value="${faq.fc_no}">
+					          				<div id="form-control">
+					          					<p>${faq.fc_name}</p>
+					          				</div>
+											<div id="form-control">
+					          					<p>${faq.faq_title}</p>
+					          				</div>
+					          				<div id="form-control">
+					          					<p>${faq.faq_content}</p>
+					          				</div>
+					          			</div>
+					          		</c:forEach>
+					          	</c:when>
+					          	<c:otherwise>
+					        		<div class="span4">
+					        			<h2>게시글이 존재하지 않습니다</h2>
+					        		</div>
+					          	</c:otherwise>
+					          </c:choose>
+	            	</table>
+	          </div><!--/row-->
+	        </div><!--/span-->
+	      </div><!--/row-->
+		</div><!--/faqList  -->
+      <hr>
+    </div><!--/.fluid-container-->
 	</body>
 </html>

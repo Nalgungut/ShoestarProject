@@ -85,7 +85,7 @@
           	<div class="entry">
 	           	<figure>
 	           		<img src="/resources/images/cscenter/notice.png" class="img-polaroid"/>
-	           		<figcaption><a href="#">공지사항</a></figcaption>
+	           		<figcaption><a href="/cscenter/notice">공지사항</a></figcaption>
 	           	</figure>
 	          	
 	         </div>
