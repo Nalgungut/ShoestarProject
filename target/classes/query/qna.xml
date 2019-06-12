@@ -24,6 +24,7 @@
 			SET qna_title = #{qna_title}
 				, qna_content = #{qna_content}
 				, qna_date = sysdate
+				, qna_ctgr = #{qna_ctgr}
 				, od_no = #{od_no}
 		where qna_no = #{qna_no}
 	</update>
@@ -47,4 +48,8 @@
 		INSERT INTO qna(qna_no, mem_no, od_no, qna_title, qna_content, qna_ctgr)
 		values(#{qna_no}, #{mem_no}, #{od_no}, #{qna_title}, #{qna_content}, #{qna_ctgr})	
 	</insert>
+	
+	<delete id="qnaDelete" parameterType="qna">
+		DELETE FROM qna WHERE qna_no = #{qna_no}
+	</delete>
 </mapper>

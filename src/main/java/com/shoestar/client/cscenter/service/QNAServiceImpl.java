@@ -57,5 +57,11 @@ public class QNAServiceImpl implements QNAService {
 		result = qdao.qnaUpdate(qvo);
 		return result;
 	}
-
+	
+	@Override
+	public int qnaDelete(int qna_no) {
+		int result = 0;
+		result = qdao.qnaDelete(qna_no);
+		return result;
+	}
 }

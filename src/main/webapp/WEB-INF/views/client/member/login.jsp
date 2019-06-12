@@ -100,16 +100,16 @@
 	<div class="contentContainer">
 	
 		<div class="limiter">
-		<c:if test="${login.mem_id != null and login.mem_id != ''}">
+		<%-- <c:if test="${login.mem_id != null and login.mem_id != ''}">
 		  	<fieldset id="loginAfter">
-		  		<%-- <legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend> --%>
+		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
 			  		<span id="memberMenu" class="tac">
 			  			<a href="/member/logout">로그아웃</a>
 			  			<a href="/member/modify">정보수정</a>
 			  			<a href="/member/delete">회원탈퇴</a>
 			  		</span>
 		  	</fieldset>
-		  </c:if> 
+		  </c:if>  --%>
 		<div class="container-login100">
 			<div class="wrap-login100">
 			<c:if test="${login.mem_id == null or login.mem_id == ''}"> 

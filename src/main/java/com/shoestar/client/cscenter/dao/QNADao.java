@@ -17,4 +17,6 @@ public interface QNADao {
 
 	public int qnaUpdate(QNAVO qvo);
 
+	public int qnaDelete(int qna_no);
+	
 }

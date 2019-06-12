@@ -18,4 +18,6 @@ public interface QNAService {
 	public int qnaInsert(QNAVO qvo);
 
 	public int qnaUpdate(QNAVO qvo);
+
+	public int qnaDelete(int qna_no);
 }
