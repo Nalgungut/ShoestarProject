@@ -14,7 +14,7 @@ $(function(){
         					"method":"POST",
         					"action":"/adminMember/adminLogin"
         				});
-        				$("#LoginForm").submit();
+        				$("#adminLoginForm").submit();
         			}
         		});
         		

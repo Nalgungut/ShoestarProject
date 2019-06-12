@@ -69,7 +69,7 @@ public class AdminLoginController {
 	@RequestMapping("/adminLogout")
 	public String adminLogout(SessionStatus sessionStatus){
 		sessionStatus.setComplete();
-			return "redirect:/";
+			return "redirect:/adminMember/adminLogin";
 	}
 	
 		/*/////////////////// [아이디 찾기 폼]////////////////////////////
