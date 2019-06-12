@@ -24,7 +24,7 @@ public class ProdVO extends ProdFilterVO {
 	private String pd_year;
 	private String pd_manu;
 	private String pd_import;
-	private int pi_no;
+	private int pi_main;
 	private Date pd_date;
 	private String pd_status;
 	private String pim_main;

@@ -4,7 +4,8 @@
 	
 	<sql id="cartInfo">
 		cart.pi_no, cart.mem_no, cart.ps_size, cart_qty,
-		<include refid="com.shoestar.client.prod.dao.ProdDao.prodInfo"/>
+		<include refid="com.shoestar.client.prod.dao.ProdDao.prodInfo"/>,
+		<include refid="com.shoestar.client.prod.dao.ProdInsDao.pinsSubInfo"/>
 	</sql>
 	
 	<select id="cartListByMemNo" parameterType="int" resultType="cart">

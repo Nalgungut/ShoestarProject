@@ -32,7 +32,7 @@
 	<!--##################################### 검색해오는 prodvo 정보 #####################################-->
 	<sql id="prodInfo">
 		prod.pd_no, pd_name, pd_sex, pd_age, pct_no, co_no, pd_price,
-		pd_fabric, pd_country, pd_year, pd_manu, pd_import, prod.pi_no, pd_date, pd_status, pim_main,
+		pd_fabric, pd_country, pd_year, pd_manu, pd_import, prod.pi_no AS pi_main, pd_date, pd_status, pim_main,
 		<!-- 카테고리 이름 받기 -->
 		(
 		SELECT
@@ -45,7 +45,7 @@
 		<!-- 할인율 계산 하기 -->
 		(
 		NVL((
-			<include refid="dcmax"/>
+			<include refid="com.shoestar.client.prod.dao.ProdDao.dcmax"/>
 		), 0)
 		) AS pd_discount
 	</sql>

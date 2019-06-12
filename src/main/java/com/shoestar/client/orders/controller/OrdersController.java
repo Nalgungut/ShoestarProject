@@ -22,7 +22,7 @@ public class OrdersController {
 	private OrdersService ordersService;
 	
 	
-	@GetMapping("/cartList")
+	@GetMapping("/cart")
 	public String cartList(@SessionAttribute("login") LoginVO lvo, Model model) {
 		List<CartVO> list = ordersService.cartListByMemNo(lvo.getMem_no());
 		

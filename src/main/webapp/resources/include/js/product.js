@@ -106,8 +106,8 @@ function createProductDiv(prodVO) {
 	
 	if(pclno != null) {
 		hrefLink = hrefLink + "pd_no=" + prodVO.pd_no + "&color=" + pclno;
-	} else if(prodVO.pi_no != 0) {
-		hrefLink = hrefLink + "pi_no=" + prodVO.pi_no;
+	} else if(prodVO.pi_main != 0) {
+		hrefLink = hrefLink + "pi_no=" + prodVO.pi_main;
 	} else {
 		hrefLink = hrefLink + "pd_no=" + prodVO.pd_no;
 	}
