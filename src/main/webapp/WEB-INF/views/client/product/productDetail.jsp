@@ -48,6 +48,9 @@
 							$.each(data, function(index, stack) {
 								$("#colorList").append(createPinsBox(stack, pi_no));
 							});
+							if($("#colorList").html() == "") {
+								$("#colorList").append(createErrorList("다른 색상이 없습니다."));
+							}
 						} else {
 							$("#colorList").append(createErrorList("색상 정보가 비어있습니다."));
 						}
@@ -72,7 +75,7 @@
 								$("#thumbList").append(createImageBox(stack, $("#productImageLarge")));
 							});
 						} else {
-							$("#thumbList").append(createErrorList("이미지 정보를 불러오는데 실패했습니다."));
+							$("#thumbList").append(createErrorList("이미지 정보가 없습니다."));
 						}
 					}
 				});

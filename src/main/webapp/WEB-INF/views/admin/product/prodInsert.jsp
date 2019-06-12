@@ -58,22 +58,22 @@
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label">성별</label>
-					<div class="col-md-6 form-inline">
-						<input type="radio" id="pd_sex_m" name="pd_sex" value="m" checked="checked">
-						<label for="pd_sex_m" class="radioLabel">남성용</label>
-						<input type="radio" id="pd_sex_f" name="pd_sex" value="f">
-						<label for="pd_sex_f" class="radioLabel">여성용</label>
-						<input type="radio" id="pd_sex_u" name="pd_sex" value="u">
-						<label for="pd_sex_u" class="radioLabel">공용</label>
+					<div class="col-md-6 radio">
+						<label><input type="radio" id="pd_sex_m" name="pd_sex" value="m" checked="checked">
+						남성용</label>
+						<label><input type="radio" id="pd_sex_f" name="pd_sex" value="f">
+						여성용</label>
+						<label><input type="radio" id="pd_sex_u" name="pd_sex" value="u">
+						공용</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label">연령대</label>
-					<div class="col-md-6 form-inline">
-						<input type="radio" id="pd_age_a" name="pd_age" value="a" checked="checked">
-						<label for="pd_age_a" class="radioLabel">성인용</label>
-						<input type="radio" id="pd_age_k" name="pd_age" value="k">
-						<label for="pd_age_k" class="radioLabel">아동용</label>
+					<div class="col-md-6 radio">
+						<label><input type="radio" id="pd_age_a" name="pd_age" value="a" checked="checked">
+						성인용</label>
+						<label><input type="radio" id="pd_age_k" name="pd_age" value="k">
+						아동용</label>
 					</div>
 				</div>
 				<div class="form-group">
@@ -130,7 +130,7 @@
 				</div>
 				<div class="form-group">
 					<label for="pd_status" class="col-md-2 control-label">신상품 표시</label>
-					<div class="col-md-6 form-inline">
+					<div class="col-md-6">
 						<input type="checkbox" id="pd_status" name="pd_status" value="n" checked="checked">
 					</div>
 				</div>

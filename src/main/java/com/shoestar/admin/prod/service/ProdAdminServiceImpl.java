@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.shoestar.admin.prod.dao.ProdAdminDao;
 import com.shoestar.client.prod.dao.ProdDao;
+import com.shoestar.client.prod.dao.ProdInsDao;
+import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdVO;
 
 import lombok.AllArgsConstructor;
@@ -16,6 +18,7 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 	
 	private ProdDao prodDao;
 	private ProdAdminDao prodAdminDao;
+	private ProdInsDao prodInsDao;
 	
 	@Override
 	public List<ProdVO> prodlist(ProdVO pvo) {
@@ -80,5 +83,11 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 		int result = prodAdminDao.insertProd(pvo);
 		
 		return result == 1 ? pvo.getPd_no() : result;
+	}
+
+	@Override
+	public List<ProdInsVO> prodInsList(ProdVO pvo) {
+		List<ProdInsVO> result = prodInsDao.pinsListByProd(pvo);
+		return result;
 	}
 }

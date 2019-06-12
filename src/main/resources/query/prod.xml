@@ -55,7 +55,7 @@
 	<sql id="prodReq">
 		<!-- 상태값 -->
 		<trim prefix="AND"><choose>
-			<when test="pd_status == null or pd_status == ok">
+			<when test='pd_status == null or pd_status == "ok"'>
 				(pd_status IS NULL OR pd_status IN ('n', 'h', 'b'))
 			</when>
 			<when test='pd_status == "all"'>
