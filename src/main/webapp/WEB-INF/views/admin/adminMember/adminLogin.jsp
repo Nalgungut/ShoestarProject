@@ -86,7 +86,7 @@
            });
          
            //에러코드체크
-           function codeCheck(){
+           function adminCodeCheck(){
         	   var codeNumber = '<c:out value = "${codeNumber}"/>';
         	   if(codeNumber != ""){
         		   //명확한 자료형 명시를 위해 codeNumber의 타입을 정수형으로 변환

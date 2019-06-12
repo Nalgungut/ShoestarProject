@@ -38,6 +38,28 @@
 			</script>
 		</head>
 	<body>
-		
+		<div id="aside">
+		    <div class="lnb-wrap">
+		        <h2 class="txt"><span>쇼핑정보</span></h2>
+		        <ul class="lnb">
+		                        <li class="first"><a href="/shop/mypage.html?mypage_type=myorder">주문내역</a></li>
+		                                    <li><a href="/shop/mypage.html?mypage_type=mycoupon">쿠폰내역</a></li>
+		                                    <li><a href="/shop/mypage.html?mypage_type=myreserve">적립금내역</a></li>
+		                                    <li><a href="/shop/mypage.html?mypage_type=myemoney">예치금내역</a></li>
+		                                                <li><a href="/shop/todaygoods.html">오늘본상품</a></li>
+		                                    <li><a href="/shop/mypage.html?mypage_type=mywishlist">상품 보관함</a></li>
+		                    </ul>
+		        <h2 class="txt"><span>쇼핑문의</span></h2>
+		        <ul class="lnb">
+		                        <li class="first"><a href="/shop/mypage.html?mypage_type=myarticle">내 게시글 보기</a></li>
+		                                    <li><a href="/shop/mypage.html?mypage_type=myemail">E-mail 문의</a></li>
+		                                            </ul>
+		        <h2 class="txt"><span>회원정보</span></h2>
+		        <ul class="lnb">
+		                        <li class="first"><a href="/member/modify">회원정보변경</a></li>
+		                                    <li><a href="/member/delete">회원정보탈퇴신청</a></li>
+		                    </ul>
+		    </div><!-- .lnb-wrap -->
+		</div>
 	</body>
 </html>
