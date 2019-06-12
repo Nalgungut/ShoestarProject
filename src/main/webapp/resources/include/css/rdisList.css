@@ -1,53 +1,11 @@
-/* 제목 사이즈 */
-.tsize {width: 200px; }
-/* 내용 사이즈 */
-.consize{width: 300px;}
-td.gray {text-align: center;}
 
-/* client 이벤트 리스트 */
 hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px;}
 
-#EvconTitle{text-align: center; margin: 40px;}
+table{text-align: center; border-collapse: collapse;}
 
-#EventTable{border-collapse: collapse;}
+.Rcaption{text-align: left; margin-bottom: 15px; font-weight: bold; color: black; font-size: 15pt;}
 
-.Event_td{padding: 30px; /* border: 1px solid #595959; */}
-
-.topBorder{border-top: 2px solid #595959;}
-
-#EviewImage{color: red;}
-
-.EventTitle{color: black; margin-left: 10px; }
-
-.EventTitle:hover{text-decoration: none; font-weight: bold; color: gray;}
-
-#EvnetViewTable{height: 480; overflow: hidden;}
-
- a.EventImage img{
- 	width: 700px; height: 300px; 
- 
- } 
- 
- .thumbnail{border-color: black;border: none;}
- 
-/* .siz{
-
-	width: 100%;
-	height: 100%;
-	
-} */
-
-
-table{text-align: center;}
-
-/* 이벤트 상세 리스트 */
-#ev_content, #rd_content{text-align: left; float: left; margin: 10px;}
-
-
-/* Admin 이벤트 리스트 */
-.Acaption{text-align: left; margin-bottom: 15px; font-weight: bold; color: black; font-size: 15pt;}
-.table{border-collapse: collapse;}
-.Avent_td, .Avent_tdInput, .RD_td, .RD_tdInput{border: 1px solid black; padding: 7px;}
+.RD_td, .RD_tdInput{border: 1px solid black; padding: 7px;}
 #AvnetViewTable .Avent_td, #RDViewTable .RD_td{width: 150px;}
 #AventSearchBtn{margin: 5px;}
 .gray {background-color: #EDF0F5; font-weight: bold;}

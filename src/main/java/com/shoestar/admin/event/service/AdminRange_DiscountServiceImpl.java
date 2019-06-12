@@ -22,6 +22,7 @@ public class AdminRange_DiscountServiceImpl implements AdminRange_DiscountServic
 	@Setter(onMethod_ =@Autowired)
 	private AdminRange_DiscountDAO ARDao;
 	
+	// 목록 구현
 	@Override
 	public List<Range_DiscountVO> AdminRDiscountList(Range_DiscountVO rvo) {
 		log.info("목록 불러오기");
@@ -32,4 +33,25 @@ public class AdminRange_DiscountServiceImpl implements AdminRange_DiscountServic
 		return list;
 	}
 
+
+	// 상세정보
+	@Override
+	public Range_DiscountVO AdminRDiscountDetail(Range_DiscountVO rvo) {
+		Range_DiscountVO detail = new Range_DiscountVO();
+		
+		detail = ARDao.AdminRDiscountDetail(rvo);
+		
+		return detail;
+	}
+
+
+	@Override
+	public List<Range_DiscountVO> AdminDetail(Range_DiscountVO rvo) {
+		List<Range_DiscountVO> detail = null;
+		
+		detail = ARDao.AdminDetail(rvo);
+		
+		return detail;
+	}
+	
 }
