@@ -32,7 +32,9 @@
 				getSizeList();
 				
 				//purchaseNow 즉시 구매
-				//toCart 카트 추가
+				// 카트에 추가
+				$("#toCart").click("");
+				// TODO: 카트에 추가하는 작업 및 즉시 구매 작업
 			});
 			
 			// 색상 정보 읽어오기
@@ -161,7 +163,7 @@
 						</div>
 						<!-- 사이즈 -->
 						<div class="form-group">
-							<label class="" for="ps_no">사이즈</label>
+							<label for="ps_no">사이즈</label>
 							<select name="ps_no" id="ps_no" required="required" class="form-control input-lg">
 							</select>
 							<!-- 수량 -->

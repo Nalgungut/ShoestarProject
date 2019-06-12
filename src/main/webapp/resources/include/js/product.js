@@ -207,10 +207,12 @@ function createImageBox(pimVO, largeImage, thumbSize) {
  * @param pinsVO
  * @returns option 객체
  */
-function createSizeOption(pinsVO) {
-	var poption = $("<option>").attr("value", pinsVO.ps_no).text(pinsVO.ps_size);
-	if(pinsVO.ps_stock <= 0) {
+function createSizeOption(psVO) {
+	var poption = $("<option>").text(psVO.ps_size);
+	if(psVO.ps_qty <= 0) {
 		poption.prop("disabled", true).text(poption.text() + " 매진").addClass("outOfStock");
+	} else if(psVO.ps_status != null && psVO.ps_status != "") {
+		poption.prop("disabled", true).addClass("outOfStock");
 	}
 	
 	return poption;
