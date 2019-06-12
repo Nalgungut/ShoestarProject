@@ -51,12 +51,8 @@
 	<body>
 		
 		  	<fieldset id="loginAfter">
-		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
-			  		<span id="memberMenu" class="tac">
-			  			<a href="/member/logout">로그아웃</a>
-			  			<a href="/member/modify">정보수정</a>
-			  			<a href="/member/delete">회원탈퇴</a>
-			  		</span>
+		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다! 좋은 하루 되세요~!</legend>
+			  		
 		  	</fieldset>
 		  
 	</body>
