@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
    <html>
       <head>
@@ -10,7 +9,7 @@
          <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
          
-         <title>회원가입 완료</title>
+         <title>Insert title here</title>
          
          <!--모바일 웹 페이지 설정-->
          <link rel="shortcut icon" href="../image/icon.png"/>
@@ -25,36 +24,32 @@
          <!-- jQuery프레임워크 참조 -->         
            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-           <!-- <script type="text/javascript" src="/resources/include/js/common.js"></script> -->
-           <script type="text/javascript" src="/resources/include/js/html5shiv.js"></script>
+           <script type="text/javascript" src="/resources/include/js/common.js"></script>
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
-            <!-- <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
+            <link rel="stylesheet" href="/resources/include/css/default.css"/>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-            
-            <style>
-            	#loginAfter{
-            	float:center;
-            	}
-            </style>
             <!-- lightbox 라이브러리 -->
-           <!--  <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
+            <!-- <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
             <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script> -->
+            <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+			<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
            <script type="text/javascript">
-         /*   $(function(){
-        	   $("#loginBtn").click(function(){
-        		   location.href="/member";
-        	   });
-           }); */
-		   </script>
+           var naver_id_login = new naver_id_login("kiw9Q4mYKld8rhFWzGRr", "http://localhost:8080/");
+           // 접근 토큰 값 출력
+           alert(naver_id_login.oauthParams.access_token);
+           // 네이버 사용자 프로필 조회
+           naver_id_login.get_naver_userprofile("naverSignInCallback()");
+           // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+           function naverSignInCallback() {
+             alert(naver_id_login.getProfileData('email'));
+             alert(naver_id_login.getProfileData('nickname'));
+             alert(naver_id_login.getProfileData('age'));
+           }
+			</script>
 		</head>
 	<body>
 		
-		  	<fieldset id="loginAfter">
-		  		<legend><%-- [${adminLogin.adm_name}]님 어서오세요. --%> 관리자모드ON</legend>
-			  		
-		  	</fieldset>
-		  
 	</body>
 </html>

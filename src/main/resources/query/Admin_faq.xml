@@ -6,9 +6,27 @@
 		FROM faq f 
 		INNER JOIN faq_ctg fc 
 		ON f.fc_no = fc.fc_no
+		order by f.faq_no desc
 	</select>
 	
 	<delete id="faqDelete" parameterType="com.shoestar.admin.cscenter.vo.AdminFAQVO">
 		DELETE FROM faq WHERE faq_no = #{faq_no}
 	</delete>
+	
+	<insert id="faqInsert" parameterType="com.shoestar.admin.cscenter.vo.AdminFAQVO">
+		<selectKey keyProperty="faq_no" resultType="int" order="BEFORE">
+			select faq_seq.nextval from dual
+		</selectKey>
+		INSERT INTO faq(faq_no, faq_title, faq_content, fc_no)
+		VALUES(#{faq_no}, #{faq_title}, #{faq_content}, #{fc_no})
+	</insert>
+	
+	<update id="faqUpdate" parameterType="com.shoestar.admin.cscenter.vo.AdminFAQVO">
+		UPDATE faq
+			SET faq_title = #{faq_title}
+				,fc_no = #{fc_no}
+				,faq_content = #{faq_title}
+				,faq_date = sysdate
+		where faq_no = #{faq_no}
+	</update>
 </mapper>

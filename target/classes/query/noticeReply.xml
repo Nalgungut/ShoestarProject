@@ -4,19 +4,39 @@
 <mapper namespace="com.shoestar.client.brand.dao.NoticeReplyDao">
 	
 	<!-- 댓글 전체조회 (해당 게시물 번호) -->
-	<select id="replyList" parameterType="notice" resultType="com.shoestar.client.notice.vo.NoticeVO">
-		select r.re_no, r.mem_no, r.re_content, r.re_date, r.no_no 
+	<select id="replyList" parameterType="com.shoestar.client.brand.vo.NoticeReplyVO" resultType="com.shoestar.client.brand.vo.NoticeReplyVO">
+		select r.re_no, m.mem_name, r.re_content, r.re_date, r.no_no 
 			from notice_reply r
-			join notice n
+                join notice n 
 			on r.no_no = n.no_no
+            	join member m
+            on r.mem_no= m.mem_no
+			
 			where r.no_no = #{no_no}
 			order by r.re_no desc
 	</select>
 	
 	<!-- 댓글등록 -->
-	<!-- <insert id="replyInsert" parameterType="com.shoestar.client.brand.vo.NoticeReplyVO">
+	<insert id="replyInsert" parameterType="com.shoestar.client.brand.vo.NoticeReplyVO">
 		insert into notice_reply 
-			values(noticeReply2_seq.nextval,#{mem_name},#{re_content},sysdate,#{no_no}
+			values(noticeReply2_seq.nextval,#{mem_no},#{re_content},sysdate,#{no_no}
 			)
-	</insert> -->
+	</insert>
+	
+	<!-- 댓글수정 UPDATE notice_reply SET re_content = '내용내용' where re_no=14; -->
+	<update id="replyUpdate" parameterType="com.shoestar.client.brand.vo.NoticeReplyVO">
+		/*Reply - replyUpdate*/
+		
+		 UPDATE 
+		 notice_reply SET re_content = #{re_content}
+		 where re_no = #{re_no}
+	 </update>
+	
+	
+	<!--  댓글삭제  delete from notice_reply where re_no=13; -->
+	<delete id="replyDelete" parameterType="com.shoestar.client.brand.vo.NoticeReplyVO">
+		/* reply -replyDelete  */
+		delete from notice_reply where re_no = #{re_no}
+	</delete>
+	 
 </mapper>

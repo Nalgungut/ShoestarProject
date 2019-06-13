@@ -5,7 +5,7 @@
 	
 	
 	<!-- 브랜드 전체조회 -->
-	<select id="brandNewsList" parameterType="com.shoestar.client.brand.vo.BrandVO">
+	<select id="brandNewsList" parameterType="com.shoestar.client.brand.vo.BrandVO" resultType="com.shoestar.client.brand.vo.BrandVO">
 		select 
 			ar_no, ar_subject, ar_content, ar_file
 		from brand
@@ -14,7 +14,7 @@
 	
 	
 	<!-- 브랜드 뉴스 상세조회 -->
-	<select id="brandNewsDetail" parameterType="com.shoestar.client.brand.vo.BrandVO">
+	<select id="brandNewsDetail" parameterType="com.shoestar.client.brand.vo.BrandVO" resultType="com.shoestar.client.brand.vo.BrandVO">
 		select
 			ar_no, ar_subject, ar_content, ar_file
 		from brand

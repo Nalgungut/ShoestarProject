@@ -1,8 +1,10 @@
 package com.shoestar.client.cscenter.vo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class QNAReplyVO {
 	private int qr_no = 0;
 	private int qna_no = 0;
