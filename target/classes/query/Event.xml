@@ -10,10 +10,14 @@
 			<if test="search=='ev_title'">
 	            <![CDATA[ev_title LIKE '%'|| #{keyword} ||'%']]>
 	        </if>
-	        <if test="search=='ev_date'">
+	</sql>
+	
+	<!-- 
+		        <if test="search=='ev_date'">
 	            <![CDATA[ev_date LIKE #{keyword} ]]>
 	        </if> 
-	</sql>
+	
+	 -->
 
 	<!-- 이벤트 조회 -->
 	<select id="eventList" resultType="event">
@@ -37,7 +41,7 @@
 	
 	<!-- 관리자 이벤트 조회 -->
 	
-	<select id="AdmineventList" resultType="event" parameterType="event">
+<!-- 	<select id="AdmineventList" resultType="event" parameterType="event">
 				SELECT
 				    ev_no,
 				    ev_title,
@@ -49,35 +53,19 @@
 				FROM
 				    event
 				order by ev_no desc
-	</select>
+	</select> -->
 	
 	
-	<!-- 관리자 이벤트 리스트 조회(검색 처리부터) 06.10 -->
-	<!-- 위에서 sql 정의 -->
-    <!--   <select id="AdmineventList" parameterType="event" resultType="event">
-      <![CDATA[
-      select 
-             ev_no,  ev_title,  ev_content, ev_date, ev_edate
-      from (
-          select  /*+ INDEX_DESC(event event_pk) */
-              ev_no, ev_title, ev_date
-          from event
-             where ]]>
-             <trim prefix="(" suffix=") AND " prefixOverrides="AND">
-               <include refid="AdmineventSearch"></include>
-             </trim>
-      </select> -->
-	
-	
+
 	<!-- 관리자 이벤트 리스트 조회(페이징 처리와 검색 처리) 05.27 -->
 	<!-- 위에서 sql 정의 -->
-    <!--   <select id="AdmineventList" parameterType="event" resultType="event">
+      <select id="AdmineventList" parameterType="event" resultType="event">
       <![CDATA[
       select 
-             ev_no,  ev_title,  ev_content, ev_date, ev_edate
+             ev_no,  ev_title, ev_content, ev_date, ev_edate
       from (
           select  /*+ INDEX_DESC(event event_pk) */
-              rownum as rnum, ev_no, ev_title, ev_date
+              rownum as rnum, ev_no, ev_title, ev_content, ev_date, ev_edate
           from event
              where ]]>
              <trim prefix="(" suffix=") AND " prefixOverrides="AND">
@@ -85,8 +73,8 @@
              </trim>
             <![CDATA[ rownum <= #{pageNum} * #{amount}
             )
-             where rnum > (#{pageNum} -1) * #{amount} ]]>
-      </select> -->
+       where rnum > (#{pageNum} -1) * #{amount} ]]>
+      </select>
 	
 	<!-- 전체 레코드 수 조회 -->
 	<select id="AdmineventCnt" parameterType="event" resultType="int">

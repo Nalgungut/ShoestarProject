@@ -14,11 +14,16 @@
 <link rel="stylesheet" href="/resources/include/css/eventList.css" >
 <script type="text/javascript"
 	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/include/js/eventList.js"></script>
 
 <style type="text/css">
  a:link { text-decoration: none;}
  a:visited {text-decoration: none;}
  a:hover {text-decoration: underline;}
+ #searchData{
+	margin-top: 0px;
+}
+ 
 </style>
 
 
@@ -30,10 +35,26 @@
 		   if(word!=""){
 			  $("#keyword").val("<c:out value='${data.keyword}'/>");
 			  $("#search").val("<c:out value='${data.search}'/>");
-			 
-		   /* if() */
+
 	 	 }
-		
+		   
+	      
+		 // 검색 버튼 선택
+		 $("#searchData").click(function() {
+		       if($("#search").val()!="all"){
+		            if(!chkData("#keyword","검색어를")) return
+		         }
+		      goPage();	
+		 });
+ 
+			
+		 // 다음 페이지 볼 수 있는
+		 $(".paginate_button a").click(function(e){
+				e.preventDefault();
+		   		$("#AventSearchForm").find("input[name='pageNum']").val($(this).attr("href"));
+		   		goPage();
+		 });
+		 	 
 		
 		// 미리보기 선택
 		$(".AventPreviewBtn").click(function() {
@@ -89,11 +110,7 @@
 			 location.href = "/admin/event/rds/list";
 		 });
 		 
-		// 검색 버튼 선택
-		$("#searchData").click(function() {
-			
-		});
-		
+	 	 
 	}); // function
 	
 	 /* 검색을 위한 실질적인 처리 함수 */
@@ -117,7 +134,7 @@
 <body>
 	<div class="Aventcontainer">
 		<div class="Avent_header"><h2 id="AEvconTitle">이벤트 관리
-		<input type="button" value="범위할인 리스트" id="rang_disBtn" />
+		<input type="button" value="범위할인 리스트" id="rang_disBtn"/>
 		<input type="button" value="새로 만들기" id="insertBtn" /> 
 		</h2>
 				
@@ -125,34 +142,27 @@
 			
 		<!-- 검색 기능 -->
 		<div id="AventSearchDiv">	
-			<form id="AventSearchForm" >
+			<form id="AventSearchForm" name="AventSearchForm" >
 				<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
            		<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
            		
            		
-      			<table id="AvnetViewTable" class="table" >
-					<caption class="Acaption">이벤트 검색</caption>
-					<tr>
-						<td class="Avent_td gray" id="Aev_no">번호</td>
-						<td class="Avent_tdInput"><input type="text" id="no_text" class="keyword" placeholder="이벤트번호을 입력하세요" size="50" /></td>
-					</tr>
-					<tr>
-						<td class="Avent_td gray" id="Aev_title">이벤트명</td>
-						<td class="Avent_tdInput"><input type="text" id="name_text" class="keyword" placeholder="이벤트명을 입력하세요" size="50" /></td>
-					</tr>
-					<tr>	
-						<td class="Avent_td gray" id="Aev_date">등록일</td>
-						<td class="Avent_tdInput"><input type="date" id="date_text" class="keyword" placeholder="이벤트 등록날짜를 입력하세요" /></td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align: center;">
-							<input type="button" id="searchData" value="검색" />
-						</td>
-					</tr>
-				</table>
-      		
+           		<label>검색조건  </label>
+           		<div class="form-group"> 
+               <select id="search" name="search" class="formcontrol">
+                  <option value="all">전체</option>
+                  <option value="ev_no">번호</option>
+                  <option value="ev_title">이벤트명</option>
+               </select> 
+               <input type="text" placeholder="검색어를 입력해주세요" id="keyword"
+                  name="keyword" class="formcontrol"> 
+               <input type="button"
+                  value="검색" class="btn btn-primary" id="searchData">
+           		</div>
+           		
+           		
 			</form>
-			 </div>
+			 </div> <!-- 검색기능 -->
 		
 		<hr />
 		
@@ -174,6 +184,7 @@
 							<td class="Avent_td bgray tdW">수정</td>
 							<td class="Avent_td bgray tdW">삭제</td>
 						</tr>
+						
 						<c:forEach var="evt" items="${AdmineventList}" varStatus="status">
 							<tr class="daNum" data-num="${evt.ev_no}">
 								<td class="Avent_td tdW">${evt.ev_no}</td>
@@ -210,11 +221,35 @@
 							</tr>
 							
 						</c:forEach>
-						
 				</table>
 			</form>
 		
 		</div>
+		<%--============================리스트 종료========================== --%>
+	
+	   <%-- 페이징 처리 --%>
+	   <div class="text-center">
+	   		<ul class="pagination">
+	   			<c:if test="${pageMaker.prev}">
+	   				<li class="paginate_button" ><!-- previous -->
+	   					<a href="${pageMaker.startPage -1}">Previous</a>
+	   				</li>
+	   			</c:if>
+	   			
+	   			<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+	   				<li class="paginate_button ${pageMaker.cvo.pageNum == num ? 'active' : ''}">
+	   					<a href="${num}">${num}</a>
+	   				</li>
+	   			</c:forEach>
+	   			
+	   			<c:if test="${pageMaker.next}">
+	   				<li class="paginate_button next">
+	   					<a href="${pageMaker.endPage +1}">Next</a>
+	   				</li>
+	   			</c:if>
+	   		</ul>
+	   </div>	
+			
 			
 	</div>
 </body>
