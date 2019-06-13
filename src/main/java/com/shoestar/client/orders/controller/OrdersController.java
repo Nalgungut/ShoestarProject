@@ -1,6 +1,8 @@
 package com.shoestar.client.orders.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.login.vo.LoginVO;
 import com.shoestar.client.orders.service.OrdersService;
+import com.shoestar.client.orders.vo.CartListVO;
 import com.shoestar.client.orders.vo.CartVO;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +28,12 @@ public class OrdersController {
 	
 	private OrdersService ordersService;
 	
+	@RequestMapping(value="/checkStock", method={RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String checkStock(CartVO cvo) {
+		boolean result = ordersService.checkStock(cvo);
+		return String.valueOf(result);
+	}
 	
 	@GetMapping("/cart")
 	public String cartList(@SessionAttribute("login") LoginVO lvo, Model model) {
@@ -35,7 +44,7 @@ public class OrdersController {
 		return "client/orders/cartlist";
 	}
 	
-	@RequestMapping(value="/addCart", method={RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/addCart", method={RequestMethod.POST})
 	@ResponseBody
 	public String addToCart(@SessionAttribute("login") LoginVO lvo, CartVO cvo) {
 		cvo.setMem_no(lvo.getMem_no());
@@ -43,11 +52,10 @@ public class OrdersController {
 		return result;
 	}
 	
-	@RequestMapping(value="/removeCart", method={RequestMethod.POST, RequestMethod.GET},
+	@RequestMapping(value="/removeCart", method={RequestMethod.POST},
 			consumes={MediaType.APPLICATION_JSON_UTF8_VALUE})
 	@ResponseBody
 	public String removeFromCart(@RequestBody List<CartVO> cvo, @SessionAttribute("login") LoginVO lvo) {
-		//List<CartVO> cvo = carts.getCartList();
 		if(cvo.get(0).getMem_no() == 0) {
 			for (CartVO cartVO : cvo) {
 				cartVO.setMem_no(lvo.getMem_no());
@@ -56,5 +64,30 @@ public class OrdersController {
 		
 		int result = ordersService.removeFromCart(cvo);
 		return String.valueOf(result);
+	}
+
+	@RequestMapping(value="/purchase", method={RequestMethod.POST})
+	public String purchasePage(CartListVO clist, CartVO cvo, @SessionAttribute("login") LoginVO lvo, Model model) {
+		List<CartVO> list = clist.getCartlist();
+		
+		if(list == null) {
+			list = new ArrayList<>();
+		}
+		if(cvo != null && cvo.getPi_no() != 0) {
+			clist.getCartlist().add(cvo);
+		}
+		
+		if(list.get(0).getMem_no() == 0) {
+			for (CartVO cartVO : list) {
+				cartVO.setMem_no(lvo.getMem_no());
+			}
+		}
+		
+		Map<String, Object> result = ordersService.prodDataByCartList(list);
+		
+		model.addAttribute("items", result.get("success"));
+		model.addAttribute("errors", result.get("failed"));
+		
+		return "client/orders/purchase";
 	}
 }
