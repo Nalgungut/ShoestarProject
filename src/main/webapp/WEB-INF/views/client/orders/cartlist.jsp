@@ -12,21 +12,29 @@
 				// 상품 가격 계산 폼
 				calculatePriceTotal();
 				
+				// 상품 결제 전달 폼
+				$("#hiddenForm").attr(purchaseForm());
+				
 				// 수량 변경 시, 체크박스 변경 시 다시 계산
 				$(".itemQty, .itemSelect").on("change", function() {
 					calculatePriceTotal(checkBoxSelected());
 				});
 				
-				// TODO: 구매 기능
+				// 수량 변경 시 재고 확인
+				$(".itemQty").on("change", function() {
+					checkStock(serializeItemData($(this)), function() {
+						alert("수량이 부족합니다.");
+					});
+				});
 				
 				// 선택 구매 버튼
 				$("#purchaseSelected").click(function() {
-					alert(itemsIntoJson(true));
+					itemsIntoForm(true).submit();
 				});
 				
 				// 전체 구매 버튼
 				$("#purchaseAll").click(function() {
-					alert(itemsIntoJson(false));
+					itemsIntoForm(false).submit();
 				});
 				
 				// 항목 삭제 버튼
@@ -83,23 +91,50 @@
 				$("#totalPrice").text(priceTotal + "원");
 			}
 			
-			
-			// 물품들을 결제 폼으로 넘길 json의 array 형태로 만드는 함수
-			function itemsIntoJson(onlySelected) {
-				var resultData = [];
+			// 물품들을 결제 폼으로 넘길 input으로 동적 생성 하는 함수
+			function itemsIntoForm(onlySelected) {
+				var cartUl = $("#hiddenList");
+				cartUl.html("");
+				
+				var indexNum = 0;
 				
 				$(".orderTable > tbody > tr").each(function() {
 					if(onlySelected && !$(this).find("input.itemSelect").prop("checked")) {
 						return;
 					};
 					
-					var i_pi_no = $(this).attr("data-pino");
-					var i_ps_size = $(this).attr("data-size");
-					var i_oi_qty = $(this).find("select.itemQty").val();
+					var cartLi = $("<li>");
 					
-					var singleData = {"pi_no":i_pi_no,"ps_size":i_ps_size,"oi_qty":i_oi_qty};
-					resultData.push(singleData);
+					var i_pi_no = $("<input>").prop({"type":"hidden", "name":"cartlist["+indexNum+"].pi_no"})
+						.val($(this).attr("data-pino"));
+					var i_ps_size = $("<input>").prop({"type":"hidden", "name":"cartlist["+indexNum+"].ps_size"})
+						.val($(this).attr("data-size"));
+					var i_cart_qty = $("<input>").prop({"type":"hidden", "name":"cartlist["+indexNum+"].cart_qty"})
+						.val($(this).find("select.itemQty").val());
+					
+					cartLi.append(i_pi_no).append(i_ps_size).append(i_cart_qty);
+					cartUl.append(cartLi);
+					indexNum++;
 				});
+				
+				return $("#hiddenForm");
+			}
+			
+			function serializeItemData(target) {
+				var resultData = "";
+				var targetTr = null;
+				
+				if(target.is("tr.itemRecord")) {
+					targetTr = target;
+				} else {
+					targetTr = target.closest("tr.itemRecord");
+				}
+				
+				var pino = targetTr.attr("data-pino");
+				var size = targetTr.attr("data-size");
+				var qty = targetTr.find("select.itemQty").val();
+				
+				resultData = "pi_no=" + pino + "&ps_size=" + size + "&cart_qty=" + qty;
 				
 				return resultData;
 			}
@@ -206,6 +241,12 @@
 					</tr>
 				</tfoot>
 			</table></form>
+		</div>
+		
+		<div class="hiddenSubmitSection" hidden="hidden">
+			<form id="hiddenForm">
+				<ul id="hiddenList"></ul>
+			</form>
 		</div>
 	</body>
 </html>
