@@ -55,3 +55,7 @@
 .gray {
 	color: gray;
 }
+
+.form-control[readonly] {
+	cursor: default;
+}
