@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/resources/include/css/productDetail.css" />
 		<script type="text/javascript" src="/resources/include/js/productCommon.js"></script>
 		<script type="text/javascript" src="/resources/include/js/product.js"></script>
+		<script type="text/javascript" src="/resources/include/js/orders.js"></script>
 		<script type="text/javascript">
 			var pi_no = '${pins.pi_no}';
 			var pd_no = '${prod.pd_no}';
@@ -30,15 +31,21 @@
 				getColorInfo($("#colorList"));
 				getImageList($("#thumbList"));
 				getSizeList($("#ps_size"));
-
-				// TODO: 카트에 추가하는 작업 및 즉시 구매 작업
+				
 				// 카트에 추가
 				$("#toCart").click(function() {
 					addToCart($("#purchaseForm"));
 				});
 				// 즉시 구매
 				$("#purchaseNow").click(function() {
-					
+					$("#purchaseForm").attr(purchaseForm()).submit();
+				});
+				
+				
+				$("#cart_qty").change(function() {
+					checkStock($("#purchaseForm"), function() {
+						alert("수량이 부족합니다.");
+					});
 				});
 			});
 			
@@ -132,8 +139,10 @@
 							if(confirm("성공적으로 장바구니에 추가되었습니다.\n장바구니 페이지로 이동하시겠습니까?")) {
 								location.href = "/orders/cart";
 							}
+						} else if(result == "outofstock") {
+							alert("상품 재고가 부족합니다.");
 						} else {
-							alert("장바구니에 상품을 추가할 수 없었습니다.");
+							alert("상품을 장바구니에 추가할 수 없었습니다.");
 						}
 					}
 				});
