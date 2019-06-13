@@ -167,7 +167,7 @@
 					  <div><span class="mm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;네이버 아이디로 편하게 <strong>로그인</strong>하세요</span><div id="naver_id_login"></div></div>
 					  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
 					  <script type="text/javascript">
-					  	var naver_id_login = new naver_id_login("kiw9Q4mYKld8rhFWzGRr", "c0TrrVij9W");
+					  	var naver_id_login = new naver_id_login("kiw9Q4mYKld8rhFWzGRr", "http://localhost:8080/");
 					  	var state = naver_id_login.getUniqState();
 					  	naver_id_login.setButton("white", 2,40);
 					  	naver_id_login.setDomain("http://localhost:8080/member/login");

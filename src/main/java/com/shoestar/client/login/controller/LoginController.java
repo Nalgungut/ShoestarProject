@@ -1,6 +1,7 @@
 package com.shoestar.client.login.controller;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +63,13 @@ public class LoginController {
 			return mav;
 		}
 	}
+	
+	@RequestMapping(value="loginPostNaver", method=RequestMethod.GET)
+	public String loginPOSTNaver(HttpSession session) {
+		
+		return "client/member/loginPostNaver";
+	}
+
 	
 	///////////////////////[로그아웃 처리]///////////////////////////////////////
 	@RequestMapping("/logout")
