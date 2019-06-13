@@ -91,7 +91,7 @@
 					
 					<tr>
 						<td class="Avent_td gray">이벤트 내용</td>
-						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="2" cols="130" maxlength="1000" >${up.ev_content}</textarea></td>
+						<td class="Avent_tdInput marginLeft"><textarea id="ev_content" name="ev_content" rows="7" cols="130" maxlength="1000" >${up.ev_content}</textarea></td>
 					</tr>
 					
 					<tr>

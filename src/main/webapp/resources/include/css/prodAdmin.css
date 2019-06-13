@@ -41,3 +41,7 @@ body > .container > .sidebar {
 .pd_name {
 	cursor: pointer;
 }
+
+.pimEditForm > * {
+	margin-top: 5px;
+}

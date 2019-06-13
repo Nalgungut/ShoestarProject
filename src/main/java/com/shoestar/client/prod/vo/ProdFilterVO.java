@@ -18,4 +18,5 @@ public class ProdFilterVO extends CommonVO {
 	private String pct_name; // 분류 이름
 	private int pd_discount; // 할인율
 	private boolean includeItemless = false; // 상품 개체가 없는 상품도 검색할지 여부
+	private int quantity;
 }

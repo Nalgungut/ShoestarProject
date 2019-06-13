@@ -106,8 +106,8 @@ function createProductDiv(prodVO) {
 	
 	if(pclno != null) {
 		hrefLink = hrefLink + "pd_no=" + prodVO.pd_no + "&color=" + pclno;
-	} else if(prodVO.pi_no != 0) {
-		hrefLink = hrefLink + "pi_no=" + prodVO.pi_no;
+	} else if(prodVO.pi_main != 0) {
+		hrefLink = hrefLink + "pi_no=" + prodVO.pi_main;
 	} else {
 		hrefLink = hrefLink + "pd_no=" + prodVO.pd_no;
 	}
@@ -162,7 +162,9 @@ function createPinsBox(pinsVO, pinoToExclude) {
 function createImageBox(pimVO, largeImage, thumbSize) {
 	
 	// li
-	var pimli = $("<li>").addClass("pimThumbList");
+	var pimli = $("<li>").addClass("pimThumbList text-center").css({
+		"width":thumbSize
+	});
 	if(largeImage && largeImage.attr("src") == "") {
 		largeImage.attr("src", PROD_IMAGE_STORATE_URL + pimVO.pim_file);
 		pimli.addClass("pimSelected");
@@ -205,10 +207,12 @@ function createImageBox(pimVO, largeImage, thumbSize) {
  * @param pinsVO
  * @returns option 객체
  */
-function createSizeOption(pinsVO) {
-	var poption = $("<option>").attr("value", pinsVO.ps_no).text(pinsVO.ps_size);
-	if(pinsVO.ps_stock <= 0) {
+function createSizeOption(psVO) {
+	var poption = $("<option>").text(psVO.ps_size);
+	if(psVO.ps_qty <= 0) {
 		poption.prop("disabled", true).text(poption.text() + " 매진").addClass("outOfStock");
+	} else if(psVO.ps_status != null && psVO.ps_status != "") {
+		poption.prop("disabled", true).addClass("outOfStock");
 	}
 	
 	return poption;

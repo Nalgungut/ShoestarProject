@@ -19,5 +19,8 @@
 		<typeAlias type="com.shoestar.client.event.vo.Range_DiscountVO" alias="rds" />
 		<typeAlias type="com.shoestar.client.event.vo.Rd_ProductVO" alias="rdprod" />
 		<typeAlias type="com.shoestar.client.event.vo.Rd_TypeVO" alias="rdtype" />
+		<typeAlias type="com.shoestar.client.orders.vo.CartVO" alias="cart" />
+		<typeAlias type="com.shoestar.client.orders.vo.OrdersVO" alias="orders" />
+		<typeAlias type="com.shoestar.client.orders.vo.OrdersInsVO" alias="ordersins" />
 	</typeAliases>
 </configuration>

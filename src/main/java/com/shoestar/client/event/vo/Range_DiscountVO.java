@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class Range_DiscountVO extends CommonVO {
+public class Range_DiscountVO extends Rd_ProductVO {
 	private int rd_no; // 범위 할인 번호
 	private String rd_title; // 범위 할인 제목
 	private String rd_content; // 범위 할인 내용

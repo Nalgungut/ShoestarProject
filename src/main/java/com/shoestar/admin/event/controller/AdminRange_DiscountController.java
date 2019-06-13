@@ -1,5 +1,7 @@
 package com.shoestar.admin.event.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +40,24 @@ public class AdminRange_DiscountController {
 		return "admin/event/Range_DiscountList";
 	}
 	
+	// 상세정보 조회
+	@RequestMapping(value="/rds/detail", method=RequestMethod.GET)
+	public String rdisDetail(@ModelAttribute("data") Range_DiscountVO rvo, Model model) {
+		log.info("rdisDetail 호출 성공");
+		log.info("rvo = " + rvo);
+		log.info(ARDService.AdminDetail(rvo));
+		
+		Range_DiscountVO detail = ARDService.AdminRDiscountDetail(rvo);
+		
+		List<Range_DiscountVO> Alldetail = ARDService.AdminDetail(rvo);
+		
+		model.addAttribute("detail", detail);
+		
+		model.addAttribute("Alldetail", Alldetail);
+		
+		return "admin/event/rdisDetail";
+	}
+	
 	// 입력폼
 	@RequestMapping(value="/rds/writeForm")
 	public String writeForm(@ModelAttribute("data") Range_DiscountVO rvo) {
@@ -46,5 +66,6 @@ public class AdminRange_DiscountController {
 		
 		return "/admin/event/rdisWriteForm";
 	}
+	
 	
 }
