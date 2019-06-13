@@ -42,13 +42,39 @@ public class AdminHomeCSController {
 	public String faqDelete(@ModelAttribute AdminFAQVO fvo) {
 		int result = 0;
 		String url = "";
+		
 		result = faqService.faqDelete(fvo.getFaq_no());
 		
+		url = "/admin/cscenter/";
+		
+		
+		return "redirect:" + url;
+	}
+	
+	@RequestMapping(value="/faqInsert")
+	public String faqInsert(@ModelAttribute AdminFAQVO fvo, Model model) {
+		int result = 0;
+		String url = "";
+		log.info(fvo.toString());
+		result = faqService.faqInsert(fvo);
 		if(result == 1) {
 			url = "/admin/cscenter/";
 		}else {
 			url = "/admin/cscenter/";
 		}
+		
+		return "redirect:" + url;
+	}
+	
+	@RequestMapping(value="/faqUpdate", method = RequestMethod.POST)
+	public String faqUpdate(@ModelAttribute AdminFAQVO fvo, Model model) {
+		int result = 0; 
+		String url = "";
+		log.info(fvo.toString());
+		
+		result = faqService.faqUpdate(fvo);
+		
+		url = "/admin/cscenter/";
 		
 		return "redirect:" + url;
 	}

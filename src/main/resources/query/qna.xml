@@ -10,6 +10,13 @@
 			order by q.qna_no desc
 	</select>
 	
+	<select id="qna_replyList" parameterType="int" resultType="com.shoestar.client.cscenter.vo.QNAReplyVO">
+		SELECT qr.qr_no, q.qna_no, qr.qr_title, qr.qr_content,qr.qr_date
+		FROM qna_reply qr 
+		INNER JOIN qna q ON qr.qna_no = q.qna_no
+		where q.qna_no = #{qna_no}
+	</select>
+	
 	<select id="qnaDetail" parameterType="int" resultType="qna">
 		SELECT
 			q.qna_no, q.od_no, q.qna_title, q.qna_content,q.qna_date, q.qna_ctgr, q.qna_state, m.mem_name
@@ -52,4 +59,5 @@
 	<delete id="qnaDelete" parameterType="qna">
 		DELETE FROM qna WHERE qna_no = #{qna_no}
 	</delete>
+	
 </mapper>

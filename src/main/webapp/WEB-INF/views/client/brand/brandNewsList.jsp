@@ -106,49 +106,8 @@
            $(function(){
               listData();
               
-              if(!$("#galleryBtn").attr("data-button")){
-                 $("#galleryBtn").attr("data-button", "insertBtn");
-              }
               
-              $("#galleryInsertBtn").click(function(){
-                 setModal("갤러리 등록", "insertBtn", "등록");
-                 dataReset();
-                 $('#galleryModal').modal();
-              });
               
-              //저장버튼 클릭 시 처리 이벤트
-              $(document).on("click", "button[data-button='insertBtn']", function(){
-                 //입력갑 체크
-                 if(!checkForm($('#g_name'),"작성자를")) return;
-                 else if(!checkForm($('#g_subject'),"글제목을")) return;
-                 else if(!checkForm($('#g_content'),"글내용을")) return;
-                 else if(!checkForm($('#file'))) return;
-                 else if(!chkFile($('#file'))) return;
-                 else if(!checkForm($('#g_pwd'),"비밀번호를")) return;
-                 else{
-                    $("#f_writeForm").ajaxForm({
-                       url: "/gallery/galleryInsert",
-                       type: "post",
-                       enctype: "multipart/form-data", /* 인코딩 타입 */
-                       dataType: "text",
-                       error: function(){
-                          alert('시스템 오류입니다. 관리자에게 문의하세요.');
-                       },
-                       success: function(data){
-                          console.log(data);
-                          if(data=="성공"){
-                             dataReset();
-                             $('#galleryModal').modal('hide');
-                             listData();
-                          }else{
-                             alert("[ "+data+" ]\n등록에 문제가 있어 완료하지 못하였습니다. \n잠시 후 다시 시도해 주세요.");
-                             dataReset();
-                          }
-                       }
-                    });
-                    $("#f_writeForm").submit(); 
-                 }
-              });
               /* 팝오버 설정 */
                var options = {
                      html : true,
@@ -169,117 +128,12 @@
                   galleryNum = $(this).parents("div.col-sm-6").attr("data-num");
                   console.log("클릭버튼 btnKind : " + btnKind + "선택한 글번호 : " + galleryNum);
                });
-
-              
-             //비밀번호 체크 화면에서 "취소" 버튼 클릭 처리
-               $(document).on("click", ".pwdResetBtn", function(){
-                  $("a[data-btn]").popover(options).popover("hide");
-               });
                
-               //비밀번호 확인 버튼 클릭 시 처리 이벤트
-               $(document).on("click", ".pwdCheckBtn", function(){
-                  var form = $(this).parents("form[name='f_passwd']");
-                  var passwd = form.find(".passwd");
-                  var message = form.find(".message");
-                  var value = 0;
-                  if(!formCheck(passwd, message, "비밀번호를")) return;
-                  else{
-                     /*호출 함수.then() 함수 매개변수로 성공 콜백함수, 실패 콜백함수 넘겨줌
-                        각 함수의 매개변수는 resolve, reject 함수에서 넘겨준 매개변수를 자동으로 넘겨 받는다*/
-                        pwdCheck(passwd, message).then(function(data){
-                           console.log("data : " + data);
-                           if(data == 1){
-                              console.log("비밀번호 확인 후 btnKind : " + btnKind);
-                              if(btnKind=="upBtn"){
-                                 //console.log("수정 폼 출력");
-                                 updateForm();
-                              }else if(btnKind=="delBtn"){
-                                 console.log("삭제 처리");
-                                 deleteBtn();
-                              }
-                           }
-                           btnKind="";
-                        });
-                     }
-               });
-               //비밀번호 확인 버튼 클릭 시 실질적인 처리 함수
-               function pwdCheck(passwd, message){
-                  var def = new $.Deferred();
-                  
-                  $.ajax({
-                     url : "/gallery/pwdConfirm",
-                     type : "post",
-                     data : "g_num="+galleryNum+"&g_pwd="+passwd.val(),
-                     dataType : "text",
-                     error : function(){
-                        alert('시스템 오류입니다. 관리자에게 문의해 주세요.');
-                     },
-                     success : function(resultData){
-                        console.log("resultData : " + resultData + " / btnKind : " + btnKind);
-                        //비동기 함수 success 콜백 함수에 def.resolve()함수 호출
-                        if(resultData==0){//일치하지 않는 경우
-                           message.addClass("msg_error");
-                              message.text("입력한 비밀번호가 일치하지 않습니다");
-                              passwd.select();
-                        }else if(resultData==1){//일치 할 경우
-                           def.resolve(resultData);
-                              $("a[data-btn]").popover(options).popover("hide");
-                        }
-                     }
-                  });
-                  //def.promise() 함수 리턴
-                  return def.promise();
-               }
-               
-             //비밀번호 입력 양식에 키보드로 문자를 누르면 처리 이벤트
-               $(document).on("keydown", ".passwd", function(){
-                  var span = $(this).parents("form[name='f_passwd']").find(".message");
-                  span.removeClass("msg_error");
-                  span.addClass("msg_default");
-                  span.html(message);
-               });
-               
-               //모달(Modal)에서 수정버튼으로 변경 후 처리 이벤트
-               $(document).on("click", "button[data-button='updateBtn']", function(){
-                  //console.log("수정버튼");
-                  if(!checkForm($('#g_subject'),"글제목을")) return;
-                  else if (!checkForm($('#g_content'),"내용을")) return;
-                  else{
-                     if($('#file').val()!=""){
-                        if(!chkFile($('#file'))) return;
-                     }
-                     
-                     $('#f_writeForm').ajaxForm({
-                        url : "/gallery/galleryUpdate",
-                        type : "post",
-                        enctype : "multipart/form-data",
-                        dataType : "text",
-                        error : function(){
-                           alert('시스템 오류입니다. 관리자에게 문의해 주세요.');
-                        },
-                        success : function(data){
-                           console.log(data);
-                           if(data=="성공"){
-                              dataReset();
-                              galleryNum=0;
-                              $('#galleryModal').modal('hide');
-                              listData();
-                           }else{
-                              alert("[ "+data+" ]\n 수정에 문제가 있어 완료하지 못했습니다. 잠시 후 다시 시도해 주세요.")
-                              dataReset();
-                           }
-                        }
-                     });
-                     $("#f_writeForm").submit();
-                  }
-                  });
                
            	}); /* function종료 */
-
-           
                  function listData(){
                     $("#rowArea").html("");
-                    $.getJSON("/gallery/galleryData", $("#f_search").serialize(), function(data){
+                    $.getJSON("/brand/brandNewslist", $("#f_search").serialize(), function(data){
                        console.log("length: " + data.length);
                        $(data).each(function(index){
                           var ar_no = this.ar_no;
@@ -293,11 +147,6 @@
                        alert("목록을 불러오는데 실패하였습니다. 잠시후에 다시 시도해 주세요.");
                     });
                  }
-           
-                 
-           
-         
-            
             //modal 초기화 작업
             function setModal(title, value, text){
                $("#galleryModalLabel").html(title);
@@ -310,37 +159,35 @@
             }
             
             //썸네일 작업
-            function thumbnailList(g_num, g_name, g_subject, g_content, g_thumb, g_file, g_date, index){
+            function thumbnailList(ar_no, ar_subject, ar_content, ar_file, index){
                var column = $("<div>");
-               column.attr("data-num", g_num);
+               column.attr("data-num", ar_no);
                column.addClass("col-sm-6 col-md-4");
                
                var thumbnail = $("<div>");
                thumbnail.addClass("thumbnail");
                
                var lightbox_a = $("<a>");
-               lightbox_a.attr({"href":"/uploadStorage/gallery/"+g_file,
+               lightbox_a.attr({"href":"/uploadStorage/gallery/"+ar_file,
                             "data-lightbox": "roadtrip",
-                            "title":g_subject});
+                            "title":ar_subject});
                
                var img = $("<img>");
-               img.attr("src", "/uploadStorage/gallery/thumbnail/"+g_thumb);
+               img.attr("src", "/uploadStorage/gallery/thumbnail/"+ar_content);
                
                var caption = $("<div>");
                caption.addClass("caption");
                
                var h3 = $("<h3>");
-               h3.html(g_subject.substring(0, 12)+"...");
+               h3.html(ar_subject.substring(0, 12)+"...");
                
-               var pInfo = $("<p>");
-               pInfo.html("작성자: "+ g_name +" / 등록일: " + g_date);
                
                var pContent = $("<p>");
-               pContent.html(g_content.substring(0, 24)+"...");
+               pContent.html(ar_content.substring(0, 24)+"...");
                
                var pBtnArea = $("<p>");
                      
-                 var upBtn = $("<a>");
+                 /* var upBtn = $("<a>");
                      upBtn.attr({"data-btn":"upBtn", "role":"button"});
                      upBtn.addClass("btn btn-primary gap");
                      upBtn.html("수정");
@@ -350,7 +197,7 @@
                var delBtn = $("<a>");
                delBtn.attr({"data-btn":"delBtn", "role":"button"});
                delBtn.addClass("btn btn-defalut");
-               delBtn.html("삭제");
+               delBtn.html("삭제"); */
                
                caption.append(h3).append(pInfo).append(pContent).append(pBtnArea.append(upBtn).append(delBtn));
                column.append(thumbnail.append(lightbox_a.append(img)).append(caption));
@@ -363,6 +210,7 @@
 	</head>
 	
 	<body>
+		브랜드 뉴스
 		
 	
 	<!-- 페이징 처리를 위한 Form -->
@@ -370,7 +218,21 @@
 	
 	<!-- 갤러리 리스트 영역 -->
 	<div class="row" id="rowArea"></div>
-
+	<!-- 사이드 바  -->
+			<div class="sidebar">
+			  <a class="active" href="/brand/brandMain">메인</a>
+			  <div class="dropdown">
+			    <button class="dropbtn">브랜드 소개 </button>
+			    <div class="dropdown-content">
+			      <a href="/admin/adminNoticeList">브랜드 가치</a>
+			      <a href="#">브랜드 기능</a>
+			      <a href="#">브랜드 뉴스</a>
+			    </div>
+			  </div>
+			  
+			  <a href="/brand/collectionIntro">컬렉션 소개</a>
+			  <a href="/brand/noticeList">공지사항</a>
+			</div>
             
            <!-- 갤러리 등록 화면 영역(modal) -->
             <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">

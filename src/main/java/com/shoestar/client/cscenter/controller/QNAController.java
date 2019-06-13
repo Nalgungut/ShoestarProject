@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.shoestar.client.cscenter.service.QNAService;
 import com.shoestar.client.cscenter.vo.FAQ_ctgVO;
+import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.login.vo.LoginVO;
 import com.shoestar.client.orders.vo.OrdersVO;
@@ -35,20 +36,30 @@ public class QNAController {
 			log.info("qnaList..호출");
 			
 			qvo.setMem_no(lvo.getMem_no());
-			log.info(qvo.getMem_no());
-			List<QNAVO> qnaList = qnaService.qnaList(qvo); 
-			model.addAttribute("qnaList", qnaList);
 			
+			log.info(qvo.getMem_no());
+			
+			
+			List<QNAVO> qnaList = qnaService.qnaList(qvo); 
+			
+			
+			model.addAttribute("qnaList", qnaList);
 			
 			return "client/cscenter/qnaBoard"; 
 		}
 		
 		//1:1문의 상세내역
 		@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)
-		public String qnaDetail(@ModelAttribute("data") QNAVO qvo, Model model) {
+		public String qnaDetail(@ModelAttribute("data") QNAVO qvo,QNAReplyVO qrvo, Model model) {
 			
 			QNAVO detail = qnaService.qnaDetail(qvo);
+			
+			qrvo.setQna_no(qvo.getQna_no());
+			log.info("detail"+qrvo.getQna_no());
+			List<QNAReplyVO> qna_replyList = qnaService.qna_replyList(qrvo);
+			model.addAttribute("qna_replyList", qna_replyList);
 			model.addAttribute("detail", detail);
+			
 			
 			return "client/cscenter/qnaDetail";
 		}

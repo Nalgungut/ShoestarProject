@@ -30,4 +30,19 @@ public class AdminFAQServiceImpl implements AdminFAQService {
 		result = fdao.faqDelete(faq_no);
 		return result;		
 	}
+	
+	@Override
+	public int faqInsert(AdminFAQVO fvo) {
+		int result = 0;
+		
+		result = fdao.faqInsert(fvo);
+		return result;
+	}
+	
+	@Override
+	public int faqUpdate(AdminFAQVO fvo) {
+		int result = 0;
+		result = fdao.faqUpdate(fvo);
+		return result;
+	}
 }
