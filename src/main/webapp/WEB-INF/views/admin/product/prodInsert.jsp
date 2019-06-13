@@ -11,7 +11,7 @@
 		<script type="text/javascript">
 			$(function() {
 				// 카테고리 정보 로드
-				getProdCtgList($("#pct_no"));
+				getProdCtgList(null, $("#pct_no"));
 				
 				$("#btnInsertProd").on("click", function() {
 					if(checkAll($("#prodForm"))) {

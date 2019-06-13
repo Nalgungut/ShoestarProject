@@ -36,6 +36,7 @@
 		#cols{width: 340px;}
 		.Event_td{padding: 0px;}
 		.ts{width: 293px;}
+		.topBorder{background-color: #F2EADF;} /* 제목 배경색 나중에 하자 ★ */
 	</style>
 
 	<script type="text/javascript">

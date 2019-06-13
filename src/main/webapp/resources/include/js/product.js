@@ -24,9 +24,10 @@ const PROD_NO_IMAGE = "/resources/images/product/noimage.png";
 /**
  * 상품정보를 매개변수로 이미지와 가격등이 표시되는 div를 만들어내는 함수
  * @param prodVO 상품 정보를 담은 ProdVO JSON 객체
+ * @param noLink 링크 없애기
  * @returns jQuery div 객체
  */
-function createProductDiv(prodVO) {
+function createProductDiv(prodVO, noLink) {
 	// 이미지 부분
 	var pImageSection = $("<div>").addClass("prodImage text-center");
 	var imgUrl;
@@ -112,9 +113,11 @@ function createProductDiv(prodVO) {
 		hrefLink = hrefLink + "pd_no=" + prodVO.pd_no;
 	}
 	
-	pColumn.css({"cursor":"pointer"}).on("click", function() {
-		location.href = hrefLink;
-	});
+	if(noLink == null || noLink == false) {
+		pColumn.css({"cursor":"pointer"}).on("click", function() {
+			location.href = hrefLink;
+		});
+	}
 	
 	return pColumn;
 }

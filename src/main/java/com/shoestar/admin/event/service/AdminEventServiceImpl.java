@@ -42,6 +42,13 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return list;
 	
 	}
+	
+	// 
+	@Override
+	public int AdmineventCnt(EventVO evo) {
+		return aEventDao.AdmineventCnt(evo);
+	}	
+	
 
 	// 이벤트 글 입력 구현
 	
@@ -174,12 +181,5 @@ public class AdminEventServiceImpl implements AdminEventService {
 		return result;
 	}
 	
-	// 
-	@Override
-	public int AdmineventCnt(EventVO evo) {
-		return aEventDao.AdmineventCnt(evo);
-	}
-
-
 
 }

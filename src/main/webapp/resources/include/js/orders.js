@@ -42,9 +42,11 @@ function purchaseForm() {
  * @param target 대상 폼
  * @param errorCall 오류 시 실행할 함수
  * @param callbackParam 오류 시 실행할 함수의 파라미터
+ * @param successCall 성공 시 실행할 함수
+ * @param successParam 성공 시 실행할 함수의 파라미터
  * @returns
  */
-function checkStock(target, errorCall, callbackParam) {
+function checkStock(target, errorCall, errorParam, successCall, successParam) {
 	var data = target;
 	try {
 		if(target.is("form")) {
@@ -63,8 +65,13 @@ function checkStock(target, errorCall, callbackParam) {
 		},
 		success : function(data) {
 			if(data == "true") {
+				if(successCall) {
+					successCall(successParam);
+				}
 			} else {
-				errorCall(callbackParam);
+				if(errorCall) {
+					errorCall(errorParam);
+				}
 			}
 		}
 	});

@@ -40,33 +40,20 @@ public class AdminEventController {
 					// null을 설정하기 위한 클래스
 	}
 	
-	// 이벤트 리스트 페이지 구현하기
-
-/*	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
-		log.info("eventList 호출 성공");
-		
-		//log.info("keyword : "+evo.getKeyword());
-		//log.info("search : "+evo.getSearch());
-		
-		model.addAttribute("AdmineventList", eventService.AdmineventList(evo));
-		
-		return "admin/event/eventList";
-	
-	}*/
-	
+	// 이벤트 리스트 페이지 구현하기	
 	// 글 목록 구현하기(페이징 처리 목록 조회)
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public String eventList(@ModelAttribute("data") EventVO evo, Model model) {
 		log.info("eventList 호출 성공");
-		//log.info("keyword : " + evo.getKeyword());
-		//log.info("search : " + evo.getSearch());
+		log.info("keyword : " + evo.getKeyword());
+		log.info("search : " + evo.getSearch());
 			
 		model.addAttribute("AdmineventList", eventService.AdmineventList(evo));
 		
-		//int total = eventService.AdmineventCnt(evo);
-		
-		//model.addAttribute("pageMaker", new PageDTO(evo, total));
+		int total = eventService.AdmineventCnt(evo);
+		evo.setPageNum(1);
+		evo.setAmount(5);
+		model.addAttribute("pageMaker", new PageDTO(evo, total));
 		
 		return "admin/event/eventList";
 	}

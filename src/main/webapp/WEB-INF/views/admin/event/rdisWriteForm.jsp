@@ -117,6 +117,22 @@
 						<td class="RD_tdInput"><input type="date" id="rd_edate" name="rd_edate" /></td>
 					</tr>
 				</table>
+				
+				
+				<table border="1" style="border-collapse: collapse; width: 400px; height: 100px;">
+					<caption>범위대상</caption>
+					<tr>
+						<td>대분류</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<select style="width: 222px;">
+								<option>대분류</option>
+							</select>
+						</td>
+					</tr>
+				</table>
 							<div class="btns">			
 								
 								<input type="button" value="저장" id="insertFormBtn" /> 

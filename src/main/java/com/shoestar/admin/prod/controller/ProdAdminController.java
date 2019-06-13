@@ -66,10 +66,12 @@ public class ProdAdminController {
 		List<ProdInsVO> pinslist = pinsService.pinsListByProd(pvo);
 		
 		Integer pinoToShow = 0;
-		if(pi_no == null) {
-			pinoToShow = pinslist.get(0).getPi_no();
-		} else {
-			pinoToShow = pi_no;
+		if(!pinslist.isEmpty()) {
+			if(pi_no == null) {
+				pinoToShow = pinslist.get(0).getPi_no();
+			} else {
+				pinoToShow = pi_no;
+			}
 		}
 		
 		model.addAttribute("prodVO", pvo);
