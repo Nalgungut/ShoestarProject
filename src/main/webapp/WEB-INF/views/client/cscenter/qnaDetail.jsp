@@ -52,9 +52,9 @@
 				<input type="hidden" id="qna_no" name="qna_no" value="${detail.qna_no}">
 			</form>
 				<div class="btnArea col-md-4">
-					<input type="button" value="수정" id="updateFormBtn"  class="btn btn-primary">
-					<input type="button" value="삭제" id="qnaDeleteBtn"  class="btn btn-primary">
-					<input type="button" value="목록" id="qnaListBtn"  class="btn btn-primary">
+					<input type="button" value="수정" id="updateFormBtn"  class="btn btn-default">
+					<input type="button" value="삭제" id="qnaDeleteBtn"  class="btn btn-default">
+					<input type="button" value="목록" id="qnaListBtn"  class="btn btn-default">
 				</div>
 			</div><br/>
 			
@@ -89,7 +89,33 @@
 				</table>
 				</form>
 			
-			<jsp:include page="qnaReply.jsp"></jsp:include>
+			<div id="replyContainer">
+			<!-- 리스트 영역 -->
+			<div id="qnaReplyList"></div>
+				<table class="table table-bordered">
+					<colgroup>
+						<col width="10%" />
+						<col width="20%" />
+						<col width="70%" />
+					</colgroup>
+					<tbody id="list">
+						<c:choose>
+							<c:when test="${not empty qna_replyList}">
+								<c:forEach var="qr" items="${qna_replyList}" varStatus="status">
+									<tr class="tac">
+										<td>관리자</td>
+										<td>${qr.qr_title}</td>
+										<td>${qr.qr_date}</td>
+									</tr>
+									<tr class="text-center">
+										<td colspan="3">${qr.qr_content}</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+						</c:choose>
+					</tbody>
+				</table>	
+		</div>
 			</div>
 			
 			
