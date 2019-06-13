@@ -24,20 +24,17 @@
 		WHERE
 			mem_no = #{mem_no}
 		ORDER BY
-			cart.pi_no
+			cart.pi_no ASC
 	</select>
 	
 	<select id="prodDataByCartList" parameterType="cart" resultType="ordersins">
 		SELECT
-			prod_ins.pi_no
+			prod_ins.pi_no,
 			ps_qty AS oi_qty,
 			ps_size,
-			pd_price AS oi_price,
-			(
-			NVL((
-				<include refid="com.shoestar.client.prod.dao.ProdDao.dcmax"/>
-			), 0)
-			) AS oi_org_price
+			pd_price AS oi_org_price,
+			<include refid="com.shoestar.client.prod.dao.ProdDao.prodInfo"/>,
+			<include refid="com.shoestar.client.prod.dao.ProdInsDao.pinsSubInfo"/>
 		FROM
 			prod
 			INNER JOIN
@@ -49,10 +46,14 @@
 			ON
 				prod_ins.pi_no = prod_stock.pi_no
 		WHERE
-			prod_ins.pi_no = #{pi_no} AND
-			prod_stock.ps_size = #{ps_size}
+			<foreach collection="cartlist" separator="OR" item="cvo">
+				(
+				prod_ins.pi_no = #{cvo.pi_no} AND
+				prod_stock.ps_size = #{cvo.ps_size}
+				)
+			</foreach>
 		ORDER BY
-			prod_ins.pi_no
+			prod_ins.pi_no ASC
 	</select>
 	
 	<select id="duplicateCheck" parameterType="cart" resultType="int">

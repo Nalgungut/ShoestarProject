@@ -38,7 +38,12 @@
 				});
 				// 즉시 구매
 				$("#purchaseNow").click(function() {
-					$("#purchaseForm").attr(purchaseForm()).submit();
+					checkStock($("#purchaseForm"), function() {
+						alert("수량이 부족합니다.");
+					}, null, function() {
+						$("#purchaseForm").attr(purchaseForm()).submit();
+					});
+					
 				});
 				
 				
