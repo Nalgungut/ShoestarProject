@@ -131,6 +131,11 @@
                    }
                }).open();
            }
+           
+           function showPopUp(){
+               openWin = window.open("/common/mailForm", "메일 인증", "width=400, height=300, left=100, top=50");
+               //document.getElementById("tomail").value = document.getElementById("m_email").value;
+            }
      
            </script>
 			

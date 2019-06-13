@@ -4,7 +4,8 @@
 
 <style>
 	#head_link{
-	float:right;}
+	float:right;
+	vertical-align:middle;}
 	#ss{
 	font-color:black;}
 </style>
@@ -54,7 +55,7 @@
 		     <%-- <c:when test="${login==true and not empty adminLogin}"> --%>
 			   <a href="${contextPath}/member/logout"><mark>로그아웃</mark></a>
 			   <a href="${contextPath}/myPage/main"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>마이페이지</a>
-			   <a href="${contextPath}/#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>장바구니</a>
+			   <a href="${contextPath}/orders/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>장바구니</a>
 			   <a href="#"><span class="glyphicon glyphicon-plane" aria-hidden="true"></span>주문배송</a>
 			 </c:when>
 			 <c:otherwise>
