@@ -91,24 +91,94 @@ function emptyOption() {
 
 
 /**
+ * 
  * 이미지 정보 수정을 위한 폼
- * @param pimVO
+ * @param pimVO 이미지 정보
+ * @param pim_main 메인 이미지 파일 이름
  * @returns
  */
 function createImageActions(pimVO, pim_main) {
-	var pimEditForm = $("<form>");
+	var pimEditForm = $("<form>").addClass("pimEditForm");
 	
+	// 이미지 번호를 담는 숨겨진 인풋
 	var hiddenPimNo = $("<input>").prop({
 		"type":"hidden",
 		"name":"pim_no",
 		"value":pimVO.pim_no
 	});
+	// pi_no를 담는 숨겨진 인풋
+	var hiddenPiNo = $("<input>").prop({
+		"type":"hidden",
+		"name":"pi_no",
+		"value":pimVO.pi_no
+	});
+	// 기존 파일 이름을 담는 숨겨진 인풋
+	var hiddenPimFile = $("<input>").prop({
+		"type":"hidden",
+		"name":"pim_file",
+		"value":pimVO.pim_file
+	});
+	
+	var pimPriDiv = $("<div>").addClass("form-inline");
+	
+	// 우선순위 레이블
+	var pimPriLabel = $("<label>").text("우선순위").prop({
+		"for":"pimPr_"+pimVO.pim_no
+	}).css({
+		"width":"50%"
+	});
+	// 우선순위 인풋
 	var pimPriority = $("<input>").prop({
 		"type":"number",
 		"name":"pim_priority",
 		"value":pimVO.pim_priority,
-		"required":true
+		"required":true,
+		"id":"pimPr_"+pimVO.pim_no
+	}).addClass("form-control").css({
+		"width":"50%"
+	});
+	pimPriDiv.append(pimPriLabel).append(pimPriority);
+	
+	// 파일 인풋
+	var pimFile = $("<input>").prop({
+		"type":"file",
+		"name":"file"
+	}).addClass("");
+	
+	// 수정 완료 버튼
+	var pimSubmit = $("<button>").addClass("btn-block").prop({
+		"type":"button"
+	}).text("수정").addClass("btn btn-default btn-sm").on("click", function() {
+		if(checkAll(pimEditForm)) {
+			if(pimFile.val() != null && pimFile.val() != "" && isEmpty(pimFile)) {
+				alert("이미지 파일만 선택 가능합니다.");
+				return;
+			}
+			
+			pimEditForm.ajaxForm({
+				url : "/admin/product/pimUpdate",
+				type : "post",
+				enctype : "multipart/form-data",
+				dataType : "text",
+				error : function() {
+					alert("서버 오류로 이미지 수정에 실패했습니다.");
+				},
+				success : function(result) {
+					if(result=="true") {
+						alert("성공적으로 수정되었습니다.");
+						location.reload();
+					} else {
+						alert("이미지를 수정할 수 없었습니다.");
+					}
+				}
+			}).submit();
+		}
 	});
 	
-	// TODO: 집가서 할 것
+	// 
+	var pimDiv = $("<div>").addClass("pimSubmit");
+	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimPriDiv).append(pimSubmit);
+	pimDiv.append(pimEditForm);
+	
+	return pimDiv;
 }

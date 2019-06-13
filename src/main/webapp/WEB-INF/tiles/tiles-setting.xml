@@ -31,6 +31,10 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/product/{1}.jsp" />
 	</definition>
 	
+	<definition name="client/orders/*" extends="content">
+		<put-attribute name="body" value="/WEB-INF/views/client/orders/{1}.jsp" />
+	</definition>
+	
 	<definition name="client/member/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp"/>
 	</definition>
@@ -72,6 +76,11 @@
 	<definition name="admin/product/*" extends="admin">
 		<put-attribute name="body" value="/WEB-INF/views/admin/product/{1}.jsp"></put-attribute>
 		<put-attribute name="sidebar" value="/WEB-INF/views/admin/product/prodSidebar.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="admin/orders/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/orders/{1}.jsp"></put-attribute>
+		<put-attribute name="sidebar" value="/WEB-INF/views/admin/orders/ordersSidebar.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="admin/adminMember/*" extends="admin">

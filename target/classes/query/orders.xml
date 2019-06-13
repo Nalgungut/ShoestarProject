@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.client.orders.dao.OrdersDao">
+	
+	<sql id="cartInfo">
+		cart.pi_no, cart.mem_no, cart.ps_size, cart_qty
+	</sql>
+	
+	<select id="cartListByMemNo" parameterType="int" resultType="cart">
+		SELECT
+			<include refid="cartInfo"/>,
+			<include refid="com.shoestar.client.prod.dao.ProdDao.prodInfo"/>,
+			<include refid="com.shoestar.client.prod.dao.ProdInsDao.pinsSubInfo"/>
+		FROM
+			cart
+			INNER JOIN
+				prod_ins
+			ON
+				prod_ins.pi_no = cart.pi_no
+			INNER JOIN
+				prod
+			ON
+				prod_ins.pd_no = prod.pd_no
+		WHERE
+			mem_no = #{mem_no}
+		ORDER BY
+			cart.pi_no
+	</select>
+	
+	<select id="prodDataByCartList" parameterType="cart" resultType="ordersins">
+		SELECT
+			prod_ins.pi_no
+			ps_qty AS oi_qty,
+			ps_size,
+			pd_price AS oi_price,
+			(
+			NVL((
+				<include refid="com.shoestar.client.prod.dao.ProdDao.dcmax"/>
+			), 0)
+			) AS oi_org_price
+		FROM
+			prod
+			INNER JOIN
+				prod_ins
+			ON
+				prod.pd_no = prod_ins.pd_no
+			INNER JOIN
+				prod_stock
+			ON
+				prod_ins.pi_no = prod_stock.pi_no
+		WHERE
+			prod_ins.pi_no = #{pi_no} AND
+			prod_stock.ps_size = #{ps_size}
+		ORDER BY
+			prod_ins.pi_no
+	</select>
+	
+	<select id="duplicateCheck" parameterType="cart" resultType="int">
+		SELECT
+			NVL((
+				SELECT
+					1
+				FROM
+					cart
+				WHERE
+					pi_no = #{pi_no} AND
+					ps_size = #{ps_size} AND
+					mem_no = #{mem_no}
+			), 0) AS dupcheck
+		FROM
+			DUAL
+	</select>
+	
+	<insert id="addToCart" parameterType="cart">
+		INSERT INTO
+			cart
+			(pi_no, ps_size, mem_no, cart_qty)
+		VALUES
+			(#{pi_no}, #{ps_size}, #{mem_no}, #{cart_qty})
+	</insert>
+	
+	<delete id="removeFromCart">
+		DELETE FROM
+			cart
+		WHERE
+			<foreach collection="cartlist" item="cvo" separator="OR">
+			(
+				pi_no = #{cvo.pi_no} AND
+				ps_size = #{cvo.ps_size} AND
+				mem_no = #{cvo.mem_no}
+			)
+			</foreach>
+	</delete>
+	
+	
+	<select id="checkStock" parameterType="cart" resultType="java.lang.Integer">
+		SELECT
+			ps_qty
+		FROM
+			prod_stock
+		WHERE
+			pi_no = #{pi_no} AND
+			ps_size = #{ps_size}
+	</select>
+	
+	
+	<select id="ordersDataByMemNo" parameterType="int" resultType="orders">
+		SELECT
+			orders.*,
+			(
+			SELECT
+				SUM(oi_price)
+			FROM
+				orders_ins
+			WHERE
+				od_no = orders.od_no
+			) AS totalPrice,
+			(
+			SELECT
+				COUNT(oi_no)
+			FROM
+				orders_ins
+			WHERE
+				od_no = orders.od_no
+			) AS numberOfProds
+		FROM
+			orders
+		WHERE
+			mem_no = #{mem_no}
+		ORDER BY
+			od_no DESC
+	</select>
+	
+	<select id="ordersInsByOdNo" parameterType="orders" resultType="ordersins">
+		SELECT
+			*
+		FROM
+			orders_ins
+		WHERE
+			od_no = #{od_no}
+		ORDER BY
+			oi_no ASC
+	</select>
+</mapper>

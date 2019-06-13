@@ -6,6 +6,9 @@
 	<!-- ############################## ProdInsVO 기본 정보 ############################## -->
 	<sql id="pinsInfo">
 		pi_no, pd_no, pcl_no,
+		<include refid="com.shoestar.client.prod.dao.ProdInsDao.pinsSubInfo"/>
+	</sql>
+	<sql id="pinsSubInfo">
 		(
 		SELECT
 			pim_file

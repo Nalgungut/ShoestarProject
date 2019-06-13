@@ -2,17 +2,24 @@ package com.shoestar.admin.prod.controller;
 
 import java.util.List;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shoestar.admin.prod.service.ProdAdminService;
 import com.shoestar.client.prod.service.ProdInsService;
+import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdVO;
 import com.shoestar.common.exception.BadRequestException;
@@ -29,6 +36,11 @@ public class ProdAdminController {
 	private ProdAdminService prodAdminService;
 	
 	private ProdInsService pinsService;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(MultipartFile.class, "file", new StringTrimmerEditor(true));
+	}
 	
 	@RequestMapping(value="/list", method={RequestMethod.GET, RequestMethod.POST})
 	public String prodList(ProdVO pvo, Model model) {
@@ -102,5 +114,15 @@ public class ProdAdminController {
 	@GetMapping("/new")
 	public String insertForm() {
 		return "admin/product/prodInsert";
+	}
+	
+	
+	@PostMapping(value="/pimUpdate", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public String pimUpdate(ProdImageVO pimvo) {
+		
+		// TODO: 이미지 등록 기능
+		
+		return "false";
 	}
 }

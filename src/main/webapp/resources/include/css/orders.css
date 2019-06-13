@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.orderTable > thead > tr > th, .orderTable > thead > tr > td,
+.orderTable > tbody > tr > th, .orderTable > tbody > tr > td,
+.orderTable > tfoot > tr > th, .orderTable > tfoot > tr > td
+{
+	vertical-align: middle;
+}
+
+.orderTable a {
+	color: black;
+}
+.orderTable a:hover {
+	text-decoration: none;
+}
+
+.orderTable > tfoot {
+	border-top: 2px solid #999;
+	font-size: 1.2em;
+}
+
+.mainImage {
+	width: 100px;
+	height: 100px;
+}
+
+.deleteCartItem {
+	background: none;
+	border: none;
+}
+
+.emptylist {
+	color: gray;
+}
+
+.beforeDiscount {
+	color: gray;
+	text-decoration: line-through;
+}
+
+.priceSection {
+	color: #C73232;
+}

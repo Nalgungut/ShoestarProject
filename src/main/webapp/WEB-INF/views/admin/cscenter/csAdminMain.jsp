@@ -10,13 +10,56 @@
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="/resources/include/dist/css/bootstrap-theme.min.css">
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="/resources/include/js/qna.js"></script>
 		<script src="/resources/include/dist/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 		$(function(){	
     		
+			//자주묻는질문등록 버튼 모달창 키기
     		$("#insertBtn").click(function(){
-    			
+    			$("#faqno").val("0");
+    			$("#faqInsertBtn").html("등록");
+    			$("#faqModalLabel").html("자주 묻는 질문 등록");
+    			$("#faqInsertBtn").attr("data-button","faqInsertBtn");
+    			$("#faqModal").modal();
     		});
+   
+    		$("#faqInsertBtn").click(function(){
+    			
+     			if(!chkSubmit($("#faq_title"), "자주묻는질문 제목을")) return;
+     			else if(!chkSubmit($("#faq_content"), "자주묻는질문 내용을")) return;
+     			else if($("#faqInsertBtn").attr("data-button") == "faqInsertBtn"){
+     				$("#faq_writeForm").attr({
+     					"method" : "post",
+     					"action" : "/admin/cscenter/faqInsert"
+     				});
+     				$("#faq_writeForm").submit();
+     				alert('등록되었습니다.');
+     				dataReset();
+     				
+     			}
+     			else if($("#faqInsertBtn").attr("data-button") == "upBtn"){
+     				$("#faq_writeForm").attr({
+    					"method" : "post",
+    					"action" : "/admin/cscenter/faqUpdate"
+    				});
+     				$("#faq_writeForm").submit();
+     				alert("수정되었습니다.");
+    				dataReset();
+    				
+     			}
+     		}); 
+    		
+    		$(".faqUpdateBtn").click(function(){
+    			
+    			$("#faqno").val($(this).closest("tr").attr("data-num"));
+    			$("#faqModalLabel").html("자주 묻는 질문 수정");
+				$("#faqInsertBtn").html("수정");
+				$("#faqInsertBtn").attr("data-button","upBtn");
+				$("#faqModal").modal();
+				
+    		});
+    		
     		
     		$(".faqDeleteBtn").click(function(){
     			var faq_no = $(this).parents("tr").attr("data-num");
@@ -27,10 +70,9 @@
     				data : "faq_no="+faq_no,
     				dataType : "text",
     				error : function(){
-    					alert("에러입니다 제작사에게 문의해주세요");    					
+    					alert("에러입니다 웹 제작자에게 문의해주세요");    					
     				},
     				success : function(){
-
     					alert('삭제성공');
     					location.href="/admin/cscenter/";
     				}
@@ -39,15 +81,11 @@
     	});
 		
 		
-		/* function setModal(title, value, text){
-			$("#faqModalLabel").html(title);
-			
-			
-		}
-		
 		function dataReset(){
-			$("")
-		} */
+			$("#faq_writeForm").each(function(){
+				this.reset();
+			});
+		} 
 		</script>
 	</head>
    
@@ -134,9 +172,10 @@
 	                 <h4 class="modal-title" id="faqModalLabel">자주묻는질문 등록</h4>
 	               </div>
 	               <div class="modal-body">
-	                 <form id="f_writeForm" name="f_writeForm">
+	                 <form id="faq_writeForm" name="faq_writeForm">
+	                 	<input type="hidden" name="faq_no" id="faqno">
 	                   <div class="form-group">
-	                     <select id="fc_no">
+	                     <select id="fc_no" name="fc_no">
 	                     	<option value="1">주문/결제</option>
 	                     	<option value="2">취소/반품</option>
 	                     	<option value="3">상품/배송</option>
@@ -146,7 +185,7 @@
 	                   </div>
 	                   <div class="form-group">
 	                     <label for="faq_title" class="control-label">글제목</label>
-	                     <input type="text" class="form-control" id="faq_title" name="faq_title" maxlength="5">
+	                     <input type="text" class="form-control" id="faq_title" name="faq_title" >
 	                   </div>
 	                   <div class="form-group">
 	                      <label for="faq_content" class="control-label">글내용</label>
@@ -156,7 +195,7 @@
 	               </div>
 	               <div class="modal-footer">
 	                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-	                 <button type="button" class="btn btn-primary" id="faqInsertBtn">등록</button>
+	                 <button type="button" class="btn btn-primary" id="faqInsertBtn" data-button="faqInsertBtn">등록</button>
 	               </div>
 	             </div>
 	           </div>
@@ -188,10 +227,10 @@
 					          	<c:when test="${not empty faqList}">
 					          		<c:forEach var="faq" items="${faqList}" varStatus="status">
 					          			<tr class="span4" data-num="${faq.faq_no}" data-value="${faq.fc_no}">
-					          				<td>${faq.fc_name}</td>
-											<td>${faq.faq_title}</td>
-					          				<td>${faq.faq_content}</td>
-					          				<td><input type="button" class="btn btn-default faqDeleteBtn" data-num="${faq.faq_no}"  value="삭제하기"/>&nbsp;<input type="button" class="btn btn-default faqUpdateBtn" id="faqUpdateBtn" value="수정하기"/></td>
+					          				<td id="fc_no">${faq.fc_name}</td>
+											<td id="title">${faq.faq_title}</td>
+					          				<td id="content">${faq.faq_content}</td>
+					          				<td><input type="button" class="btn btn-default faqDeleteBtn" data-num="${faq.faq_no}"  value="삭제하기"/>&nbsp;<input type="button" class="btn btn-default faqUpdateBtn" value="수정하기"/></td>
 					          			</tr>
 					          		</c:forEach>
 					          	</c:when>

@@ -16,6 +16,9 @@
 		<!-- [if lt IE 9]>
 			<script src="/resources/include/js/html5shiv.js"></script>
 		<![endif] -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		
            <script type="text/javascript">
            var message="",btnkind="";
            $(function(){
@@ -71,15 +74,20 @@
                
             
           //댓글 수정 및 삭제 ajax 연동 처리
-            $(document).on("click", "button[data-btn]", function(){
+            $(document).on("click", "button[data-btn]", function(){/* 
             	$(".btn").parents("div.panel .panel-heading .pwdArea").remove();
-            	$(this).parents("div.panel .panel-heading").append(pwdView());
+            	$(this).parents("div.panel .panel-heading").append(pwdView()); */
             	btnkind = $(this).attr("data-btn")
             	console.log("클릭 버튼 btnkind : " + btnkind);
+            	
+            	if(btnkind=="delBtn"){
+            		deleteBtn(no_no, re_no);
+            	}
             });
+          
         
                  $(document).on("click", "button[data-button='updateBtn']", function(){
-                   	 //console.log("수정버튼");
+                   	 console.log("수정버튼");
                    	 var re_no = $("input[name='re_no']").val();
                    	 if(!checkForm("#re_content", "댓글내용을"))return;
                    	 else{
@@ -128,7 +136,7 @@
                           console.log("result : " + result);
                           if(result=="SUCCESS"){
                              alert("삭제되었습니다");
-                             listAll(b_num);
+                             listAll(no_no);
                           }
                        }
                     });
@@ -174,18 +182,18 @@
                      replyCnt = data.length;
                      $(data).each(function(){
                     	 var re_no = this.re_no;
-                    	 var mem_no = this.mem_no;
+                    	 var mem_name = this.mem_name;
                     	 var re_date = this.re_date;
                          var re_content = this.re_content;
-                         re_content = re_content.replace(/(\r\n|\r|\n)/g, "<br/>"); 
-                         addItem(re_no, mem_no, re_date, re_content);
+                         //re_content = re_content.replace(/(\r\n|\r|\n)/g, "<br/>"); 
+                         addItem(re_no, mem_name, re_date, re_content);
                      });
                   }).fail(function(){
                      alert("댓글 목록을 불러오는데 실패하였습니다.");
                   });
                }
             
-                function addItem(re_content){
+                function addItem(re_no, mem_name, re_date, re_content){
                    
                    //새로운 글이 추가될 div태그 객체
                    
@@ -196,10 +204,10 @@
                    var new_div = $("<div>");
                    new_div.addClass("panel-heading");
                    
-                   //작성자 정보의 이름
+                    //작성자 정보의 이름
                    var name_span = $("<span>");
                    name_span.addClass("name");
-                   name_span.html(r_name + "님");
+                   name_span.html(mem_name + "님"); 
                    
                    //작성일시
                    var date_span = $("<span>");
@@ -226,11 +234,12 @@
                    
                    //내용
                    var content_div = $("<div>");
-                   content_div.html(r_content);
+                   content_div.html(re_content);
                    content_div.addClass("panel-body");
                    
                    //조합하기
-                   new_div.append(name_span).append(date_span).append(upBtn).append(delBtn);
+                   //new_div.append(name_span).append(date_span).append(upBtn).append(delBtn);
+                   new_div.append(date_span).append(upBtn).append(delBtn);
                    wrapper_div.append(new_div).append(content_div);
                    $("#reviewList").append(wrapper_div);
                 } 

@@ -10,4 +10,8 @@ public interface AdminFAQService {
 
 	public int faqDelete(int faq_no);
 
+	public int faqInsert(AdminFAQVO fvo);
+
+	public int faqUpdate(AdminFAQVO fvo);
+
 }
