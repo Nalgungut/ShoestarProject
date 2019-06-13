@@ -27,6 +27,8 @@
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/login.js"></script>
            <script type="text/javascript" src="/resources/include/js/pwdPattern.js"></script>
+           <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+ 		   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
            
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
             <!-- <link rel="stylesheet" href="/resources/include/css/default.css"/> -->
@@ -60,12 +62,19 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
+
             
            
             
             <style>
+            .mm{font-size:10px;}
             .hi{
             text-align:center;}
+            #naver_id_login{
+            
+		   
+		    margin-left:90px; 
+		    width:200px; }
             	
             </style>
             <!-- lightbox 라이브러리 -->
@@ -94,6 +103,8 @@
         		   }
         	   }
            }
+           
+         
 			</script>
 		</head>
 	<body>
@@ -151,6 +162,19 @@
 							</button>
 						</div>
 					</div>
+					
+					<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+					  <div><span class="mm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;네이버 아이디로 편하게 <strong>로그인</strong>하세요</span><div id="naver_id_login"></div></div>
+					  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
+					  <script type="text/javascript">
+					  	var naver_id_login = new naver_id_login("kiw9Q4mYKld8rhFWzGRr", "c0TrrVij9W");
+					  	var state = naver_id_login.getUniqState();
+					  	naver_id_login.setButton("white", 2,40);
+					  	naver_id_login.setDomain("http://localhost:8080/member/login");
+					  	naver_id_login.setState(state);
+					  	naver_id_login.setPopup();
+					  	naver_id_login.init_naver_id_login();
+					  </script>
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
