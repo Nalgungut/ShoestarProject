@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.client.member.service.MemberService;
+import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.orders.service.OrdersService;
 import com.shoestar.client.orders.vo.CartListVO;
 import com.shoestar.client.orders.vo.CartVO;
@@ -27,6 +29,7 @@ import lombok.AllArgsConstructor;
 public class OrdersController {
 	
 	private OrdersService ordersService;
+	private MemberService memberSerivce;
 	
 	@RequestMapping(value="/checkStock", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -87,17 +90,15 @@ public class OrdersController {
 		}
 		
 		Map<String, Object> result = ordersService.prodDataByCartList(list);
+		MemberVO mvo = memberSerivce.memberSelect(lvo.getMem_id());
+		if(mvo == null) {
+			mvo = new MemberVO();
+		}
 		
 		model.addAttribute("itemlist", result.get("success"));
 		model.addAttribute("errorlist", result.get("failed"));
+		model.addAttribute("addr", mvo);
 		
 		return "client/orders/purchase";
-	}
-	
-	@GetMapping("/getDefaultAddr")
-	@ResponseBody
-	public String getUserAddr(@SessionAttribute("login") LoginVO lvo) {
-		
-		return "";
 	}
 }

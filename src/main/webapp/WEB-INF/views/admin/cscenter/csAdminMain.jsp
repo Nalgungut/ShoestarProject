@@ -108,10 +108,10 @@
 				<tr>
 					<td class="text-center"><!-- 배송준비중인상품갯수 --><a href="#">1/2</a></td>
 					<td class="text-center"><!-- 배송중관리 --><a href="#">3/4</a></td>
-					<td class="text-center"><!-- 1:1문의취소 --><a href="#">5/8</a></td>
-					<td class="text-center"><!-- 1:1문의교환 --><a href="#">1/10</a></td>
-					<td class="text-center"><!-- 1:1문의반품 --><a href="#">12/30</a></td>
-					<td class="text-center"><!-- 1:1문의 기타 --><a href="#">10/25</a></td>
+					<td class="text-center"><a href="#">${qna_cancel} 건</a></td>
+					<td class="text-center"><a href="#">${qna_exchange} 건</a></td>
+					<td class="text-center"><a href="#">${qna_return} 건</a></td>
+					<td class="text-center"><a>${qna_hold} 건</a> /<a href="#"> ${qna_all} 건</a></td>
 				</tr>
 			</table>
 			
@@ -220,7 +220,7 @@
 					 			<th data-value="fc_name">분류유형</th>
 					 			<th data-value="faq_title">제목</th>
 					 			<th data-value="faq_content">내용</th>
-					 			<th data-value="faq_date">작성일</th>
+					 			<th> </th>
 					 		</tr>
 					 	</thead>
 					          <c:choose>

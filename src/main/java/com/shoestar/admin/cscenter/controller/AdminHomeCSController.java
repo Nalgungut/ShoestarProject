@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.shoestar.admin.cscenter.service.AdminFAQService;
+import com.shoestar.admin.cscenter.service.AdminQNAService;
 import com.shoestar.admin.cscenter.vo.AdminFAQVO;
+import com.shoestar.admin.cscenter.vo.AdminQNAVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -23,17 +25,25 @@ public class AdminHomeCSController {
 	
 	
 	private AdminFAQService faqService;
-	
-	/*
-	 * @GetMapping("/") public String csAdminMain() { log.info("admin CS센터 홈 호출");
-	 * return "admin/cscenter/csAdminMain"; }
-	 */
+	private AdminQNAService qnaService;
 	
 	//어드민 고객센터 홈링크
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String faqList(@ModelAttribute("data")AdminFAQVO fvo, Model model) {
+	public String faqList(@ModelAttribute("data")AdminFAQVO fvo, Model model, AdminQNAVO qvo) {
 		List<AdminFAQVO> faqList = faqService.faqList(fvo);
 		model.addAttribute("faqList", faqList);
+		
+		int qna_all = qnaService.qna_all(qvo);
+		int qna_hold = qnaService.qna_hold(qvo);
+		int qna_cancel = qnaService.qna_cancel(qvo);
+		int qna_exchange = qnaService.qna_exchange(qvo);
+		int qna_return = qnaService.qna_return(qvo);
+		
+		model.addAttribute("qna_all", qna_all);
+		model.addAttribute("qna_hold", qna_hold);
+		model.addAttribute("qna_cancel", qna_cancel);
+		model.addAttribute("qna_exchange", qna_exchange);
+		model.addAttribute("qna_return", qna_return);
 		
 		return "admin/cscenter/csAdminMain";
 	}
@@ -57,11 +67,9 @@ public class AdminHomeCSController {
 		String url = "";
 		log.info(fvo.toString());
 		result = faqService.faqInsert(fvo);
-		if(result == 1) {
-			url = "/admin/cscenter/";
-		}else {
-			url = "/admin/cscenter/";
-		}
+		
+		url = "/admin/cscenter/";
+		
 		
 		return "redirect:" + url;
 	}
@@ -79,4 +87,37 @@ public class AdminHomeCSController {
 		return "redirect:" + url;
 	}
 	
+	@GetMapping("/a")
+	public String adminQna() {
+		return "/admin/cscenter/csAdminQna";
+	}
+	
+	/*/어드민 고객센터 홈링크
+		@RequestMapping(value="/", method=RequestMethod.GET)
+		public String faqList(@ModelAttribute("data")AdminFAQVO fvo, Model model, AdminQNAVO qvo) {
+			List<AdminFAQVO> faqList = faqService.faqList(fvo);
+			model.addAttribute("faqList", faqList);
+			
+			int qna_all = qnaService.qna_all(qvo);
+			int qna_hold = qnaService.qna_hold(qvo);
+			int qna_cancel = qnaService.qna_cancel(qvo);
+			int qna_exchange = qnaService.qna_exchange(qvo);
+			int qna_return = qnaService.qna_return(qvo);
+			
+			model.addAttribute("qna_all", qna_all);
+			model.addAttribute("qna_hold", qna_hold);
+			model.addAttribute("qna_cancel", qna_cancel);
+			model.addAttribute("qna_exchange", qna_exchange);
+			model.addAttribute("qna_return", qna_return);
+			
+			return "admin/cscenter/csAdminMain";
+		}*/
+	
+	@RequestMapping(value="/csAdminQna", method=RequestMethod.GET)
+	public String qnaList(@ModelAttribute("data")AdminQNAVO qvo, Model model) {
+		List<AdminQNAVO> qnaList = qnaService.qnaList(qvo);
+		model.addAttribute("qnaList", qnaList);
+		
+		return "admin/cscenter/csAdminQna";
+	}
 }
