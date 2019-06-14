@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/admin/*")
+@RequestMapping("/admin/brand/*")
 @AllArgsConstructor
 
 public class AdminNoticeController {
@@ -56,9 +56,9 @@ public class AdminNoticeController {
 		
 		result = noticeService.noticeInsert(nvo);
 		if(result == 1){
-			url = "admin/brand/adminNoticeList";
+			url = "/admin/brand/adminNoticeList";
 		}
-		return null;
+		return "redirect:"+url;
 	}
 	
 	// 공지사항 상세보기
@@ -101,11 +101,11 @@ public class AdminNoticeController {
 			ras.addFlashAttribute("data", nvo);
 			
 		if(result ==1){
-			url="admin/brand/adminNoticeDetail";
+			url="/admin/brand/adminNoticeDetail";
 		}else{
-			url="admin/brand/updateForm";
+			url="/admin/brand/updateForm";
 		}
-		return "admin/brand/updateForm";
+		return "redirect:"+url;
 	}
 	
 	// 공지사항 삭제
@@ -114,11 +114,11 @@ public class AdminNoticeController {
 		log.info("noticeDelete 호출");
 		
 		int result = 0;
-		String url = "";
+		
 		
 		result = noticeService.noticeDelete(nvo.getNo_no());
 		
-		return "admin/brand/noticeDetail?no_no="+nvo.getNo_no();
+		return "redirect:/admin/brand/adminNoticeList";
 	}
 
 }

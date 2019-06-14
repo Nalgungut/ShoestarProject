@@ -201,7 +201,7 @@
 							<label style="font-size:16px" id="se">검색조건</label>
 							<select id="search" name="search" class="form-control">
 								<option value="all" id="goDetail">전체</option>
-								<option value="no_title" id="goDetail">제목</option>
+								<option value="no_subject" id="goDetail">제목</option>
 								<option value="no_content" id="goDetail">내용</option>
 								<option value="no_kind" id="goDetail">말머리</option>
 							</select>

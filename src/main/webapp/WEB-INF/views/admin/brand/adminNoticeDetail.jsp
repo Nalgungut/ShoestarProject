@@ -50,22 +50,20 @@
 						//수정 페이지로 이동하기 위해 form추가 (id=detailForm)
 						$("#detailForm").attr({
 							"method" : "get",
-							"action" : "/admin/updateForm"
+							"action" : "/admin/brand/updateForm"
 						});
 						$("#detailForm").submit();
 					});
 					
 					//목록 버튼 클릭 시 처리 이벤트
 					$("#boardListBtn").click(function(){
-						/* var queryString = "?pageNum="+$("#pageNum").val()+&amount */
-						/*  var queryString = "?pageNum="+$("#pageNum").val()+"&amount="+$("#amount").val(); */
-						location.href="/admin/adminNoticeList"/* +queryString */; /* queryString꼭 붙이자 */
+						location.href="/admin/brand/adminNoticeList";
 					});
 					
 					 /* 삭제버튼 클릭 시 */
 			        $("#boardDeleteBtn").click(function(){
 						$.ajax({
-							url : "/admin/noticeDelete",
+							url : "/admin/brand/noticeDelete",
 							type : "post",
 							data : "no_no"+$("#no_no").val(),
 							dataType : "text",

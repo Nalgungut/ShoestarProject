@@ -87,4 +87,9 @@
 		<put-attribute name="body" value="/WEB-INF/views/admin/adminMember/{1}.jsp"/>
 	</definition>
 	
+	<definition name="admin/brand/*" extends="admin">
+		<put-attribute name="body" value="/WEB-INF/views/admin/brand/{1}.jsp"/>
+	</definition>
+	
+	
 </tiles-definitions>
