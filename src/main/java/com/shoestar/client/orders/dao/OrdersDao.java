@@ -12,7 +12,7 @@ public interface OrdersDao {
 	
 	public List<CartVO> cartListByMemNo(int mem_no);
 	
-	public List<OrdersInsVO> prodDataByCartList(List<CartVO> cvo);
+	public List<OrdersInsVO> prodDataByCartList(@Param("cartlist") List<CartVO> cvo);
 	
 	public int addToCart(CartVO cvo);
 	

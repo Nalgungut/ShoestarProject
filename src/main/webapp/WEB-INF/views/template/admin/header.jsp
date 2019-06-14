@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<style>
+	#head_link{
+	float:right;
+	vertical-align:bottom;}
+	#ss{
+	font-color:black;}
+</style>
+
+<body>
 <div class="container">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -13,7 +23,7 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/admin/product/list">상품</a></li>
 			<li><a href="#">판매</a></li>
-			<li><a href="#">브랜드</a></li>
+			<li><a href="/admin/brand/adminNoticeList">브랜드</a></li>
 			<li><a href="/admin/event/list">이벤트</a></li>
 			<li><a href="/admin/cscenter/csAdminMain">문의</a></li>
 			<li><a href="#">회원</a></li>
@@ -34,5 +44,25 @@
 			</li>
 			--%>
 		</ul>
+		
+		<div id="head_link">
+		<ul>
+		   <c:choose>
+		   
+		     <c:when test="${not empty adminLogin && adminLogin.adm_no != 0}">
+		     <%-- <c:when test="${login==true and not empty adminLogin}"> --%>
+			   <a href="${contextPath}/adminMember/logout"><mark>로그아웃</mark></a>
+			   
+			 </c:when>
+			 <c:otherwise>
+			   <a href="${contextPath}/adminMember/adminLogin"><mark>관리자로그인</mark></a>
+			   <a href="${contextPath}/adminMember/adminJoin" id="ss"><strong>관리자Join</strong></a>
+			 </c:otherwise>
+			</c:choose>
+			  
+		</ul>
+	</div>
+		
 	</div><!--/.nav-collapse -->
 </div>
+</body>

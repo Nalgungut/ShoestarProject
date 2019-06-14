@@ -20,6 +20,16 @@ public class OrdersServiceImpl implements OrdersService {
 	
 	private OrdersDao ordersDao;
 	
+	public static boolean isEqual(OrdersInsVO ovo, CartVO cvo) {
+		return cvo.getPi_no() == ovo.getPi_no() && cvo.getPs_size() == ovo.getPs_size();
+	}
+	
+	public static int calcDiscount(int originalPrice, int dcrate) {
+		return (int) (Math.floor(originalPrice * (100 - dcrate) / 1000.0) * 10);
+	}
+	
+	/* ============================================================================================== */
+	
 	@Override
 	public List<CartVO> cartListByMemNo(int mem_no) {
 		List<CartVO> result = ordersDao.cartListByMemNo(mem_no);
@@ -44,7 +54,9 @@ public class OrdersServiceImpl implements OrdersService {
 			for (int j = 0; j < cvo.size(); j++) {
 				CartVO compData = cvo.get(k++);
 				if(isEqual(newData, compData)) {
-					if(newData.getOi_qty() < compData.getCart_qty()) {
+					if(newData.getOi_qty() >= compData.getCart_qty()) {
+						newData.setOi_price(calcDiscount(newData.getOi_org_price(), newData.getPd_discount()));
+						newData.setOi_qty(compData.getCart_qty());
 						success.add(newData);
 					} else {
 						error.add(newData);
@@ -94,13 +106,6 @@ public class OrdersServiceImpl implements OrdersService {
 		return stock >= cvo.getCart_qty();
 	}
 	
-	
-	/* ============================================================================================== */
-	
-	public static boolean isEqual(OrdersInsVO ovo, CartVO cvo) {
-		return cvo.getPi_no() == ovo.getPi_no() && cvo.getPs_size() == ovo.getPs_size();
-	}
-
 	@Override
 	public List<OrdersVO> ordersDataByMemNo(int mem_no) {
 		return ordersDao.ordersDataByMemNo(mem_no);

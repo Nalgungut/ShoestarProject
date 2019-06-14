@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.client.member.service.MemberService;
+import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.orders.service.OrdersService;
 import com.shoestar.client.orders.vo.CartListVO;
 import com.shoestar.client.orders.vo.CartVO;
@@ -27,6 +29,7 @@ import lombok.AllArgsConstructor;
 public class OrdersController {
 	
 	private OrdersService ordersService;
+	private MemberService memberSerivce;
 	
 	@RequestMapping(value="/checkStock", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -68,13 +71,16 @@ public class OrdersController {
 
 	@RequestMapping(value="/purchase", method={RequestMethod.POST})
 	public String purchasePage(CartListVO clist, CartVO cvo, @SessionAttribute("login") LoginVO lvo, Model model) {
-		List<CartVO> list = clist.getCartlist();
+		List<CartVO> list = null;
 		
-		if(list == null) {
+		if(clist == null || clist.getCartlist() == null) {
 			list = new ArrayList<>();
+		} else {
+			list = clist.getCartlist();
 		}
+		
 		if(cvo != null && cvo.getPi_no() != 0) {
-			clist.getCartlist().add(cvo);
+			list.add(cvo);
 		}
 		
 		if(list.get(0).getMem_no() == 0) {
@@ -84,9 +90,14 @@ public class OrdersController {
 		}
 		
 		Map<String, Object> result = ordersService.prodDataByCartList(list);
+		MemberVO mvo = memberSerivce.memberSelect(lvo.getMem_id());
+		if(mvo == null) {
+			mvo = new MemberVO();
+		}
 		
-		model.addAttribute("items", result.get("success"));
-		model.addAttribute("errors", result.get("failed"));
+		model.addAttribute("itemlist", result.get("success"));
+		model.addAttribute("errorlist", result.get("failed"));
+		model.addAttribute("addr", mvo);
 		
 		return "client/orders/purchase";
 	}

@@ -40,7 +40,7 @@
 						else{
 							$("#f_updateForm").attr({
 								"method" : "post",
-								"action" : "/admin/boardUpdate"
+								"action" : "/admin/brand/boardUpdate"
 							});
 							$("#f_updateForm").submit();
 						}
@@ -53,7 +53,7 @@
 					});
 					//목록 버튼 클릭 시 처리이벤트
 					$("#boardListBtn").click(function(){
-						location.href="/admin/adminNoticeList";
+						location.href="/admin/brand/adminNoticeList";
 					});
 				});
 			</script>

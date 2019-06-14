@@ -56,6 +56,7 @@
 	</beans:bean>
 	
 	
+	
 	<!-- 파일 업로드 설정을 위한 멀티파트 리졸버 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
 	</beans:bean>
@@ -64,5 +65,8 @@
 	<aop:aspectj-autoproxy />
 	
 	<!-- 트랜잭션을 설정할 수 있도록 태그를 등록 -->
-	<tx:annotation-driven/>
+	<!--  <tx:annotation-driven/>-->
+	
 </beans:beans>
+
+

@@ -40,12 +40,11 @@
 	
 	<!-- 공지사항 등록 -->
 	<insert id="noticeInsert" parameterType="com.shoestar.client.notice.vo.NoticeVO">
-		<selectKey keyProperty="no_no" resultType="int" order="BEFORE">
+		<!-- <selectKey keyProperty="no_no" resultType="int" order="BEFORE">
 			select notice_seq.nextval from dual
-		</selectKey>
-		
+		</selectKey> -->
 		insert into notice(no_no, no_kind, no_subject, no_content, adm_no, no_date)
-		values(#{no_no}, #{no_kind}, #{no_subject}, #{no_content},  #{adm_no}, #{no_date})
+		values(notice_seq.nextval, #{no_kind}, #{no_subject}, #{no_content},  1, sysdate)
 	</insert>
 	
 	<!-- 공지사항 수정 -->

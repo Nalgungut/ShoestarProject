@@ -35,7 +35,8 @@
             
             <style>
             	#loginAfter{
-            	float:center;}
+            	float:center;
+            	}
             </style>
             <!-- lightbox 라이브러리 -->
            <!--  <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
@@ -51,12 +52,8 @@
 	<body>
 		
 		  	<fieldset id="loginAfter">
-		  		<legend><%-- [${adminLogin.adm_name}]님 어서오세요. --%> 관리자모드</legend>
-			  		<span id="memberMenu" class="tac">
-			  			<a href="/adminMember/adminLogout">로그아웃</a>
-			  			<a href="/adminMember/adminModify">정보수정</a>
-			  			<a href="/adminMember/adminDelete">회원탈퇴</a>
-			  		</span>
+		  		<legend><%-- [${adminLogin.adm_name}]님 어서오세요. --%> 관리자모드ON</legend>
+			  		
 		  	</fieldset>
 		  
 	</body>

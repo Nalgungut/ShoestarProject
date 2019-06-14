@@ -68,14 +68,14 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    <a href="investigaciones/favoritas"><i class="fa fa-fw fa-user-plus"></i>  MENU 3</a>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-fw fa-search"></i> 고객지원 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <ul id="submenu-3" class="collapse">
+			                        <li><a href="/cscenter/qnaBoard"><i class="fa fa-angle-double-right"></i> 1:1문의</a></li>
+			                        <!-- <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li> -->
+			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                    </ul>
 			                </li>
-			                <li>
-			                    <a href="sugerencias"><i class="fa fa-fw fa-paper-plane-o"></i> MENU 4</a>
-			                </li>
-			                <li>
-			                    <a href="faq"><i class="fa fa-fw fa fa-question-circle"></i> MENU 5</a>
-			                </li>
+			              
 			            </ul>
 			        </div>
 			        <!-- /.navbar-collapse -->

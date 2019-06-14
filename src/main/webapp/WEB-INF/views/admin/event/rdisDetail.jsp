@@ -13,6 +13,12 @@
 	   src="/resources/include/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 	
+	<style type="text/css">
+		#imgSize{width: 100px; height: 100px;}
+		.RD_td{width: 180px;}
+	
+	</style>
+	
 	<script type="text/javascript">
 		
 	</script>
@@ -21,7 +27,7 @@
 	
 	</head>
 		<body>
-			<h3>${Alldetail}</h3>
+			
 			<%-- ${detail.rd_no} 
 			${detail.rd_title} 
 			${detail.rd_content} 
@@ -38,30 +44,26 @@
 							<table id="RdisDetailTable" border="1">
 								<caption class="Rcaption">상세 정보</caption>
 								<tr>
-									<td class="RD_td">번호</td>
-								</tr>
-								<tr>
-									<td class="daNum" data-num="${detail.rd_no}">${detail.rd_no}</td>
+									<td class="RD_td gray">번호</td>
+								
+									<td data-num="${detail.rd_no}">${detail.rd_no}</td>
 								</tr>
 								
 								<tr>
-									<td class="RD_td">제목</td>
-								</tr>
-								<tr>
+									<td class="RD_td gray">제목</td>
+							
 									<td>${detail.rd_title} </td>
 								</tr>
 
 								<tr>
-									<td class="RD_td">내용</td>
-								</tr>
-								<tr>
+									<td class="RD_td gray">내용</td>
+								
 									<td>${detail.rd_content} </td>
 								</tr>								
 								
 								<tr>
-									<td class="RD_td">할인</td>
-								</tr>
-								<tr>
+									<td class="RD_td gray">할인</td>
+							
 									<td>${detail.rd_discount}
 									<c:choose>
 										<c:when test="${detail.rd_discount < 100}">
@@ -75,22 +77,25 @@
 								</tr>
 								
 								<tr>
-									<td class="RD_td">등록일</td>
-								</tr>
-								<tr>
+									<td class="RD_td gray">등록일</td>
+							
 									<td>
 									<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${detail.rd_date}" />
 									</td>
 								</tr>
 								
 								<tr>
-									<td class="RD_td">만료일</td>
-								</tr>
-								<tr>
+									<td class="RD_td gray">만료일</td>
+							
 									<td>
 									<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${detail.rd_edate}" />
 									</td>								
 								</tr>
+								<!-- 
+								
+								</tr>
+								<tr>
+								 -->
 							</table>
 						
 						</form>
@@ -106,21 +111,23 @@
 								pr.pim_main
 							
 							 -->
+							 <tr>
+							 		<td class="RD_td gray">카테고리번호</td>
+									<td class="RD_td gray">카테고리명</td>
+									<td class="RD_td gray">신발번호</td>
+									<td class="RD_td gray">신발명</td>
+
+									<td class="RD_td gray">신발 대표 이미지</td>
+							 </tr>	
 							<c:forEach items="${Alldetail}" var="jo" varStatus="status">
-								<tr>
-									<td class="RD_td">카테고리명</td>
+								 <tr>
+								 	<td>${jo.pct_no}</td>
 									<td>${jo.pct_name}</td>
-								</tr>	
-								
-								<tr>
-									<td class="RD_td">신발명</td>
+									<td>${jo.pd_no}</td>
 									<td>${jo.pd_name}</td>
-								</tr>	
-				
-								<tr>
-									<td class="RD_td">신발 대표 이미지</td>
-									<td><%-- <img src="/shoestarStorage/prod/thumb/ --%>${jo.pim_main}<%-- " /> --%></td>
-								</tr>
+									
+									<td><img id="imgSize" src="/shoestarStorage/prod/thumb/${jo.pim_main}" /></td>
+								 <tr>
 							</c:forEach>
 								
 						

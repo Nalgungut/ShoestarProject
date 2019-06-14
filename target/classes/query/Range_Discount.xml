@@ -34,19 +34,22 @@
 	<!-- 참조 조회 -->
 	<select id="AdminDetail" parameterType="rds" resultType="rds">
 			select distinct
-			   rt.rd_no, rt.pct_no, 
+			    p.pd_no, p.pd_name, rt.pct_no, rp.rd_no, pt.pct_name, p.pim_main
 			from
 			    prod p
-			left outer join
+            inner join
+                prod_ctg pt
+            on
+                p.pct_no = pt.pct_no
+			inner join
 			    rd_type rt
 			on
-			    p.pct_no = rt.pct_no and
-			    rt.rd_no = #{rd_no}
-			left outer join
-			    rd_product rp
+			    p.pct_no = rt.pct_no
+			inner join
+			    rd_product rp 
 			on
-			    p.pd_no = rp.pd_no and
-			    rp.rd_no = #{rd_no}
+			    p.pd_no = rp.pd_no
+            where rt.rd_no = #{rd_no}
 			order by p.pd_no asc
 	</select>
 		

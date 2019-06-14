@@ -5,17 +5,15 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.shoestar.client.login.vo.LoginVO;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class MemberVO extends LoginVO{
-	/*private String mem_id;
+public class MemberVO{
+	private int mem_no;
+	private String mem_id;
 	private String mem_pwd;
-	private String mem_name;*/
+	private String mem_name;
 	@DateTimeFormat(pattern = "yyMMdd")
 	private Date mem_birth;
 	private Date mem_rdate;
