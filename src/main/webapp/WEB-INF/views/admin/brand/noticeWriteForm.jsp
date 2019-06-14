@@ -15,7 +15,7 @@
      	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		
 		<script type="text/javascript" src="/resources/include/naver/js/service/HuskyEZCreator.js"></script>
-		
+		<script type="text/javascript" src="/resources/include/js/searchNotice.js"></script>
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<!-- [if lt IE 9]>
 			<script src="/resources/include/js/html5shiv.js"></script>
@@ -43,13 +43,26 @@
 				/* 저장버튼 클릭 시 처리 이벤트 */
 				$("#boardInsertBtn").click(function(){
 					//입력값 체크
-					if(!chkSubmit($('#no_kind'),"글머리를")) return;
-					else if(!chkSubmit($('#no_title'),"제목을")) return;
-					else if(!chkSubmit($('#no_content'),"작성할 내용을")) return;
-					else{
+				    //if(!chkSubmit($('#no_kind'),"글머리를")) return;
+					//else if(!chkSubmit($('#no_subject'),"제목을")) return;
+					//else if(!chkSubmit($('#no_content'),"작성할 내용을")) return;
+					//else{
+						
+					if($("#no_subject").val().replace(/\s/g,"")==""){
+						alert("제목을 입력해 주세요.");
+						$("#no_subject").val("");
+						$("#no_subject").focus();
+						return false;
+					}
+					if($("#no_content").val().replace(/\s/g,"")==""){
+						alert("내용을 입력해 주세요.");
+						$("#no_content").val("");
+						$("#no_content").focus();
+						return false;
+					}else{
 						$("#f_writeForm").attr({
 							"method" : "post",
-							"action" : "admin/noticeInsert"
+							"action" : "/admin/brand/noticeInsert"
 						});
 						$("#f_writeForm").submit();
 					}
@@ -63,18 +76,23 @@
 				});
 				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
+				/* $("#boardListBtn").click(function(){
+					//var queryString = "?pageNum="+$("#pageNum").val()+"&amount="+$("#amount").val();
+					location.href="/ admin/adminNoticeList";
+				}); */
+				
+				//목록 버튼 클릭 시 처리 이벤트
 				$("#boardListBtn").click(function(){
-					/* var queryString = "?pageNum="+$("#pageNum").val()+"&amount="+$("#amount").val(); */
-					location.href="admin/adminNoticeList"/* +queryString */;
+					location.href="/admin/brand/adminNoticeList";
 				});
 				
-				// 네이버 스마트에디터
+				/* // 네이버 스마트에디터
 				nhn.husky.EZCreator.createInIFrame({
 				    oAppRef: oEditors,
 				    elPlaceHolder: "popContent",  //textarea ID
 				    sSkinURI: "/resources/include/naver/SmartEditor2Skin.html",  //skin경로
 				    fCreator: "createSEditor2",
-				});
+				}); */
 				
 			});
 		</script>
@@ -105,11 +123,11 @@
 							</tr>
 							<tr>
 								<td>글제목</td>
-								<td class="text-left"><input type="text" name="no_title" id="no_title" class="form-control" /></td>
+								<td class="text-left"><input type="text" name="no_subject" id="no_subject" class="form-control" /></td>
 							</tr>
 							<tr>
 								<td>글내용</td>
-								<td class="text-left"><textarea class="text-left" name="no_content" id="popContent" class="form-control"></textarea></td>
+								<td class="text-left"><textarea class="text-left" name="no_content" id="no_content" class="form-control"></textarea></td>
 							</tr>
 						</tbody>
 					</table>

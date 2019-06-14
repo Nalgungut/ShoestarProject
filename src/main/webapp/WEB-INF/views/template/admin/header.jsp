@@ -23,7 +23,7 @@
 		<ul class="nav navbar-nav">
 			<li><a href="/admin/product/list">상품</a></li>
 			<li><a href="#">판매</a></li>
-			<li><a href="#">브랜드</a></li>
+			<li><a href="/admin/brand/adminNoticeList">브랜드</a></li>
 			<li><a href="/admin/event/list">이벤트</a></li>
 			<li><a href="/admin/cscenter/csAdminMain">문의</a></li>
 			<li><a href="#">회원</a></li>

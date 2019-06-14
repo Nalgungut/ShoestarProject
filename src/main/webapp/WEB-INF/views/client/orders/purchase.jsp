@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<c:set var="orgPriceTotal" value="0" />
+<c:set var="priceTotal" value="0" />
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -10,6 +15,27 @@
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script type="text/javascript">
 		
+		$(function() {
+			resetAddr();
+			
+			$(".addrChange").on("change", function() {
+				resetAddr();
+			});
+		});
+		
+		function resetAddr() {
+			var addrForm = $("#addrForm");
+			
+			if($("#addrSaved").prop("checked")) {
+				addrForm[0].reset();
+				$("#searchAddr").prop("disabled", true);
+			} else {
+				$.each(addrForm.find("input"), function(index, formControl) {
+					$(this).val("");
+				})
+				$("#searchAddr").prop("disabled", false);
+			}
+		}
 		
 		function sample4_execDaumPostcode() {
 			new daum.Postcode({
@@ -59,8 +85,9 @@
 		
 		<div class="purchaseContainer">
 			<div class="itemSection col-md-9">
-				<form id="purchaseForm"><table class="orderTable table table-striped">
-					
+				<form id="purchaseForm">
+					<h4>상품 내역</h4>
+					<table class="orderTable table table-striped">
 					<!-- 사이즈 조절 -->
 					<colgroup>
 						<col width="10%">
@@ -103,9 +130,13 @@
 							<td>${stack.pcl_name}</td>
 							<td>${stack.ps_size}</td>
 							<td>${stack.oi_qty}</td>
-							<td class="gray">-${stack.oi_org_price > stack.oi_price ? stack.oi_org_price - stack.oi_price : ""}</td>
-							<td>${stack.oi_price}</td>
+							<td class="gray">-
+								${stack.oi_org_price > stack.oi_price ? (stack.oi_org_price - stack.oi_price) * stack.oi_qty : ""}
+							</td>
+							<td>${stack.oi_price * stack.oi_qty}</td>
 						</tr>
+						<c:set var="orgPriceTotal" value="${orgPriceTotal + (stack.oi_org_price * stack.oi_qty)}"/>
+						<c:set var="priceTotal" value="${priceTotal + (stack.oi_price * stack.oi_qty)}"/>
 					</c:forEach></c:when>
 					<c:otherwise>
 						<tr>
@@ -118,7 +149,7 @@
 					<tfoot><c:if test="${not empty errorlist}">
 						<tr><td class="emptycell" colspan="8">&nbsp;</tr>
 						<tr class="danger">
-							<th class="errorTitle" colspan="8"><h4>제외 된 상품</h4></th>
+							<th class="errorTitle" colspan="8"><h4>제외된 상품(재고 부족)</h4></th>
 						</tr>
 						
 						<c:forEach items="${errorlist}" var="stack">
@@ -143,26 +174,109 @@
 					</c:if></tfoot>
 				</table></form>
 				
+				<hr>
+				
 				<!-- 기타 정보 표시란 -->
-				<div>
-					<div class="form-group">
-						<label>주소 선택</label>
-						<div class="col-sm-12">
-							<div class="form-group form-inline">
-								<input type="text" class="form-control" id="postal" readonly="readonly" name="postal">
-								<input type="button" class="btn btn-default" onclick="sample4_execDaumPostcode()" value="주소 찾기"><br>
-							</div>
-							<input type="text" class="form-control" id="addr1" name="addr1" readonly="readonly">
-							<input type="text" class="form-control" id="addr3" name="addr2" placeholder="상세주소" required="required">
-							<input type="hidden" class="form-control" id="extraAddr">
-							<span id="guide" style="color:darkred; display:none"></span>
+				<div class="addrSection">
+					<h4>배송지 입력</h4>
+					<div class="col-md-12">
+						<label class="col-md-2 control-label">주소 선택</label>
+						<div class="form-group col-md-10">
+							<input type="radio" id="addrSaved" class="addrChange" name="addrSel_not_for_submit" checked="checked">
+							<label for="addrSaved" class="font-weight-normal">기존 배송지</label>
+							<input type="radio" id="addrNew" class="addrChange" name="addrSel_not_for_submit">
+							<label for="addrNew" class="font-weight-normal">신규 배송지</label>
 						</div>
+						<form id="addrForm">
+						<label class="col-md-2 control-label" for="postal">우편번호</label>
+						<div class="form-group col-md-10 form-inline">
+							<input type="text" class="form-control" id="postal" readonly="readonly"
+								name="postal" value="${addr.mem_zip}">
+							<button type="button" class="btn btn-default" id="searchAddr"
+								onclick="sample4_execDaumPostcode()">주소 찾기</button><br>
+						</div>
+						<label class="col-md-2 control-label" for="addr1">주소</label>
+						<div class="form-group col-md-10">
+							<input type="text" class="form-control" id="addr1" name="addr1"
+								readonly="readonly" value="${addr.mem_addr1}">
+						</div>
+						<label class="col-md-2 control-label" for="addr2">상세 주소</label>
+						<div class="form-group col-md-10">
+							<input type="text" class="form-control" id="addr2" name="addr2"
+								placeholder="상세주소" required="required" value="${addr.mem_addr3}">
+						</div>
+						<input type="hidden" class="form-control" id="extraAddr">
+						</form>
+						<span id="guide" style="color:darkred; display:none"></span>
 					</div>
+				</div>
+				
+				<hr>
+				
+				<div class="transactionSection">
+					<h4>결제 수단 선택</h4>
+					<form id="transactionForm inline-form">
+						<label class="control-label col-md-2">선택</label>
+						<div class="form-group col-md-10 radio">
+							<label>
+								<input type="radio" name="transType" id="trans_credit">
+								신용카드
+							</label>
+							<label>
+								<input type="radio" name="transType" id="trans_banking">
+								무통장 입금
+							</label>
+							<label>
+								<input type="radio" name="transType" id="trans_mobile">
+								휴대폰 결제
+							</label>
+						</div>
+					</form>
 				</div>
 			</div>
 			
 			<div class="purchaseSection col-md-3">
-				<h1>tesssst</h1>
+				<h4>결제 금액</h4>
+				
+				<table class="table table-condensed">
+					<tr>
+						<th>총 상품 수</th>
+						<td class="text-right">${fn:length(itemlist)}개</td>
+					</tr>
+					<tr>
+						<th>총 금액</th>
+						<td class="text-right">${orgPriceTotal}원</td>
+					</tr>
+					<tr>
+						<th>할인 금액</th>
+						<td class="text-right discount">-${orgPriceTotal - priceTotal}원</td>
+					</tr>
+				</table>
+				
+				<div class="col-sm-12 finalPrice">
+					<strong class="finalTitle">최종 금액</strong>
+					<span class="priceTotal">${priceTotal}원</span>
+				</div>
+				
+				<hr>
+				
+				<div class="buttonSection">
+					<div class="agreementSection col-sm-12">
+						<div class="agreementInfo text-center">
+							<strong>주문 동의 | </strong>
+							주문할 상품의 상품명, 가격, 배송정보에 동의하십니까?
+						</div>
+						<div class="buttonSection text-center">
+							<label>
+								<input type="checkbox" id="purchaseAgree">
+								동의합니다
+								<span class="gray">(전자상거래법 제8조 2항)</span>
+							</label>
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary btn-block" id="proceedPurchase">결제하기</button>
+					<a class="btn btn-default btn-block" id="backToCart" href="/orders/cart">장바구니</a>
+				</div>
 			</div>
 		</div>
 		

@@ -72,18 +72,6 @@
 	<!-- 트랜잭션을 설정할 수 있도록 태그를 등록 -->
 	<!--  <tx:annotation-driven/>-->
 	
-	<!-- 인터셉터 객체 생성 -->
-	<beans:bean id="authenticationInterceptor" class="com.shoestar.client.member.loginInterceptor.AuthLoginInterceptor">
-	</beans:bean>
-	<!-- Interceptor 설정 -->
-	<interceptors>
-	    <interceptor>
-	   		<mapping path="/myPage/main"/>	
-			<mapping path="/member/modify"/>
-			<mapping path="/member/delete"/>
-			<beans:ref bean="authenticationInterceptor"/>
-	    </interceptor>
-	</interceptors>
 </beans:beans>
 
 

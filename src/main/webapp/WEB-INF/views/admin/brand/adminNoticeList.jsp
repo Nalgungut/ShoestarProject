@@ -138,7 +138,7 @@
 					//상세 페이지로 이동하기 위해 form추가 (id=detailForm)
 					$("#detailForm").attr({
 						"method" : "get",
-						"action" : "/admin/adminNoticeDetail"
+						"action" : "/admin/brand/adminNoticeDetail"
 					});
 					$("#detailForm").submit();
 				});
@@ -190,7 +190,7 @@
     	    	$("#insertFormBtn").click(function(){
 	    			/* 글쓰기 누르기 전에 있던 페이지로 이동시켜주는 것 */
 	    			/* var queryString = "?pageNum="+$("#pageNum").val()+"&amount="+$("#amount").val(); */
-	    			location.href = "/admin/noticeWriteForm";/* +queryString; */
+	    			location.href = "/admin/brand/noticeWriteForm";/* +queryString; */
 	    		}); 
 				
 			}); /* 최상위 fun 종료*/
