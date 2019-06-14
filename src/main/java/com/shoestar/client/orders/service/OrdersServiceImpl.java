@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shoestar.client.orders.dao.OrdersDao;
 import com.shoestar.client.orders.vo.CartVO;
@@ -114,5 +115,21 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo) {
 		return ordersDao.ordersInsByOdNo(ovo);
+	}
+	
+	@Transactional
+	@Override
+	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo) {
+		int result = 0;
+		
+		int od_no = ordersDao.insertNewOrders(mem_no);
+		ordersDao.insertOrderIns(oivo, od_no);
+		
+		for (OrdersInsVO ordersInsVO : oivo) {
+			ordersDao.updateStock(ordersInsVO);
+			result++;
+		}
+		
+		return result;
 	}
 }

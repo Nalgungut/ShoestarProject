@@ -16,13 +16,70 @@
 		<script type="text/javascript">
 		
 		$(function() {
+			// 주소 초기화
 			resetAddr();
 			
+			// 주소 변경 버튼 기능
 			$(".addrChange").on("change", function() {
 				resetAddr();
 			});
+			
+			// 상품 목록 없을 시 버튼 제어
+			var itemListSize = "${fn:length(itemlist)}";
+			if(!itemListSize) {
+				$("#proceedPurchase").prop("disabled", true);
+				alert("구매 가능한 상품이 없습니다.");
+				location.href = "/orders/cart";
+			}
+			
+			// 결제하기 버튼
+			$("#proceedPurchase").click(function() {
+				if(checkPurchaseData()) {
+					submitPurchase();
+				}
+			});
 		});
 		
+		function checkPurchaseData() {
+			if(!$("#purchaseAgree").prop("checked")) {
+				alert("주문 사항에 동의해야합니다.");
+				$("#purchaseAgree").focus();
+				return false;
+			}
+			
+			if($("#postal").val().isEmpty()) {
+				alert("주소 정보를 입력해주세요.");
+				$("#searchAddr").focus();
+				return false;
+			}
+			
+			return true;
+		}
+		
+		function submitPurchase() {
+			$.ajax({
+				url :"/orders/process",
+				type : "post",
+				data : $("#purchaseForm").serialize() + "&"
+					+ $("#addrForm").serialize() + "&" + $("#transactionForm").serialize(),
+				dataType : "text",
+				error : function(xhr) {
+					if(askForLogin(xhr)) {
+						alert("서버 오류로 결제를 진행할 수 없었습니다.");
+					}
+				},
+				success : function(result) {
+					if(result == "true") {
+						alert("성공적으로 결제되었습니다.");
+						location.href = "/myPage/orders";
+					} else {
+						alert("결제 과정에서 오류가 발생했습니다.");
+					}
+				}
+			});
+		}
+		
+		// 주소 초기화 작업
 		function resetAddr() {
 			var addrForm = $("#addrForm");
 			
@@ -37,6 +94,7 @@
 			}
 		}
 		
+		// 주소 받아오는 함수
 		function sample4_execDaumPostcode() {
 			new daum.Postcode({
 				oncomplete: function(data) {
@@ -115,6 +173,7 @@
 					</thead>
 					
 					<!-- 항목 아이템 -->
+					<c:set var="itemIndex" value="${0}"/>
 					<tbody><c:choose><c:when test="${not empty itemlist}"><c:forEach items="${itemlist}" var="stack">
 						<tr data-pino="${stack.pi_no}" data-size="${stack.ps_size}" class="itemRecord">
 							<td>${stack.pi_no}</td>
@@ -134,9 +193,21 @@
 								${stack.oi_org_price > stack.oi_price ? (stack.oi_org_price - stack.oi_price) * stack.oi_qty : ""}
 							</td>
 							<td>${stack.oi_price * stack.oi_qty}</td>
+							<td>
+								<c:set var="orgPriceEach" value="${stack.oi_org_price * stack.oi_qty}"/>
+								<c:set var="priceEach" value="${stack.oi_price * stack.oi_qty}"/>
+								
+								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${stack.pi_no}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].oi_qty" value="${stack.oi_qty}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].ps_size" value="${stack.ps_size}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${orgPriceEach}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${priceEach}">
+								<c:set var="itemIndex" value="${itemIndex + 1}"/>
+								
+								<c:set var="orgPriceTotal" value="${orgPriceTotal + orgPriceEach}"/>
+								<c:set var="priceTotal" value="${priceTotal + priceEach}"/>
+							</td>
 						</tr>
-						<c:set var="orgPriceTotal" value="${orgPriceTotal + (stack.oi_org_price * stack.oi_qty)}"/>
-						<c:set var="priceTotal" value="${priceTotal + (stack.oi_price * stack.oi_qty)}"/>
 					</c:forEach></c:when>
 					<c:otherwise>
 						<tr>
@@ -215,19 +286,19 @@
 				
 				<div class="transactionSection">
 					<h4>결제 수단 선택</h4>
-					<form id="transactionForm inline-form">
+					<form id="transactionForm">
 						<label class="control-label col-md-2">선택</label>
 						<div class="form-group col-md-10 radio">
 							<label>
-								<input type="radio" name="transType" id="trans_credit">
+								<input type="radio" name="transType" value="credit" id="trans_credit" checked="checked">
 								신용카드
 							</label>
 							<label>
-								<input type="radio" name="transType" id="trans_banking">
+								<input type="radio" name="transType" value="banking" id="trans_banking">
 								무통장 입금
 							</label>
 							<label>
-								<input type="radio" name="transType" id="trans_mobile">
+								<input type="radio" name="transType" value="mobile" id="trans_mobile">
 								휴대폰 결제
 							</label>
 						</div>
@@ -237,7 +308,6 @@
 			
 			<div class="purchaseSection col-md-3">
 				<h4>결제 금액</h4>
-				
 				<table class="table table-condensed">
 					<tr>
 						<th>총 상품 수</th>

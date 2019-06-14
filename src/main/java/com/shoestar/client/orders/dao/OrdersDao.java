@@ -25,4 +25,10 @@ public interface OrdersDao {
 	public List<OrdersVO> ordersDataByMemNo(int mem_no);
 	
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
+	
+	public int insertNewOrders(int mem_no);
+	
+	public int insertOrderIns(@Param("inslist") List<OrdersInsVO> oivo, @Param("od_no") int od_no);
+	
+	public int updateStock(OrdersInsVO oivo);
 }

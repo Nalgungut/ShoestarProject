@@ -32,4 +32,6 @@ public interface OrdersService {
 	 * @return 주문 상품 목록(OrdersInsVO)
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
+	
+	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo);
 }

@@ -133,12 +133,8 @@
 					data : target.serialize(),
 					dataType : "text",
 					error : function(xhr, status, except) {
-						if(xhr.status == 400 || xhr.status == 500) {
-							if(confirm("로그인이 필요한 작업입니다.\n로그인 하시겠습니까?")) {
-								location.href = "/member/login";
-							}
-						} else {
-							alert("서버 오류로 장바구니에 상품을 추가할 수 없었습니다.");
+						if(askForLogin(xhr)) {
+							alert("서버 오류로 장바구니 물품을 추가할 수 없었습니다.");
 						}
 					},
 					success : function(result) {

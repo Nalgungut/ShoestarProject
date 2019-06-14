@@ -142,4 +142,41 @@
 		ORDER BY
 			oi_no ASC
 	</select>
+	
+	<insert id="insertNewOrders" parameterType="int">
+		<selectKey order="BEFORE" resultType="int" keyProperty="od_no">
+			SELECT orders_seq.nextval FROM dual
+		</selectKey>
+		INSERT INTO
+			orders(od_no, mem_no, od_prog)
+		VALUES
+			(${od_no}, ${mem_no}, NULL)
+	</insert>
+	
+	<insert id="insertOrderIns">
+		INSERT INTO
+			orders_ins(oi_no, od_no, pi_no, ps_size, oi_qty, oi_org_price, oi_price, cp_no, rd_no)
+		VALUES
+		<foreach collection="inslist" item="ins" separator=",">
+			(
+				orders_ins_seq.nextval, ${od_no}, ${inslist.pi_no}, ${inslist.ps_size}, ${inslist.oi_qty},
+				${inslist.oi_org_price}, ${inslist.oi_price}, ${inslist.cp_no}, ${inslist.rd_no}
+			)
+		</foreach>
+	</insert>
+	
+	<update id="updateStock" parameterType="ordersins">
+		UPDATE
+			prod_stock
+		SET
+			ps_qty = (ps_qty - ${oi_qty}),
+			ps_status = 
+				CASE
+					<![CDATA[WHEN ps_qty <= ${oi_qty} THEN 'o']]>
+					ELSE NULL
+				END
+		WHERE
+			pi_no = ${pi_no} AND
+			ps_size = ${ps_size}
+	</update>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.orders.service.OrdersService;
 import com.shoestar.client.orders.vo.CartListVO;
 import com.shoestar.client.orders.vo.CartVO;
+import com.shoestar.client.orders.vo.OrdersInsListVO;
 
 import lombok.AllArgsConstructor;
 
@@ -100,5 +102,16 @@ public class OrdersController {
 		model.addAttribute("addr", mvo);
 		
 		return "client/orders/purchase";
+	}
+	
+	
+	@PostMapping("/process")
+	@ResponseBody
+	public String processPurchase(OrdersInsListVO olist, @SessionAttribute("login") LoginVO lvo) {
+		int result = 0;
+		
+		result = ordersService.insertNewOrders(lvo.getMem_no(), olist.getOrdersInsList());
+		
+		return String.valueOf(result > 0);
 	}
 }

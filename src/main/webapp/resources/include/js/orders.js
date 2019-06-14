@@ -17,10 +17,7 @@ function removeFromCartAjax(jsonArray) {
 		data : JSON.stringify(jsonArray),
 		dataType : "text",
 		error : function(stat) {
-			if(xhr.status == 400 || xhr.status == 500) {
-				alert("로그인이 필요한 작업입니다.");
-				location.href = "/member/login";
-			} else {
+			if(askForLogin(xhr)) {
 				alert("서버 오류로 장바구니 물품을 삭제할 수 없었습니다.");
 			}
 		}
