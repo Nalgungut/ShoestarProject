@@ -22,5 +22,8 @@ public interface MyPageService {
 	 * @return 주문 상품 목록(OrdersInsVO)
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
+
 	
+
+
 }

@@ -2,5 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoestar.client.myPage.dao.MyPageDao">
 
+<select id="ordersDataByMemNo" parameterType="int" >
+	    <![CDATA[
+		  select * from t_shopping_order
+          where member_id=#{member_id}
+          and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
+          order by pay_order_time desc
+    	]]>
+</select>
 
 </mapper>
