@@ -53,8 +53,9 @@
 					<div class="form-group">	
 						<label for="qna_ctgr">질문유형</label>
 						<select id="qna_ctgr" name="qna_ctgr">
-							<option value="배송/환불">상품/배송</option>
-							<option value="취소/반품">취소/반품</option>
+							<option value="취소">취소</option>
+							<option value="교환">교환</option>
+							<option value="반품">반품</option>
 							<option value="이벤트">이벤트</option>
 							<option value="기타">기타</option>
 						</select>

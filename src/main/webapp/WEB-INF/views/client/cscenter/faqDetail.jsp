@@ -29,6 +29,13 @@
           padding-right: 5px;
         }
       }
+      .sidebar-nav {
+        padding: 9px 0;
+        background: white;  border: none;
+      }
+      	a{
+      		color: black; text-decoration: none;
+      	}		
     </style>
     <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>1:1문의 게시판</title>
 
 <link rel="stylesheet"
    href="/resources/include/dist/css/bootstrap.min.css">
@@ -19,6 +19,7 @@
    src="/resources/include/js/jquery-1.12.4.min.js"></script>
 
 <script src="/resources/include/dist/js/bootstrap.min.js"></script>
+
 <script type="text/javascript">
    $(function() {
 	   
@@ -35,6 +36,13 @@
 </script>
 <style>
 	.required{color : blue;}
+	.sidebar-nav {
+        padding: 9px 0;
+        background: white;  border: none;
+      }
+      	a{
+      		color: black; text-decoration: none;
+      	}		
 </style>
 </head>
 <body>
@@ -55,6 +63,7 @@
             </ul>
           </div>
         </div>
+        
        <!-- faq리스트 -->
        
       <div class="container-fluid">
@@ -62,6 +71,7 @@
         <div class="span9">
           <!-- 리스트시작 -->
          <div id="boardList">
+         <div class="row-fluid">
          <table summary="게시판리스트" class="table table-striped">
             <colgroup>
                <col width="10%" />
@@ -111,7 +121,7 @@
     </div><!--/.fluid-container-->
 	</div>
 	</div>
-	
+	</div>
     
 </body>
 </html>
