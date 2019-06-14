@@ -37,7 +37,7 @@
 		
 		
 		// 상세보기 가기~
-		$("#RDViewBtn").click(function() {
+		$(".RDViewBtn").click(function() {
 			var rd_no = $(this).parents("tr").attr("data-num");
 			$("#rd_no").val(rd_no);
 			
