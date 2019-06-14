@@ -71,7 +71,8 @@
 				success : function(result) {
 					if(result == "true") {
 						alert("성공적으로 결제되었습니다.");
-						location.href = "/myPage/orders";
+						//location.href = "/myPage/orders";
+						location.href = "/orders/cart";
 					} else {
 						alert("결제 과정에서 오류가 발생했습니다.");
 					}
@@ -200,8 +201,8 @@
 								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${stack.pi_no}">
 								<input type="hidden" name="ordersInsList[${itemIndex}].oi_qty" value="${stack.oi_qty}">
 								<input type="hidden" name="ordersInsList[${itemIndex}].ps_size" value="${stack.ps_size}">
-								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${orgPriceEach}">
-								<input type="hidden" name="ordersInsList[${itemIndex}].pi_no" value="${priceEach}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].oi_org_price" value="${orgPriceEach}">
+								<input type="hidden" name="ordersInsList[${itemIndex}].oi_price" value="${priceEach}">
 								<c:set var="itemIndex" value="${itemIndex + 1}"/>
 								
 								<c:set var="orgPriceTotal" value="${orgPriceTotal + orgPriceEach}"/>

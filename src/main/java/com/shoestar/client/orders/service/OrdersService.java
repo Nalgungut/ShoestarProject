@@ -33,5 +33,5 @@ public interface OrdersService {
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
 	
-	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo);
+	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo, String dvo);
 }

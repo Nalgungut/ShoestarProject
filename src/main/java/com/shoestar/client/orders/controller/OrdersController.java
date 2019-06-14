@@ -107,10 +107,13 @@ public class OrdersController {
 	
 	@PostMapping("/process")
 	@ResponseBody
-	public String processPurchase(OrdersInsListVO olist, @SessionAttribute("login") LoginVO lvo) {
+	public String processPurchase(OrdersInsListVO olist, String postal, String addr1, String addr2,
+			String transType, @SessionAttribute("login") LoginVO lvo) {
 		int result = 0;
 		
-		result = ordersService.insertNewOrders(lvo.getMem_no(), olist.getOrdersInsList());
+		String addr = postal + " " + addr1 + " " + addr2;
+		
+		result = ordersService.insertNewOrders(lvo.getMem_no(), olist.getOrdersInsList(), addr);
 		
 		return String.valueOf(result > 0);
 	}

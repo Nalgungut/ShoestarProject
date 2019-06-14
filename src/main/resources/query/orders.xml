@@ -143,7 +143,7 @@
 			oi_no ASC
 	</select>
 	
-	<insert id="insertNewOrders" parameterType="int">
+	<insert id="insertNewOrders" parameterType="orders">
 		<selectKey order="BEFORE" resultType="int" keyProperty="od_no">
 			SELECT orders_seq.nextval FROM dual
 		</selectKey>
@@ -153,16 +153,30 @@
 			(${od_no}, ${mem_no}, NULL)
 	</insert>
 	
-	<insert id="insertOrderIns">
+	<insert id="insertOrderIns" parameterType="ordersins">
 		INSERT INTO
 			orders_ins(oi_no, od_no, pi_no, ps_size, oi_qty, oi_org_price, oi_price, cp_no, rd_no)
 		VALUES
-		<foreach collection="inslist" item="ins" separator=",">
 			(
-				orders_ins_seq.nextval, ${od_no}, ${inslist.pi_no}, ${inslist.ps_size}, ${inslist.oi_qty},
-				${inslist.oi_org_price}, ${inslist.oi_price}, ${inslist.cp_no}, ${inslist.rd_no}
+				orders_ins_seq.nextval, ${od_no}, ${pi_no}, ${ps_size}, ${oi_qty},
+				${oi_org_price}, ${oi_price}
+				<choose>
+					<when test="cp_no != 0">
+						, ${cp_no}
+					</when>
+					<otherwise>
+						, null
+					</otherwise>
+				</choose>
+				<choose>
+					<when test="rd_no != 0">
+						, ${rd_no}
+					</when>
+					<otherwise>
+						, null
+					</otherwise>
+				</choose>
 			)
-		</foreach>
 	</insert>
 	
 	<update id="updateStock" parameterType="ordersins">
@@ -179,4 +193,11 @@
 			pi_no = ${pi_no} AND
 			ps_size = ${ps_size}
 	</update>
+	
+	<insert id="insertDeliveryInfo" parameterType="delivery">
+		INSERT INTO
+			delivery(dm_no, od_no, dm_addr)
+		VALUES
+			(delivery_seq.nextval, #{od_no}, #{dm_addr})
+	</insert>
 </mapper>
