@@ -35,6 +35,7 @@
 	     				success : function(){
 	     					qna_no = 0;
 	     					location.href="/cscenter/qnaBoard";
+	     					alert("답글이 정상적으로 삭제 되었습니다.")
 	     				}
 	     			});
 	     		});
@@ -42,6 +43,9 @@
 	      
 	      
       </script>
+      <style type="text/css">
+      	.re{background: #F6F6F6;}
+      </style>
 	</head>
    
 	<body>
@@ -88,9 +92,11 @@
 					</tbody>
 				</table>
 				</form>
-			
+			<div class="text-left">
+				<p class="re">-답글-</p>
+			</div>
 			<div id="replyContainer">
-			<!-- 리스트 영역 -->
+			<!-- 댓글리스트 영역 -->
 			<div id="qnaReplyList"></div>
 				<table class="table table-bordered">
 					<colgroup>

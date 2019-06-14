@@ -30,6 +30,7 @@
    						"action" : "/cscenter/qnaInsert"
    					});
    					$("#f_writeForm").submit();
+   					alert("정상적으로 등록되었습니다.");
    				}
    			});
    			
