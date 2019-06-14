@@ -19,7 +19,12 @@
       }
       .sidebar-nav {
         padding: 9px 0;
+        background: white;
+        border: none;
       }
+      	a{
+      		color: black; text-decoration: none;
+      	}		
 
       @media (max-width: 980px) {
         /* Enable use of floated navbar text */
@@ -30,16 +35,16 @@
         }
       }
      
-      a{text-decoration: none;}
+     
       figure{
       			display: block;
-      			width:202px; height:170px;
-      			margin:0px; padding: 9px;
+      			width:190px; height:170px;
+      			margin:0px; padding: 10px;
       			background-color: white;
       			text-align: center;
       		}
       		figure img{
-      			width:140px; height:140px
+      			width:140px; height:140px;
       			border: 1px solid #d6d6d6;
       		}
       		figcaption{
@@ -51,7 +56,9 @@
       			float:left;
       			margin:10px;
       		}
-      		
+      	a{
+      		color: black; text-decoration: none;
+      	}		
     </style>
     <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -68,7 +75,7 @@
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
-              <li class="nav-header">자주묻는질문</li>
+              <li class="nav-header" style="color:black;">자주묻는질문</li>
               <li class="active"><a href="/cscenter/faqList?fc_no=1">-주문/결제</a></li>
               <li><a href="/cscenter/faqList?fc_no=2">-취소/반품</a></li>
               <li><a href="/cscenter/faqList?fc_no=3">-상품/배송</a></li>
@@ -84,30 +91,30 @@
          <!--  <div class="hero-unit"> -->
           	<div class="entry">
 	           	<figure>
-	           		<img src="/resources/images/cscenter/notice.png" class="img-polaroid"/>
-	           		<figcaption><a href="/cscenter/notice">공지사항</a></figcaption>
+	           		<a href="/client/notice/noticeList"><img src="/resources/images/cscenter/notice.png" class="img-polaroid"/></a>
+	           		<figcaption><a href="/client/notice/noticeList" style="color:black;">공지사항</a></figcaption>
 	           	</figure>
 	          	
 	         </div>
      
 	          <div class="entry">
 	          	<figure>	
-	          		<img src="/resources/images/cscenter/event.png" class="img-polaroid">
-	          		<figcaption><a href="#">이벤트</a></figcaption>
+	          		<a href="/event/list"><img src="/resources/images/cscenter/event.png" class="img-polaroid"></a>
+	          		<figcaption><a href="/event/list" style="color:black;">이벤트</a></figcaption>
 	          	</figure>
 	          </div>
 	          
 	          <div class="entry">	
 		         <figure>  	
-		           	<img src="/resources/images/cscenter/delivery.png" class="img-polaroid">
-		          	<figcaption><a href="#">주문/배송현황</a></figcaption>
+		           	<a href="/myPage/main"><img src="/resources/images/cscenter/delivery.png" class="img-polaroid"></a>
+		          	<figcaption><a href="/myPage/main" style="color:black;">주문/배송현황</a></figcaption>
 	         	</figure>
 	          </div>
 	          
 	          <div class="entry">
 	          	<figure>	
-	           		<img src="/resources/images/cscenter/one_one.png" class="img-polaroid">
-	          		<figcaption><a href="/cscenter/qnaBoard">1:1문의</a></figcaption>
+	           		<a href="/cscenter/qnaBoard"><img src="/resources/images/cscenter/one_one.png" class="img-polaroid"></a>
+	          		<figcaption><a href="/cscenter/qnaBoard" style="color:black;">1:1문의</a></figcaption>
 	          	</figure>
 	          </div> 	
            	

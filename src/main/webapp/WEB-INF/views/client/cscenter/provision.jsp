@@ -13,27 +13,27 @@
 	    
 	    <script ></script>
 	    <style type="text/css">
-	      body {
-	        padding-top: 60px;
-	        padding-bottom: 40px;
-	      }
-	      .sidebar-nav {
-	        padding: 9px 0;
-	      }
-	
-	      @media (max-width: 980px) {
-	        /* Enable use of floated navbar text */
-	        .navbar-text.pull-right {
-	          float: none;
-	          padding-left: 5px;
-	          padding-right: 5px;
-	        }
-	        
-	        
-	        .hero-unit, .well {
-	        	background: white;
-	        }
-	      }
+	    body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+        background: white;
+        border: none;
+      }
+      	a{
+      		color: black; text-decoration: none;
+      	}		
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }		
 	    </style>
 	    <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
