@@ -11,11 +11,11 @@
 	</select>
 	
 	<!-- 등록 -->
-<!-- 	<insert id="RdProductInsert">
+	<insert id="RdProductInsert" parameterType="rdprod">
 			INSERT INTO rd_product(
 					rd_no, 
 					pd_no
 				) 
-			VALUES (#{rd_no}, #{pd_no});
-	</insert> -->
+			VALUES (#{rd_no}, #{pd_no})
+	</insert>
 </mapper>
