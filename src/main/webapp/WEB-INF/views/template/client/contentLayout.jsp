@@ -30,6 +30,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       
+      <!-- 공용 파츠 포함 -->
+      <script src="/resources/include/js/mainscript.js"></script>
+      
    </head>
    
    <body>
