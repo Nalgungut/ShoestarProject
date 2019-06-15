@@ -22,5 +22,6 @@
 		<typeAlias type="com.shoestar.client.orders.vo.CartVO" alias="cart" />
 		<typeAlias type="com.shoestar.client.orders.vo.OrdersVO" alias="orders" />
 		<typeAlias type="com.shoestar.client.orders.vo.OrdersInsVO" alias="ordersins" />
+		<typeAlias type="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" alias="delivery" />
 	</typeAliases>
 </configuration>

@@ -29,7 +29,36 @@
           padding-right: 5px;
         }
       }
+      .sidebar-nav {
+        padding: 9px 0;
+        background: white;  border: none;
+      }
+      	a{
+      		color: black; text-decoration: none;
+      	}
+      	#order, #cancel, #exc, #goods, #event{
+      		margin-left : 10px;
+      	}		
     </style>
+    <script type="text/javascript">
+	    var fc_no = $(".span4").attr("data-value")
+		$("#order").click(function(){
+			//console.log(fc_no);
+			location.href = "/cscenter/faqList?fc_no=1";
+		});
+		$("#cancel").click(function(){
+			location.href= "/cscenter/faqList?fc_no=2";
+		});
+		$("#goods").click(function(){
+			location.href= "/cscenter/faqList?fc_no=3";
+		});
+		$("#event").click(function(){
+			location.href= "/cscenter/faqList?fc_no=4";
+		});
+		$("#exc").click(function(){
+			location.href= "/cscenter/faqList?fc_no=5";
+		});
+    </script>
     <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
       
@@ -45,11 +74,11 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">자주묻는질문</li>
-              <li class="active"><a href="#">-주문/결제</a></li>
-              <li><a href="#">-취소/반품</a></li>
-              <li><a href="#">-상품/배송</a></li>
-              <li><a href="#">-이벤트</a></li>
-              <li><a href="#">-기타</a><hr></li>
+              <li class="active"><a href="/cscenter/faqList?fc_no=1">-주문/결제</a></li>
+              <li><a href="/cscenter/faqList?fc_no=2">-취소/반품</a></li>
+              <li><a href="/cscenter/faqList?fc_no=3">-상품/배송</a></li>
+              <li><a href="/cscenter/faqList?fc_no=4">-이벤트</a></li>
+              <li><a href="/cscenter/faqList?fc_no=5">-기타</a><hr></li>
               <li class="nav-header"><a href="/cscenter/qnaBoard">1:1 게시판</a><hr></li>
               <li class="nav-header"><a href="/cscenter/provision?p_no=2">개인정보처리지침</a><hr></li>
               <li class="nav-header"><a href="/cscenter/provision?p_no=1">이용약관</a></li>
@@ -59,18 +88,12 @@
        <!-- faq리스트 -->
       <div class="container-fluid">
       <div class="row-fluid">
-      	<div class="buttonForm">
-	        <button class="">주문/결제</button>
-	        <button class="">취소/반품</button>
-	        <button class="">상품/배송</button>
-	        <button class="">이벤트</button>
-	        <button class="">기타</button>
-        </div>
+      	
         <div class="span9">
           <div id="faqList"> 	
 	          <!-- 디테일 정보 -->
 	          <div>
-	          	<table class="table table-bordered">
+	          	<table class="table">
 					<colgroup>
 						<col width="17%" />
 						<col width="33%" />

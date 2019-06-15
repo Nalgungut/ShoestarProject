@@ -31,6 +31,18 @@
         
         
       }
+      .sidebar-nav {
+        padding: 9px 0;
+        background: white;  border: none;
+      }
+      	a{
+      		color: black; text-decoration: none;
+      	}
+      		
+      	#order, #cancel, #exc, #goods, #event{
+      		margin-left : 10px;
+      	}
+      			
     </style>
     <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 	<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
@@ -106,7 +118,7 @@
 			          			<div class="span4" data-num="${faq.faq_no}" data-value="${faq.fc_no}">
 			          				<h2>${faq.faq_title}</h2>
 			          				<p>${faq.faq_content}</p>
-			          				<p><button class="detailGo" >자세히보기</button></p>
+			          				<p><button class="detailGo btn btn-default" >자세히보기</button></p>
 			          			</div>
 			          		</c:forEach>
 			          	</c:when>

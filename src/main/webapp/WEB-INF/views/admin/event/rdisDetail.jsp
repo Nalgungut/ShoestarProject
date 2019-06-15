@@ -14,13 +14,31 @@
 	<script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
 	
 	<style type="text/css">
-		#imgSize{width: 100px; height: 100px;}
+		#imgSize{width: 70px; height: 70px;}
 		.RD_td{width: 180px;}
 	
 	</style>
 	
 	<script type="text/javascript">
-		
+		$(function() {
+			$("#updateBtn").click(function() {
+				
+				
+				$.ajax({
+					url : "/admin/event/rds/updateForm",
+					type : "post",
+					data : $("#RdisForm").serialize(),
+					dataType : "text",
+					error : function(){
+						alert('시스템 오류 입니다. 관리자에게 문의해 주세요.');
+					},
+					success : function(resultData){
+						alert("수정게시판으로 이동합니다.");
+					}
+					
+				});
+			});
+		})
 	</script>
 	
 	<title>Insert title here</title>
@@ -38,7 +56,7 @@
 				<div id="RdisTDiv"><h1 id="RdisTitle"></h1></div>
 			
 				<div>
-						<form name="RdisForm">
+						<form name="RdisForm" id="RdisForm">
 							<input type="hidden" name="rd_no" id="rd_no" />
 							
 							<table id="RdisDetailTable" border="1">
@@ -100,7 +118,7 @@
 						
 						</form>
 						
-						<table id="prodRdisDetailTable" border="1">
+						<table id="prodRdisDetailTable">
 							<caption class="Rcaption">범위 할인 대상</caption>
 							<!-- 
 								rty.rd_no, 
@@ -120,7 +138,7 @@
 									<td class="RD_td gray">신발 대표 이미지</td>
 							 </tr>	
 							<c:forEach items="${Alldetail}" var="jo" varStatus="status">
-								 <tr>
+								 <tr style="border: 1px solid black;">
 								 	<td>${jo.pct_no}</td>
 									<td>${jo.pct_name}</td>
 									<td>${jo.pd_no}</td>
@@ -129,8 +147,12 @@
 									<td><img id="imgSize" src="/shoestarStorage/prod/thumb/${jo.pim_main}" /></td>
 								 <tr>
 							</c:forEach>
-								
-						
+							
+							<tr>
+								<td colspan="5" style="padding: 10px;">
+									<input type="button" value="수정" id="updateBtn" class="updateBtn" name="updateBtn" />
+								</td>
+							</tr>
 						</table>
 					
 					</div>

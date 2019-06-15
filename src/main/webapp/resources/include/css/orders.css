@@ -48,6 +48,10 @@
 	text-decoration: line-through;
 }
 
+.itemSection > * {
+	margin-bottom: 30px;
+}
+
 .priceSection {
 	color: #C73232;
 }
@@ -56,6 +60,37 @@
 	color: gray;
 }
 
+.font-weight-normal {
+	font-weight: normal;
+}
+
 .form-control[readonly] {
 	cursor: default;
+}
+
+.purchaseSection .discount {
+	color: gray;
+}
+
+.finalPrice > * {
+	display: block;
+	text-align: right;
+}
+
+.purchaseSection > * {
+	margin-bottom: 30px;
+}
+
+.purchaseSection .finalTitle {
+	font-size: 1.4em;
+}
+
+.priceTotal {
+	color: #C73232;
+	font-size: 1.8em;
+	font-weight: bold;
+}
+
+.agreementSection {
+	font-size: 0.8em;
 }

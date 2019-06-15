@@ -243,3 +243,17 @@ function checkFile(item) {
 		return true;
 	}
 }
+
+/**
+ * 로그인이 필요한 ajax 후 오류 발생 시 처리하는 함수
+ * @param xhr 상태값을 담은 xhr 변수
+ * @returns 400 또는 500번 에러가 아닐 시 true
+ */
+function askForLogin(xhr) {
+	if(xhr.status == 400 || xhr.status == 500) {
+		alert("로그인이 필요한 작업입니다.");
+		location.href = "/member/login";
+	} else {
+		return true;
+	}
+}

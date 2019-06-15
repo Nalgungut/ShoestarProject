@@ -28,7 +28,7 @@ table{text-align: center; border-collapse: collapse;}
 
 #insertBtn, #insertFormBtn, #eventCancelBtn, 
 #eventListBtn, #updateFormBtn, #rang_disBtn, #eventBtn,
-#RDListBtn, #RDCancelBtn{
+#RDListBtn, #RDCancelBtn, #updateBtn{
 	
 	font-size: 17px;
 	height: 50px; border:none; border-radius: 5px;
@@ -97,6 +97,10 @@ table{text-align: center; border-collapse: collapse;}
 
 /* 범위할인 페이지 css */
 #disSelect{height: 28px;}
+
+
+/* RdisDetailTable의 전체 선 */
+#RdisDetailTable{border: 0px;}
 
 /* admin 전체 페이지 margin */
 

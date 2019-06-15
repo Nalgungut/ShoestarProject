@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.client.member.service.MemberService;
+import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.orders.service.OrdersService;
 import com.shoestar.client.orders.vo.CartListVO;
 import com.shoestar.client.orders.vo.CartVO;
+import com.shoestar.client.orders.vo.OrdersInsListVO;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +31,7 @@ import lombok.AllArgsConstructor;
 public class OrdersController {
 	
 	private OrdersService ordersService;
+	private MemberService memberSerivce;
 	
 	@RequestMapping(value="/checkStock", method={RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -87,17 +92,29 @@ public class OrdersController {
 		}
 		
 		Map<String, Object> result = ordersService.prodDataByCartList(list);
+		MemberVO mvo = memberSerivce.memberSelect(lvo.getMem_id());
+		if(mvo == null) {
+			mvo = new MemberVO();
+		}
 		
 		model.addAttribute("itemlist", result.get("success"));
 		model.addAttribute("errorlist", result.get("failed"));
+		model.addAttribute("addr", mvo);
 		
 		return "client/orders/purchase";
 	}
 	
-	@GetMapping("/getDefaultAddr")
+	
+	@PostMapping("/process")
 	@ResponseBody
-	public String getUserAddr(@SessionAttribute("login") LoginVO lvo) {
+	public String processPurchase(OrdersInsListVO olist, String postal, String addr1, String addr2,
+			String transType, @SessionAttribute("login") LoginVO lvo) {
+		int result = 0;
 		
-		return "";
+		String addr = postal + " " + addr1 + " " + addr2;
+		
+		result = ordersService.insertNewOrders(lvo.getMem_no(), olist.getOrdersInsList(), addr);
+		
+		return String.valueOf(result > 0);
 	}
 }

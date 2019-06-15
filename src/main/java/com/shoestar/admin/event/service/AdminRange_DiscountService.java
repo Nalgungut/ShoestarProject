@@ -11,4 +11,7 @@ public interface AdminRange_DiscountService {
 	
 	public Range_DiscountVO AdminRDiscountDetail(Range_DiscountVO rvo);
 	public List<Range_DiscountVO> AdminDetail(Range_DiscountVO rvo);
+	
+	public int AdminRDisInsert(Range_DiscountVO rvo);
+	
 }

@@ -114,3 +114,19 @@ function chkKrw(item, msg){
 		return true;
 	}
 }
+
+
+// 현재 선택해서 넣을 값이 이미 가지고 있을때 중복입니다!
+// 
+/*function chkPdNo( item, chk, msg){
+	
+	for(select의 값들.size까지 찾아보고){
+		if(현재 받은 제품번호랑 == 제품항목들의 번호 ){
+			
+			alert(msg+ " 이미 입력했습니다. 다른 제품을 선택하세요.");
+			return false;
+		}else{
+			return true;
+		}
+	}
+}*/

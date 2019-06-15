@@ -16,8 +16,10 @@ function removeFromCartAjax(jsonArray) {
 		contentType : "application/json; charset=UTF-8",
 		data : JSON.stringify(jsonArray),
 		dataType : "text",
-		error : function() {
-			alert("서버 오류로 장바구니 물품을 삭제할 수 없었습니다.");
+		error : function(stat) {
+			if(askForLogin(xhr)) {
+				alert("서버 오류로 장바구니 물품을 삭제할 수 없었습니다.");
+			}
 		}
 	};
 	

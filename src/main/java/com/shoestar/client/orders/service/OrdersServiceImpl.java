@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.client.orders.dao.OrdersDao;
 import com.shoestar.client.orders.vo.CartVO;
 import com.shoestar.client.orders.vo.OrdersInsVO;
@@ -114,5 +116,47 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo) {
 		return ordersDao.ordersInsByOdNo(ovo);
+	}
+	
+	@Transactional
+	@Override
+	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo, String addr) {
+		int result = 0;
+		
+		OrdersVO ovo = new OrdersVO();
+		ovo.setMem_no(mem_no);
+		List<CartVO> cvo = new ArrayList<>();
+		
+		// 林巩 积己
+		ordersDao.insertNewOrders(ovo);
+		int od_no = ovo.getOd_no();
+		
+		// 林巩 惑前 积己
+		for (OrdersInsVO ordersInsVO : oivo) {
+			ordersInsVO.setOd_no(od_no);
+			ordersDao.insertOrderIns(ordersInsVO);
+			ordersDao.updateStock(ordersInsVO);
+			
+			// 墨飘 沥焊 积己
+			CartVO ctvo = new CartVO();
+			ctvo.setMem_no(mem_no);
+			ctvo.setPi_no(ordersInsVO.getPi_no());
+			ctvo.setPs_size(ordersInsVO.getSize());
+			cvo.add(ctvo);
+			
+			result++;
+		}
+		
+		// 林家 沥焊 积己
+		AdminDeliveryVO dvo = new AdminDeliveryVO();
+		dvo.setDm_addr(addr);
+		dvo.setOd_no(od_no);
+		
+		ordersDao.insertDeliveryInfo(dvo);
+		
+		// 墨飘俊辑 惑前 昏力
+		removeFromCart(cvo);
+		
+		return result;
 	}
 }

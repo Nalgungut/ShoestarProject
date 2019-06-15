@@ -9,6 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.shoestar.client.login.vo.LoginVO;
 
+
 //로그인처리를 담당하는 인터셉터
 public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 
