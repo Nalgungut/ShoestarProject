@@ -1,5 +1,6 @@
 package com.shoestar.admin.prod.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.shoestar.admin.prod.dao.ProdAdminDao;
 import com.shoestar.client.prod.dao.ProdDao;
 import com.shoestar.client.prod.dao.ProdInsDao;
+import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdVO;
+import com.shoestar.common.file.FileUploadForProd;
 
 import lombok.AllArgsConstructor;
 
@@ -88,6 +91,73 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 	@Override
 	public List<ProdInsVO> prodInsList(ProdVO pvo) {
 		List<ProdInsVO> result = prodInsDao.pinsListByProd(pvo);
+		return result;
+	}
+
+	@Override
+	public int pimInsert(ProdImageVO pvo) {
+		int result = 0;
+		
+		try {
+			if(pvo.getFile() != null) {
+				String fileName = FileUploadForProd.fileUpload(pvo.getFile());
+				pvo.setPim_file(fileName);
+				result = prodAdminDao.pimInsert(pvo);
+				if(pvo.isUpdatePimMain()) {
+					prodAdminDao.updateMainImage(pvo);
+				} else {
+					ProdVO prodVO = prodAdminDao.prodDetailByImage(pvo);
+					if(prodVO.getPim_main() == null || prodVO.getPim_main().isEmpty()) {
+						prodAdminDao.updateMainImage(pvo);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int pimUpdate(ProdImageVO pvo) {
+		int result = 0;
+		
+		try {
+			if(pvo.getFile() != null && !pvo.getFile().isEmpty()) {
+				ProdImageVO oldPvo = prodAdminDao.pimSelect(pvo);
+				FileUploadForProd.fileDelete(oldPvo.getPim_file());
+				String fileName = FileUploadForProd.fileUpload(pvo.getFile());
+				pvo.setPim_file(fileName);
+			}
+			
+			result = prodAdminDao.pimUpdate(pvo);
+			if(pvo.isUpdatePimMain()) {
+				prodAdminDao.updateMainImage(pvo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int pimDelete(ProdImageVO pvo) {
+		int result = 0;
+		
+		try {
+			ProdImageVO newPvo = prodAdminDao.pimSelect(pvo);
+			FileUploadForProd.fileDelete(pvo.getPim_file());
+			result = prodAdminDao.pimDelete(newPvo);
+			if(pvo.isUpdatePimMain()) {
+				pvo.setPim_file(null);
+				prodAdminDao.updateMainImage(pvo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 }

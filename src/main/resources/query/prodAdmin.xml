@@ -150,4 +150,123 @@
 				<choose><when test="pd_status != null">#{pd_status}</when><otherwise>NULL</otherwise></choose>
 			</trim>
 	</insert>
+	
+	<select id="pimSelect" parameterType="prodimage" resultType="prodimage">
+		SELECT
+			*
+		FROM
+			prod_image
+		WHERE
+			pim_no = #{pim_no}
+	</select>
+	
+	<select id="prodDetailByImage" parameterType="prodimage" resultType="prod">
+		SELECT
+			p.*
+		FROM
+			prod p
+			INNER JOIN
+				prod_ins pi
+			ON
+				p.pd_no = pi.pd_no
+			INNER JOIN
+				prod_image pim
+			ON pi.pi_no = pim.pi_no
+		WHERE
+			pim_no = #{pim_no}
+	</select>
+	
+	<update id="updateMainImage">
+		UPDATE
+			prod
+		SET
+			pim_main = 
+			<choose>
+				<when test="pim_file == null">
+					null
+				</when>
+				<otherwise>
+					#{pim_file}
+				</otherwise>
+			</choose>
+		WHERE
+			pd_no = 
+			(
+				SELECT
+					p.pd_no
+				FROM
+					prod p
+					INNER JOIN
+						prod_ins pi
+					ON
+						p.pd_no = pi.pd_no
+					INNER JOIN
+						prod_image pim
+					ON pi.pi_no = pim.pi_no
+				WHERE
+					pim_no = #{pim_no}
+			)
+	</update>
+	
+	<insert id="pimInsert" parameterType="prodimage">
+		INSERT INTO
+			prod_image(pim_no, pi_no, pim_priority, pim_file)
+		VALUES
+			(prod_img_seq.nextval, #{pi_no}, #{pim_priority}, #{pim_file})
+	</insert>
+	
+	<update id="pimUpdate" parameterType="prodimage">
+		UPDATE
+			prod_image
+		SET
+			pim_priority = #{pim_priority}
+			<if test='pim_file != null and pim_file != ""'>
+				, pim_file = #{pim_file}
+			</if>
+	</update>
+	
+	<delete id="pimDelete" parameterType="prodimage">
+		DELETE FROM
+			prod_image
+		WHERE
+			pim_no = #{pim_no}
+	</delete>
+	
+	
+	<insert id="insertProdins" parameterType="prodins">
+		INSERT INTO
+			prod_ins(pi_no, pd_no, pcl_no)
+		VALUES
+			(prod_ins_seq.nextval, #{pd_no}, #{pcl_no})
+	</insert>
+	
+	<delete id="deleteProdins" parameterType="prodins">
+		DELETE FROM
+			prod_ins
+		WHERE
+			pi_no = #{pi_no}
+	</delete>
+	
+	
+	<insert id="insertProdStock" parameterType="prodstock">
+		INSERT INTO
+			prod_stock (pi_no, ps_size, ps_qty)
+		VALUES
+			(#{pi_no}, #{ps_size}, #{ps_qty})
+	</insert>
+	
+	<update id="updateProdStock" parameterType="prodstock">
+		UPDATE
+			prod_stock
+		SET
+			ps_qty = #{ps_qty}
+	</update>
+	
+	<delete id="deleteProdStock">
+		DELETE FROM
+			prod_stock
+		WHERE
+			pi_no = #{pi_no} AND
+			ps_size = #{ps_size}
+	</delete>
 </mapper>

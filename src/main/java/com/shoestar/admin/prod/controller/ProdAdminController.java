@@ -123,7 +123,6 @@ public class ProdAdminController {
 	@ResponseBody
 	public String pimUpdate(ProdImageVO pimvo) {
 		
-		// TODO: 이미지 등록 기능
 		
 		return "false";
 	}

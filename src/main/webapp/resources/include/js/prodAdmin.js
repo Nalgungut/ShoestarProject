@@ -133,7 +133,8 @@ function createImageActions(pimVO, pim_main) {
 		"name":"pim_priority",
 		"value":pimVO.pim_priority,
 		"required":true,
-		"id":"pimPr_"+pimVO.pim_no
+		"id":"pimPr_"+pimVO.pim_no,
+		"maxlength":"2"
 	}).addClass("form-control").css({
 		"width":"50%"
 	});
@@ -175,7 +176,7 @@ function createImageActions(pimVO, pim_main) {
 		}
 	});
 	
-	// 
+	// 조립
 	var pimDiv = $("<div>").addClass("pimSubmit");
 	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimPriDiv).append(pimSubmit);
 	pimDiv.append(pimEditForm);
