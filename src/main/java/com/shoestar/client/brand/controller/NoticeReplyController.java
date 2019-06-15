@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.brand.Service.NoticeReplyService;
 import com.shoestar.client.brand.vo.NoticeReplyVO;
+import com.shoestar.client.login.vo.LoginVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -43,9 +45,11 @@ public class NoticeReplyController {
 	
 	@PostMapping(value="/replyInsert", consumes = "application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> replyInsert(@RequestBody NoticeReplyVO nvo){
+	public ResponseEntity<String> replyInsert(@RequestBody NoticeReplyVO nvo, @SessionAttribute("login") LoginVO login){
 		log.info("replyInsert »£√‚");
+		log.info("loginfo: "+login);
 		int result = 0;
+		nvo.setMem_no(login.getMem_no());
 		
 		result = noticeReplyService.replyInsert(nvo);
 		return result==1 ? new ResponseEntity<String>("SUCCESS", HttpStatus.OK):
@@ -55,7 +59,7 @@ public class NoticeReplyController {
 	
 	
 	
-	@GetMapping(value = "/{no_no)",
+	@GetMapping(value = "/{re_no)",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<NoticeReplyVO> replySelect(@PathVariable("no_no")Integer no_no){

@@ -133,7 +133,7 @@
            	}); /* function종료 */
                  function listData(){
                     $("#rowArea").html("");
-                    $.getJSON("/brand/brandNewslist", $("#f_search").serialize(), function(data){
+                    $.getJSON("/brand/brandNewsData", $("#f_search").serialize(), function(data){
                        console.log("length: " + data.length);
                        $(data).each(function(index){
                           var ar_no = this.ar_no;
@@ -173,7 +173,7 @@
                             "title":ar_subject});
                
                var img = $("<img>");
-               img.attr("src", "/uploadStorage/gallery/thumbnail/"+ar_content);
+               img.attr("src", "/uploadStorage/gallery/thumbnail/"+ar_file);
                
                var caption = $("<div>");
                caption.addClass("caption");
@@ -199,7 +199,7 @@
                delBtn.addClass("btn btn-defalut");
                delBtn.html("삭제"); */
                
-               caption.append(h3).append(pInfo).append(pContent).append(pBtnArea.append(upBtn).append(delBtn));
+               caption.append(h3).append(pContent)//.append(pBtnArea.append(upBtn).append(delBtn));
                column.append(thumbnail.append(lightbox_a.append(img)).append(caption));
                
                $("#rowArea").append(column);
@@ -219,55 +219,54 @@
 	<!-- 갤러리 리스트 영역 -->
 	<div class="row" id="rowArea"></div>
 	<!-- 사이드 바  -->
-			<div class="sidebar">
-			  <a class="active" href="/brand/brandMain">메인</a>
-			  <div class="dropdown">
-			    <button class="dropbtn">브랜드 소개 </button>
-			    <div class="dropdown-content">
-			      <a href="/admin/adminNoticeList">브랜드 가치</a>
-			      <a href="#">브랜드 기능</a>
-			      <a href="#">브랜드 뉴스</a>
-			    </div>
+		<div class="sidebar">
+			 <a class="active" href="/brand/brandMain">메인</a>
+			 <div class="dropdown">
+			    	<button class="dropbtn">브랜드 소개 </button>
+			    	<div class="dropdown-content">
+			      		<a href="/admin/adminNoticeList">브랜드 가치</a>
+			      		<a href="#">브랜드 기능</a>
+			      		<a href="#">브랜드 뉴스</a>
+			    	</div>
 			  </div>
-			  
-			  <a href="/brand/collectionIntro">컬렉션 소개</a>
-			  <a href="/brand/noticeList">공지사항</a>
-			</div>
+			  	<a href="/brand/collectionIntro">컬렉션 소개</a>
+			  	<a href="/brand/noticeList">공지사항</a>
+		</div>
             
            <!-- 갤러리 등록 화면 영역(modal) -->
-            <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
-           <div class="modal-dialog">
-             <div class="modal-content">
-               <div class="modal-header">
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                 <h4 class="modal-title" id="replyModalLabel">갤러리 등록</h4>
-               </div>
-               <div class="modal-body">
-                 <form id="f_writeForm" name="f_writeForm">
-                   <div class="form-group">
-                     <label for="ar_name" class="control-label">기사번호</label>
-                     <input type="text" class="form-control" id="ar_no" name="ar_no" maxlength="5">
-                   </div>
-                   <div class="form-group">
-                     <label for="ar_subject" class="control-label">기사제목</label>
-                     <input type="text" class="form-control" id="ar_subject" name="ar_subject" maxlength="5">
-                   </div>
-                   <div class="form-group">
-                      <label for="ar_content" class="control-label">기사내용</label>
-                      <textarea class="form-control" name="ar_content" id="ar_content" rows="4"></textarea>
-                   </div>
-                   <div class="form-group image_area">
-                      <label for="ar_file" class="control-label">이미지</label>
-                      <input type="file" name="ar_file" id="ar_file"/> <!-- GalleryVO에 g_file -->
-                   </div>
-                 </form>
-               </div>
-               <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                 <button type="button" class="btn btn-primary" id="galleryBtn">등록</button>
-               </div>
-             </div>
-           </div>
-         </div>
+	    <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">
+	    	<div class="modal-dialog">
+	             <div class="modal-content">
+	             	<div class="modal-header">
+	                	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                 	<h4 class="modal-title" id="replyModalLabel">갤러리 등록</h4>
+	               </div>
+	               <div class="modal-body">
+	               	    <form id="f_writeForm" name="f_writeForm">
+	                    	<div class="form-group">
+	                     		<label for="ar_name" class="control-label">기사번호</label>
+	                     		<input type="text" class="form-control" id="ar_no" name="ar_no" maxlength="5">
+	                   		</div>
+	                   		<div class="form-group">
+	                     		<label for="ar_subject" class="control-label">기사제목</label>
+	                     		<input type="text" class="form-control" id="ar_subject" name="ar_subject" maxlength="5">
+	                   		</div>
+	                   		<div class="form-group">
+	                      		<label for="ar_content" class="control-label">기사내용</label>
+	                      		<textarea class="form-control" name="ar_content" id="ar_content" rows="4"></textarea>
+	                   		</div>
+	                   		<div class="form-group image_area">
+	                      		<label for="ar_file" class="control-label">이미지</label>
+	                      		<input type="file" name="ar_file" id="ar_file"/> <!-- GalleryVO에 g_file -->
+	                   		</div>
+	                 	</form>
+	               </div>
+	               <div class="modal-footer">
+	               		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+	                 	<button type="button" class="btn btn-primary" id="galleryBtn">등록</button>
+	               </div>
+	           </div>
+	        </div>
+	     </div>
 	</body>
 </html>

@@ -51,7 +51,7 @@
 	<update id="noticeUpdate" parameterType="com.shoestar.client.notice.vo.NoticeVO">
 		/* Notice - noticeUpdate */
 		update notice
-			set no_kind = #{no_kind},
+			set
 			no_subject = #{no_subject},
 			no_content = #{no_content},
 			no_date = sysdate

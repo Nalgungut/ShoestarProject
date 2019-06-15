@@ -82,6 +82,8 @@
             	
             	if(btnkind=="delBtn"){
             		deleteBtn(no_no, re_no);
+            	}else{
+            		updateForm(re_no);
             	}
             });
           
@@ -204,14 +206,14 @@
                    var new_div = $("<div>");
                    new_div.addClass("panel-heading");
                    
-                    //작성자 정보의 이름
+                    /* //작성자 정보의 이름
                    var name_span = $("<span>");
                    name_span.addClass("name");
-                   name_span.html(mem_name + "님"); 
+                   name_span.html(mem_name + "님");  */
                    
                    //작성일시
                    var date_span = $("<span>");
-                   date_span.html(" / " + re_date + " ");
+                   date_span.html(" "+mem_name + "님"+" / 등록일 : "+re_date+"   ");
                    
                    //수정하기 버튼
                    // var upBtn = $("<input>");
@@ -257,7 +259,7 @@
                  $("#replyInsertBtn").removeAttr("data-button");
                  $("#replyInsertBtn").attr("data-button", value);
                  $("#replyInsertBtn").html(text);
-             }
+             } 
              
             
       </script>

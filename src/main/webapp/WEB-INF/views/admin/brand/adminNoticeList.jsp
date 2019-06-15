@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -130,6 +132,24 @@
 		<script type="text/javascript">
 			$(function () {
 				
+				//검색 후 검색 대상과 검색 단어 출력
+	            var word ="<c:out value='${data.keyword}'/>";
+	            var value="";
+	            if(word!=""){
+	               $("#keyword").val("<c:out value='${data.keyword}'/>");
+	               $("#search").val("<c:out value='${data.search}'/>");
+	               
+	               if($("#search").val()!='no_content'){
+	                  //:contains()는 특정 테스트를 포함한 요소반환
+	                  if($("#search").val()=='no_subject') value = "#list tr td.goDetail";
+	                  $(value+":contains('" + word + "')").each(function(){
+	                     var regex = new RegExp(word, 'gi');
+	                     $(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+	                  });
+	               }
+	            }
+				
+				
 				//제목 클릭 시 상세 페이지 이동을 위한 처리 이벤트
 				$(".goDetail").click(function(){
 					var no_no = $(this).parents("tr").attr("data-num")
@@ -159,32 +179,14 @@
 	    		/* 검색대상이 변경될 때마다 처리 이벤트 */
 	    		$("#search").change(function(){
 	    			if($("#search").val()=="all"){
+	    				
 	    				$("#keyword").val("전체 데이터 조회합니다.");
+	    				//location.href = "/admin/brand/adminNoticeList";
 	    			}else if($("#searh").val()!="all"){
 	    				$("#keyword").val("");
 	    				$("#keyword").focus();
 	    			}
 	    		});
-	    		
-	    		/* 검색 버튼 클릭 시 처리 이벤트 */
-	    		$("#searchData").click(function(){
-	    			if($("#search").val()=="all"){
-	    				if(!chkData("#keyword","검색어를")) return;
-	    			}
-	    			return;
-	    		});
-	    		
-	    		/* 검색을 위한 실질적 처리 함수 */
-    	    	function goPage(){	
-    	    		if($("#search").val()=="all"){
-    	    			$("#keyword").val("");
-    	    		}
-    	    		$("#f_search").attr({
-    	    			"method":"get",
-    	    			"action":"/brand/adminNoticeList"
-    	    		});
-    	    		$("#f_search").submit();
-    	    	}
 	    		
 	    		// 글쓰기 버튼 누를시 
     	    	$("#insertFormBtn").click(function(){
@@ -194,6 +196,22 @@
 	    		}); 
 				
 			}); /* 최상위 fun 종료*/
+			
+			/* 검색을 위한 실질적 처리 함수 */
+	    	function goPage(){	
+	    		if($("#search").val()=="all"){
+	    			alert("전체데이터 조회합니다.");
+	    			$("#keyword").val("");
+	    		}else if($("#search").val()=="no_title"){
+	    			alert("검색한 것은"+$("#searh").val());
+	    			
+	    			$("#f_search").attr({
+		    			"method":"get",
+		    			"action":"/admin/brand/adminNoticeList"
+		    		});
+		    		$("#f_search").submit();
+	    		}
+	    	}
 				
 				
 		</script>
@@ -269,8 +287,11 @@
 									<td>${adminNoticeList.no_kind}</td>
 									<td class="goDetail tal" id="goDetail">${adminNoticeList.no_subject}</td>
 									<td id="goDetail" class="goDetail">${adminNoticeList.no_content}</td>
-									<td id="goDetail" class="goDetail">${adminNoticeList.adm_no}</td>
-									<td class="name" id="goDetail">${adminNoticeList.no_date}</td>
+									<td id="goDetail" class="goDetail">${adminNoticeList.adm_name}</td>
+									<%-- <td class="name" id="goDetail">${adminNoticeList.no_date}</td> --%>
+									
+									<td id="goDetail" class="goDetail"><fmt:formatDate value="${adminNoticeList.no_date}" pattern="yyyy-MM-dd hh:mm"/></td>
+
 								</tr>
 							</c:forEach>
 						</c:when>

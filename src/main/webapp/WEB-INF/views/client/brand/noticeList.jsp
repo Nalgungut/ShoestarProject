@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -235,8 +237,8 @@
 									<td>${notice.no_kind}</td>
 									<td class="goDetail tal" id="goDetail">${notice.no_subject}</td>
 									<td id="goDetail" class="goDetail">${notice.no_content}</td>
-									<td id="goDetail" class="goDetail">${notice.adm_no}</td>
-									<td class="name" id="goDetail">${notice.no_date}</td>
+									<td id="goDetail" class="goDetail">${notice.adm_name}</td>
+									<td id="goDetail" class="goDetail"><fmt:formatDate value="${notice.no_date}" pattern="yyyy-MM-dd hh:mm"/></td>
 								</tr>
 							</c:forEach>
 						</c:when>

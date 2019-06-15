@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shoestar.client.brand.Service.BrandNewsService;
 import com.shoestar.client.brand.vo.BrandVO;
@@ -69,10 +70,19 @@ public class brandController {
 	public String brandNewsList(@ModelAttribute("data") BrandVO bvo, Model model){
 		log.info("브랜드 뉴스리스트 호출");
 		
-		List<BrandVO> brandNewsList = brandNewsService.brandNewsList(bvo);
-		model.addAttribute("news", brandNewsList);
 		
 		return "client/brand/brandNewsList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/brandNewsData", method=RequestMethod.GET ,produces = "text/plain; charset=UTF-8")
+	public String brandNewsData(@ModelAttribute("data") BrandVO bvo){
+		//log.info("브랜드 뉴스리스트 호출");
+		
+		String brandNewsList = brandNewsService.brandNewsData(bvo);
+		
+		
+		return brandNewsList;
 	}
 	
 	//브랜드 뉴스 상세정보

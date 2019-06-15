@@ -19,5 +19,7 @@ public interface AdminNoticeService {
 	public int noticeListCnt(NoticeVO nvo);
 
 	public NoticeVO updateForm(NoticeVO nvo);
+	
+	public int replyCnt(int no_no);
 
 }

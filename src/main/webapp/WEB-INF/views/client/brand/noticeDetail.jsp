@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -57,10 +59,12 @@
 						<tr>
 							<td>말머리</td>
 							<td class="text-left">${detail.no_kind}</td>
+							
 							<td>작성일</td>
-							<td class="text-left">${detail.no_date}</td>
+							<td class="text-left"><fmt:formatDate value="${detail.no_date}" pattern="yyyy-MM-dd hh:mm"/></td>
+							
 							<td>작성자</td>
-							<td class="text-left">${detail.adm_no}</td>
+							<td class="text-left">${detail.adm_name}</td>
 						</tr>
 						<tr>
 							<td>제 목</td>

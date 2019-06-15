@@ -39,4 +39,10 @@
 		delete from notice_reply where re_no = #{re_no}
 	</delete>
 	 
+	 
+	 <!-- 댓글 개수 구하기 -->
+	<select id="replyCnt" parameterType="int" resultType="int">
+		/* Reply - replyCnt */
+		select count(re_no) from notice_reply where no_no = #{no_no}
+	</select>
 </mapper>

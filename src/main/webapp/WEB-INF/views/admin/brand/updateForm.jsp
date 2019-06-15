@@ -35,12 +35,12 @@
 					//수정 버튼 클릭 시 처리이벤트
 					$("#boardUpdateBtn").click(function(){
 						//입력값 체크
-						if(!chkSubmit($('#no_title'),"제목을")) return;
+						if(!chkSubmit($('#no_subject'),"제목을")) return;
 						else if(!chkSubmit($('#no_content'),"작성할 내용을")) return;
 						else{
 							$("#f_updateForm").attr({
 								"method" : "post",
-								"action" : "/admin/brand/boardUpdate"
+								"action" : "/admin/brand/noticeUpdate"
 							});
 							$("#f_updateForm").submit();
 						}
@@ -65,6 +65,7 @@
 			<div class="contentTB text-center">
 				<form id="f_updateForm" name="f_updateForm">
 					<input type="hidden" id="no_no" name="no_no" value="${updateData.no_no}"/>
+					<input type="hidden" id="no_kind" name="no_kind" value="${updateData.no_kind}"/>
 					<%-- <input type="hidden" name="pageNum" id="pageNum" value="${data.pageNum}"> 
 					<input type="hidden" name="amount" id="amount" value="${data.amount}"> --%>
 					
@@ -84,8 +85,8 @@
 							</tr>
 							<tr>
 								<td>글제목</td>
-								<td colspan="4" class="text-left"><input type="text" name="no_title" id="no_title"
-								value="${updateData.no_title}" class="form-control"/></td>
+								<td colspan="4" class="text-left"><input type="text" name="no_subject" id="no_subject"
+								value="${updateData.no_subject}" class="form-control"/></td>
 							</tr>
 							<tr class="table-height">
 								<td>내용</td>
