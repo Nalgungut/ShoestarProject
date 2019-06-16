@@ -122,7 +122,7 @@ public class ProdAdminController {
 	@ResponseBody
 	public String pimInsert(ProdImageVO pimvo) {
 		int result = prodAdminService.pimInsert(pimvo);
-		return String.valueOf(result == 1);
+		return String.valueOf(result >= 1);
 	}
 	
 	@PostMapping(value="/pimUpdate", produces={MediaType.TEXT_PLAIN_VALUE})
@@ -130,5 +130,17 @@ public class ProdAdminController {
 	public String pimUpdate(ProdImageVO pimvo) {
 		int result = prodAdminService.pimUpdate(pimvo);
 		return String.valueOf(result == 1);
+	}
+	
+	@PostMapping(value="/pimDelete", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public String pimDelete(ProdImageVO pimvo) {
+		int result = prodAdminService.pimDelete(pimvo);
+		return String.valueOf(result == 1);
+	}
+	
+	@GetMapping("/ctg")
+	public void categoryManage() {
+		
 	}
 }

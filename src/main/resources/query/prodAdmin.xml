@@ -209,10 +209,16 @@
 	</update>
 	
 	<insert id="pimInsert" parameterType="prodimage">
+		<selectKey keyProperty="pim_no" resultType="int" order="BEFORE">
+			SELECT
+				prod_image_seq.nextval
+			FROM
+				DUAL
+		</selectKey>
 		INSERT INTO
 			prod_image(pim_no, pi_no, pim_priority, pim_file)
 		VALUES
-			(prod_image_seq.nextval, #{pi_no}, #{pim_priority}, #{pim_file})
+			(${pim_no}, #{pi_no}, #{pim_priority}, #{pim_file})
 	</insert>
 	
 	<update id="pimUpdate" parameterType="prodimage">
@@ -235,11 +241,20 @@
 	</delete>
 	
 	
+	<!-- prod ins -->
 	<insert id="insertProdins" parameterType="prodins">
+		<selectKey keyProperty="pi_no" resultType="int" order="BEFORE">
+			SELECT
+				prod_ins_seq.nextval
+			FROM
+				DUAL
+		</selectKey>
+		
 		INSERT INTO
-			prod_ins(pi_no, pd_no, pcl_no)
+			prod_ins
+			(pi_no, pd_no, pcl_no)
 		VALUES
-			(prod_ins_seq.nextval, #{pd_no}, #{pcl_no})
+			(#{pi_no}, #{pd_no}, #{pcl_no})
 	</insert>
 	
 	<delete id="deleteProdins" parameterType="prodins">
@@ -250,6 +265,7 @@
 	</delete>
 	
 	
+	<!-- prod stock -->
 	<insert id="insertProdStock" parameterType="prodstock">
 		INSERT INTO
 			prod_stock (pi_no, ps_size, ps_qty)

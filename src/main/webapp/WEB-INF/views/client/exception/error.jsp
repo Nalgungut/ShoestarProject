@@ -7,6 +7,7 @@
 		<style type="text/css">
 			.errorMsg{
 				margin-top: 150px;
+				margin-bottom: 200px;
 			}
 			
 			.errorMsg > * {

@@ -63,7 +63,11 @@
 				
 				// 이미지 신규 등록
 				$("#submitPimInsert").click(function() {
-					insertPim($("#pimInputForm"));
+					if(isNaN(pi_no) || pi_no == "0") {
+						alert("상품 색상을 우선적으로 추가해야합니다.");
+					} else {
+						insertPim($("#pimInputForm"));
+					}
 				});
 			});
 			

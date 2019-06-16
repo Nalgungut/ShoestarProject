@@ -7,7 +7,7 @@
 	<sql id="dcmax">
 		(
 		SELECT
-			MAX(rd_discount) AS maximum
+			NVL(MAX(rd_discount), 0) AS maximum
 		FROM
 			range_discount r
 			LEFT OUTER JOIN
@@ -23,8 +23,11 @@
 				RD_EDATE >= TRUNC(sysdate) OR
 				RD_EDATE IS NULL
 			)
-			AND	rp.pd_no = prod.pd_no
-			OR rt.pct_no = prod.pct_no
+			AND
+			(
+				rp.pd_no = prod.pd_no
+				OR rt.pct_no = prod.pct_no
+			)
 		)
 	</sql>
 	

@@ -18,6 +18,8 @@ public interface ProdAdminDao {
 	
 	public int insertProd(ProdVO pvo);
 	
+	
+	// prodimage
 	public int pimInsert(ProdImageVO pimvo);
 	
 	public int pimUpdate(ProdImageVO pimvo);
@@ -30,12 +32,10 @@ public interface ProdAdminDao {
 	
 	public int updateMainImage(ProdImageVO pimvo);
 	
-	
 	// prodins
 	public int insertProdins(ProdInsVO pivo);
 	
 	public int deleteProdins(ProdInsVO pivo);
-	
 	
 	// prodstock
 	public int insertProdStock(ProdStockVO psvo);

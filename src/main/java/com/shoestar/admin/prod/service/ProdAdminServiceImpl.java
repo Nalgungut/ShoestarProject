@@ -148,11 +148,13 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 		
 		try {
 			ProdImageVO newPvo = prodAdminDao.pimSelect(pvo);
-			FileUploadForProd.fileDelete(pvo.getPim_file());
+			ProdVO prod = prodAdminDao.prodDetailByImage(newPvo);
+			
+			FileUploadForProd.fileDelete(newPvo.getPim_file());
 			result = prodAdminDao.pimDelete(newPvo);
-			if(pvo.isUpdatePimMain()) {
-				pvo.setPim_file(null);
-				prodAdminDao.updateMainImage(pvo);
+			if(prod.getPim_main() != null && prod.getPim_main().equals(newPvo.getPim_file())) {
+				newPvo.setPim_file(null);
+				prodAdminDao.updateMainImage(newPvo);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

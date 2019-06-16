@@ -205,9 +205,35 @@ function createImageActions(pimVO, pim_main) {
 		}
 	});
 	
+	// 이미지 제거 버튼
+	var pimDelBtn = $("<button>").prop("type", "button").addClass("text-center submenuActions").html(
+		"삭제 <span class='glyphicon glyphicon-minus'></span>"
+	).on("click", function() {
+		if(confirm("정말로 삭제하시겠습니까?")) {
+			$.ajax({
+				url :"/admin/product/pimDelete",
+				type : "post",
+				data : "pim_no=" + pimVO.pim_no,
+				dataType : "text",
+				error : function(xhr) {
+					alert("시스템 오류로 이미지를 삭제할 수 없었습니다.");
+				},
+				success : function(data) {
+					if(data == "true") {
+						alert("성공적으로 삭제되었습니다.");
+						location.reload();
+					} else {
+						alert("이미지를 삭제할 수 없었습니다.");
+					}
+				}
+			});
+		}
+	});
+	
 	// 조립
 	var pimDiv = $("<div>").addClass("pimSubmit");
-	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimMainDiv).append(pimPriDiv).append(pimSubmit);
+	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimMainDiv)
+		.append(pimPriDiv).append(pimSubmit).append(pimDelBtn);
 	pimDiv.append(pimEditForm);
 	
 	return pimDiv;

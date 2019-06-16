@@ -91,7 +91,7 @@
 					priceTotal += priceTotalEach;
 				});
 				
-				$("#totalPrice").text(priceTotal + "원");
+				$("#totalPrice").text((isNaN(priceTotal) ? 0 : priceTotal) + "원");
 			}
 			
 			// 물품들을 결제 폼으로 넘길 input으로 동적 생성 하는 함수
