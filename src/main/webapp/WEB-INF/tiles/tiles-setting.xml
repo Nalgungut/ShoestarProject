@@ -55,10 +55,13 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/brand/{1}.jsp"/>
 	</definition>
 	
+	<definition name="client/exception/*" extends="content">
+		<put-attribute name="body" value="/WEB-INF/views/client/exception/{1}.jsp"/>
+	</definition>
+	
 	<definition name="admin/adminMember/*" extends="content">
 		<put-attribute name="body" value="/WEB-INF/views/admin/adminMember/{1}.jsp"/>
 	</definition>
-	
 	
 	
 	<!-- ############################# 관리자 페이지 ############################# -->

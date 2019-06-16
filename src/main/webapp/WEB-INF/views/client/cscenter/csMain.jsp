@@ -58,7 +58,9 @@
       		}
       	a{
       		color: black; text-decoration: none;
-      	}		
+      	}
+		
+			
     </style>
     <link href="/resources/include/dist/css/bootstrap-responsive.css" rel="stylesheet">
 

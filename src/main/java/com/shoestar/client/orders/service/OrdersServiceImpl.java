@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.client.orders.dao.OrdersDao;
 import com.shoestar.client.orders.vo.CartVO;
 import com.shoestar.client.orders.vo.OrdersInsVO;
@@ -114,5 +116,49 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo) {
 		return ordersDao.ordersInsByOdNo(ovo);
+	}
+	
+	@Transactional
+	@Override
+	public int insertNewOrders(int mem_no, List<OrdersInsVO> oivo, String addr) {
+		int result = 0;
+		
+		OrdersVO ovo = new OrdersVO();
+		ovo.setMem_no(mem_no);
+		List<CartVO> cvo = new ArrayList<>();
+		
+		// 주문 생성
+		ordersDao.insertNewOrders(ovo);
+		int od_no = ovo.getOd_no();
+		
+		// 주문 상품 생성
+		for (OrdersInsVO ordersInsVO : oivo) {
+			ordersInsVO.setOd_no(od_no);
+			// 주문 상품 추가
+			ordersDao.insertOrderIns(ordersInsVO);
+			// 재고 변경
+			ordersDao.updateStock(ordersInsVO);
+			
+			// 카트 정보 생성
+			CartVO ctvo = new CartVO();
+			ctvo.setMem_no(mem_no);
+			ctvo.setPi_no(ordersInsVO.getPi_no());
+			ctvo.setPs_size(ordersInsVO.getPs_size());
+			cvo.add(ctvo);
+			
+			result++;
+		}
+		
+		// 주소 정보 생성
+		AdminDeliveryVO dvo = new AdminDeliveryVO();
+		dvo.setDm_addr(addr);
+		dvo.setOd_no(od_no);
+		
+		ordersDao.insertDeliveryInfo(dvo);
+		
+		// 카트에서 상품 삭제
+		removeFromCart(cvo);
+		
+		return result;
 	}
 }

@@ -33,7 +33,7 @@
 	
 	<!-- 참조 조회 -->
 	<select id="AdminDetail" parameterType="rds" resultType="rds">
-			select distinct
+	<!-- 		select distinct
 			    p.pd_no, p.pd_name, rt.pct_no, rp.rd_no, pt.pct_name, p.pim_main
 			from
 			    prod p
@@ -50,8 +50,58 @@
 			on
 			    p.pd_no = rp.pd_no
             where rt.rd_no = #{rd_no}
+			order by p.pd_no asc -->
+		select distinct
+               p.pd_no,
+                p.pct_no,
+                p.pd_name,
+                p.pim_main,
+                pt.pct_name,
+                rp.rd_no
+			from
+			    prod p
+            inner join
+                prod_ctg pt
+            on
+                p.pct_no = pt.pct_no
+			left outer join
+			    rd_product rp 
+			on
+			    p.pd_no = rp.pd_no
+            inner join
+                range_discount rd
+            on 
+               rd.rd_no = rp.rd_no
+            where rd.rd_no = #{rd_no}
 			order by p.pd_no asc
 	</select>
+	
+	<select id="rdNo" resultType="int">
+		select rdis_seq.nextval from dual
+	</select>
+	
+		<!-- 범위 입력 작업 -->
+	<insert id="AdminRDisInsert" parameterType="rds">
+		<!-- <selectKey keyProperty="rd_no" resultType="int" order="BEFORE">
+			select rdis_seq.nextval from dual		
+		</selectKey>
+	 -->
+		INSERT INTO range_discount (
+					rd_no ,
+				    rd_title ,
+					rd_content ,
+					rd_discount ,
+					rd_date
+		    <if test= "rd_edate != null">
+				, rd_edate 
+			</if>
+		    )
+		VALUES (#{rd_no}, #{rd_title}, #{rd_content}, #{rd_discount}, sysdate
+		 	<if test= "rd_edate != null">
+				, #{rd_edate}
+			</if>
+		    )
+	</insert>
 		
 </mapper>
 
