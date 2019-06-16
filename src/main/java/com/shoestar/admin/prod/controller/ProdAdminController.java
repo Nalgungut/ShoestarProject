@@ -122,8 +122,7 @@ public class ProdAdminController {
 	@PostMapping(value="/pimUpdate", produces={MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody
 	public String pimUpdate(ProdImageVO pimvo) {
-		
-		
-		return "false";
+		int result = prodAdminService.pimUpdate(pimvo);
+		return String.valueOf(result == 1);
 	}
 }

@@ -45,3 +45,20 @@ body > .container > .sidebar {
 .pimEditForm > * {
 	margin-top: 5px;
 }
+
+.insertModalBtn {
+	width: 180px;
+	background-color: #eee;
+	border: none;
+	margin-bottom: 20px;
+}
+
+.sectionTitle {
+	border-bottom: 1px solid #666;
+	clear: both;
+	padding-top: 30px;
+}
+
+.articleTitle {
+	margin-top: 50px;
+}

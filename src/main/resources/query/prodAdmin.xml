@@ -223,6 +223,8 @@
 			<if test='pim_file != null and pim_file != ""'>
 				, pim_file = #{pim_file}
 			</if>
+		WHERE
+			pim_no = #{pim_no}
 	</update>
 	
 	<delete id="pimDelete" parameterType="prodimage">
