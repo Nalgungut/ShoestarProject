@@ -60,7 +60,6 @@
 				
     		});
     		
-    		
     		$(".faqDeleteBtn").click(function(){
     			var faq_no = $(this).parents("tr").attr("data-num");
     			console.log(faq_no);

@@ -22,9 +22,31 @@
 	</select>
 	
 	<select id="qnaList" parameterType="com.shoestar.admin.cscenter.vo.AdminQNAVO" resultType="com.shoestar.admin.cscenter.vo.AdminQNAVO">
-		SELECT q.qna_no,q.qna_ctgr, q.qna_title, q.qna_content, m.mem_name , q.od_no
+		SELECT q.qna_no,q.qna_ctgr, q.qna_title, q.qna_content, m.mem_name ,m.mem_no , q.od_no
         FROM qna q
         INNER JOIN member m ON q.mem_no = m.mem_no
         order by qna_no desc
 	</select>
+	
+	<select id="qnaDetail" parameterType="int" resultType="com.shoestar.admin.cscenter.vo.AdminQNAVO">
+		select
+			q.qna_title, m.mem_name, q.qna_content
+			from qna q
+			inner join member m on q.mem_no = m.mem_no
+			where q.qna_no = #{qna_no} and m.mem_no = #{mem_no}
+	</select>
+	
+	<insert id="replyInsert" parameterType="com.shoestar.admin.cscenter.vo.AdminQNAReplyVO">
+		<selectKey keyProperty="qr_no" resultType="int" order="BEFORE">
+			select qna_reply_seq.nextval from dual
+		</selectKey>
+		INSERT INTO qna_reply(qr_no, qna_no, qr_title, qr_content,mem_no)
+		values(#{qr_no}, #{qna_no}, #{qr_title}, #{qr_content}, #{mem_no})
+	</insert>
+	
+	<update id="replyUpdate" parameterType="com.shoestar.admin.cscenter.vo.AdminQNAVO">
+		UPDATE qna
+			set qna_state='답변완료'
+		where qna_no = #{qna_no}
+	</update>
 </mapper>
