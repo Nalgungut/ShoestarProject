@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.shoestar.admin.prod.service.ProdAdminService;
+import com.shoestar.admin.prod.service.ProdCtgAdminService;
 import com.shoestar.client.prod.service.ProdInsService;
+import com.shoestar.client.prod.vo.ProdColorVO;
+import com.shoestar.client.prod.vo.ProdCtgVO;
 import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdVO;
@@ -34,6 +37,7 @@ import lombok.AllArgsConstructor;
 public class ProdAdminController {
 	
 	private ProdAdminService prodAdminService;
+	private ProdCtgAdminService prodCtgAdminService;
 	
 	private ProdInsService pinsService;
 	
@@ -139,8 +143,71 @@ public class ProdAdminController {
 		return String.valueOf(result == 1);
 	}
 	
+	
+	/* ====================================== 카테고리 ====================================== */
+	
 	@GetMapping("/ctg")
-	public void categoryManage() {
+	public void categoryManage(Model model) {
+		List<ProdCtgVO> ctglist = prodCtgAdminService.ctgList();
+		List<ProdColorVO> colorlist = prodCtgAdminService.colorList();
 		
+		model.addAttribute("ctglist", ctglist);
+		model.addAttribute("colorlist", colorlist);
+	}
+	
+	@PostMapping("/insertCtg")
+	@ResponseBody
+	public String insertCtg(ProdCtgVO ctvo) {
+		String result = null;
+		result = String.valueOf(prodCtgAdminService.insertCtg(ctvo) == 1);
+		return result;
+	}
+
+	@PostMapping("/updateCtg")
+	@ResponseBody
+	public String updateCtg(ProdCtgVO ctvo) {
+		String result = null;
+		result = String.valueOf(prodCtgAdminService.updateCtg(ctvo) == 1);
+		return result;
+	}
+
+	@PostMapping("/deleteCtg")
+	@ResponseBody
+	public String deleteCtg(ProdCtgVO ctvo) {
+		String result = null;
+		try {
+			result = String.valueOf(prodCtgAdminService.deleteCtg(ctvo) == 1);
+		} catch (Exception e) {
+			result = "referenceError";
+		}
+		return result;
+	}
+
+	@PostMapping("/insertColor")
+	@ResponseBody
+	public String insertColor(ProdColorVO clvo) {
+		String result = null;
+		result = String.valueOf(prodCtgAdminService.insertColor(clvo) == 1);
+		return result;
+	}
+
+	@PostMapping("/updateColor")
+	@ResponseBody
+	public String updateColor(ProdColorVO clvo) {
+		String result = null;
+		result = String.valueOf(prodCtgAdminService.updateColor(clvo) == 1);
+		return result;
+	}
+
+	@PostMapping("/deleteColor")
+	@ResponseBody
+	public String deleteColor(ProdColorVO clvo) {
+		String result = null;
+		try {
+			result = String.valueOf(prodCtgAdminService.deleteColor(clvo) == 1);
+		} catch (Exception e) {
+			result = "referenceError";
+		}
+		return result;
 	}
 }
