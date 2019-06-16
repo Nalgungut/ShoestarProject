@@ -95,7 +95,10 @@
 			            <!-- Page Heading -->
 			            <div class="row" id="main" >
 			                <div class="col-sm-12 col-md-12 well" id="content">
-			                    <h1>마이페이지 들어갈 공간</h1>
+			                    <h1>마이페이지 들어갈 공간
+			                    <%-- <jsp:include page="/WEB-INF/views/client/myPage/main.jsp" flush="true">
+								</jsp:include> --%></h1>
+			                    
 			                </div>
 			            </div>
 			            <!-- /.row -->

@@ -48,7 +48,7 @@
    </div>
    
    <!-- footer -->
-   <footer class="footer">
+   <footer class="bg3 p-t-75 p-b-32 foot">
       <tiles:insertAttribute name="footer" />
    </footer>
    
