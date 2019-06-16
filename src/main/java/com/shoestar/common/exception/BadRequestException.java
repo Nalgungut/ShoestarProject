@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * 요청이 잘못됐을 경우 던지는 400 에러
  * @author 배정훈
  */
-@ResponseStatus(value=HttpStatus.BAD_REQUEST)
+@ResponseStatus(value=HttpStatus.BAD_REQUEST, reason="요청이 잘못되었습니다")
 public class BadRequestException extends RuntimeException {
 	private static final long serialVersionUID = 8402159583774555884L;
 

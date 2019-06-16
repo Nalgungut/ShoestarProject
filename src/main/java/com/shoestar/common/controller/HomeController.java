@@ -1,4 +1,4 @@
-package com.shoestar.common;
+package com.shoestar.common.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
