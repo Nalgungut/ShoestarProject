@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> <!-- 아래 fn:split을 쓰기위해 반드시 명시 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="email"  value="${fn:split(member.mem_email,'@')}" /> <!-- DB에서 불러오는 풀네임 email값에서 @를 분리시켜줌 -->
 <!DOCTYPE html>
    <html>
@@ -121,7 +122,7 @@
 					<div class="form-group form-group-sm">
 						<label for="mem_birth" class="col-sm-2 control-label">생년월일</label>
 							<div class="col-sm-3">
-								${member.mem_birth}
+								<fmt:formatDate value="${member.mem_birth}" pattern="yyyy년-MM월-dd일"/>
 							</div>
 					</div>
 					
