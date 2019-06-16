@@ -118,6 +118,12 @@ public class ProdAdminController {
 		return "admin/product/prodInsert";
 	}
 	
+	@PostMapping(value="/pimInsert", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public String pimInsert(ProdImageVO pimvo) {
+		int result = prodAdminService.pimInsert(pimvo);
+		return String.valueOf(result == 1);
+	}
 	
 	@PostMapping(value="/pimUpdate", produces={MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody

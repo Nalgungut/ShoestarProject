@@ -55,6 +55,16 @@
 				
 				// 이미지 정보 읽어오기
 				getImageList($("#pimList"));
+				
+				// 모달창 리셋
+				$("#imageModalTitle").click(function() {
+					resetPimInsert();
+				});
+				
+				// 이미지 신규 등록
+				$("#submitPimInsert").click(function() {
+					insertPim($("#pimInputForm"));
+				});
 			});
 			
 			function resetPrimaryData() {
@@ -215,9 +225,9 @@
 				});
 			}
 			
-			function resetPimInsert(pino) {
+			// 모달 폼 리셋
+			function resetPimInsert() {
 				$resetForm($("#pimInputForm"));
-				$("#piminput_pi_no").val(pino);
 			}
 		</script>
 	</head>
@@ -353,13 +363,22 @@
 		
 		<!-- 색상 정보 -->
 		<div class="pinsArticle">
-			<div class="articleTitle"><h4>색상 선택</h4></div>
+			<div class="articleTitle">
+				<h4>색상 선택</h4>
+				<button type="button" class="text-center submenuActions">
+					신규 색상 <span class='glyphicon glyphicon-plus'></span>
+				</button>
+			</div>
 			<ul id="colorList"></ul>
+			<button type="button" class="text-center submenuActions">
+				선택 제거 <span class='glyphicon glyphicon-minus'></span>
+			</button>
 		</div>
 		<!-- 이미지 정보 -->
 		<div class="pimArticle">
-			<div class="articleTitle"><h4>이미지 정보</h4>
-				<button type="button" class="text-center insertModalBtn" data-toggle="modal" data-target="#imageModal">
+			<div class="articleTitle">
+				<h4>이미지 정보</h4>
+				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#imageModal">
 					신규 이미지 <span class='glyphicon glyphicon-plus'></span>
 				</button>
 			</div>
@@ -383,12 +402,12 @@
 						<h4 class="modal-title" id="imageModalTitle">이미지 등록</h4>
 					</div>
 					<div class="modal-body">
-						<form class="pimInputForm">
-							<input type="hidden" name="pi_no" id="piminput_pi_no">
+						<form id="pimInputForm">
+							<input type="hidden" name="pi_no" id="piminput_pi_no" value="${pi_no}">
 							<label class="col-sm-3 control-label" for="piminput_pim_prioirty">우선순위</label>
 							<div class="col-sm-8 form-group">
 								<input type="number" name="pim_priority" id="piminput_pim_prioirty"
-									maxlength="2" required="required" class="form-control">
+									maxlength="2" required="required" value="1" class="form-control">
 							</div>
 							<label class="col-sm-3 control-label" for="piminput_pim_prioirty">파일</label>
 							<div class="col-sm-8 form-group">

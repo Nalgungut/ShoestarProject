@@ -218,9 +218,9 @@ function createImageActions(pimVO, pim_main) {
  * 이미지를 상품에 추가하는 함수
  */
 function insertPim(pimInsertForm) {
+	
 	if(checkAll(pimInsertForm)) {
-		var pri = pimInsertForm.find("input[type='number']").val();
-		
+		var pri = pimInsertForm.find('input[name="pim_priority"]').val();
 		if(isNaN(pri) || parseInt(pri) >= 100 || parseInt(pri) < 1) {
 			alert("우선순위는 1~99 사이의 숫자만 가능합니다.");
 			return;

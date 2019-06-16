@@ -122,7 +122,6 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 	@Override
 	public int pimUpdate(ProdImageVO pvo) {
 		int result = 0;
-		
 		try {
 			if(pvo.getFile() != null && !pvo.getFile().isEmpty()) {
 				ProdImageVO oldPvo = prodAdminDao.pimSelect(pvo);
@@ -133,6 +132,7 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 			
 			result = prodAdminDao.pimUpdate(pvo);
 			if(pvo.isUpdatePimMain()) {
+				pvo = prodAdminDao.pimSelect(pvo);
 				prodAdminDao.updateMainImage(pvo);
 			}
 		} catch (IOException e) {

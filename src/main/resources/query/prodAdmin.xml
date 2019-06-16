@@ -212,7 +212,7 @@
 		INSERT INTO
 			prod_image(pim_no, pi_no, pim_priority, pim_file)
 		VALUES
-			(prod_img_seq.nextval, #{pi_no}, #{pim_priority}, #{pim_file})
+			(prod_image_seq.nextval, #{pi_no}, #{pim_priority}, #{pim_file})
 	</insert>
 	
 	<update id="pimUpdate" parameterType="prodimage">

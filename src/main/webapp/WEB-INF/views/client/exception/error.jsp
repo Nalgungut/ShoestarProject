@@ -8,6 +8,10 @@
 			.errorMsg{
 				margin-top: 150px;
 			}
+			
+			.errorMsg > * {
+				margin-bottom: 30px;
+			}
 		</style>
 	</head>
 	<body>
