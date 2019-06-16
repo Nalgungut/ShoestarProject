@@ -35,15 +35,18 @@ public class MyPageController {
 	
 	//마이페이지 메인화면 구현
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String mainForm( @SessionAttribute("login") LoginVO login){
+	public String mainForm( @SessionAttribute("login") LoginVO login, Model model){
 		
 		int mem_no = login.getMem_no();
 		List<OrdersVO> myOrder = myPageService.ordersDataByMemNo(mem_no);
+		model.addAttribute("myOrderList", myOrder);
+		log.info("myorder = "+myOrder);
+		
 		log.info("mainpage 호출 성공");
 		return "client/myPage/main";
 	}
 	
-	@RequestMapping(value="/myOrder", method = RequestMethod.GET)
+	/*@RequestMapping(value="/myOrder", method = RequestMethod.GET)
 	public String myOrder( @SessionAttribute("login") LoginVO login, Model model){
 		
 		int mem_no = login.getMem_no();
@@ -51,7 +54,7 @@ public class MyPageController {
 		
 		return "client/myPage/myOrder";
 		
-	}
+	}*/
 	
 	}
 	

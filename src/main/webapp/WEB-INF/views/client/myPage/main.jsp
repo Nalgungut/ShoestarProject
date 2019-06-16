@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
    <html>
       <head>
@@ -36,7 +38,9 @@
             
             
             <Style>
-            	
+            	.ss{
+            	color:red;
+            	font-size:12px;}
             </Style>
            <script type="text/javascript">
 				
@@ -47,17 +51,20 @@
 			   
 			        <!-- Brand and toggle get grouped for better mobile display -->
 			        
-			       
-			        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+			       <!-- <div class="container">
+			        Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
 			        <div class="container-fluid">
-			        <div class="collapse navbar-collapse navbar-ex1-collapse">
-			            <ul class="nav navbar-nav side-nav">
+			        <div class="collapse navbar-collapse navbar-ex1-collapse"> -->
+			             <div class="container">
+   
+   						<div class="side-nav">
+   						<ul class="nav navbar-nav side-nav">
 			                <li>
 			                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw"></i>마이페이지 <i class="fa fa-fw"></i></a>
 			                    <ul id="submenu-1" class="collapse">
-			                        <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
+			                        <!-- <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
 			                        <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
-			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
 			                    </ul>
 			                </li>
 			                <li>
@@ -72,8 +79,8 @@
 			                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-fw fa-star"></i> 고객지원 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
 			                    <ul id="submenu-3" class="collapse">
 			                        <li><a href="/cscenter/qnaBoard"><i class="fa fa-angle-double-right"></i> 1:1문의</a></li>
-			                        <!-- <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li> -->
-			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                        <!-- <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
 			                    </ul>
 			                </li>
 			                <li>
@@ -84,30 +91,74 @@
 			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
 			                    </ul>
 			                </li>
-			              
-			            </ul>
-			        </div>
+			              </ul>
+			            </div>
+			        <!-- </div> -->
 			        <!-- /.navbar-collapse -->
 			    
 			
-			    <div id="page-wrapper">
+			   <!--  <div id="page-wrapper">
 			        <div class="container-fluid">
 			        <label>MyPage</label>
-			            <!-- Page Heading -->
+			            Page Heading
 			            <div class="row" id="main" >
-			                <div class="col-sm-12 col-md-12 well" id="content">
-			                    <h1>마이페이지 들어갈 공간
-			                    <%-- <jsp:include page="/WEB-INF/views/client/myPage/main.jsp" flush="true">
-								</jsp:include> --%></h1>
+			                <div class="col-sm-12 col-md-12 well" id="content"> -->
+			                   <table class="table">
+						            <c:forEach items="${myOrderList}" var="order">
+						            	<label class="ss"><strong>&nbsp;주문내역</strong></label>
+						            	<tr>
+						            		<th>상품번호</th>
+						            		<th>회원번호</th>
+						            		<th>주문날짜</th>
+						            		<th>상품명</th>
+						                  <tr>
+						                     <td>${order.od_no}</td>
+						                     <td>${order.mem_no}</td>
+						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
+						                     <td>${order.od_prog}</td>
+						                  </tr>
+						                  <tr>
+						                     <td>${order.od_no}</td>
+						                     <td>${order.mem_no}</td>
+						                    <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
+						                     <td>${order.od_prog}</td>
+						                  </tr>
+						                  <tr>
+						                     <td>${order.od_no}</td>
+						                     <td>${order.mem_no}</td>
+						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
+						                     <td>${order.od_prog}</td>
+						                  </tr>
+						                  <tr>
+						                     <td>${order.od_no}</td>
+						                     <td>${order.mem_no}</td>
+						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
+						                     <td>${order.od_prog}</td>
+						                  </tr>
+						            </c:forEach>
+					        </table> 
 			                    
-			                </div>
-			            </div>
-			            <!-- /.row -->
+			               <!--  </div> -->
+			       <!--      </div>
+			            /.row
 			        </div>
-			        <!-- /.container-fluid -->
+			        /.container-fluid
 			    </div>
-			    <!-- /#page-wrapper -->
-			    </div>
+			    /#page-wrapper
+			    </div> -->
+			    
+			
+			    
+		<%-- <table>
+            <c:forEach items="${myOrderList}" var="order">
+                  <tr>
+                     <td>${order.od_no}</td>
+                     <td>${order.mem_no}</td>
+                     <td>${order.od_date}</td>
+                     <td>${order.od_prog}</td>
+                  </tr>
+            </c:forEach>
+        </table>  --%>
 		
 	
 	
@@ -136,5 +187,7 @@
 		                    </ul>
 		    </div>.lnb-wrap
 		</div> -->
+		<!-- </div> -->
+		</div>
 	</body>
 </html>
