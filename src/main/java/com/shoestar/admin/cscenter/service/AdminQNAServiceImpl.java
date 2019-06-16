@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shoestar.admin.cscenter.dao.AdminQNADao;
+import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAReplyVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAVO;
 
@@ -83,6 +84,20 @@ public class AdminQNAServiceImpl implements AdminQNAService {
 	public int replyUpdate(AdminQNAVO qvo) {
 		int result = 0;
 		result = qdao.replyUpdate(qvo);
+		return result;
+	}
+
+	@Override
+	public int dm_before(AdminDeliveryVO dvo) {
+		int result = 0;
+		result = qdao.dm_before(dvo);
+		return result;
+	}
+
+	@Override
+	public int dm_ing(AdminDeliveryVO dvo) {
+		int result = 0;
+		result = qdao.dm_ing(dvo);
 		return result;
 	}
 

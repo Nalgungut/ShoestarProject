@@ -2,6 +2,7 @@ package com.shoestar.admin.cscenter.dao;
 
 import java.util.List;
 
+import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAReplyVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAVO;
 
@@ -16,6 +17,8 @@ public interface AdminQNADao {
 	public AdminQNAVO qnaDetail(AdminQNAVO qvo);
 	public int replyInsert(AdminQNAReplyVO qrvo);
 	public int replyUpdate(AdminQNAVO qvo);
+	public int dm_before(AdminDeliveryVO dvo);
+	public int dm_ing(AdminDeliveryVO dvo);
 	
 	
 }

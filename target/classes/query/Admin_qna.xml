@@ -5,6 +5,14 @@
 		select count(qna_no) as qna_all from qna
 	</select>
 	
+	<select id="dm_before" parameterType="int" resultType="int">
+		select count(dm_no) from delivery where dm_status = '배송준비중'
+	</select>
+	
+	<select id="dm_ing" parameterType="int" resultType="int">
+		select count(dm_no) from delivery where dm_status = '배송중'
+	</select>
+	
 	<select id="qna_hold" parameterType="int" resultType="int">
 		select count(qna_no) as qna_hold from qna where qna_state='답변대기'
 	</select>
@@ -25,6 +33,7 @@
 		SELECT q.qna_no,q.qna_ctgr, q.qna_title, q.qna_content, m.mem_name ,m.mem_no , q.od_no
         FROM qna q
         INNER JOIN member m ON q.mem_no = m.mem_no
+        where q.qna_state = '답변대기'
         order by qna_no desc
 	</select>
 	

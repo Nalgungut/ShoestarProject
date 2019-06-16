@@ -105,21 +105,16 @@
 					<td class="text-center">신청/처리</td>
 				</tr>
 				<tr>
-					<td class="text-center"><!-- 배송준비중인상품갯수 --><a href="#">1/2</a></td>
-					<td class="text-center"><!-- 배송중관리 --><a href="#">3/4</a></td>
+					<td class="text-center"><!-- 배송준비중인상품갯수 --><a href="#">${dm_before} 건</a></td>
+					<td class="text-center"><!-- 배송중관리 --><a href="#">${dm_ing} 건</a></td>
 					<td class="text-center"><a href="#">${qna_cancel} 건</a></td>
 					<td class="text-center"><a href="#">${qna_exchange} 건</a></td>
 					<td class="text-center"><a href="#">${qna_return} 건</a></td>
-					<td class="text-center"><a>${qna_hold} 건</a> /<a href="#"> ${qna_all} 건</a></td>
+					<td class="text-center"><a href="/admin/cscenter/csAdminQna">${qna_hold} 건</a> /<a> ${qna_all} 건</a></td>
 				</tr>
 			</table>
 			
-			<ul class="nav nav-tabs">
-				<li role="presentation" class="active" id="chk"><a href="#">게시물현황</a></li>
-				<li role="presentation"><a href="#" id="chk2">주문처리현황</a></li>
-			</ul>
-			
-			<table class="table table-bordered" id="productTotal">
+			<!-- <table class="table table-bordered" id="productTotal">
 				<tr>
 					<th>날짜</th>
 					<th>배송준비중</th>
@@ -131,14 +126,14 @@
 					<th>주문합계</th>
 				</tr>
 				<tr>
-					<td><!-- 날짜 -->2019-05-04</td>
-					<td><!-- 배송준비중건수 -->1</td>
-					<td><!-- 배송중건수 -->3</td>
-					<td><!-- 배송완료건수 -->4</td>
-					<td><!-- 취소건수 -->2</td>
-					<td><!-- 교환건수 -->3</td>
-					<td><!-- 반품건수 -->4</td>
-					<td><!-- 주문총합건수 -->17</td>
+					<td>날짜2019-05-04</td>
+					<td>배송준비중건수1</td>
+					<td>배송중건수3</td>
+					<td>배송완료건수4</td>
+					<td>취소건수2</td>
+					<td>교환건수3</td>
+					<td>반품건수4</td>
+					<td>주문총합건수17</td>
 				</tr>
 			</table>
 			
@@ -150,12 +145,12 @@
 					<th>게시물합계</th>
 				</tr>
 				<tr>
-					<td><!--  -->2019-05-04</td>
-					<td><!--  -->1</td>
-					<td><!--  -->12</td>
-					<td><!--  -->13</td>
+					<td>2019-05-04</td>
+					<td>1</td>
+					<td>12</td>
+					<td>13</td>
 				</tr>
-			</table>
+			</table> -->
 		</div>
 		
 			<h3>자주묻는 질문 리스트</h3>

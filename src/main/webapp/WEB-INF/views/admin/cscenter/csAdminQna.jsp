@@ -39,19 +39,20 @@
 					var mem_no = $(this).parents(".span4").attr("data-num2");
 					console.log(qna_no);
 					console.log(mem_no);
-					$("#qn").val(qna_no);
-					$("#mn").val(mem_no);
+					$("#qna_no").val(qna_no);
+					$("#mem_no").val(mem_no);
 					
 					$("#qnaReplyModal").modal();
 				});
 				$("#replyInsertBtn").click(function(){
-					console.log("dk==아아아")
+					
 					$("#reply_writeForm").attr({
 						"method" : "post",
 						"action" : "/admin/cscenter/replyInsert"
 					});
 					$("#reply_writeForm").submit();
-					alert("댓글 ");
+					alert("답변 등록 완료");
+					
 				});
 			});
 		</script>
@@ -82,8 +83,7 @@
 	                 <h4 class="modal-title" id="qnaDetailModalLabel">1:1문의 상세</h4>
 	               </div>
 	               <div class="modal-body">
-	                 
-	                 	<input type="hidden" name="qna_no" id="qna_no">
+	                 	<input type="hidden" name="qna_no" >
 	                   <div class="form-group">
 	                     <label for="qna_title">1:1문의 제목</label>
 	                     <input type="text" class="form-control" id="qna_title" name="qna_title" readonly="readonly">

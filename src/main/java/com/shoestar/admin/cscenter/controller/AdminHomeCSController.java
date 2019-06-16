@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shoestar.admin.cscenter.service.AdminFAQService;
 import com.shoestar.admin.cscenter.service.AdminQNAService;
+import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.admin.cscenter.vo.AdminFAQVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAReplyVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAVO;
@@ -34,9 +35,10 @@ public class AdminHomeCSController {
 	private AdminFAQService faqService;
 	private AdminQNAService qnaService;
 	
+	
 	//¾îµå¹Î °í°´¼¾ÅÍ È¨¸µÅ©
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String faqList(@ModelAttribute("data")AdminFAQVO fvo, Model model, AdminQNAVO qvo) {
+	public String faqList(@ModelAttribute("data")AdminFAQVO fvo, Model model, AdminQNAVO qvo, AdminDeliveryVO dvo) {
 		List<AdminFAQVO> faqList = faqService.faqList(fvo);
 		model.addAttribute("faqList", faqList);
 		
@@ -51,6 +53,11 @@ public class AdminHomeCSController {
 		model.addAttribute("qna_cancel", qna_cancel);
 		model.addAttribute("qna_exchange", qna_exchange);
 		model.addAttribute("qna_return", qna_return);
+		
+		int dm_before = qnaService.dm_before(dvo);
+		int dm_ing = qnaService.dm_ing(dvo);
+		model.addAttribute("dm_before", dm_before);
+		model.addAttribute("dm_ing", dm_ing);
 		
 		return "admin/cscenter/csAdminMain";
 	}
@@ -121,14 +128,17 @@ public class AdminHomeCSController {
 		
 		int result2 = 0;
 		AdminQNAVO qvo = new AdminQNAVO();
-		qvo.setMem_no(qrvo.getMem_no());
 		qvo.setQna_no(qrvo.getQna_no());
 		result2 = qnaService.replyUpdate(qvo);
+		
 		log.info(result+","+result2);
+		
 		if(result == 1 && result2 == 1) {
-			url = "/admin/cscenter/csAdminQna";
+			url = "admin/cscenter/csAdminQna";
+			return url;
 		}
-		return "redirect:" + url;
+		url = "admin/cscenter/csAdminQna";
+		return url;
 		
 	}
 	
