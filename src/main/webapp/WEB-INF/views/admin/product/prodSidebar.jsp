@@ -2,6 +2,5 @@
 <div class="list-group">
 	<a href="/admin/product/list" class="list-group-item">상품 목록</a>
 	<a href="/admin/product/new" class="list-group-item">상품 등록</a>
-	<a href="#" class="list-group-item">분류 관리</a>
-	<a href="#" class="list-group-item">재고 관리</a>
+	<a href="/admin/product/ctg" class="list-group-item">분류 관리</a>
 </div>

@@ -35,7 +35,13 @@
 			where mem_id=#{mem_id}
 	</update>
 	
-	<delete id="memberDelete" parameterType="String">
+	<!-- <delete id="memberDelete" parameterType="String">
 		delete from member where mem_id = #{mem_id}
-	</delete>
+	</delete> -->
+	
+	<update id="memberDelete" parameterType="String">
+		update member 
+		set mem_id=null, mem_pwd=null, mem_name=null, mem_birth=null, mem_email=null, mem_phone=null, mem_sex=null, mem_zip=null, mem_addr1=null, mem_addr2=null, mem_addr3=null, mem_rdate=null
+		where mem_id=#{mem_id}
+	</update>
 </mapper>

@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.shoestar.client.prod.vo.ProdImageVO;
+import com.shoestar.client.prod.vo.ProdInsVO;
+import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
 
 public interface ProdAdminDao {
@@ -14,4 +17,30 @@ public interface ProdAdminDao {
 	public int updateProd(ProdVO pvo);
 	
 	public int insertProd(ProdVO pvo);
+	
+	
+	// prodimage
+	public int pimInsert(ProdImageVO pimvo);
+	
+	public int pimUpdate(ProdImageVO pimvo);
+	
+	public int pimDelete(ProdImageVO pimvo);
+	
+	public ProdImageVO pimSelect(ProdImageVO pimvo);
+
+	public ProdVO prodDetailByImage(ProdImageVO pimvo);
+	
+	public int updateMainImage(ProdImageVO pimvo);
+	
+	// prodins
+	public int insertProdins(ProdInsVO pivo);
+	
+	public int deleteProdins(ProdInsVO pivo);
+	
+	// prodstock
+	public int insertProdStock(ProdStockVO psvo);
+	
+	public int updateProdStock(ProdStockVO psvo);
+	
+	public int deleteProdStock(ProdStockVO psvo);
 }

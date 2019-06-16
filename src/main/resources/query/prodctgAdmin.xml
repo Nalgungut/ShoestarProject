@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.prod.dao.ProdAdminCtgDao">
+	
+	<select id="ctgList" resultType="prodctg">
+		SELECT
+			ctg.*, COUNT(pd_no) AS pd_count
+		FROM
+			prod_ctg ctg
+			INNER JOIN
+				prod
+			ON
+				ctg.pct_no = prod.pct_no
+		GROUP BY
+			ctg.pct_no, pct_name
+		ORDER BY
+			1 ASC
+	</select>
+	
+	<insert id="insertCtg" parameterType="prodctg">
+		INSERT INTO
+			prod_ctg
+			(pct_no, pct_name)
+		VALUES
+			(prod_ctg_seq.nextval, #{pct_name})
+	</insert>
+	
+	<update id="updateCtg" parameterType="prodctg">
+		UPDATE
+			prod_ctg
+		SET
+			pct_name = #{pct_name}
+		WHERE
+			pct_no = #{pct_no}
+	</update>
+	
+	<delete id="deleteCtg" parameterType="prodctg">
+		DELETE FROM
+			prod_ctg
+		WHERE
+			pct_no = #{pct_no}
+	</delete>
+	
+	<select id="colorList" resultType="prodcolor">
+		SELECT
+			/*+ INDEX_ASC(prod_color prod_color_pk)*/
+			*
+		FROM
+			prod_color
+	</select>
+	
+	<insert id="insertColor" parameterType="prodcolor">
+		INSERT INTO
+			prod_color
+			(pcl_no, pcl_name, pcl_code)
+		VALUES
+			(prod_color_seq.nextval, #{pcl_name}, #{pcl_no})
+	</insert>
+	
+	<update id="updateColor" parameterType="prodcolor">
+		UPDATE
+			prod_color
+		SET
+			pcl_name = #{pcl_name},
+			pcl_code = #{pcl_code}
+		WHERE
+			pcl_no = #{pcl_no}
+	</update>
+	
+	<delete id="deleteColor" parameterType="prodcolor">
+		DELETE FROM
+			prod_color
+		WHERE
+			pcl_no = #{pcl_no}
+	</delete>
+</mapper>

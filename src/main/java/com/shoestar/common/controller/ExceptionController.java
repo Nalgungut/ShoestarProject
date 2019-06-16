@@ -16,10 +16,13 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import com.shoestar.common.exception.RequiresLoginException;
 import com.shoestar.common.exception.ResourceNotFoundException;
 
+import lombok.extern.log4j.Log4j;
+
 /**
  * 예외 처리를 위한 컨트롤러
  */
 @ControllerAdvice
+@Log4j
 public class ExceptionController {
 	
 	/**
@@ -28,6 +31,8 @@ public class ExceptionController {
 	@ResponseStatus(value=HttpStatus.NOT_FOUND)
 	@ExceptionHandler(value={NoHandlerFoundException.class, ResourceNotFoundException.class})
 	public String pageNotFound(HttpServletRequest request, Model model) {
+		log.info("주소를 찾을 수 없습니다. 요청 된 주소 : " + request.getRequestURL());
+		
 		model.addAttribute("errorCode", "404");
 		
 		return "client/exception/error";
@@ -38,8 +43,10 @@ public class ExceptionController {
 	 */
 	@ExceptionHandler(value=
 		{SQLException.class, DataAccessException.class, MyBatisSystemException.class})
-	public String dbError(HttpServletRequest request, Model model) {
+	public String dbError(HttpServletRequest request, Model model, Exception e) {
 		model.addAttribute("errorCode", "db");
+
+		e.printStackTrace();
 		
 		return "client/exception/error";
 	}
@@ -58,8 +65,10 @@ public class ExceptionController {
 	 * 기타 에러 캐치
 	 */
 	@ExceptionHandler(value={Exception.class})
-	public String allErrors(HttpServletRequest request, Model model) {
+	public String allErrors(HttpServletRequest request, Model model, Exception e) {
 		model.addAttribute("errorCode", "other");
+
+		e.printStackTrace();
 		
 		return "client/exception/error";
 	}

@@ -118,13 +118,29 @@ public class ProdAdminController {
 		return "admin/product/prodInsert";
 	}
 	
+	@PostMapping(value="/pimInsert", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public String pimInsert(ProdImageVO pimvo) {
+		int result = prodAdminService.pimInsert(pimvo);
+		return String.valueOf(result >= 1);
+	}
 	
 	@PostMapping(value="/pimUpdate", produces={MediaType.TEXT_PLAIN_VALUE})
 	@ResponseBody
 	public String pimUpdate(ProdImageVO pimvo) {
+		int result = prodAdminService.pimUpdate(pimvo);
+		return String.valueOf(result == 1);
+	}
+	
+	@PostMapping(value="/pimDelete", produces={MediaType.TEXT_PLAIN_VALUE})
+	@ResponseBody
+	public String pimDelete(ProdImageVO pimvo) {
+		int result = prodAdminService.pimDelete(pimvo);
+		return String.valueOf(result == 1);
+	}
+	
+	@GetMapping("/ctg")
+	public void categoryManage() {
 		
-		// TODO: 이미지 등록 기능
-		
-		return "false";
 	}
 }
