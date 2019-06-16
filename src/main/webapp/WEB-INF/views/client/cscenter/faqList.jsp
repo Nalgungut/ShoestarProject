@@ -40,7 +40,7 @@
       	}
       		
       	#order, #cancel, #exc, #goods, #event{
-      		margin : 10px;
+      		margin-left : 10px;
       	}
       			
     </style>

@@ -47,6 +47,9 @@
 					cartAjaxJson["success"] = function(data) {
 						if(data >= 1) {
 							location.reload();
+						} else if(data == "login") {
+							alert("로그인이 필요합니다.");
+							location.href = "/member/login";
 						} else {
 							alert("카트 상품 정보를 삭제할 수 없었습니다.");
 						}
