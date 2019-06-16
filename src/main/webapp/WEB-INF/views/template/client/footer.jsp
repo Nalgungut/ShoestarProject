@@ -50,9 +50,8 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-<body>
-<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
+
+	<footer class="bg3 p-t-75 p-b-32 foot">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
@@ -198,5 +197,4 @@ Copyright &copy;슈즈스타 |
 			</div>
 		</div>
 	</footer>
-	
-	</body>
+

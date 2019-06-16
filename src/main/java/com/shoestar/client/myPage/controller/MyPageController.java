@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -36,25 +37,22 @@ public class MyPageController {
 	@RequestMapping(value="/main", method = RequestMethod.GET)
 	public String mainForm( @SessionAttribute("login") LoginVO login){
 		
+		int mem_no = login.getMem_no();
+		List<OrdersVO> myOrder = myPageService.ordersDataByMemNo(mem_no);
 		log.info("mainpage 호출 성공");
 		return "client/myPage/main";
 	}
 	
-	/*@RequestMapping(value="/list", method = RequestMethod.GET)
-	public ModelAndView myPageMain( @SessionAttribute("login") LoginVO login){
+	@RequestMapping(value="/myOrder", method = RequestMethod.GET)
+	public String myOrder( @SessionAttribute("login") LoginVO login, Model model){
 		
-		HttpServletRequest request;
-		HttpServletResponse response)throws Exception{
-		HttpSession session = request.getSession();
-		String viewName =(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
 		int mem_no = login.getMem_no();
-		List<OrdersVO> OrderList = myPageService.ordersDataByMemNo(mem_no);
+		List<OrdersVO> myOrder = myPageService.ordersDataByMemNo(mem_no);
 		
-		mav.addObject("OrderList", OrderList);
+		return "client/myPage/myOrder";
 		
-	}*/
+	}
 	
+	}
 	
-	
-}
+
