@@ -1,5 +1,7 @@
 package com.shoestar.admin.cscenter.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -10,7 +12,7 @@ public class AdminDeliveryVO {
 	private String dm_number = "";	//운송장번호
 	private String dm_status = "";	//배송상태
 	private String dm_addr = "";	//배송지주소
-	
+	private Date od_date = null;
 	private String mem_name = "";	//주문자이름
 	private String pd_name = "";	//물품이름
 	

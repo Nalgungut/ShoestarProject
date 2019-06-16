@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.shoestar.admin.cscenter.service.AdminDeliveryService;
 import com.shoestar.admin.cscenter.service.AdminFAQService;
 import com.shoestar.admin.cscenter.service.AdminQNAService;
 import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
@@ -34,7 +35,7 @@ public class AdminHomeCSController {
 	
 	private AdminFAQService faqService;
 	private AdminQNAService qnaService;
-	
+	private AdminDeliveryService dmService;
 	
 	//¾îµå¹Î °í°´¼¾ÅÍ È¨¸µÅ©
 	@RequestMapping(value="/", method=RequestMethod.GET)
@@ -47,7 +48,6 @@ public class AdminHomeCSController {
 		int qna_cancel = qnaService.qna_cancel(qvo);
 		int qna_exchange = qnaService.qna_exchange(qvo);
 		int qna_return = qnaService.qna_return(qvo);
-		
 		model.addAttribute("qna_all", qna_all);
 		model.addAttribute("qna_hold", qna_hold);
 		model.addAttribute("qna_cancel", qna_cancel);
@@ -61,7 +61,13 @@ public class AdminHomeCSController {
 		
 		return "admin/cscenter/csAdminMain";
 	}
-	
+	@RequestMapping(value="/csAdminDm_before")
+	public String dmList(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dmList = dmService.dmList(dvo);
+		model.addAttribute("dmList", dmList);
+		
+		return "admin/cscenter/csAdminDm_before";
+	}
 	@RequestMapping(value="/faqDelete")
 	public String faqDelete(@ModelAttribute AdminFAQVO fvo) {
 		int result = 0;
@@ -101,6 +107,17 @@ public class AdminHomeCSController {
 		return "redirect:" + url;
 	}
 	
+	@RequestMapping(value="/dm_ing", method=RequestMethod.POST)
+	public String dm_ing(@ModelAttribute AdminDeliveryVO dvo, Model model) {
+		int result = 0;
+		String url = "";
+		
+		result = dmService.dm_ing(dvo);
+		url = "/admin/cscenter/csAdminDm_before";
+		
+		return "redirect:"+url;
+	}
+	
 	@RequestMapping(value="/csAdminQna", method=RequestMethod.GET)
 	public String qnaList(@ModelAttribute("data")AdminQNAVO qvo, Model model) {
 		List<AdminQNAVO> qnaList = qnaService.qnaList(qvo);
@@ -134,12 +151,11 @@ public class AdminHomeCSController {
 		log.info(result+","+result2);
 		
 		if(result == 1 && result2 == 1) {
-			url = "admin/cscenter/csAdminQna";
-			return url;
+			url = "/admin/cscenter/csAdminQna";
 		}
-		url = "admin/cscenter/csAdminQna";
-		return url;
-		
+		url = "/admin/cscenter/csAdminQna";
+		return "redirect:"+ url;
 	}
+	
 	
 }
