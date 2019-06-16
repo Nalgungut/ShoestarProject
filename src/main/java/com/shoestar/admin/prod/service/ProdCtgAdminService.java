@@ -1,12 +1,11 @@
-package com.shoestar.admin.prod.dao;
+package com.shoestar.admin.prod.service;
 
 import java.util.List;
 
 import com.shoestar.client.prod.vo.ProdColorVO;
 import com.shoestar.client.prod.vo.ProdCtgVO;
 
-public interface ProdAdminCtgDao {
-	
+public interface ProdCtgAdminService {
 	// 카테고리
 	public List<ProdCtgVO> ctgList();
 	
