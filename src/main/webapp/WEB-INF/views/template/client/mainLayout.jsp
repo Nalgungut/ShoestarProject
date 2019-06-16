@@ -33,8 +33,8 @@
 	
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
-		<tiles:insertAttribute name="header" />
-	</nav>
+      <tiles:insertAttribute name="header" />
+   </nav>
 	
 	<!-- Begin page content -->
 	<%-- <div class="container">
@@ -43,7 +43,8 @@
 		</div>
 		<tiles:insertAttribute name="body" />
 	</div> --%>
-	<div class="container">
+	
+	<div class="container mainBody">
 		<div class="jumbotron">
 			<div class="container">
 				<h1>메인 페이지!</h1>

@@ -52,7 +52,7 @@
 			        <div class="collapse navbar-collapse navbar-ex1-collapse">
 			            <ul class="nav navbar-nav side-nav">
 			                <li>
-			                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw fa-search"></i> 회원정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw"></i>마이페이지 <i class="fa fa-fw"></i></a>
 			                    <ul id="submenu-1" class="collapse">
 			                        <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
 			                        <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
@@ -68,10 +68,18 @@
 			                    </ul>
 			                </li>
 			                <li>
-			                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-fw fa-search"></i> 고객지원 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-fw fa-star"></i> 고객지원 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
 			                    <ul id="submenu-3" class="collapse">
 			                        <li><a href="/cscenter/qnaBoard"><i class="fa fa-angle-double-right"></i> 1:1문의</a></li>
 			                        <!-- <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li> -->
+			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                    </ul>
+			                </li>
+			                <li>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-4"><i class="fa fa-fw fa-search"></i> 회원정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <ul id="submenu-4" class="collapse">
+			                        <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
+			                        <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
 			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
 			                    </ul>
 			                </li>
