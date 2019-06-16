@@ -100,9 +100,7 @@
 			</script>
 		</head>
 	<body>
-	<div class="contentContainer">
 	
-		<div class="limiter">
 		<%-- <c:if test="${adminLogin.adm_id != null and adminLogin.adm_id != ''}">
 		  	<fieldset id="loginAfter">
 		  		<legend>[${adminLogin.adm_name}]님, 관리자로 로그인 되었습니다</legend>
@@ -167,7 +165,6 @@
 				
 			</div>
 		</div>
-	</div>
-	</div>
+	
 	</body>
 </html>

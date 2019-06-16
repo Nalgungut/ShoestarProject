@@ -108,9 +108,7 @@
 			</script>
 		</head>
 	<body>
-	<div class="contentContainer">
 	
-		<div class="limiter">
 		<%-- <c:if test="${login.mem_id != null and login.mem_id != ''}">
 		  	<fieldset id="loginAfter">
 		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다!</legend>
@@ -191,7 +189,6 @@
 				
 			</div>
 		</div>
-	</div>
-	</div>
+	
 	</body>
 </html>
