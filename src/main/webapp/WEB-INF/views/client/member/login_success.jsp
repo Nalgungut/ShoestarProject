@@ -49,7 +49,7 @@
 		   </script>
 		</head>
 	<body>
-		
+		<br/><br/><br/><br/><br/><br/>
 		  	<fieldset id="loginAfter">
 		  		<legend>[${login.mem_name}]님 어서오세요. <br>슈즈스타에 오신것을 환영합니다! 좋은 하루 되세요~!</legend>
 			  		
