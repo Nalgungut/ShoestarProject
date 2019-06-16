@@ -55,6 +55,20 @@
 				
 				// 이미지 정보 읽어오기
 				getImageList($("#pimList"));
+				
+				// 모달창 리셋
+				$("#imageModalTitle").click(function() {
+					resetPimInsert();
+				});
+				
+				// 이미지 신규 등록
+				$("#submitPimInsert").click(function() {
+					if(isNaN(pi_no) || pi_no == "0") {
+						alert("상품 색상을 우선적으로 추가해야합니다.");
+					} else {
+						insertPim($("#pimInputForm"));
+					}
+				});
 			});
 			
 			function resetPrimaryData() {
@@ -214,6 +228,11 @@
 					}
 				});
 			}
+			
+			// 모달 폼 리셋
+			function resetPimInsert() {
+				$resetForm($("#pimInputForm"));
+			}
 		</script>
 	</head>
 	
@@ -225,7 +244,7 @@
 		</div>
 		
 		<!-- ######################### 기초 정보 ######################### -->
-		<h4 class="sectionTitle">기초 정보</h4>
+		<h3 class="sectionTitle">기초 정보</h3>
 		
 		<div class="primarySection">
 			<form id="prodForm" class="form-horizontal">
@@ -344,22 +363,73 @@
 		</div>
 		
 		<!-- ######################### 상품 내역 ######################### -->
-		<h4 class="sectionTitle">상품 내역</h4>
+		<h3 class="sectionTitle">상품 내역</h3>
 		
 		<!-- 색상 정보 -->
 		<div class="pinsArticle">
-			<div class="articleTitle">색상 선택</div>
+			<div class="articleTitle">
+				<h4>색상 선택</h4>
+				<button type="button" class="text-center submenuActions">
+					신규 색상 <span class='glyphicon glyphicon-plus'></span>
+				</button>
+			</div>
 			<ul id="colorList"></ul>
+			<button type="button" class="text-center submenuActions">
+				선택 제거 <span class='glyphicon glyphicon-minus'></span>
+			</button>
 		</div>
 		<!-- 이미지 정보 -->
 		<div class="pimArticle">
-			<div class="articleTitle">이미지 정보</div>
+			<div class="articleTitle">
+				<h4>이미지 정보</h4>
+				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#imageModal">
+					신규 이미지 <span class='glyphicon glyphicon-plus'></span>
+				</button>
+			</div>
 			<ul id="pimList"></ul>
 		</div>
 		<!-- 재고 정보 -->
 		<div class="stockArticle">
-			<div class="articleTitle">재고 정보</div>
+			<div class="articleTitle"><h4>재고 정보</h4></div>
 			<ul id="stockList"></ul>
+		</div>
+		
+		
+		<!-- 이미지 입력을 위한 모달 -->
+		<!-- Modal -->
+		<div class="modal" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalTitle" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="imageModalTitle">이미지 등록</h4>
+					</div>
+					<div class="modal-body">
+						<form id="pimInputForm">
+							<input type="hidden" name="pi_no" id="piminput_pi_no" value="${pi_no}">
+							<label class="col-sm-3 control-label" for="piminput_pim_prioirty">우선순위</label>
+							<div class="col-sm-8 form-group">
+								<input type="number" name="pim_priority" id="piminput_pim_prioirty"
+									maxlength="2" required="required" value="1" class="form-control">
+							</div>
+							<label class="col-sm-3 control-label" for="piminput_pim_prioirty">파일</label>
+							<div class="col-sm-8 form-group">
+								<input type="file" name="file" id="piminput_file" required="required"
+									class="form-control">
+							</div>
+							<label class="col-sm-3 control-label" for="piminput_pim_prioirty">대표 이미지 설정</label>
+							<div class="col-sm-8 form-group">
+								<input type="checkbox" name="updatePimMain" id="piminput_main" value="true">
+							</div>
+						</form>
+						<div class="text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="submitPimInsert">등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

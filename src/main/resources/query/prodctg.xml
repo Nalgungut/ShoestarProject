@@ -25,7 +25,6 @@
 	
 	<select id="getProdCtgList" parameterType="prodctg" resultType="prodctg">
 		SELECT
-			/*+ INDEX_DESC(prod_ctg prod_ctg_pk)*/
 			prod_ctg.pct_no, pct_name, COUNT(pd_no) AS pd_count
 		FROM
 			prod_ctg

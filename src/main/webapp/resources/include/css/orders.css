@@ -38,6 +38,11 @@
 	color: gray;
 }
 
+.table > tbody > tr > td.emptylist {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
 .emptycell {
 	border-right: none;
 	border-left: none;

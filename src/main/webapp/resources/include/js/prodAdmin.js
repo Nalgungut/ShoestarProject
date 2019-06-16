@@ -119,6 +119,28 @@ function createImageActions(pimVO, pim_main) {
 		"value":pimVO.pim_file
 	});
 	
+	
+	// 메인 이미지 여부
+	var pimMainDiv = $("<div>").addClass("form-inline text-left");
+	
+	var pimMainLabel = $("<label>").addClass("text-center").text("대표이미지").prop({
+		"for":"pimPr_"+pimVO.pim_no
+	}).css({
+		"width":"50%"
+	});
+	var pimMain = $("<input>").prop({
+		"type":"checkbox",
+		"name":"updatePimMain",
+		"value":"true",
+		"id":"pimMain_"+pimVO.pim_no
+	});
+	if(pim_main == pimVO.pim_file) {
+		pimMain.prop("checked", true);
+	}
+	pimMainDiv.append(pimMainLabel).append(pimMain);
+	
+	
+	// 우선순위
 	var pimPriDiv = $("<div>").addClass("form-inline");
 	
 	// 우선순위 레이블
@@ -133,7 +155,8 @@ function createImageActions(pimVO, pim_main) {
 		"name":"pim_priority",
 		"value":pimVO.pim_priority,
 		"required":true,
-		"id":"pimPr_"+pimVO.pim_no
+		"id":"pimPr_"+pimVO.pim_no,
+		"maxlength":"2"
 	}).addClass("form-control").css({
 		"width":"50%"
 	});
@@ -152,6 +175,13 @@ function createImageActions(pimVO, pim_main) {
 		if(checkAll(pimEditForm)) {
 			if(pimFile.val() != null && pimFile.val() != "" && isEmpty(pimFile)) {
 				alert("이미지 파일만 선택 가능합니다.");
+				return;
+			}
+			
+			var pri = pimPriority.val();
+			
+			if(isNaN(pri) || parseInt(pri) >= 100 || parseInt(pri) < 1) {
+				alert("우선순위는 1~99 사이의 숫자만 가능합니다.");
 				return;
 			}
 			
@@ -175,10 +205,69 @@ function createImageActions(pimVO, pim_main) {
 		}
 	});
 	
-	// 
+	// 이미지 제거 버튼
+	var pimDelBtn = $("<button>").prop("type", "button").addClass("text-center submenuActions").html(
+		"삭제 <span class='glyphicon glyphicon-minus'></span>"
+	).on("click", function() {
+		if(confirm("정말로 삭제하시겠습니까?")) {
+			$.ajax({
+				url :"/admin/product/pimDelete",
+				type : "post",
+				data : "pim_no=" + pimVO.pim_no,
+				dataType : "text",
+				error : function(xhr) {
+					alert("시스템 오류로 이미지를 삭제할 수 없었습니다.");
+				},
+				success : function(data) {
+					if(data == "true") {
+						alert("성공적으로 삭제되었습니다.");
+						location.reload();
+					} else {
+						alert("이미지를 삭제할 수 없었습니다.");
+					}
+				}
+			});
+		}
+	});
+	
+	// 조립
 	var pimDiv = $("<div>").addClass("pimSubmit");
-	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimPriDiv).append(pimSubmit);
+	pimEditForm.append(hiddenPimNo).append(pimFile).append(pimMainDiv)
+		.append(pimPriDiv).append(pimSubmit).append(pimDelBtn);
 	pimDiv.append(pimEditForm);
 	
 	return pimDiv;
+}
+
+
+/**
+ * 이미지를 상품에 추가하는 함수
+ */
+function insertPim(pimInsertForm) {
+	
+	if(checkAll(pimInsertForm)) {
+		var pri = pimInsertForm.find('input[name="pim_priority"]').val();
+		if(isNaN(pri) || parseInt(pri) >= 100 || parseInt(pri) < 1) {
+			alert("우선순위는 1~99 사이의 숫자만 가능합니다.");
+			return;
+		}
+		
+		pimInsertForm.ajaxForm({
+			url : "/admin/product/pimInsert",
+			type : "post",
+			enctype : "multipart/form-data",
+			dataType : "text",
+			error : function() {
+				alert("서버 오류로 이미지 수정에 실패했습니다.");
+			},
+			success : function(result) {
+				if(result=="true") {
+					alert("성공적으로 등록 되었습니다.");
+					location.reload();
+				} else {
+					alert("이미지를 등록할 수 없었습니다.");
+				}
+			}
+		}).submit();
+	}
 }
