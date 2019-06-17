@@ -75,6 +75,7 @@
 		   
 		    margin-left:90px; 
 		    width:200px; }
+		    
             	
             </style>
             <!-- lightbox 라이브러리 -->
@@ -162,8 +163,8 @@
 					</div>
 					
 					<!-- 네이버아이디로로그인 버튼 노출 영역 -->
-					  <div><span class="mm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;네이버 아이디로 편하게 <strong>로그인</strong>하세요</span><div id="naver_id_login"></div></div>
-					  <!-- //네이버아이디로로그인 버튼 노출 영역 -->
+					  <!-- <div><span class="mm">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;네이버 아이디로 편하게 <strong>로그인</strong>하세요</span><div id="naver_id_login"></div></div>
+					  //네이버아이디로로그인 버튼 노출 영역
 					  <script type="text/javascript">
 					  	var naver_id_login = new naver_id_login("kiw9Q4mYKld8rhFWzGRr", "http://localhost:8080/");
 					  	var state = naver_id_login.getUniqState();
@@ -172,7 +173,7 @@
 					  	naver_id_login.setState(state);
 					  	naver_id_login.setPopup();
 					  	naver_id_login.init_naver_id_login();
-					  </script>
+					  </script> -->
 
 					<div class="text-center p-t-115">
 						<span class="txt1">
