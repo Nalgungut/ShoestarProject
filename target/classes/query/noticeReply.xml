@@ -13,7 +13,7 @@
             on r.mem_no= m.mem_no
 			
 			where r.no_no = #{no_no}
-			order by r.re_no desc
+			order by r.re_date desc
 	</select>
 	
 	<!-- 댓글등록 -->
@@ -44,5 +44,11 @@
 	<select id="replyCnt" parameterType="int" resultType="int">
 		/* Reply - replyCnt */
 		select count(re_no) from notice_reply where no_no = #{no_no}
+	</select>
+	
+	<select id="replySelect" parameterType="int" resultType="com.shoestar.client.brand.vo.NoticeReplyVO">
+		select re_no, re_content, re_date, no_no 
+		from notice_reply
+		where re_no = #{re_no}
 	</select>
 </mapper>

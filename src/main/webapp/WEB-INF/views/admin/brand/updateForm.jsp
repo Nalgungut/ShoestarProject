@@ -43,6 +43,7 @@
 								"action" : "/admin/brand/noticeUpdate"
 							});
 							$("#f_updateForm").submit();
+							alert("수정이 완료되었습니다.");
 						}
 					});
 					//취소버튼 클릭 시 처리이벤트

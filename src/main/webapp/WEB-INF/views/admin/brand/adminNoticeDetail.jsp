@@ -86,6 +86,7 @@
 											"action" : "/admin/brand/noticeDelete"
 										});
 										$("#detailForm").submit();
+										alert("삭제가 완료되었습니다.");
 									}
 								}else{
 									alert("공지사항에 댓글이 존재하여 삭제 할 수 없습니다.");

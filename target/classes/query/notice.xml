@@ -3,14 +3,19 @@
 
 <mapper namespace="com.shoestar.client.notice.dao.NoticeDao">
 	
-	<!-- 게시판 리스트 -->
 	<select id="noticeList" parameterType="com.shoestar.client.notice.vo.NoticeVO" resultType="com.shoestar.client.notice.vo.NoticeVO">
+		<![CDATA[
 		select 
-    	n.no_no, n.no_kind, n.no_subject, n.no_content, a.adm_name,n.no_date 
-    	from notice n
-    	join admin a
+    		n.no_no, n.no_kind, n.no_subject, n.no_content, a.adm_name, 
+    		to_char(n.no_date, 'YYYY-MM-DD hh:mm:ss') as no_date 
+    	from notice n 
+        join admin a
         on a.adm_no = n.adm_no
-    	order by no_no desc
+        ]]>
+        <where>
+   			 	<include refid="noticeSearch"></include>
+   		</where>	 
+    	order by n.no_no desc
 	</select>
 	
 	<!-- 상세페이지를 위한 게시물 조회 -->
@@ -27,13 +32,13 @@
 	<!-- 공지사항 검색 -->
 	<sql id="noticeSearch">
 		<if test="search=='no_title'">
-			<![CDATA[no_title LIKE '%'|| #{keyword} ||'%']]>
+			<![CDATA[n.no_title LIKE '%'|| #{keyword} ||'%']]>
 		</if>
 		<if test="search=='no_kind'">
-			<![CDATA[no_kind LIKE '%' || #{keyword} ||'%']]>
+			<![CDATA[n.no_kind LIKE '%' || #{keyword} ||'%']]>
 		</if>
 		<if test="search=='no_content'">
-			<![CDATA[no_content LIKE '%' || #{keyword} ||'%']]>
+			<![CDATA[n.no_content LIKE '%' || #{keyword} ||'%']]>
 		</if>
 	</sql>
 </mapper>

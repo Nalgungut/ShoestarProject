@@ -30,20 +30,21 @@
 		
 		<style>
 		
-				/*사이드 바 */
-			body {
+				/*사이드바 */
+			.bb {
 			  margin: 0;
 			  font-family: "Lato", sans-serif;
 			}
 			
 			.sidebar {
-			  margin-left: -240px;
+			  margin-left: -30px;
+			  margin-top: 125px;
 			  padding: 0px;
-			  width: 200px;
-			  background-color: #f1f1f1;
-			  position: fixed;
-			  height: 100%;
-			  overflow: auto;
+			  background-color: black; 
+			  position: absolute;
+			  overflow: auto; 
+			  left: 30px;
+			  float: left;
 			}
 			
 			.sidebar a {
@@ -54,7 +55,7 @@
 			}
 			 
 			.sidebar a.active {
-			  background-color: #4CAF50;
+			  background-color: #505050;
 			  color: white;
 			}
 			
@@ -62,6 +63,37 @@
 			  background-color: #555;
 			  color: white;
 			}
+			
+		
+			
+			div.content {
+			  margin-left: 200px;
+			  padding: 1px 16px;
+			  height: 1000px;
+			}
+			
+			 @media screen and (max-width: 700px) {
+			  .sidebar {
+			    width: 100%;
+			    height: auto;
+			    position: relative;
+			  }
+			  .sidebar a {float: left;}
+			  div.content {margin-left: 0;}
+			}
+			
+			@media screen and (max-width: 400px) {
+			  .sidebar a {
+			    text-align: center;
+			    float: none;
+			  }
+			} 
+			/* 사이드 바 종료 */
+			p{
+				text-align: center;
+			}
+			
+			/* 사이드 바 종료 */
 				
 				table{
 					line-height:1.8;
@@ -126,7 +158,7 @@
                   $(this).popover(options).popover("show");
                   btnKind = $(this).attr("data-btn");
                   galleryNum = $(this).parents("div.col-sm-6").attr("data-num");
-                  console.log("클릭버튼 btnKind : " + btnKind + "선택한 글번호 : " + galleryNum);
+                  console.log("클릭버튼 btnKind : " + btnKind + "선택한 글번호 : " + ar_no);
                });
                
                
@@ -168,7 +200,7 @@
                thumbnail.addClass("thumbnail");
                
                var lightbox_a = $("<a>");
-               lightbox_a.attr({"href":"/uploadStorage/gallery/"+ar_file,
+               lightbox_a.attr({"href":"/brand/brandNewsDetail",
                             "data-lightbox": "roadtrip",
                             "title":ar_subject});
                
@@ -210,7 +242,7 @@
 	</head>
 	
 	<body>
-		브랜드 뉴스
+		
 		
 	
 	<!-- 페이징 처리를 위한 Form -->
@@ -219,19 +251,13 @@
 	<!-- 갤러리 리스트 영역 -->
 	<div class="row" id="rowArea"></div>
 	<!-- 사이드 바  -->
-		<div class="sidebar">
-			 <a class="active" href="/brand/brandMain">메인</a>
-			 <div class="dropdown">
-			    	<button class="dropbtn">브랜드 소개 </button>
-			    	<div class="dropdown-content">
-			      		<a href="/admin/adminNoticeList">브랜드 가치</a>
-			      		<a href="#">브랜드 기능</a>
-			      		<a href="#">브랜드 뉴스</a>
-			    	</div>
-			  </div>
-			  	<a href="/brand/collectionIntro">컬렉션 소개</a>
-			  	<a href="/brand/noticeList">공지사항</a>
-		</div>
+		<!-- 사이드 바  -->
+			<div class="sidebar" style="width:10%; background-color:#222;" >
+			
+			  <a href="/brand/brandMain" style="color: white;">브랜드 소개</a>
+			  <a class="active" href="/brand/brandNewslist">브랜드 뉴스</a>
+			  <a href="/brand/noticeList" style="color: white;">공지사항</a>
+			</div>
             
            <!-- 갤러리 등록 화면 영역(modal) -->
 	    <div class="modal fade" id="galleryModal" tabindex="-1" role="dialog" aria-labelledby="galleryModalLabel" aria-hidden="true">

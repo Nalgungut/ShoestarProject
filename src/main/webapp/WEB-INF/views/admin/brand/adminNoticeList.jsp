@@ -32,20 +32,20 @@
 		
 		<style>
 		
-				/*사이드 바 */
-			body {
+				/*사이드바 */
+			.bb {
 			  margin: 0;
 			  font-family: "Lato", sans-serif;
 			}
 			
 			.sidebar {
-			  margin-left: -240px;
+			margin-top: 10px;
+				margin-left: -240px;
 			  padding: 0px;
-			  width: 200px;
-			  background-color: #f1f1f1;
-			  position: fixed;
-			  height: 100%;
-			  overflow: auto;
+			  background-color: white; 
+			  position: absolute;
+			  overflow: auto; 
+			  left: 30px;
 			}
 			
 			.sidebar a {
@@ -56,7 +56,7 @@
 			}
 			 
 			.sidebar a.active {
-			  background-color: #4CAF50;
+			  background-color: #505050;
 			  color: white;
 			}
 			
@@ -64,6 +64,32 @@
 			  background-color: #555;
 			  color: white;
 			}
+			
+		
+			
+			div.content {
+			  margin-left: 200px;
+			  padding: 1px 16px;
+			  height: 1000px;
+			}
+			
+			 @media screen and (max-width: 700px) {
+			  .sidebar {
+			    width: 100%;
+			    height: auto;
+			    position: relative;
+			  }
+			  .sidebar a {float: left;}
+			  div.content {margin-left: 0;}
+			}
+			
+			@media screen and (max-width: 400px) {
+			  .sidebar a {
+			    text-align: center;
+			    float: none;
+			  }
+			} 
+			/* 사이드 바 종료 */
 				
 				table{
 					line-height:1.8;
@@ -165,23 +191,28 @@
 				
 				/* 검색 버튼 클릭 시 처리 이벤트 */
 	    		$("#searchData").click(function(){
-	    			if($("#search").val()!="all"){
+	    			if($("#search").val()=="all"){
+	    				alert("전체데이터를 조회합니다");
+	    				location.href = "/admin/brand/adminNoticeList";
+	    				return false;
+	    			}else
 	    				if($("#keyword").val().replace(/\s/g,"")==""){
 	    					alert("검색어를 입력해 주세요.");
 	    					$("#keyword").val("");
 	    					$("#keyword").focus();
-	    				}
 	    					return false;
-	    			}
-	    			goPage();
+	    				}else{
+	    					console.log($("#keyword")+"전체아닌 데이터 조회");
+	    				}
+		    			goPage();
 	    		});
 				
 	    		/* 검색대상이 변경될 때마다 처리 이벤트 */
 	    		$("#search").change(function(){
 	    			if($("#search").val()=="all"){
 	    				
-	    				$("#keyword").val("전체 데이터 조회합니다.");
-	    				//location.href = "/admin/brand/adminNoticeList";
+	    				alert("전체데이터를 조회합니다");
+	    				location.href = "/admin/brand/adminNoticeList";
 	    			}else if($("#searh").val()!="all"){
 	    				$("#keyword").val("");
 	    				$("#keyword").focus();
@@ -200,10 +231,9 @@
 			/* 검색을 위한 실질적 처리 함수 */
 	    	function goPage(){	
 	    		if($("#search").val()=="all"){
-	    			alert("전체데이터 조회합니다.");
-	    			$("#keyword").val("");
-	    		}else if($("#search").val()=="no_title"){
-	    			alert("검색한 것은"+$("#searh").val());
+	    			$("#keyword").val("전체데이터 조회합니다.");
+	    		}else if($("#search").val()!="all"){
+	    			//alert("검색한 것은"+$("#keyword").val());
 	    			
 	    			$("#f_search").attr({
 		    			"method":"get",
@@ -221,20 +251,12 @@
 	<body>
 		<div class="contentContainer container">
 		<!-- 사이드 바  -->
-			<!-- <div class="sidebar">
-			  <a class="active" href="/brand/brandMain">메인</a>
-			  <div class="dropdown">
-			    <button class="dropbtn">브랜드 소개 </button>
-			    <div class="dropdown-content">
-			      <a href="#">브랜드 가치</a>
-			      <a href="#">브랜드 기능</a>
-			      <a href="#">브랜드 뉴스</a>
-			    </div>
-			  </div>
-			  
-			  <a href="/brand/collectionIntro">컬렉션 소개</a>
-			  <a href="/brand/noticeList">공지사항</a>
-			</div> -->
+			<div class="sidebar" style="width:15%;" >
+			  <a class="active" href="/admin/brand/adminNoticeList" style="color: white;">공지사항 수정</a>
+			  <a href="/brand/brandNewslist" >뉴스 수정</a>
+			</div>
+			
+			
 			<div class="contentTit"><h3>관리자 공지사항</h3></div>
 			
 			<form id="detailForm">
@@ -253,25 +275,25 @@
 							<label style="font-size:16px">검색조건</label>
 							<select id="search" name="search" class="form-control">
 								<option value="all" id="goDetail">전체</option>
-								<option value="no_title" id="goDetail">제목</option>
+								<option value="no_subject" id="goDetail">제목</option>
 								<option value="no_content" id="goDetail">내용</option>
 								<option value="no_kind" id="goDetail">말머리</option>
 							</select>
-						<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요"  class="form-control" width="5px">
+						<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요"  class="form-control" >
 						<button type="button" id="searchData"class="btn btn-success">검색</button>
 					</div>
 				</form>
 			</div>
 			
 			<%--==================리스트 시작=================== --%>	
-			<div id="noticeList">
+			<div id="noticeList" style="margin-left: 25%">
 			<table class="table-striped" summary="게시판 리스트">
 				<thead>
 					<tr>
 						<th data-value="no_no" class="order"> 번호</th>
 						<th>말머리</th>
 						<th data-value="no_subject" class="order">제목</th>
-						<th class="borcle">내용</th>
+						<!-- <th class="borcle">내용</th> -->
 						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
@@ -286,7 +308,7 @@
 									<td>${adminNoticeList.no_no}</td>
 									<td>${adminNoticeList.no_kind}</td>
 									<td class="goDetail tal" id="goDetail">${adminNoticeList.no_subject}</td>
-									<td id="goDetail" class="goDetail">${adminNoticeList.no_content}</td>
+									<%-- <td id="goDetail" class="goDetail">${adminNoticeList.no_content}</td> --%>
 									<td id="goDetail" class="goDetail">${adminNoticeList.adm_name}</td>
 									<%-- <td class="name" id="goDetail">${adminNoticeList.no_date}</td> --%>
 									
