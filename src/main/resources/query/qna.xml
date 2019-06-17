@@ -47,13 +47,20 @@
 			od_no DESC
 	</select>
 	
+	<!-- <insert id="orders_statusInsert" parameterType="com.shoestar.client.cscenter.vo.Orders_statusVO">
+		<selectKey keyProperty="os_no" resultType="int" order="BEFORE">
+			select orders_status_seq.nextval from dual
+		</selectKey>
+			INSERT INTO orders_status(os_no, os_qty, os_status, os_date, oi_no)
+			values(#{os_no}, 1, '처리대기', sysdate, )
+	</insert> -->
 	<insert id="qnaInsert" parameterType="qna">
 		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
 			select qna_seq.nextval from dual
-		</selectKey>
-		
+		</selectKey>	
 		INSERT INTO qna(qna_no, mem_no, od_no, qna_title, qna_content, qna_ctgr)
-		values(#{qna_no}, #{mem_no}, #{od_no}, #{qna_title}, #{qna_content}, #{qna_ctgr})	
+		values(#{qna_no}, #{mem_no}, #{od_no}, #{qna_title}, #{qna_content}, #{qna_ctgr})
+			
 	</insert>
 	
 	<delete id="qnaDelete" parameterType="qna">

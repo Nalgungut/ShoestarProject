@@ -25,7 +25,6 @@
          <li><a href="#">판매</a></li>
          <li><a href="/admin/brand/adminNoticeList">브랜드</a></li>
          <li><a href="/admin/event/list">이벤트</a></li>
-         <li><a href="/admin/cscenter/csAdminMain">문의</a></li>
          <li><a href="#">회원</a></li>
          <li><a href="/adminMember/adminLogin">관리자로그인</a></li>
          <li><a href="/adminMember/adminJoin">관리자계정생성</a></li> <!-- 임시 -->

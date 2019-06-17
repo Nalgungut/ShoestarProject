@@ -25,7 +25,7 @@
 		UPDATE faq
 			SET faq_title = #{faq_title}
 				,fc_no = #{fc_no}
-				,faq_content = #{faq_title}
+				,faq_content = #{faq_content}
 				,faq_date = sysdate
 		where faq_no = #{faq_no}
 	</update>

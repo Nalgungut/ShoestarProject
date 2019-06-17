@@ -2,6 +2,7 @@ package com.shoestar.client.cscenter.dao;
 
 import java.util.List;
 
+
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.orders.vo.OrdersVO;
@@ -21,4 +22,6 @@ public interface QNADao {
 	public int qnaDelete(int qna_no);
 	
 	public List<QNAReplyVO> qna_replyList(QNAReplyVO qrvo);
+
+	//public int orders_statusInsert(Orders_statusVO ovo);
 }

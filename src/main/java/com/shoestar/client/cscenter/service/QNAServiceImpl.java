@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shoestar.client.cscenter.dao.QNADao;
+import com.shoestar.client.cscenter.vo.Orders_statusVO;
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.orders.vo.OrdersVO;
@@ -73,4 +74,11 @@ public class QNAServiceImpl implements QNAService {
 		list = qdao.qna_replyList(qrvo);
 		return list;
 	}
+	/*
+	@Override
+	public int orders_statusInsert(Orders_statusVO ovo) {
+		int result = 0;
+		result = qdao.orders_statusInsert(ovo);
+		return result;
+	}*/
 }
