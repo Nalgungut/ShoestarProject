@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shoestar.admin.notice.dao.AdminNoticeDao;
+import com.shoestar.client.brand.dao.NoticeReplyDao;
 import com.shoestar.client.notice.vo.NoticeVO;
 
 import lombok.AllArgsConstructor;
@@ -21,6 +22,8 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	@Setter(onMethod_ = @Autowired)
 	private AdminNoticeDao noticeDao;
 	
+	@Setter(onMethod_ = @Autowired)
+	private NoticeReplyDao replyDao;
 	
 	// 테이블 전체화면 호출
 	
@@ -80,6 +83,19 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	@Override
 	public int noticeListCnt(NoticeVO nvo) {
 		return noticeDao.noticeListCnt(nvo);
+	}
+
+	@Override
+	public int replyCnt(int no_no) {
+		int result = 0;
+		/*List<ReplyVO>list = replyDao.replyList(b_num);
+		if(!list.isEmpty()) {
+			result = list.size();
+		}else {
+			result = 0;
+		}*/
+		result = replyDao.replyCnt(no_no);
+		return result;
 	}
 
 

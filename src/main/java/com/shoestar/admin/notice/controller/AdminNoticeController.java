@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shoestar.admin.notice.service.AdminNoticeService;
@@ -31,8 +33,14 @@ public class AdminNoticeController {
 		public String adminNoticeList(@ModelAttribute("data") NoticeVO nvo, Model model){
 			log.info("adminNoticeList 호출완료");
 			
+			log.info("keyword: "+nvo.getKeyword());
+			log.info("search : " + nvo.getSearch());
+			
 			List<NoticeVO> adminNoticeList = noticeService.adminNoticeList(nvo);
 			model.addAttribute("adminNoticeList", adminNoticeList);
+			
+			/*int total = noticeService.adminNoticeList(nvo);
+			model.addAttribute("pageMaker", new PageDTO(nvo, total));*/
 			
 			return "admin/brand/adminNoticeList";
 		}
@@ -71,7 +79,7 @@ public class AdminNoticeController {
 		NoticeVO adminDetail = noticeService.adminNoticeDetail(nvo);
 		model.addAttribute("adminDetail",adminDetail);
 		
-		return "admin/brand/adminNoticeDetail";
+		return "/admin/brand/adminNoticeDetail";
 		
 	}
 	
@@ -85,7 +93,7 @@ public class AdminNoticeController {
 		NoticeVO updateData = noticeService.updateForm(nvo);
 		
 		model.addAttribute("updateData", updateData);
-		return "admin/brand/updateForm";
+		return "/admin/brand/updateForm";
 	}
 	
 	// 공지사항 수정
@@ -93,6 +101,7 @@ public class AdminNoticeController {
 	public String noticeUpdate(@ModelAttribute NoticeVO nvo, RedirectAttributes ras){
 		
 		log.info("noticeUpdate 호출");
+		log.info("no_no"+nvo.getNo_no());
 		
 		int result = 0;
 		String url="";
@@ -120,5 +129,19 @@ public class AdminNoticeController {
 		
 		return "redirect:/admin/brand/adminNoticeList";
 	}
+	
+	// 공지사항에 댓글유무확인
+	 @ResponseBody
+	 @RequestMapping(value="/replyCnt")
+	 public String replyCnt(@RequestParam("no_no") int no_no) {
+		 log.info("replyCnt 호출");
+		 
+		 int result = 0;
+		 result = noticeService.replyCnt(no_no);
+		/* return result+""; */
+		 return String.valueOf(result);
+	 }
+	 
+	
 
 }

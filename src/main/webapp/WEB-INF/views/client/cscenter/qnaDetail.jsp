@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,7 +36,7 @@
 	     				success : function(){
 	     					qna_no = 0;
 	     					location.href="/cscenter/qnaBoard";
-	     					alert("답글이 정상적으로 삭제 되었습니다.")
+	     					alert("답글이 정상적으로 삭제 되었습니다.");
 	     				}
 	     			});
 	     		});
@@ -76,7 +77,7 @@
 							<td>작성자</td>
 							<td class="text-left">${detail.mem_name}</td>
 							<td>작성일</td>
-							<td class="text-left">${detail.qna_date}</td>
+							<td class="text-left"><fmt:formatDate value="${detail.qna_date}" pattern="yyyy/MM/dd "/></td>
 						</tr>
 						<tr>
 							<td>질문유형</td>

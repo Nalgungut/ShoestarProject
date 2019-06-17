@@ -17,5 +17,7 @@ public interface AdminNoticeDao {
 	public int noticeDelete(int no_no); // 삭제하기
 	
 	public int noticeListCnt(NoticeVO nvo); // 게시글 세기
+	
+	public int replyCnt(int no_no); //  공지사항 댓글 세기
 
 }

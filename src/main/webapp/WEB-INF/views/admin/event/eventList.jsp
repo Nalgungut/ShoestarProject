@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="now" value="<%=new java.util.Date()%>" />
 									
@@ -189,7 +190,11 @@
 							<tr class="daNum" data-num="${evt.ev_no}">
 								<td class="Avent_td tdW">${evt.ev_no}</td>
 								<td class="Avent_td"><a class="AventUpdateBtn">${evt.ev_title}</a></td>
-								<td class="Avent_td">${evt.ev_content}</td>
+								<td class="Avent_td">
+									<c:set var="TextValue" value="${evt.ev_content}"/>
+										${fn:substring(TextValue,0,30)}...
+										
+								</td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_date}" /></td>
 								<td class="Avent_td"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${evt.ev_edate}" /></td>
 								<td class="Avent_td tdW">
@@ -249,7 +254,11 @@
 	   			</c:if>
 	   		</ul>
 	   </div>	
-			
+		
+		<div style="position: fixed; bottom: 70px; right: 10px;">
+				<div style="cursor:pointer; border: 1px solid #D3D3D3; background-color: #D3D3D3; color:white; padding: 5px;" 
+					onclick="window.scrollTo(0,0);">TOP</div>
+			</div>	
 			
 	</div>
 </body>

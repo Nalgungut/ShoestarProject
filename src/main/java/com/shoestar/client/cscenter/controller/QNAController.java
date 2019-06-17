@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.shoestar.client.cscenter.service.QNAService;
 import com.shoestar.client.cscenter.vo.FAQ_ctgVO;
+import com.shoestar.client.cscenter.vo.Orders_statusVO;
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.login.vo.LoginVO;
@@ -98,12 +99,14 @@ public class QNAController {
 		}
 		
 		@RequestMapping(value="/qnaInsert", method=RequestMethod.POST)
-		public String qnaInsert(@ModelAttribute QNAVO qvo, Model model) {
+		public String qnaInsert(@ModelAttribute QNAVO qvo, Model model, Orders_statusVO ovo) {
 			int result = 0;
 			String url = "";
 			
 			result = qnaService.qnaInsert(qvo);
-			if(result == 1) {
+			int result2 = 0;
+		/* result2 = qnaService.orders_statusInsert(ovo); */
+		if (result == 1 /* && result2 == 1 */) {
 				url = "/cscenter/qnaBoard";
 			}
 			return "redirect:" + url;

@@ -6,8 +6,10 @@ import com.shoestar.client.brand.vo.BrandVO;
 
 public interface BrandNewsService {
 	
-	public List<BrandVO> brandNewsList(BrandVO bvo);
+	public  String brandNewsData(BrandVO bvo);
 	
 	public BrandVO brandNewsDetail(BrandVO bvo);
+	
+	
 
 }

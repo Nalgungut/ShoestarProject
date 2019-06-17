@@ -111,7 +111,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="http://localhost:8080/" class="logo">
-						<img src="/resources/include/test/images/icons/shoestar1.png" alt="IMG-LOGO">
+						<img src="/resources/include/test/images/icons/shoestar5.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -122,7 +122,7 @@
 							<li><a href="/product/showList?pd_age=k">어린이</a></li>
 							<li><a href="/brand/brandMain">브랜드</a></li>
 							<li><a href="/event/list">이벤트</a></li>
-							<li><a href="/adminMember/adminLogin">관리T</a></li>
+							<!-- <li><a href="/adminMember/adminLogin">관리T</a></li> -->
 						</ul>
 					</div>	
 					

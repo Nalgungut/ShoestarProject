@@ -47,7 +47,7 @@
 			<div class="contentTB ">
 				<form id="f_writeForm">
 					<input type="hidden" name="mem_no" id="mem_no" value="${login.mem_no}"/>
-					<div class="form-group">
+					<div class="form-group form-inline">
 						<label for="mem_name">작성자</label>
 						<input type="text" id="mem_name" name="mem_name" class="form-control" readonly="readonly" value="${login.mem_name}"/>
 					</div>
@@ -63,9 +63,10 @@
 					</div>
 					<div class="form-group">
 						<label for="od_no">주문번호</label>
-						<select id="od_no" name="od_no">
+						<select id="od_no" name="od_no" class="form-control">
 							<c:if test="${not empty orders}">
 								<c:forEach var="odata" items="${orders}" varStatus="status">
+									<option value=""> </option>
 									<option value="${odata.od_no}">
 										${odata.od_no}번 주문 (<fmt:formatDate value="${odata.od_date}" pattern="yyyy-MM-dd" />일)
 									</option>

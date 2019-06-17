@@ -6,18 +6,24 @@
 
 		<!-- 게시판 리스트 -->
 	<select id="adminNoticeList" parameterType="com.shoestar.client.notice.vo.NoticeVO" resultType="com.shoestar.client.notice.vo.NoticeVO">
+		<![CDATA[
 		select 
-    		n.no_no, n.no_kind, n.no_subject, n.no_content, a.adm_name, to_char(n.no_date, 'YYYY-MM-DD hh:mm:ss') as no_date 
+    		n.no_no, n.no_kind, n.no_subject, n.no_content, a.adm_name, 
+    		to_char(n.no_date, 'YYYY-MM-DD hh:mm:ss') as no_date 
     	from notice n 
         join admin a
         on a.adm_no = n.adm_no
+        ]]>
+        <where>
+   			 	<include refid="noticeSearch"></include>
+   		</where>	 
     	order by n.no_no desc
 	</select>
 	
 	<!-- 상세페이지를 위한 게시물 조회 -->
 	<select id="adminNoticeDetail" parameterType="com.shoestar.client.notice.vo.NoticeVO" resultType="com.shoestar.client.notice.vo.NoticeVO">
 		select 
-    		no_no, no_kind, no_subject, no_content,  a.adm_no ,to_char(no_date, 'YYYY-MM-DD hh:mm:ss') as no_date 
+    		no_no, no_kind, no_subject, no_content,  a.adm_name ,no_date  
     	from notice n
     	join admin a
     	on a.adm_no = n.adm_no
@@ -27,14 +33,14 @@
 	
 		<!-- 공지사항 검색 -->
 	<sql id="noticeSearch">
-		<if test="search=='no_title'">
-			<![CDATA[no_title LIKE '%'|| #{keyword} ||'%']]>
+		<if test="search=='no_subject'">
+			<![CDATA[n.no_subject LIKE '%'|| #{keyword} ||'%']]>
 		</if>
 		<if test="search=='no_kind'">
-			<![CDATA[no_kind LIKE '%' || #{keyword} ||'%']]>
+			<![CDATA[n.no_kind LIKE '%' || #{keyword} ||'%']]>
 		</if>
 		<if test="search=='no_content'">
-			<![CDATA[no_content LIKE '%' || #{keyword} ||'%']]>
+			<![CDATA[n.no_content LIKE '%' || #{keyword} ||'%']]>
 		</if>
 	</sql>
 	
@@ -51,7 +57,7 @@
 	<update id="noticeUpdate" parameterType="com.shoestar.client.notice.vo.NoticeVO">
 		/* Notice - noticeUpdate */
 		update notice
-			set no_kind = #{no_kind},
+			set
 			no_subject = #{no_subject},
 			no_content = #{no_content},
 			no_date = sysdate
