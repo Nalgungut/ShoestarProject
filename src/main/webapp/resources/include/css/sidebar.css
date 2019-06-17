@@ -77,10 +77,11 @@
         border-top: 1px rgba(0,0,0,.5) solid;
         overflow-y: auto;
         background-color: #222;
-        /*background-color: #5A6B7D;*/
+        background-color: #232323;
         bottom: 0;
         overflow-x: hidden;
         padding-bottom: 40px;
+        margin-top:70px
     }
 
     .side-nav>li>a {

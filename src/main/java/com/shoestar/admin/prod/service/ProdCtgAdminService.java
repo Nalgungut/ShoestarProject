@@ -1,12 +1,11 @@
-package com.shoestar.admin.prod.dao;
+package com.shoestar.admin.prod.service;
 
 import java.util.List;
 
 import com.shoestar.client.prod.vo.ProdColorVO;
 import com.shoestar.client.prod.vo.ProdCtgVO;
 
-public interface ProdAdminCtgDao {
-	
+public interface ProdCtgAdminService {
 	// 카테고리
 	public List<ProdCtgVO> ctgList();
 	
@@ -16,6 +15,8 @@ public interface ProdAdminCtgDao {
 	
 	public int deleteCtg(ProdCtgVO ctvo);
 	
+	public boolean ctgDeletable(ProdCtgVO ctvo);
+	
 	// 색상
 	public List<ProdColorVO> colorList();
 	
@@ -24,4 +25,8 @@ public interface ProdAdminCtgDao {
 	public int updateColor(ProdColorVO clvo);
 	
 	public int deleteColor(ProdColorVO clvo);
+	
+	public boolean checkDuplicate(ProdColorVO clvo);
+	
+	public boolean checkDeletable(ProdColorVO clvo);
 }

@@ -111,7 +111,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="http://localhost:8080/" class="logo">
-						<img src="/resources/include/test/images/icons/shoestar1.png" alt="IMG-LOGO">
+						<img src="/resources/include/test/images/icons/shoestar5.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
@@ -154,9 +154,11 @@
 			</div>
 
 			<!-- Icon header -->
+			
+			
 			<div class="wrap-icon-header flex-w flex-r-m m-r-15">
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-					<i class="zmdi zmdi-search"></i>
+					<input type="text"  id="search" name="search" class="zmdi zmdi-search"/>
 				</div>
 
 				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">

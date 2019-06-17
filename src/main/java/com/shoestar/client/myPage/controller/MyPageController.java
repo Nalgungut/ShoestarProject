@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shoestar.client.login.vo.LoginVO;
 import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.myPage.service.MyPageService;
+import com.shoestar.client.orders.service.OrdersService;
+import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
 
 import lombok.AllArgsConstructor;
@@ -35,19 +37,22 @@ public class MyPageController {
 	
 	//마이페이지 메인화면 구현
 	@RequestMapping(value="/main", method = RequestMethod.GET)
-	public String mainForm( @SessionAttribute("login") LoginVO login){
+	public String mainForm( @SessionAttribute("login") LoginVO login, Model model){
 		
 		int mem_no = login.getMem_no();
 		List<OrdersVO> myOrder = myPageService.ordersDataByMemNo(mem_no);
+		model.addAttribute("myOrderList", myOrder);
+		log.info("myorder = "+myOrder);
+		
 		log.info("mainpage 호출 성공");
 		return "client/myPage/main";
 	}
 	
 	@RequestMapping(value="/myOrder", method = RequestMethod.GET)
-	public String myOrder( @SessionAttribute("login") LoginVO login, Model model){
+	public String myOrder( @SessionAttribute("login") LoginVO login, Model model, OrdersVO ovo){
 		
-		int mem_no = login.getMem_no();
-		List<OrdersVO> myOrder = myPageService.ordersDataByMemNo(mem_no);
+		List<OrdersInsVO> detailOrder = myPageService.ordersInsByOdNo(ovo);
+		model.addAttribute("detailList", detailOrder);
 		
 		return "client/myPage/myOrder";
 		

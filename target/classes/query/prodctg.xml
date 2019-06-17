@@ -28,7 +28,7 @@
 			prod_ctg.pct_no, pct_name, COUNT(pd_no) AS pd_count
 		FROM
 			prod_ctg
-			INNER JOIN
+			LEFT OUTER JOIN
 				prod
 			ON
 				prod_ctg.pct_no = prod.pct_no
