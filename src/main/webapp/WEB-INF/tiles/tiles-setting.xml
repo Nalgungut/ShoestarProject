@@ -68,7 +68,7 @@
 	
 	<definition name="admin/event/*" extends="admin">
 		<put-attribute name="body" value="/WEB-INF/views/admin/event/{1}.jsp"></put-attribute>
-		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="sidebar" value="/WEB-INF/views/admin/event/adSid.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="admin/cscenter/*" extends="admin">

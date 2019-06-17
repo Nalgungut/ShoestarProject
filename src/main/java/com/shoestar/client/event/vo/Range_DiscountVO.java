@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.shoestar.client.prod.vo.ProdVO;
-import com.shoestar.common.vo.CommonVO;
+//import com.shoestar.common.vo.CommonVO;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,11 +23,17 @@ public class Range_DiscountVO extends ProdVO/*extends Rd_ProductVO*/ {
 	private Date rd_date;
 	@DateTimeFormat(pattern="yyyy-MM-dd") 
 	private Date rd_edate;
-	private List<Rd_ProductVO> list;
+	
+	
+/*	private List<Rd_TypeVO> list;
+
+//	private List<Rd_ProductVO> list;
+	
 	
 	public Range_DiscountVO() {
-		list = new ArrayList<Rd_ProductVO>();
-	}
+		list = new ArrayList<Rd_TypeVO>();
+		//list = new ArrayList<Rd_ProductVO>();
+	}*/
 	
 	
 	
