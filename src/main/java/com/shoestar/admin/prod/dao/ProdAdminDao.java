@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.shoestar.client.prod.vo.ProdColorVO;
 import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
 import com.shoestar.client.prod.vo.ProdStockVO;
@@ -37,10 +38,18 @@ public interface ProdAdminDao {
 	
 	public int deleteProdins(ProdInsVO pivo);
 	
+	public int isProdinsDeletable(ProdInsVO pivo);
+	
+	public List<ProdColorVO> unoccupiedColors(ProdVO pvo);
+	
 	// prodstock
 	public int insertProdStock(ProdStockVO psvo);
 	
 	public int updateProdStock(ProdStockVO psvo);
 	
 	public int deleteProdStock(ProdStockVO psvo);
+	
+	public int isProdStockDeletable(ProdStockVO psvo);
+	
+	public int isSafeSize(ProdStockVO psvo);
 }

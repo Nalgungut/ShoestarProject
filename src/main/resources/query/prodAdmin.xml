@@ -264,20 +264,58 @@
 			pi_no = #{pi_no}
 	</delete>
 	
+	<select id="isProdinsDeletable" parameterType="prodins" resultType="int">
+		SELECT
+			(
+				(SELECT COUNT(1) FROM prod_stock WHERE pi_no = #{pi_no}) +
+				(SELECT COUNT(1) FROM prod_image WHERE pi_no = #{pi_no}) +
+				(SELECT COUNT(1) FROM rating WHERE pi_no = #{pi_no})
+			) AS TOTAL
+		FROM
+			DUAL
+	</select>
+	
+	<select id="unoccupiedColors" parameterType="prod" resultType="prodcolor">
+		SELECT
+			pcl_no, pcl_name, pcl_code
+		FROM
+			prod_color
+		WHERE
+			NOT pcl_no IN (
+				SELECT
+					pcl_no
+				FROM
+					prod_ins
+				WHERE
+					pd_no = #{pd_no}
+			)
+	</select>
+	
 	
 	<!-- prod stock -->
 	<insert id="insertProdStock" parameterType="prodstock">
 		INSERT INTO
-			prod_stock (pi_no, ps_size, ps_qty)
+			prod_stock (pi_no, ps_size, ps_qty, ps_status)
 		VALUES
-			(#{pi_no}, #{ps_size}, #{ps_qty})
+			(#{pi_no}, #{ps_size}, #{ps_qty},
+				<choose>
+					<when test="ps_qty == 0">'o'</when>
+					<otherwise>NULL</otherwise>
+				</choose>
+			)
 	</insert>
 	
 	<update id="updateProdStock" parameterType="prodstock">
 		UPDATE
 			prod_stock
 		SET
-			ps_qty = #{ps_qty}
+			ps_size = #{ps_size},
+			ps_qty = #{ps_qty},
+			ps_status = 
+			<choose>
+				<when test="ps_qty == 0">'o'</when>
+				<otherwise>NULL</otherwise>
+			</choose>
 	</update>
 	
 	<delete id="deleteProdStock">
@@ -287,4 +325,32 @@
 			pi_no = #{pi_no} AND
 			ps_size = #{ps_size}
 	</delete>
+	
+	<select id="isProdStockDeletable" parameterType="prodstock" resultType="int">
+		SELECT
+			(
+				(SELECT COUNT(1) FROM prod_ware WHERE pi_no = #{pi_no} AND ps_size = #{ps_size}) +
+				(SELECT COUNT(1) FROM cart WHERE pi_no = #{pi_no} AND ps_size = #{ps_size}) +
+				(SELECT COUNT(1) FROM orders_ins WHERE pi_no = #{pi_no} AND ps_size = #{ps_size})
+			) AS TOTAL
+		FROM
+			DUAL
+	</select>
+	
+	<select id="isSafeSize" parameterType="prodstock" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			prod_stock
+		WHERE
+			pi_no = #{pi_no}
+			<trim prefix="AND"><choose>
+				<when test="ps_size_self != 0"><if test="ps_size_self != ps_size">
+					ps_size = #{ps_size}
+				</if></when>
+				<otherwise>
+					ps_size = #{ps_size}
+				</otherwise>
+			</choose></trim>
+	</select>
 </mapper>

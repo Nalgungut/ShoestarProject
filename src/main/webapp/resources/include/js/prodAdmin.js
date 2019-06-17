@@ -271,3 +271,207 @@ function insertPim(pimInsertForm) {
 		}).submit();
 	}
 }
+
+/* ############################# 상품 색상 ############################# */
+
+function unoccupiedColors(pd_no, callbackFunction, callbackParam) {
+	$.ajax({
+		url :"/admin/product/unoccupiedColors",
+		type : "post",
+		data : "pd_no=" + pd_no,
+		dataType : "text",
+		error : function(xhr) {
+			alert("시스템 오류로 색상 정보를 불러올 수 없었습니다.");
+		},
+		success : function(data) {
+			callbackFunction(data, callbackParam);
+		}
+	})
+}
+
+/**
+ * 상품 색상을 추가하는 ajax
+ * @param targetForm 대상 폼
+ */
+function insertProdins(targetForm, pd_no) {
+	$.ajax({
+		url : "/admin/product/insertProdins",
+		type : "post",
+		data : targetForm.serialize(),
+		error : function() {
+			alert("서버 오류로 색상을 추가하는데 실패했습니다.");
+		},
+		success : function(data) {
+			if(!isNaN(data)) {
+				alert("성공적으로 추가되었습니다.");
+				location.href = "?pi_no=" + data;
+			} else {
+				alert("상품 색상을 추가하는데 실패했습니다.");
+			}
+		}
+	});
+}
+
+/**
+ * 상품 색상을 삭제하는 ajax
+ * @param targetForm 대상 폼
+ */
+function deleteProdins(targetForm, pd_no) {
+	$.ajax({
+		url : "/admin/product/deleteProdins",
+		type : "post",
+		data : targetForm.serialize(),
+		error : function() {
+			alert("서버 오류로 항목을 삭제하는데 실패했습니다.");
+		},
+		success : function(data) {
+			if(data == "true") {
+				alert("성공적으로 삭제되었습니다.");
+				location.href = "/admin/product/detail/" + pd_no;
+			} else if(data == "referenceError") {
+				alert("등록된 상품이 존재하거나 판매 기록이 존재해서 삭제할 수 없습니다.");
+				location.href = "/admin/product/detail/" + pd_no;
+			} else {
+				alert("항목을 삭제하는데 실패했습니다.");
+			}
+		}
+	});
+}
+
+
+/* ############################# 상품 재고 ############################# */
+
+/**
+ * 적절한 신발 사이즈인지 체크하는 함수
+ * @param value 체크할 값
+ * @returns 1 ~ 400 사이의 값일 경우 true
+ */
+function isShoesSize(value) {
+	value = parseInt(value);
+	var result = !isNaN(value) && Number.isInteger(value) && value >= 1 && value <= 400;
+	if(!result) {
+		alert("신발 사이즈는 1 ~ 400 사이의 값이어야 합니다.");
+	}
+	return result;
+}
+
+/**
+ * 적절한 상품 수량인지 체크하는 함수
+ * @param value 체크할 값
+ * @returns 0 ~ 100000000 사이의 값일 경우 true
+ */
+function isStockQty(value) {
+	value = parseInt(value);
+	var result = !isNaN(value) && Number.isInteger(value) && value >= 0 && value <= 100000000;
+	if(!result) {
+		alert("수량은 0 ~ 100000000(1억) 사이의 값이어야 합니다.");
+	}
+	return result;
+}
+
+
+/**
+ * 재고 정보 중복 여부를 확인하는 함수
+ * @param targetData 요청값으로 보낼 데이터
+ * @param successCallback 성공시 콜백 함수
+ * @param callbackParam 콜백 함수 파라미터
+ */
+function checkSizeDuplicate(targetData, successCallback, callbackParam) {
+	$.ajax({
+		url : "/admin/product/isSafeSize",
+		type : "post",
+		data : targetData,
+		error : function() {
+			alert("서버 오류로 사이즈를 검사하는데 실패했습니다.");
+		},
+		success : function(data) {
+			if(data == "true") {
+				successCallback(callbackParam);
+			} else {
+				alert("중복 되는 사이즈가 존재합니다.\n다른 값을 입력하세요.");
+			}
+		}
+	});
+}
+
+/**
+ * 재고 정보를 추가하는 ajax
+ */
+function insertStock(targetForm) {
+	var encodedData = targetForm.serialize();
+	
+	var insertFunction = function(targetData) {
+		$.ajax({
+			url : "/admin/product/insertProdStock",
+			type : "post",
+			data : targetData,
+			error : function() {
+				alert("서버 오류로 재고 정보를 추가하는데 실패했습니다.");
+			},
+			success : function(data) {
+				if(data == "true") {
+					alert("성공적으로 추가되었습니다.");
+					location.reload();
+				} else {
+					alert("재고 정보를 추가하는데 실패했습니다.");
+				}
+			}
+		});
+	};
+	
+	checkSizeDuplicate(encodedData, insertFunction, encodedData);
+}
+
+/**
+ * 재고 정보를 수정하는 ajax
+ * @param targetForm 대상 폼
+ */
+function updateStock(targetForm) {
+	var encodedData = targetForm.serialize();
+	
+	var updateFunction = function(targetData) {
+		$.ajax({
+			url : "/admin/product/updateProdStock",
+			type : "post",
+			data : targetData,
+			error : function() {
+				alert("서버 오류로 재고 정보를 수정하는데 실패했습니다.");
+			},
+			success : function(data) {
+				if(data == "true") {
+					alert("성공적으로 수정되었습니다.");
+					location.reload();
+				} else {
+					alert("재고 정보를 수정하는데 실패했습니다.");
+				}
+			}
+		});
+	};
+	
+	checkSizeDuplicate(encodedData, updateFunction, encodedData);
+}
+
+/**
+ * 재고 정보를 삭제하는 ajax
+ * @param targetForm 대상 폼
+ */
+function deleteStock(targetForm) {
+	$.ajax({
+		url : "/admin/product/deleteProdStock",
+		type : "post",
+		data : targetForm.serialize(),
+		error : function() {
+			alert("서버 오류로 재고 정보를 삭제하는데 실패했습니다.");
+		},
+		success : function(data) {
+			if(data == "true") {
+				alert("성공적으로 삭제되었습니다.");
+				location.reload();
+			} else if(data == "referenceError") {
+				alert("등록된 상품이 존재하는 재고 정보는 삭제할 수 없습니다.");
+			} else {
+				alert("재고 정보를 삭제하는데 실패했습니다.");
+			}
+		}
+	});
+}
