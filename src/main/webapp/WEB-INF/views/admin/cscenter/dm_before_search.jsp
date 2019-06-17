@@ -10,26 +10,17 @@
       	<script type="text/javascript">
       		$(function(){
       			
-      			$('#ingBtn').click(function(){ 				
-					var hiddenName = $("#dm_name").val();
-      				var hiddenStatus = $("#dm_status").val();
-      				var hiddenNumber = $("#dm_number").val();
-      				var hiddenNo = $("#dm_no").val();
-      				
-      				$("#hiddenNo").val(hiddenNo);
-      				$("#hiddenName").val(hiddenName);
-      				$("#hiddenStatus").val(hiddenStatus);
-      				$("#hiddenNumber").val(hiddenNumber);
-      				console.log(hiddenName + ", " + hiddenStatus + ", " + hiddenNumber + ", " + hiddenNo);
-      				$("#hidden_form").attr({
+      			$('#ingBtn').click(function(){
+      				$("#dm_form").attr({
       					"method" : "post",
       					"action" : "/admin/cscenter/dm_ing"
       				});
-      				$("#hidden_form").submit();
+      				$("#dm_form").submit();
       				alert("정상적으로 배송중으로 변경되었습니다.");
       			});
       			
       			$("#searchBtn").click(function(){
+      				
       				console.log($("#odno").val());
       				$("#search_form").attr({
       					"method" : "post",
@@ -80,8 +71,8 @@
 			        		</tr>
 			        	</thead>
 			        	<tbody>
-			        		<c:choose>
 			        		
+			        		<c:choose>
 			        			<c:when test="${not empty dmList}">
 			        			<form id="dm_form" name="dm_form">	
 			        				<c:forEach var="dm" items="${dmList}" varStatus="status">
@@ -100,28 +91,21 @@
 			        							</select>
 			        						</td>
 			        						<td><input type="text" maxlength="15" name="dm_number" id="dm_number"></td>
-			        						<td><input type="text" id="dm_status" value="${dm.dm_status}" readonly="readonly" /></td>
+			        						<td>${dm.dm_status}</td>
 			        						<td><input type="button" id="ingBtn" name="ingBtn" value="배송중처리"/></td>
 			        					</tr>
-			        				
 			        				</c:forEach>
 			        			</form>
 			        			</c:when>
-			        			
 			        			<c:otherwise>
 			        				<div class="span3">
 			        					<h2>배송준비중인 상품이 없습니다.</h2>
 			        				</div>
 			        			</c:otherwise>
 			        		</c:choose>
+			        		
 			        	</tbody>
 			        </table>
-			        <form id="hidden_form">
-			        	<input type="hidden" name="dm_no" id="hiddenNo">
-			        	<input type="hidden" name="dm_name" id="hiddenName">
-			        	<input type="hidden" name="dm_status" id="hiddenStatus">
-			        	<input type="hidden" name="dm_number" id="hiddenNumber">
-			        </form>
 	          </div>
 	        </div>
 	      </div>

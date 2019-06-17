@@ -37,6 +37,14 @@
         order by qna_no desc
 	</select>
 	
+	<select id="qnaSearch" parameterType="com.shoestar.admin.cscenter.vo.AdminQNAVO" resultType="com.shoestar.admin.cscenter.vo.AdminQNAVO">
+		SELECT q.qna_no,q.qna_ctgr, q.qna_title, q.qna_content, m.mem_name ,m.mem_no , q.od_no
+        FROM qna q
+        INNER JOIN member m ON q.mem_no = m.mem_no
+        where q.qna_state = '답변대기' and q.qna_ctgr = #{qna_ctgr}
+        order by qna_no desc
+	</select>
+	
 	<select id="qnaDetail" parameterType="int" resultType="com.shoestar.admin.cscenter.vo.AdminQNAVO">
 		select
 			q.qna_title, m.mem_name, q.qna_content

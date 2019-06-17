@@ -28,6 +28,158 @@
 		        p.pd_no = pi.pd_no
 		WHERE
  		   dm_status= '배송준비중'
+ 		   order by od_no desc
+	</select>
+	
+
+	<select id="dmList2"  parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" resultType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		SELECT
+		    d.dm_no, mem_name, d.od_no, pd_name, od_date,  d.dm_status,d.dm_number, d.dm_name
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+		WHERE
+ 		   dm_status= '배송중'
+ 		   order by od_no desc
+	</select>
+	
+	<select id="dmList3"  parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" resultType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		SELECT
+		    d.dm_no, mem_name, d.od_no, pd_name, od_date,  d.dm_status,d.dm_number, d.dm_name
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+		WHERE
+ 		   dm_status= '배송완료'
+ 		   order by od_no desc
+	</select>
+	
+	<select id="dm_before_search"  parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" resultType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		SELECT
+		    d.dm_no, mem_name, d.od_no, pd_name, od_date,  d.dm_status,d.dm_number, d.dm_name
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+		WHERE
+ 		   dm_status= '배송준비중' AND o.od_no = #{odno}
+ 		   order by od_no desc
+	</select>
+	
+	<select id="dm_ing_search"  parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" resultType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		SELECT
+		    d.dm_no, mem_name, d.od_no, pd_name, od_date,  d.dm_status,d.dm_number, d.dm_name
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+		WHERE
+ 		   dm_status= '배송중' AND o.od_no = #{odno}
+ 		   order by od_no desc
+	</select>
+	
+	<select id="dm_end_search"  parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO" resultType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		SELECT
+		    d.dm_no, mem_name, d.od_no, pd_name, od_date,  d.dm_status,d.dm_number, d.dm_name
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+		WHERE
+ 		   dm_status= '배송완료' and o.od_no = #{odno}
+ 		   order by od_no desc
 	</select>
 	
 	<update id="dm_ing" parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
@@ -37,5 +189,13 @@
 			,dm_number = #{dm_number}
 		where dm_no = #{dm_no}
 	</update>
+	
+	<update id="dm_end" parameterType="com.shoestar.admin.cscenter.vo.AdminDeliveryVO">
+		UPDATE delivery
+			set dm_status = '배송완료'
+		where dm_no = #{dm_no}
+		order by od_no desc
+	</update>
+	
 	
 </mapper>

@@ -68,6 +68,55 @@ public class AdminHomeCSController {
 		
 		return "admin/cscenter/csAdminDm_before";
 	}
+	
+	@RequestMapping(value="/csAdminDm_ing")
+	public String dmList2(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dmList2 = dmService.dmList2(dvo);
+		model.addAttribute("dmList", dmList2);
+		
+		return "admin/cscenter/csAdminDm_ing";
+	}
+	
+	@RequestMapping(value="/dm_before_search")
+	public String dm_before_search(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dm_before_search = dmService.dm_before_search(dvo);
+		model.addAttribute("dmList", dm_before_search);
+		
+		return "admin/cscenter/dm_before_search";
+	}
+	
+	@RequestMapping(value="/dm_end_search")
+	public String dm_end_search(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dm_end_search = dmService.dm_end_search(dvo);
+		model.addAttribute("dmList", dm_end_search);
+		
+		return "admin/cscenter/dm_end_search";
+	}
+	
+	@RequestMapping(value="/dm_ing_search")
+	public String dm_ing_search(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dm_ing_search = dmService.dm_ing_search(dvo);
+		model.addAttribute("dmList", dm_ing_search);
+		
+		return "admin/cscenter/dm_ing_search";
+	}
+	
+	@RequestMapping(value= "/qnaSearch")
+	public String qnaSearch(@ModelAttribute("data")AdminQNAVO qvo, Model model) {
+		List<AdminQNAVO> qnaList = qnaService.qnaSearch(qvo);
+		model.addAttribute("qnaList", qnaList);
+		
+		return "admin/cscenter/qnaSearch";
+	}
+	
+	@RequestMapping(value="/csAdminDm_end")
+	public String dmList3(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
+		List<AdminDeliveryVO> dmList3 = dmService.dmList3(dvo);
+		model.addAttribute("dmList", dmList3);
+		
+		return "admin/cscenter/csAdminDm_end";
+	}
+	
 	@RequestMapping(value="/faqDelete")
 	public String faqDelete(@ModelAttribute AdminFAQVO fvo) {
 		int result = 0;
@@ -116,6 +165,17 @@ public class AdminHomeCSController {
 		url = "/admin/cscenter/csAdminDm_before";
 		
 		return "redirect:"+url;
+	}
+	
+	@RequestMapping(value="/dm_end", method = RequestMethod.POST)
+	public String dm_end(@ModelAttribute AdminDeliveryVO dvo, Model model) {
+		int result = 0;
+		String url = "";
+		
+		result = dmService.dm_end(dvo);
+		url = "/admin/cscenter/csAdminDm_ing";
+		
+		return "redirect:" + url;
 	}
 	
 	@RequestMapping(value="/csAdminQna", method=RequestMethod.GET)

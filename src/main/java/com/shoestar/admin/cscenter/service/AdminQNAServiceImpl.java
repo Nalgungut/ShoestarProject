@@ -101,4 +101,12 @@ public class AdminQNAServiceImpl implements AdminQNAService {
 		return result;
 	}
 
+	@Override
+	public List<AdminQNAVO> qnaSearch(AdminQNAVO qvo) {
+		List<AdminQNAVO> list = null;
+		list = qdao.qnaSearch(qvo);
+		
+		return list;
+	}
+
 }

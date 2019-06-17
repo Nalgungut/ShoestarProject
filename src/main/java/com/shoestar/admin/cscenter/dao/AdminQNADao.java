@@ -19,6 +19,7 @@ public interface AdminQNADao {
 	public int replyUpdate(AdminQNAVO qvo);
 	public int dm_before(AdminDeliveryVO dvo);
 	public int dm_ing(AdminDeliveryVO dvo);
+	public List<AdminQNAVO> qnaSearch(AdminQNAVO qvo);
 	
 	
 }

@@ -29,5 +29,7 @@ public interface AdminQNAService {
 	public int dm_before(AdminDeliveryVO dvo);
 
 	public int dm_ing(AdminDeliveryVO dvo);
+
+	public List<AdminQNAVO> qnaSearch(AdminQNAVO qvo);
 	
 }

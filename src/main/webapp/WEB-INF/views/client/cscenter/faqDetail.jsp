@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -105,7 +106,7 @@
 							<td>작성자</td>
 							<td class="text-left">관리자</td>
 							<td>작성일</td>
-							<td class="text-left">${detail.faq_date}</td>
+							<td class="text-left"><fmt:formatDate value="${detail.faq_date}" pattern="yyyy년MM월dd일 "/></td>
 						</tr>
 						<tr>
 							<td>제목</td>

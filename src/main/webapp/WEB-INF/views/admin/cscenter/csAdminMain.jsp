@@ -89,7 +89,7 @@
 	</head>
    
 	<body>
-		
+		<h3>☆오늘의할일</h3>
 		<div class="t">
 			<table class="table table-bordered">
 				<tr>
@@ -107,7 +107,7 @@
 				</tr>
 				<tr>
 					<td class="text-center"><!-- 배송준비중인상품갯수 --><a href="/admin/cscenter/csAdminDm_before">${dm_before} 건</a></td>
-					<td class="text-center"><!-- 배송중관리 --><a href="#">${dm_ing} 건</a></td>
+					<td class="text-center"><!-- 배송중관리 --><a href="/admin/cscenter/csAdminDm_ing">${dm_ing} 건</a></td>
 					<td class="text-center"><a href="#">${qna_cancel} 건</a></td>
 					<td class="text-center"><a href="#">${qna_exchange} 건</a></td>
 					<td class="text-center"><a href="#">${qna_return} 건</a></td>
