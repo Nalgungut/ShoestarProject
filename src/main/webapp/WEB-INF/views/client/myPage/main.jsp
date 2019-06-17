@@ -109,21 +109,20 @@
 			                   <label class="ss"><strong>&nbsp;&nbsp;주문내역</strong></label>
 			                   <tr>
 						           <th>상품번호</th>
-						           <th>회원번호</th>
+						           <th>주문상품수</th>
 						           <th>주문날짜</th>
 						           <th>진행상태</th>
 						       </tr>
 						            <c:forEach items="${myOrderList}" var="order">
 						                  <tr>
 						                     <td>${order.od_no}</td>
-						                     <td>${order.mem_no}</td>
+						                     <td><a href="/myPage/myOrder">${order.numberOfProds}개 상품</a></td>
 						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
 						                     <td>${order.od_prog}</td>
 						                  </tr>
-						                  
 						            </c:forEach>
 					        </table> 
-					        <input type="button" id="detail" name="detail" class="btn btn-default" value="상세조회"/>
+					        <!-- <input type="button" id="detail" name="detail" class="btn btn-default" value="상세조회"/> -->
 			                    
 			               <!--  </div> -->
 			       <!--      </div>
