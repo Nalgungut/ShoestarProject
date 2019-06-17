@@ -122,7 +122,7 @@
 							<li><a href="/product/showList?pd_age=k">어린이</a></li>
 							<li><a href="/brand/brandMain">브랜드</a></li>
 							<li><a href="/event/list">이벤트</a></li>
-							<li><a href="/adminMember/adminLogin">관리T</a></li>
+							<!-- <li><a href="/adminMember/adminLogin">관리T</a></li> -->
 						</ul>
 					</div>	
 					
