@@ -1,5 +1,5 @@
 $(function(){
-	adminCodeCheck();
+	/*adminCodeCheck();*/
         		$('#adm_id, #adm_pwd').bind("keyup", function(){
         			$(this).parents("div").find(".error").html("");
         		});

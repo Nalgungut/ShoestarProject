@@ -1,6 +1,6 @@
 var adminLoginUserId ="";
 $(function(){
-	adminCodeCheck();
+	/*adminCodeCheck();*/
 	emailCheck();
 	
 	var message = ["기존 비밀번호를 입력해 주세요",
