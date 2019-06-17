@@ -111,7 +111,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="http://localhost:8080/" class="logo">
-						<img src="/resources/include/test/images/icons/shoestar1.png" alt="IMG-LOGO">
+						<img src="/resources/include/test/images/icons/shoestar5.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
