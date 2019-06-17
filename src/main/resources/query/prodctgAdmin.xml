@@ -41,6 +41,15 @@
 			pct_no = #{pct_no}
 	</delete>
 	
+	<select id="ctgDeletable" parameterType="prodctg" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			prod
+		WHERE
+			pct_no = #{pct_no}
+	</select>
+	
 	<select id="colorList" resultType="prodcolor">
 		SELECT
 			/*+ INDEX_ASC(prod_color prod_color_pk)*/
@@ -54,7 +63,7 @@
 			prod_color
 			(pcl_no, pcl_name, pcl_code)
 		VALUES
-			(prod_color_seq.nextval, #{pcl_name}, #{pcl_no})
+			(prod_color_seq.nextval, #{pcl_name}, #{pcl_code})
 	</insert>
 	
 	<update id="updateColor" parameterType="prodcolor">
@@ -73,4 +82,28 @@
 		WHERE
 			pcl_no = #{pcl_no}
 	</delete>
+	
+	<select id="checkDuplicate" parameterType="prodcolor" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			prod_color
+		WHERE
+			(
+				pcl_name = #{pcl_name} OR
+				LOWER(pcl_code) = LOWER(#{pcl_code})
+			)
+			<if test="pcl_no != 0">
+				AND pcl_no != #{pcl_no}
+			</if>
+	</select>
+	
+	<select id="checkDeletable" parameterType="prodcolor" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			prod_ins
+		WHERE
+			pcl_no = #{pcl_no}
+	</select>
 </mapper>

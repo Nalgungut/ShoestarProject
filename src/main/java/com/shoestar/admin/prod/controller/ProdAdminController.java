@@ -176,7 +176,11 @@ public class ProdAdminController {
 	public String deleteCtg(ProdCtgVO ctvo) {
 		String result = null;
 		try {
-			result = String.valueOf(prodCtgAdminService.deleteCtg(ctvo) == 1);
+			if(prodCtgAdminService.ctgDeletable(ctvo)) {
+				result = String.valueOf(prodCtgAdminService.deleteCtg(ctvo) == 1);
+			} else {
+				result = "referenceError";
+			}
 		} catch (Exception e) {
 			result = "referenceError";
 		}
@@ -204,10 +208,20 @@ public class ProdAdminController {
 	public String deleteColor(ProdColorVO clvo) {
 		String result = null;
 		try {
-			result = String.valueOf(prodCtgAdminService.deleteColor(clvo) == 1);
+			if(prodCtgAdminService.checkDeletable(clvo)) {
+				result = String.valueOf(prodCtgAdminService.deleteColor(clvo) == 1);
+			} else {
+				result = "referenceError";
+			}
 		} catch (Exception e) {
 			result = "referenceError";
 		}
 		return result;
+	}
+	
+	@PostMapping("/checkColor")
+	@ResponseBody
+	public String checkColor(ProdColorVO clvo) {
+		return String.valueOf(!prodCtgAdminService.checkDuplicate(clvo));
 	}
 }
