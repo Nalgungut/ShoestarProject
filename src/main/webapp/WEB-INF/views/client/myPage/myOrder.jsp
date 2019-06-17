@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
    <html>
       <head>
@@ -24,70 +26,116 @@
          <!-- jQuery프레임워크 참조 -->         
            <script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
            <script type="text/javascript" src="/resources/include/js/jquery.form.min.js"></script>
-           <script type="text/javascript" src="/resources/include/js/common.js"></script>
+          
+           <script type="text/javascript" src="/resources/include/js/sidebar.js"></script>
             <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/bootstrap.css"/> -->
-            <link rel="stylesheet" href="/resources/include/css/default.css"/>
+        
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+            <link rel="stylesheet" href="/resources/include/css/sidebar.css">
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
             <!-- lightbox 라이브러리 -->
-            <link rel="stylesheet" href="/resources/include/css/lightbox.css"/>
-            <script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script>
+            
+            
+            <Style>
+            	.ss{
+            	color:red;
+            	font-size:12px;}
+            	#detail{
+            	float:right;}
+            </Style>
            <script type="text/javascript">
 				
 			</script>
 		</head>
 	<body>
-		<div class="table">
-                            <table summary="주문일자, 상품명, 결제금액, 주문상세">
-                                <caption>최근 주문 정보 목록</caption>
-                                <colgroup>
-                                    <col width="150">
-                                    <col width="*">
-                                    <col width="140">
-                                    <col width="140">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th><div class="tb-center">주문일자</div></th>
-                                        <th><div class="tb-center">상품명</div></th>
-                                        <th><div class="tb-center">결제금액</div></th>
-                                        <th><div class="tb-center">주문상세</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                                                                                        <tr>
-                                        <td><div class="tb-center">2018.08.08</div></td>
-                                        <td><div class="tb-left">브레이브아머골지 외 1건</div></td>
-                                        <td><div class="tb-center">52,820원</div></td>
-                                        <td><div class="tb-center"><a href="javascript:order_detail('20180808142537-27377675220');"><img src="/images/d3/modern_simple/btn/btn_h14_search.gif" alt="조회"></a></div></td>
-                                    </tr>
-                                                                        <tr>
-                                        <td><div class="tb-center">2017.06.05</div></td>
-                                        <td><div class="tb-left">브레이브아머골지 외 1건</div></td>
-                                        <td><div class="tb-center">44,500원</div></td>
-                                        <td><div class="tb-center"><a href="javascript:order_detail('20170605190829-11631129358');"><img src="/images/d3/modern_simple/btn/btn_h14_search.gif" alt="조회"></a></div></td>
-                                    </tr>
-                                                                        <tr>
-                                        <td><div class="tb-center">2017.04.29</div></td>
-                                        <td><div class="tb-left">브레이브아머 면</div></td>
-                                        <td><div class="tb-center">44,500원</div></td>
-                                        <td><div class="tb-center"><a href="javascript:order_detail('20170429153402-17042321862');"><img src="/images/d3/modern_simple/btn/btn_h14_search.gif" alt="조회"></a></div></td>
-                                    </tr>
-                                                                        <tr>
-                                        <td><div class="tb-center">2015.02.02</div></td>
-                                        <td><div class="tb-left"><br><b>브레이브아머 골지</b><br><font color="fd6767"><b>어깨 2cm 업되는 효과!!</b></font><br>무한감격! 브레이브아머 골지!<br><font color="#808080"> 외 2건</font></div></td>
-                                        <td><div class="tb-center">32,400원</div></td>
-                                        <td><div class="tb-center"><a href="javascript:order_detail('20150202083240-58100154062');"><img src="/images/d3/modern_simple/btn/btn_h14_search.gif" alt="조회"></a></div></td>
-                                    </tr>
-                                                                        <tr>
-                                        <td><div class="tb-center">2014.11.20</div></td>
-                                        <td><div class="tb-left"><br><font color="fd6767"><b>[오늘주문 오늘받자!]</b></font><br><b>브레이브아머 골지</b><br><font color="fd6767"><b>어깨 2cm 업되는 효과!!</b></font><br>무한감격! 브레이브아머 골지!<br><font color="#808080"></font></div></td>
-                                        <td><div class="tb-center">27,500원</div></td>
-                                        <td><div class="tb-center"><a href="javascript:order_detail('20141120182132-49352284514');"><img src="/images/d3/modern_simple/btn/btn_h14_search.gif" alt="조회"></a></div></td>
-                                    </tr>
-                                                                                                    </tbody>
-                            </table>
-                        </div>
+		
+			   
+			       
+			             <div class="container">
+   
+   						<div class="side-nav">
+   						<ul class="nav navbar-nav side-nav">
+			                <li>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-1"><i class="fa fa-fw"></i>마이페이지 <i class="fa fa-fw"></i></a>
+			                    <ul id="submenu-1" class="collapse">
+			                        <!-- <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
+			                        <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                    </ul>
+			                </li>
+			                <li>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i> 쇼핑정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <ul id="submenu-2" class="collapse">
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 주문내역</a></li>
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 배송조회</a></li>
+			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li> -->
+			                    </ul>
+			                </li>
+			                <li>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-3"><i class="fa fa-fw fa-star"></i> 고객지원 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <ul id="submenu-3" class="collapse">
+			                        <li><a href="/cscenter/qnaBoard"><i class="fa fa-angle-double-right"></i> 1:1문의</a></li>
+			                        <!-- <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
+			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                    </ul>
+			                </li>
+			                <li>
+			                    <a href="#" data-toggle="collapse" data-target="#submenu-4"><i class="fa fa-fw fa-search"></i> 회원정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
+			                    <ul id="submenu-4" class="collapse">
+			                        <li><a href="/member/modify"><i class="fa fa-angle-double-right"></i> 정보수정</a></li>
+			                        <li><a href="/member/delete"><i class="fa fa-angle-double-right"></i> 회원탈퇴</a></li>
+			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 1.3</a></li> -->
+			                    </ul>
+			                </li>
+			              </ul>
+			            </div>
+			        <!-- </div> -->
+			        <!-- /.navbar-collapse -->
+			    
+			
+			   <!--  <div id="page-wrapper">
+			        <div class="container-fluid">
+			        <label>MyPage</label>
+			            Page Heading
+			            <div class="row" id="main" >
+			                <div class="col-sm-12 col-md-12 well" id="content"> -->
+			                   <table class="table">
+			                   <label class="ss"><strong>&nbsp;&nbsp;주문상세내역</strong></label>
+			                   <tr>
+						           <th>주문번호</th>
+						           <th>신발번호</th>
+						           <th>제품명</th>
+						           <th>사이즈</th>
+						           <th>주문수량</th>
+						           <th>가격</th>
+						       </tr>
+						            <c:forEach items="${detailList}" var="detailOrder">
+						                  <tr>
+						                     <td>${detailOrder.od_no}</td>
+						                     <td>${detailOrder.pi_no}</td>
+						                     <td>${detailOrder.pd_name}</td>
+						                     <td>${detailOrder.size}</td>
+						                     <td>${detailOrder.oi_qty}</td>
+						                     <td>${detailOrder.color}</td>
+						                     <td>${detailOrder.oi_price}</td>
+						                  </tr>
+						            </c:forEach>
+					        </table> 
+					        <!-- <input type="button" id="detail" name="detail" class="btn btn-default" value="상세조회"/> -->
+			                    
+			               <!--  </div> -->
+			       <!--      </div>
+			            /.row
+			        </div>
+			        /.container-fluid
+			    </div>
+			    /#page-wrapper
+			    </div> -->
+			    
+			
+			    
+		
+		</div>
 	</body>
 </html>
