@@ -316,6 +316,9 @@
 				<when test="ps_qty == 0">'o'</when>
 				<otherwise>NULL</otherwise>
 			</choose>
+		WHERE
+			ps_size = #{ps_size_self} AND
+			pi_no = #{pi_no}
 	</update>
 	
 	<delete id="deleteProdStock">
@@ -343,14 +346,18 @@
 		FROM
 			prod_stock
 		WHERE
-			pi_no = #{pi_no}
-			<trim prefix="AND"><choose>
-				<when test="ps_size_self != 0"><if test="ps_size_self != ps_size">
-					ps_size = #{ps_size}
-				</if></when>
+			pi_no = #{pi_no} AND
+			<choose>
+				<when test="ps_size_self != 0">
+					<choose><when test="ps_size_self != ps_size">
+						ps_size = #{ps_size}
+					</when><otherwise>
+						1 = 0
+					</otherwise></choose>
+				</when>
 				<otherwise>
 					ps_size = #{ps_size}
 				</otherwise>
-			</choose></trim>
+			</choose>
 	</select>
 </mapper>

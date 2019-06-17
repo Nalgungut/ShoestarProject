@@ -20,6 +20,52 @@ const PROD_NO_IMAGE = "/resources/images/product/noimage.png";
 
 /* ------------------------------------- prod 관련 함수들 ------------------------------------- */
 
+/**
+ * 상품 목록을 보여주는 함수
+ * @param searchReq 요청값
+ */
+function showProductList(searchReq) {
+	stopSearchForSecond = true;
+	toggleLightbox(true);
+	
+	$.ajax({
+		url: "/product/getList" + searchReq,
+		type: "get",
+		dataType: "json",
+		error: function() {
+			$("#itemList").append(createErrorList("상품 정보를 불러올 수 없었습니다.", "div").addClass("text-center emptyResult"));
+			toggleLightbox(false);
+		},
+		success: function(data) {
+			if(!jQuery.isEmptyObject(data)) {
+				$.each(data, function(index, stack) {
+					$("#itemList").append(createProductDiv(stack));
+					$("#itemList").append(createProductDiv(stack));
+					$("#itemList").append(createProductDiv(stack));
+					$("#itemList").append(createProductDiv(stack));
+					$("#itemList").append(createProductDiv(stack));
+				});
+			} else {
+				if($("#itemList").html().isEmpty()) {
+					$("#itemList").append(createErrorList("검색 결과가 없습니다.", "div").addClass("text-center emptyResult"));
+				} else {
+					endOfSearch = true;
+				}
+			}
+			stopSearchForSecond = false;
+			toggleLightbox(false);
+		}
+	});
+}
+
+/**
+ * 로딩 라이트박스 토글
+ * @param toggleTo 표시하려면 true
+ */
+function toggleLightbox(toggleTo) {
+	$("body").append($(".loadingLightbox"));
+	$(".loadingLightbox").prop("hidden", !toggleTo);
+}
 
 /**
  * 상품정보를 매개변수로 이미지와 가격등이 표시되는 div를 만들어내는 함수

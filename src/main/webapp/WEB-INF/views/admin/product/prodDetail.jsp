@@ -142,15 +142,15 @@
 					}
 				});
 			});
-
-			// TODO : 값이 숨겨진 폼으로 안넘어가서 0, 0 으로 처리됨
+			
 			// 숨겨진 폼에 값을 입력하고 수정일 경우 값 유효성 체크를 병행하는 함수
 			function inputHiddenStockForm(target, isDelete) {
 				var size = target.closest("tr").find(".ps_size_userInput").val();
 				var qty = target.closest("tr").find(".ps_qty_userInput").val();
-				
 				if(isDelete) {
 					$("#stockUpdate_size").val(target.attr("data-pssize"));
+					$("#stockUpdate_size_self").val("0");
+					$("#stockUpdate_qty").val("0");
 				} else if(isShoesSize(size) && isStockQty(qty)) {
 					$("#stockUpdate_size_self").val(target.attr("data-pssize"));
 					$("#stockUpdate_size").val(size);
@@ -161,7 +161,6 @@
 				
 				return true;
 			}
-			
 			
 			// 기초 정보 리셋
 			function resetPrimaryData() {
@@ -642,7 +641,7 @@
 		</div>
 		
 		<!-- 재고 수정을 위한 숨겨진 폼 -->
-		<form class="pstUpdateForm">
+		<form id="pstUpdateForm">
 			<input type="hidden" name="pi_no" value="${pi_no}">
 			<input type="hidden" name="ps_size" id="stockUpdate_size">
 			<input type="hidden" name="ps_size_self" id="stockUpdate_size_self">

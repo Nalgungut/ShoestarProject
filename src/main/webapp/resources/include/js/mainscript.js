@@ -10,6 +10,16 @@
 
 $(function() {
 	checkLogin();
+	
+	$("#searchKeyword").keydown(function(keyEvent) {
+		if(keyEvent.keyCode == 13) {
+			doSearch();
+		}
+	});
+	
+	$("i.zmdi-search").click(function() {
+		doSearch();
+	});
 });
 
 function checkLogin() {
@@ -28,4 +38,13 @@ function checkLogin() {
 			}
 		}
 	});
+}
+
+function doSearch() {
+	var keyword = $("#searchKeyword").val();
+	if(keyword == null || keyword.replace(/\s/g, "") == "") {
+		$("#searchKeyword").focus();
+	} else {
+		location.href = "/product/showList?keyword=" + keyword;
+	}
 }

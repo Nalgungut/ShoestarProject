@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.shoestar.common.exception.RequiresAdminLogin;
 import com.shoestar.common.exception.RequiresLoginException;
 import com.shoestar.common.exception.ResourceNotFoundException;
 
@@ -59,6 +60,14 @@ public class ExceptionController {
 		model.addAttribute("errorCode", "login");
 		
 		return "client/exception/error";
+	}
+	
+	/**
+	 * 관리자 로그인이 필요한 경우
+	 */
+	@ExceptionHandler(value={RequiresAdminLogin.class})
+	public String adminLogin() {
+		return "admin/adminMember/adminLogin";
 	}
 	
 	/**
