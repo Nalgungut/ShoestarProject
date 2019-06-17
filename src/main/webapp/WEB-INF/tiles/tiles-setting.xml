@@ -73,7 +73,7 @@
 	
 	<definition name="admin/cscenter/*" extends="admin">
 		<put-attribute name="body" value="/WEB-INF/views/admin/cscenter/{1}.jsp"></put-attribute>
-		<put-attribute name="sidebar" value=""></put-attribute>
+		<put-attribute name="sidebar" value="/WEB-INF/views/admin/cscenter/csAdminSidebar.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="admin/product/*" extends="admin">

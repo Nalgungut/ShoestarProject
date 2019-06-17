@@ -37,6 +37,11 @@ public class ProdCtgAdminServiceImpl implements ProdCtgAdminService {
 	}
 
 	@Override
+	public boolean ctgDeletable(ProdCtgVO ctvo) {
+		return prodCtgAdminDao.ctgDeletable(ctvo) == 0;
+	}
+
+	@Override
 	public List<ProdColorVO> colorList() {
 		return prodCtgAdminDao.colorList();
 	}
@@ -54,5 +59,15 @@ public class ProdCtgAdminServiceImpl implements ProdCtgAdminService {
 	@Override
 	public int deleteColor(ProdColorVO clvo) {
 		return prodCtgAdminDao.deleteColor(clvo);
+	}
+
+	@Override
+	public boolean checkDuplicate(ProdColorVO clvo) {
+		return prodCtgAdminDao.checkDuplicate(clvo) >= 1;
+	}
+
+	@Override
+	public boolean checkDeletable(ProdColorVO clvo) {
+		return prodCtgAdminDao.checkDeletable(clvo) == 0;
 	}
 }
