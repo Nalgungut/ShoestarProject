@@ -36,7 +36,7 @@
 	     				success : function(){
 	     					qna_no = 0;
 	     					location.href="/cscenter/qnaBoard";
-	     					alert("답글이 정상적으로 삭제 되었습니다.")
+	     					alert("답글이 정상적으로 삭제 되었습니다.");
 	     				}
 	     			});
 	     		});

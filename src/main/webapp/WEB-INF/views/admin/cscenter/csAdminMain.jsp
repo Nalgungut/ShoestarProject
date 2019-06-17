@@ -89,7 +89,7 @@
 	</head>
    
 	<body>
-		<h3>☆오늘의할일</h3>
+		<h3>⭐오늘의할일</h3>
 		<div class="t">
 			<table class="table table-bordered">
 				<tr>
@@ -114,44 +114,6 @@
 					<td class="text-center"><a href="/admin/cscenter/csAdminQna">${qna_hold} 건</a> /<a> ${qna_all} 건</a></td>
 				</tr>
 			</table>
-			
-			<!-- <table class="table table-bordered" id="productTotal">
-				<tr>
-					<th>날짜</th>
-					<th>배송준비중</th>
-					<th>배송중</th>
-					<th>배송완료</th>
-					<th>취소</th>
-					<th>교환</th>
-					<th>반품</th>
-					<th>주문합계</th>
-				</tr>
-				<tr>
-					<td>날짜2019-05-04</td>
-					<td>배송준비중건수1</td>
-					<td>배송중건수3</td>
-					<td>배송완료건수4</td>
-					<td>취소건수2</td>
-					<td>교환건수3</td>
-					<td>반품건수4</td>
-					<td>주문총합건수17</td>
-				</tr>
-			</table>
-			
-			<table class="table table-bordered" id="boardTotal">
-				<tr>
-					<th>날짜</th>
-					<th>이벤트</th>
-					<th>1:1게시판</th>
-					<th>게시물합계</th>
-				</tr>
-				<tr>
-					<td>2019-05-04</td>
-					<td>1</td>
-					<td>12</td>
-					<td>13</td>
-				</tr>
-			</table> -->
 		</div>
 		
 			<h3>자주묻는 질문 리스트</h3>

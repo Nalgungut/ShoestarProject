@@ -5,5 +5,6 @@
 	<a href="/admin/cscenter/csAdminDm_before" class="list-group-item">배송준비중 관리</a>
 	<a href="/admin/cscenter/csAdminDm_ing" class="list-group-item">배송중 관리</a>
 	<a href="/admin/cscenter/csAdminDm_end" class="list-group-item">배송완료 조회</a>
-	<a href="#" class="list-group-item">상품 상태변경관리</a>
+	<a href="/admin/cscenter/orders_status_before" class="list-group-item">문의 상품 처리대기</a>
+	<a href="/admin/cscenter/orders_status" class="list-group-item">문의 상품 처리완료</a>
 </div>

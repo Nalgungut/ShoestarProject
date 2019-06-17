@@ -38,7 +38,7 @@
    
 	<body>
 		<div class="contentContainer container-fluid">
-	  <div class="contentTit page-header"><h3 class="text-center">배송준비중  택배접수 관리</h3></div> 
+	  <div class="contentTit page-header"><h3 class="text-center">배송중  택배 관리</h3></div> 
 		<div class="form-group">
 			<form id="search_form">
 				<p>주문번호 검색</p>
