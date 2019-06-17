@@ -116,7 +116,7 @@
 						            <c:forEach items="${myOrderList}" var="order">
 						                  <tr>
 						                     <td>${order.od_no}</td>
-						                     <td><a href="#">${order.numberOfProds}개 상품</a></td>
+						                     <td><a href="/myPage/myOrder">${order.numberOfProds}개 상품</a></td>
 						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
 						                     <td>${order.od_prog}</td>
 						                  </tr>
