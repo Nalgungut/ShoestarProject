@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoestar.admin.event.dao.AdminRange_DiscountDAO">
+	
+	<sql id="adminRdisSearch">
+			<if test="search=='rd_no'">
+	            <![CDATA[rd_no LIKE '%'|| #{keyword} ||'%']]>
+	        </if>
+			<if test="search=='rd_title'">
+	            <![CDATA[rd_title LIKE '%'|| #{keyword} ||'%']]>
+	        </if>
+	</sql>
 
-	<!-- 조회 쿼리 -->
-	<select id="AdminRDiscountList" resultType="rds">
+	<!-- 기본 조회 쿼리 -->
+<!-- 	<select id="AdminRDiscountList" resultType="rds">
 				SELECT
 				    rd_no ,
 				    rd_title ,
@@ -13,10 +22,48 @@
 					rd_edate
 				FROM
 				    range_discount
-				ORDER BY rd_date ASC
+				ORDER BY rd_no ASC
+	</select> -->
+	
+	<!-- 관리자 할인 범위 리스트 조회(페이징 처리와 검색 처리) -->
+	<select id="AdminRDiscountList" parameterType="rds" resultType="rds">
+		<![CDATA[
+      select 
+              		rd_no ,
+				    rd_title ,
+					rd_content ,
+					rd_discount ,
+					rd_date ,
+					rd_edate
+      from (
+          select  /*+ INDEX_DESC(range_discount range_discount_pk) */
+              rownum as rnum, 
+              		rd_no ,
+				    rd_title ,
+					rd_content ,
+					rd_discount ,
+					rd_date ,
+					rd_edate
+          from range_discount
+             where ]]>
+             <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+               <include refid="adminRdisSearch"></include>
+             </trim>
+            <![CDATA[ rownum <= #{pageNum} * #{amount}
+            )
+       where rnum > (#{pageNum} -1) * #{amount} ]]>
 	</select>
 	
-	<!-- 상세 조회 -->
+	<!-- 전체 레코드 수 조회 -->
+	<select id="adminRdisCnt" parameterType="rds" resultType="int">
+		SELECT count(*) FROM range_discount
+		<trim prefix=" where (" suffix=")" >
+			    <include refid="adminRdisSearch"></include>
+		</trim>
+	</select>
+	
+	
+	<!-- 상세 조회-->
 	<select id="AdminRDiscountDetail" parameterType="rds" resultType="rds">
 				SELECT 
 					rd_no, 
@@ -51,7 +98,10 @@
 			    p.pd_no = rp.pd_no
             where rt.rd_no = #{rd_no}
 			order by p.pd_no asc -->
-		select distinct
+			
+			<!-- 
+			
+			select distinct
                p.pd_no,
                 p.pct_no,
                 p.pd_name,
@@ -72,6 +122,30 @@
                 range_discount rd
             on 
                rd.rd_no = rp.rd_no
+            where rd.rd_no = #{rd_no}
+			order by p.pd_no asc
+			 -->
+		   select distinct
+               p.pd_no,
+                p.pct_no,
+                p.pd_name,
+                p.pim_main,
+                pt.pct_name,
+                rt.rd_no
+			from
+			    prod p
+            inner join
+                prod_ctg pt
+            on
+                p.pct_no = pt.pct_no
+			left outer join
+			    rd_type rt 
+			on
+			    rt.pct_no = p.pct_no
+            inner join
+                range_discount rd
+            on 
+               rd.rd_no = rt.rd_no
             where rd.rd_no = #{rd_no}
 			order by p.pd_no asc
 	</select>
@@ -103,5 +177,24 @@
 		    )
 	</insert>
 		
+	
+		<!-- 수정작업 -->
+	<update id="adminRdisUpdate" parameterType="rds">
+		UPDATE range_discount
+			SET	
+				  rd_title = #{rd_title}, rd_content = #{rd_content},
+				 rd_discount = #{rd_discount}, rd_date = sysdate
+				<choose>
+					<when test= "rd_edate != null">
+						, rd_edate = #{rd_edate} 
+					</when>
+				</choose>
+			where rd_no = #{rd_no}
+	</update>
+	
+	<!-- 삭제 작업 -->
+	<delete id="rdisDelete" parameterType="rds">
+		delete from range_discount where rd_no = #{rd_no}
+	</delete>
 </mapper>
 

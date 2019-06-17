@@ -1,6 +1,10 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+ 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -23,20 +27,22 @@
 
 
 	<style type="text/css">
-		img{width: 500px; height: 400px;}
-		li{list-style: none; }
+		#Container{margin-left: 80px;}
+		#EvconTitle{font-size: 30pt; color: black;}
+		.img{width: 500px; height: 400px;}
+		li{list-style: none;}
 		*{text-align: left;}
-		#rowEventArea{margin-top: 100px;}
+		#rowEventArea{margin-top: 20px;}
 		.thumbnail{
 			/* width: 315px; height: 145px; */ 
 			width: 315px; height: 145px;
 			padding: 0px; 
 		}
 		#thumImg{/* width: 315px; height: 145px; */width: 100%; height: 100%;}
-		#cols{width: 340px;}
+		#cols{width: 340px; height: 180px;}
 		.Event_td{padding: 0px;}
 		.ts{width: 293px;}
-		.topBorder{background-color: #F2EADF;} /* 제목 배경색 나중에 하자 ★ */
+		/* .topBorder{background-color: #F2EADF;}  *//* 제목 배경색 나중에 하자 ★ */
 	</style>
 
 	<script type="text/javascript">
@@ -100,7 +106,9 @@
 	<div id="Container">
 	
 	
-		<div id="EvcontainerTitle"><h2 id="EvconTitle">이벤트</h2></div>
+		<div id="EvcontainerTitle"><h1 id="EvconTitle">이벤트</h1>
+		</div>
+		
 		
 		<div id="EventList">
 			<form id="EventListform" name="EventListform">
@@ -134,7 +142,7 @@
 										  		<c:when test="${status.index == 0}">
 											    <div class="item active">
 												      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-												      		<img class="siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
+												      		<img class="img siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 												      </a>
 											    </div>
 											    </c:when>
@@ -142,7 +150,7 @@
 											    <c:otherwise>
 											    <div class="item">
 											      <a class="EventImage" href="/event/detail?ev_no=${evt.ev_no}">
-											      		<img class="siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
+											      		<img class="img siz" src="/shoestarStorage/eventThumb/${evt.ev_thumb}" alt="...">
 											      </a>
 											    </div>
 										    	</c:otherwise>
@@ -168,15 +176,16 @@
 						</tr>
 					
 						<tr>
+						<td rowspan="7">&nbsp;&nbsp;</td>
 							<td style="border-bottom: 2px solid #595959;"></td></tr>
-					
+							
 						<!-- 이벤트 4개 선택하면 그 항목 보이고 선택 안하면 최신별4개 ex: -->
 						<c:forEach var="evt" items="${eventList}" varStatus="status" end="3">
 							<tr class="evtno" data-num="${evt.ev_no}">
 								
 								<td class="Event_td ts topBorder" style="padding: 30px">
 									<ul>
-										<li>
+										<li style="margin-left: 5px;">
 											<a class="EventTitle" data-title="${status.index}" data-thumb="${evt.ev_thumb}">
 													${evt.ev_title}							
 											</a>
@@ -203,6 +212,20 @@
 			</form>
 		</div>
 		
+		<hr style="width: 1000px; margin-top: 12px; border: 2px solid black;" />
+		<hr style="width: 1000px; border: 1px solid black;" />
+		
+		
+		<div id="shostLog" style="margin-top: 40px;">
+			<a href="http://localhost:8080/" class="logo">
+							<img  style="width: 1000px; height: 130px;"
+							 src="/resources/include/test/images/icons/shoestar1.png" alt="IMG-LOGO">
+			</a>
+		</div>
+		
+		<p style="margin-top: 40px; color: black; font-weight: bold;">Shoestar 진행중인 기획전/이벤트</p>
+		<hr style="width: 1000px; margin-top: 5px; margin-bottom: 10px; border: 1px solid black;" />
+		
 		<!-- 
 						동적 생성할 event 리스트  : 생성 할 때마다 추가됨. >> 동적 말고 c:forEach 로 ㄱㄱ  여기서 forEach로 썸네일 이미지 + 링크 보여주기 > detail-->
 		<%-- 이벤트 리스트 영역 --%>
@@ -214,11 +237,36 @@
 				<div class="thumbnail">
 					<a href="/event/detail?ev_no=${evt.ev_no}" data-lightbox="roadtrip">
 						<img id="thumImg" src= "/shoestarStorage/eventThumb/thumbnail/thumbnail_${evt.ev_thumb}" alt="${evt.ev_title}">
+						<span style="color: #4F495E; font-size:8pt;">
+						
+							<c:set var="TextValue" value="${evt.ev_title}"/>		
+						
+							<strong style="font-size:10pt;  float:left; ">${fn:substring(TextValue,0,10)}..</strong>
+							
+							<span style=" float: right;">기간 : <fmt:formatDate pattern="yyyy-MM-dd" value="${evt.ev_date}" />
+							
+								<c:choose>	
+									<c:when test="${evt.ev_edate == null || evt.ev_edate==''}">
+										<div style="margin-left: 45px; float: right;"></div>
+									</c:when>	
+									<c:otherwise><fmt:formatDate pattern="yyyy-MM-dd" value="${evt.ev_edate}" /></c:otherwise>
+								</c:choose>
+							
+							</span>
+						</span>
 					</a>
 				</div>
 			</div>
 		</c:forEach>
-	
+			
+			<hr style="width: 1000px; margin-top: 35px; border: 2px solid black;" />
+			<hr style="width: 1000px; border: 1px solid black;" />
+		
+
+			<div style="position: fixed; bottom: 10px; right: 10px;">
+				<div style="cursor:pointer; border: 1px solid #D3D3D3; background-color: #D3D3D3; color:white; padding: 5px;" 
+					onclick="window.scrollTo(0,0);">TOP</div>
+			</div>
 		</div>
 	</div>
 </body>
