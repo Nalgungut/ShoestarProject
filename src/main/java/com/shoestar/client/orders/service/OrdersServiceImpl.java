@@ -134,14 +134,16 @@ public class OrdersServiceImpl implements OrdersService {
 		// 주문 상품 생성
 		for (OrdersInsVO ordersInsVO : oivo) {
 			ordersInsVO.setOd_no(od_no);
+			// 주문 상품 추가
 			ordersDao.insertOrderIns(ordersInsVO);
+			// 재고 변경
 			ordersDao.updateStock(ordersInsVO);
 			
 			// 카트 정보 생성
 			CartVO ctvo = new CartVO();
 			ctvo.setMem_no(mem_no);
 			ctvo.setPi_no(ordersInsVO.getPi_no());
-			ctvo.setPs_size(ordersInsVO.getSize());
+			ctvo.setPs_size(ordersInsVO.getPs_size());
 			cvo.add(ctvo);
 			
 			result++;

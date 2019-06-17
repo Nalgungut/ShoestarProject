@@ -133,9 +133,7 @@
 					data : target.serialize(),
 					dataType : "text",
 					error : function(xhr, status, except) {
-						if(askForLogin(xhr)) {
-							alert("서버 오류로 장바구니 물품을 추가할 수 없었습니다.");
-						}
+						alert("서버 오류로 장바구니 물품을 추가할 수 없었습니다.");
 					},
 					success : function(result) {
 						if(result == "duplicate") {
@@ -148,8 +146,11 @@
 							}
 						} else if(result == "outofstock") {
 							alert("상품 재고가 부족합니다.");
+						} else if(result == "login") {
+							alert("로그인이 필요합니다.");
+							location.href = "/member/login";
 						} else {
-							alert("상품을 장바구니에 추가할 수 없었습니다.");
+							alert("장바구니 물품을 추가할 수 없었습니다.");
 						}
 					}
 				});

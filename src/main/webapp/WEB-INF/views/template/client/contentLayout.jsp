@@ -30,6 +30,9 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       
+      <!-- 공용 파츠 포함 -->
+      <script src="/resources/include/js/mainscript.js"></script>
+      
    </head>
    
    <body>
@@ -45,7 +48,7 @@
    </div>
    
    <!-- footer -->
-   <footer class="footer">
+   <footer class="bg3 p-t-75 p-b-32 foot">
       <tiles:insertAttribute name="footer" />
    </footer>
    

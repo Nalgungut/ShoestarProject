@@ -64,15 +64,16 @@
 					+ $("#addrForm").serialize() + "&" + $("#transactionForm").serialize(),
 				dataType : "text",
 				error : function(xhr) {
-					if(askForLogin(xhr)) {
-						alert("서버 오류로 결제를 진행할 수 없었습니다.");
-					}
+					alert("서버 오류로 결제를 진행할 수 없었습니다.");
 				},
 				success : function(result) {
 					if(result == "true") {
 						alert("성공적으로 결제되었습니다.");
 						//location.href = "/myPage/orders";
 						location.href = "/orders/cart";
+					} else if(result == "login") {
+						alert("로그인이 필요합니다.");
+						location.href = "/member/login";
 					} else {
 						alert("결제 과정에서 오류가 발생했습니다.");
 					}

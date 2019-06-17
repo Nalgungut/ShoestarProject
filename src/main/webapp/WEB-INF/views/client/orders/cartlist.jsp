@@ -47,6 +47,9 @@
 					cartAjaxJson["success"] = function(data) {
 						if(data >= 1) {
 							location.reload();
+						} else if(data == "login") {
+							alert("로그인이 필요합니다.");
+							location.href = "/member/login";
 						} else {
 							alert("카트 상품 정보를 삭제할 수 없었습니다.");
 						}
@@ -88,7 +91,7 @@
 					priceTotal += priceTotalEach;
 				});
 				
-				$("#totalPrice").text(priceTotal + "원");
+				$("#totalPrice").text((isNaN(priceTotal) ? 0 : priceTotal) + "원");
 			}
 			
 			// 물품들을 결제 폼으로 넘길 input으로 동적 생성 하는 함수
