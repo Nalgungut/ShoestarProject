@@ -16,6 +16,8 @@ public interface ProdCtgAdminDao {
 	
 	public int deleteCtg(ProdCtgVO ctvo);
 	
+	public int ctgDeletable(ProdCtgVO ctvo);
+	
 	// »ö»ó
 	public List<ProdColorVO> colorList();
 	
@@ -24,4 +26,8 @@ public interface ProdCtgAdminDao {
 	public int updateColor(ProdColorVO clvo);
 	
 	public int deleteColor(ProdColorVO clvo);
+	
+	public int checkDuplicate(ProdColorVO clvo);
+	
+	public int checkDeletable(ProdColorVO clvo);
 }
