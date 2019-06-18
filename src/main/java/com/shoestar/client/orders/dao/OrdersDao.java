@@ -34,4 +34,6 @@ public interface OrdersDao {
 	public int updateStock(OrdersInsVO oivo);
 	
 	public int insertDeliveryInfo(AdminDeliveryVO dvo);
+
+	public List<OrdersInsVO> ordersInsByOdNo(OrdersInsVO ovo);
 }
