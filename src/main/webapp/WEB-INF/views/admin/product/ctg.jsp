@@ -26,6 +26,11 @@
 					showSelectedPct();
 				});
 				
+				// 초기화
+				$("#resetCtg").click(function() {
+					$("#pct_name").val("");
+				});
+				
 				// 입력
 				$("#insertCtg").click(function() {
 					if(checkAll($("#ctgForm"))) {
@@ -60,9 +65,18 @@
 				// 선택 된 항목 보여주기
 				showSelectedColor();
 				
+				// 색상 정보 미리보기
+				showColorPreview();
+				
 				// 선택마다 항목 수정하기
 				$("#colorSelect").change(function() {
 					showSelectedColor();
+				});
+
+				// 초기화
+				$("#resetColor").click(function() {
+					$("#pcl_name").val("");
+					$("#pcl_code").val("");
 				});
 				
 				// 입력
@@ -90,6 +104,10 @@
 					}
 				});
 				
+				// 색상변경
+				$("#pcl_code").change(function() {
+					showColorPreview();
+				});
 			});
 			
 			function showSelectedPct() {
@@ -99,16 +117,31 @@
 			function showSelectedColor() {
 				$("#pcl_name").val($("#colorSelect").find(":selected").attr("data-pclname"));
 				$("#pcl_code").val($("#colorSelect").find(":selected").attr("data-pclcode"));
+				showColorPreview();
 			}
 			
-			function isColorCode() {
+			function isColorCode(hideWarning) {
 				var codeVal = $("#pcl_code").val();
 				
 				if(codeVal.match(/^[0-9a-f]{6}$/i)) {
 					return true;
 				} else {
-					alert("색상 코드는 16진수 형식으로 6자를 입력해야 합니다.\n(예시: ff0000)");
+					if(!hideWarning) {
+						alert("색상 코드는 16진수 형식으로 6자를 입력해야 합니다.\n(예시: ff0000)");
+					}
 					return false;
+				}
+			}
+			
+			function showColorPreview() {
+				if(isColorCode(true)) {
+					$("#pcl_code").css({
+						"border-right" : "50px solid #" + $("#pcl_code").val()
+					});
+				} else {
+					$("#pcl_code").css({
+						"border-right" : "none"
+					});
 				}
 			}
 		</script>
@@ -140,6 +173,10 @@
 						<input type="text" name="pct_name" id="pct_name" required="required" class="form-control" maxlength="20">
 					</div>
 					<div class="form-group form-inline margin-top text-center">
+						<button type="button" class="submenuActions" id="resetCtg">
+							<span class="glyphicon glyphicon-repeat"></span>
+							초기화
+						</button>
 						<button type="button" class="submenuActions" id="insertCtg">
 							<span class="glyphicon glyphicon-plus"></span>
 							항목 추가
@@ -181,6 +218,10 @@
 						<input type="text" name="pcl_code" id="pcl_code" required="required" class="form-control" maxlength="6">
 					</div>
 					<div class="form-group form-inline margin-top text-center">
+						<button type="button" class="submenuActions" id="resetColor">
+							<span class="glyphicon glyphicon-repeat"></span>
+							초기화
+						</button>
 						<button type="button" class="submenuActions" id="insertColor">
 							<span class="glyphicon glyphicon-plus"></span>
 							색상 추가

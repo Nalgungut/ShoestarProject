@@ -12,7 +12,7 @@ import com.shoestar.client.member.vo.MemberVO;
 @Data
 @EqualsAndHashCode(callSuper=false)
 
-public class NoticeReplyVO {
+public class NoticeReplyVO extends MemberVO{
 	private int no_no;
 	private int re_no; // 댓글 번호
 	private int mem_no; // 회원번호(현석)

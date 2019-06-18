@@ -8,4 +8,6 @@ public class ProdStockVO {
 	private int ps_size;
 	private int ps_qty;
 	private String ps_status;
+	
+	private int ps_size_self;
 }

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.shoestar.admin.prod.dao.ProdAdminDao;
 import com.shoestar.client.prod.dao.ProdDao;
 import com.shoestar.client.prod.dao.ProdInsDao;
+import com.shoestar.client.prod.vo.ProdColorVO;
 import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
+import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
 import com.shoestar.common.file.FileUploadForProd;
 
@@ -161,5 +163,57 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 		}
 		
 		return result;
+	}
+	
+	
+	
+	/* ------------------------------ prodins ------------------------------ */
+	
+	@Override
+	public int insertProdins(ProdInsVO pivo) {
+		prodAdminDao.insertProdins(pivo);
+		return pivo.getPi_no();
+	}
+
+	@Override
+	public int deleteProdins(ProdInsVO pivo) {
+		return prodAdminDao.deleteProdins(pivo);
+	}
+
+	@Override
+	public boolean isProdinsDeletable(ProdInsVO pivo) {
+		return prodAdminDao.isProdinsDeletable(pivo) == 0;
+	}
+	
+	@Override
+	public List<ProdColorVO> unoccupiedColors(ProdVO pvo) {
+		return prodAdminDao.unoccupiedColors(pvo);
+	}
+	
+	/* ------------------------------ prodstock ------------------------------ */
+	
+	@Override
+	public int insertProdStock(ProdStockVO psvo) {
+		return prodAdminDao.insertProdStock(psvo);
+	}
+
+	@Override
+	public int updateProdStock(ProdStockVO psvo) {
+		return prodAdminDao.updateProdStock(psvo);
+	}
+
+	@Override
+	public int deleteProdStock(ProdStockVO psvo) {
+		return prodAdminDao.deleteProdStock(psvo);
+	}
+
+	@Override
+	public boolean isProdStockDeletable(ProdStockVO psvo) {
+		return prodAdminDao.isProdStockDeletable(psvo) == 0;
+	}
+
+	@Override
+	public boolean isSafeSize(ProdStockVO psvo) {
+		return prodAdminDao.isSafeSize(psvo) == 0;
 	}
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shoestar.client.brand.dao.BrandNewsDao;
 import com.shoestar.client.brand.vo.BrandVO;
 
@@ -21,13 +23,7 @@ public class BrandNewsServiceImpl implements BrandNewsService {
 	@Setter(onMethod_=@Autowired)
 	private BrandNewsDao brandNewsDao;
 	
-	@Override
-	public List<BrandVO> brandNewsList(BrandVO bvo) {
-		List<BrandVO> list = null;
-		list = brandNewsDao.brandNewsList(bvo);
-		
-		return list;
-	}
+	
 
 	@Override
 	public BrandVO brandNewsDetail(BrandVO bvo) {
@@ -39,6 +35,24 @@ public class BrandNewsServiceImpl implements BrandNewsService {
 			detail.setAr_content(detail.getAr_content().toString().replaceAll("\n","<br>"));
 		}
 		return detail;
+	}
+	
+	
+
+	@Override
+	public String brandNewsData(BrandVO bvo) {
+		List<BrandVO> list = null;
+		ObjectMapper mapper = new ObjectMapper();
+		String listData = "";
+		
+		list = brandNewsDao.brandNewsList(bvo); 
+		try {
+			listData = mapper.writeValueAsString(list);
+			log.info(listData);
+		}catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return listData;
 	}
 
 }

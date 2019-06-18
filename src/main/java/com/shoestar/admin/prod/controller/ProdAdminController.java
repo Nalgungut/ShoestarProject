@@ -24,6 +24,7 @@ import com.shoestar.client.prod.vo.ProdColorVO;
 import com.shoestar.client.prod.vo.ProdCtgVO;
 import com.shoestar.client.prod.vo.ProdImageVO;
 import com.shoestar.client.prod.vo.ProdInsVO;
+import com.shoestar.client.prod.vo.ProdStockVO;
 import com.shoestar.client.prod.vo.ProdVO;
 import com.shoestar.common.exception.BadRequestException;
 import com.shoestar.common.exception.ResourceNotFoundException;
@@ -45,6 +46,10 @@ public class ProdAdminController {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(MultipartFile.class, "file", new StringTrimmerEditor(true));
 	}
+	
+
+	/* ====================================== 상품 ====================================== */
+	
 	
 	@RequestMapping(value="/list", method={RequestMethod.GET, RequestMethod.POST})
 	public String prodList(ProdVO pvo, Model model) {
@@ -78,9 +83,17 @@ public class ProdAdminController {
 			}
 		}
 		
+		List<ProdStockVO> pstlist = null;
+		if(pinoToShow != 0) {
+			ProdInsVO pivo = new ProdInsVO();
+			pivo.setPi_no(pinoToShow);
+			pstlist = pinsService.pstListByPins(pivo);
+		}
+		
 		model.addAttribute("prodVO", pvo);
 		model.addAttribute("pinslist", pinslist);
 		model.addAttribute("pi_no", pinoToShow);
+		model.addAttribute("pstlist", pstlist);
 		
 		return "admin/product/prodDetail";
 	}
@@ -116,6 +129,74 @@ public class ProdAdminController {
 		int result = prodAdminService.insertProd(pvo);
 		return String.valueOf(result);
 	}
+	
+	
+	/* ====================================== 상품 컬러 ====================================== */
+	
+	@PostMapping("/insertProdins")
+	@ResponseBody
+	public String insertProdins(ProdInsVO pivo) {
+		int result = prodAdminService.insertProdins(pivo);
+		return result >= 1 ? String.valueOf(result) : "false";
+	}
+
+	@PostMapping("/deleteProdins")
+	@ResponseBody
+	public String deleteProdins(ProdInsVO pivo) {
+		String result = "";
+		if(prodAdminService.isProdinsDeletable(pivo)) {
+			try {
+				result = String.valueOf(prodAdminService.deleteProdins(pivo) == 1);
+			} catch (Exception e) {
+				result = "referenceError";
+			}
+		} else {
+			result = "referenceError";
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/unoccupiedColors", method={RequestMethod.GET, RequestMethod.POST}, produces={MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseBody
+	public List<ProdColorVO> unoccupiedColors(ProdVO pvo) {
+		return prodAdminService.unoccupiedColors(pvo);
+	}
+	
+	/* ====================================== 상품 사이즈 및 수량 ====================================== */
+	
+	@PostMapping("/insertProdStock")
+	@ResponseBody
+	public String insertProdStock(ProdStockVO psvo) {
+		return String.valueOf(prodAdminService.insertProdStock(psvo) == 1);
+	}
+
+	@PostMapping("/updateProdStock")
+	@ResponseBody
+	public String updateProdStock(ProdStockVO psvo) {
+		return String.valueOf(prodAdminService.updateProdStock(psvo) == 1);
+	}
+
+	@PostMapping("/deleteProdStock")
+	@ResponseBody
+	public String deleteProdStock(ProdStockVO psvo) {
+		String result = "";
+		if(prodAdminService.isProdStockDeletable(psvo)) {
+			try {
+				result = String.valueOf(prodAdminService.deleteProdStock(psvo) == 1);
+			} catch (Exception e) {
+				result = "referenceError";
+			}
+		}
+		return result;
+	}
+	
+	@PostMapping("/isSafeSize")
+	@ResponseBody
+	public String isSafeSize(ProdStockVO psvo) {
+		return String.valueOf(prodAdminService.isSafeSize(psvo));
+	}
+	
+	/* ====================================== 상품 이미지 ====================================== */
 	
 	@GetMapping("/new")
 	public String insertForm() {
@@ -224,4 +305,6 @@ public class ProdAdminController {
 	public String checkColor(ProdColorVO clvo) {
 		return String.valueOf(!prodCtgAdminService.checkDuplicate(clvo));
 	}
+	
+	
 }

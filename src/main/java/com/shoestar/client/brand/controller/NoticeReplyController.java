@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.shoestar.client.brand.Service.NoticeReplyService;
+import com.shoestar.client.brand.vo.BrandVO;
 import com.shoestar.client.brand.vo.NoticeReplyVO;
+import com.shoestar.client.login.vo.LoginVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,7 +27,6 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping(value="/replies")
 @Log4j
 @AllArgsConstructor
-
 public class NoticeReplyController {
 	
 	private NoticeReplyService noticeReplyService;
@@ -41,11 +43,17 @@ public class NoticeReplyController {
 		return entity;
 			}
 	
+	
+	//댓글 입력
 	@PostMapping(value="/replyInsert", consumes = "application/json", 
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> replyInsert(@RequestBody NoticeReplyVO nvo){
+	public ResponseEntity<String> replyInsert(@RequestBody NoticeReplyVO nvo, @SessionAttribute("login") LoginVO login){
+		
+		
 		log.info("replyInsert 호출");
+		log.info("loginfo: "+login);
 		int result = 0;
+		nvo.setMem_no(login.getMem_no());
 		
 		result = noticeReplyService.replyInsert(nvo);
 		return result==1 ? new ResponseEntity<String>("SUCCESS", HttpStatus.OK):
@@ -55,14 +63,14 @@ public class NoticeReplyController {
 	
 	
 	
-	@GetMapping(value = "/{no_no)",
+	@GetMapping(value = "/{re_no}",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 					MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<NoticeReplyVO> replySelect(@PathVariable("no_no")Integer no_no){
+	public ResponseEntity<NoticeReplyVO> replySelect(@PathVariable("re_no")Integer re_no){
 		log.info("replySelect 호출 성공");
 		
 		ResponseEntity<NoticeReplyVO> entity = null;
-		entity = new ResponseEntity<>(noticeReplyService.replySelect(no_no), HttpStatus.OK);
+		entity = new ResponseEntity<>(noticeReplyService.replySelect(re_no), HttpStatus.OK);
 			return entity;
 			}
 	
@@ -71,7 +79,7 @@ public class NoticeReplyController {
 			method = {RequestMethod.PUT, RequestMethod.PATCH},
 			consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> replyUpdate(@PathVariable("re_no")Integer re_no,
-			@RequestBody NoticeReplyVO rvo){
+			@RequestBody NoticeReplyVO rvo, @SessionAttribute("login") LoginVO login){
 		log.info("replyUpdate 호출");
 		
 		rvo.setRe_no(re_no);
@@ -83,7 +91,7 @@ public class NoticeReplyController {
 	
 	// 댓글 삭제
 	@DeleteMapping(value="/{re_no}", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> replyDelete(@PathVariable("re_no")Integer re_no){
+	public ResponseEntity<String> replyDelete(@PathVariable("re_no")Integer re_no, @SessionAttribute("login") LoginVO login){
 		log.info("replyDelete 호출");
 		
 		int result = noticeReplyService.replyDelete(re_no);

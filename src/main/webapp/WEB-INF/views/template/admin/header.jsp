@@ -22,12 +22,10 @@
    <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
          <li><a href="/admin/product/list">상품</a></li>
-         <li><a href="#">판매</a></li>
+         <!-- <li><a href="/admin/orders/list">판매</a></li> -->
          <li><a href="/admin/brand/adminNoticeList">브랜드</a></li>
          <li><a href="/admin/event/list">이벤트</a></li>
-         <li><a href="#">회원</a></li>
-         <li><a href="/adminMember/adminLogin">관리자로그인</a></li>
-         <li><a href="/adminMember/adminJoin">관리자계정생성</a></li> <!-- 임시 -->
+         <li><a href="/admin/cscenter/">고객응대</a></li>
          <%-- 
          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>

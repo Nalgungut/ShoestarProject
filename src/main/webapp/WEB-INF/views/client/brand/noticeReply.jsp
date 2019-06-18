@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.Date" %>
+
+<%@page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,6 +23,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		
+		
+		<style type="text/css">
+			button{
+				padding-right: 5px;
+			}
+		</style>
            <script type="text/javascript">
            var message="",btnkind="";
            $(function(){
@@ -58,7 +68,8 @@
                            re_content:$("#re_content").val()
                         }),
                         error : function(){//실행 시 오류가 발생하였을 경우
-                           alert("시스템 오류입니다. 관리자에게 문의하세요");
+                           alert("로그인 후 이용해 주세요.");
+                        	location.href="/member/login";
                         },
                         success : function(result){
                            if(result=="SUCCESS"){
@@ -74,63 +85,82 @@
                
             
           //댓글 수정 및 삭제 ajax 연동 처리
-            $(document).on("click", "button[data-btn]", function(){/* 
-            	$(".btn").parents("div.panel .panel-heading .pwdArea").remove();
-            	$(this).parents("div.panel .panel-heading").append(pwdView()); */
-            	btnkind = $(this).attr("data-btn")
+          /*   $(document).on("click", "button[data-btn]", function(){/* 
+            	//$(".btn").parents("div.panel .panel-heading .pwdArea").remove();
+            	//$(this).parents("div.panel .panel-heading").append(pwdView()); 
+            	 btnkind = $(this).attr("data-btn")
             	console.log("클릭 버튼 btnkind : " + btnkind);
             	
             	if(btnkind=="delBtn"){
             		deleteBtn(no_no, re_no);
+            	}else{
+            		updateForm(re_no);
             	}
-            });
-          
+            }); */
+            
+            $(document).on("click", "button[data-btn='upBtn']", function(){
+            	 console.log("수정버튼");
+           	     var re_no = $(this).parents("div.panel").attr("data-num");
+           	     console.log("re_no: "+re_no);
+           	     updateForm(re_no);
+           	
+           });
         
-                 $(document).on("click", "button[data-button='updateBtn']", function(){
-                   	 console.log("수정버튼");
-                   	 var re_no = $("input[name='re_no']").val();
-                   	 if(!checkForm("#re_content", "댓글내용을"))return;
-                   	 else{
-                   		 $.ajax({
-                                url:"/replies/" + no_no,
-                                type:'put',
-                                headers:{
-                               	 "Content-Type":"application/json",
-                                   "X-HTTP-Method-Override" : "PUT"},
-                                data:JSON.stringify({
-                               	 re_content:$("#re_content").val()
-                               	 }),
+             $(document).on("click", "button[data-button='updateBtn']", function(){
+                 console.log("수정");
+                 var re_no = $("input[name='re_no']").val();
+                 console.log("re_no: "+re_no);
+                 if(!checkForm("#re_content", "댓글내용을"))return;
+                 else{
+                  $.ajax({
+                            url:"/replies/" + re_no,
+                            type:'put',
+                            headers:{
+                              "Content-Type":"application/json",
+                              "X-HTTP-Method-Override":"PUT"},
+                            data:JSON.stringify({
+                            	re_content:$("#re_content").val()
+                                }),
                                    dataType:'text',
                                    error:function(){
-                                   	alert('시스템 오류입니다. 관리자에게 문의하세요');
+                                   		alert('로그인 후 이용해 주세요.');
+                                   		location.href="/member/login";
                                    },
                                    success:function(result){
-                                   	console.log("result: " + result);
-                                   	if(result == "SUCCESS"){
-                                   		alert("수정이 완료되었습니다.")
-                                   		$('#replyModal').modal('hide');
-                                   		listAll(no_no);
-                                   	}
-                                   }
-                                });
-                   		 }
-                    });
-
-             
+                                   console.log("result: " + result);
+                                   		if(result == "SUCCESS"){
+                                   			alert("수정이 완료되었습니다.")
+                                   			$('#replyModal').modal('hide');
+                                   			listAll(no_no);
+                                   		}
+                                  }
+                             });
+                   	} 
+                });
+            
+	            $(document).on("click", "button[data-btn='delBtn']", function(){
+	            	 console.log("삭제버튼");
+	            	 var re_no = $(this).parents("div.panel").attr("data-num");
+	            	 console.log("re_no: "+re_no);
+	            	 deleteBtn(no_no, re_no);
+	            	
+	            });
             });//최상위 $종료.
             
         	/* 글 삭제를 위한 ajax 연동 처리 */
-       	 function deleteBtn(no_no, re_no){
-       		 if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
+       	 	function deleteBtn(no_no, re_no){
+            	
+       		 	if(confirm("선택하신 댓글을 삭제하시겠습니까?")){
                     $.ajax({
                        url:"/replies/" + re_no,
                        type:"delete",
                        headers:{
-                          "X-HTTP-Method-Override" : "DELETE"
+                    	   "X-HTTP-Method-Override":"DELETE"
                        },
                        dataType:"text",
                        error:function(){
-                          alert("시스템 오류입니다. 관리자에게 문의하세요");
+                    	    alert('로그인 후 이용해 주세요.');
+                      		location.href="/member/login";
                        },
                        success:function(result){
                           console.log("result : " + result);
@@ -145,13 +175,14 @@
             
        	 /* 수정 폼 화면 구현 함수 */
          function updateForm(re_no){
+        	
         	 $.ajax({
               	  url : "/replies/"+re_no+".json",
-                    type : "get",
-                    dataType : "json",
-                    error : function(){
-                       alert("시스템 오류입니다. 관리자에게 문의하세요");
-                    },
+	              	type : "get",
+	                dataType : "json",
+	                error : function(){
+	                   alert("시스템 오류입니다. 관리자에게 문의하세요");
+	                },
                     success : function(data){
                        $("#re_content").val(data.re_content);
                        
@@ -184,6 +215,7 @@
                     	 var re_no = this.re_no;
                     	 var mem_name = this.mem_name;
                     	 var re_date = this.re_date;
+                    	 // 댓글 등록일 수정
                          var re_content = this.re_content;
                          //re_content = re_content.replace(/(\r\n|\r|\n)/g, "<br/>"); 
                          addItem(re_no, mem_name, re_date, re_content);
@@ -204,14 +236,14 @@
                    var new_div = $("<div>");
                    new_div.addClass("panel-heading");
                    
-                    //작성자 정보의 이름
+                    /* //작성자 정보의 이름
                    var name_span = $("<span>");
                    name_span.addClass("name");
-                   name_span.html(mem_name + "님"); 
+                   name_span.html(mem_name + "님");  */
                    
                    //작성일시
                    var date_span = $("<span>");
-                   date_span.html(" / " + re_date + " ");
+                   date_span.html(" "+mem_name + "님"+" / 등록일 : "+re_date+"   ");
                    
                    //수정하기 버튼
                    // var upBtn = $("<input>");
@@ -257,21 +289,30 @@
                  $("#replyInsertBtn").removeAttr("data-button");
                  $("#replyInsertBtn").attr("data-button", value);
                  $("#replyInsertBtn").html(text);
-             }
+             } 
              
             
       </script>
 	</head>
 	
 	<body>
+	
 		<div id="replyContainer">
 			<p class="tat">
 				<button type="button" class="btn btn-primary" id="replyInsertFormBtn">댓글 등록</button>
 				
 		</div>
+		<form id="detailForm" name="detailForm">
+			<!-- <input type="hidden" id="re_no" name="re_no" value=re_no/> -->
+			<!-- 상세페이지에서 리스트 이동시 보던 전 페이지로 이동하기 -->
+			<%--<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">--%> <!-- (pageDTO) 글번호 가져오기 -->
+			<%--<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">--%>
+		</form>
 		
 			<!-- 리스트 영역 -->
 			<div id="reviewList"></div>
+			
+			<%-- <fmt:formatDate value="re_date" pattern="yyyy-MM-dd hh:mm"/> --%>
 			
 			<!-- 등록화면 영역(modal) -->
 			<div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="replyModalLabel" aria-hidden="true">
@@ -286,7 +327,7 @@
 							<form id="comment_form" name="comment_form">
 								<div class="form-group">
 									<label for="recipient-name" class="control-label">댓글내용</label>
-									<input type="text" class="form-control" id="re_content" name="re_content" maxlength="5">
+									<input type="text" class="form-control" id="re_content" name="re_content" maxlength="200">
 									
 								</div>
 								<!-- 댓글입력하는 공간 -->

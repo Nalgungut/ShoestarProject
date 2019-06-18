@@ -41,8 +41,8 @@
 	.Dinline{display: inline;}
 	.Dblock{display: inline-block;}
 	#ev_date, #ev_edate{font-size: 21px; color:gray; }
-	#ev_title{font-size: 30px; font-weight: bold; clear: both;}
-	#EDetail_title{margin-bottom: 10px; margin-top: 20px;}
+	#ev_title{font-size: 25px; font-weight: bold; clear: both;}
+	#EDetail_title{margin-bottom: 10px; margin-top: 60px; width: 934.79px;}
 	.Eventimage{width: 80%; height: 80%;}
 	
 	#Event_note{}
@@ -52,17 +52,19 @@
 	#ev_img{size: 500px;}
 	hr {
 		color: #2E2C41; background-color: #2E2C41; border-color: #2E2C41;
-		width: 82%; height: 2px; float: left; margin-top: 5px; 
+		width: 99%; height: 2px; float: left; margin-top: 5px; 
 		}
 	#ev_content{clear: both;  padding: 10px;}
 	#evListBtn{
 		width: 100px; height:40px;
-		border: 0px; color: white;
-		margin-left: 280px; margin-bottom: 5px;
+		border: 0px; color: white; display: inline;
+		/* margin-left: 280px; */margin-right:15px; margin-bottom: 5px; float: right;
 	}
 	#evListBtn:hover{
 		background-color: #BFBFBF;
 	}
+	#marg-rig{margin-right: 200px; }
+	#nullMarg-rig{margin-right: 470px;}
 </style>
 
 <script type="text/javascript">
@@ -98,6 +100,7 @@
 			<br class="marg5" /> -->
 			
 		<div id="EDetail_title">
+			<div style="float: left;">
 			<div id="ev_title" class="Dinline">
 				${detail.ev_title}
 			</div>
@@ -108,7 +111,17 @@
 				 ~ 
 			<div id="ev_edate" class="Dblock">
 				<!-- c:chose 해서 값이 != null 이면 무기한 이라고 써놓기 null 아니면 날짜 뜨는 형식 -->
-				<fmt:formatDate pattern="yyyy-MM-dd" value="${detail.ev_edate}" />
+				<c:choose>
+					<c:when test="${detail.ev_edate == null || detail.ev_edate == ''}">
+						
+					</c:when>
+					<c:otherwise>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${detail.ev_edate}" />
+						<span id="marg-rig">&nbsp;</span>
+					</c:otherwise>
+				</c:choose>
+				
+			</div>
 			</div>
 			
 			<!-- 여기도 마찬가지로 값이 null이면 margin-right로 넒게하기 -->
@@ -134,7 +147,7 @@
 				설명 및 유의 사항
 			</div>
 			
-			<hr />
+			<hr style="width: 925.4px;" />
 			<br id="flet" />
 			
 			<div id="cont">
@@ -143,6 +156,11 @@
 				</div>
 			</div>
 		</div>
+		
+		<div style="position: fixed; bottom: 10px; right: 10px;">
+				<div style="cursor:pointer; border: 1px solid #D3D3D3; background-color: #D3D3D3; color:white; padding: 5px;" 
+					onclick="window.scrollTo(0,0);">TOP</div>
+			</div>
 		
 	</div>
 </body>

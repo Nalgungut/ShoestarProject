@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>^^</title>
+<title>이벤트 수정</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap-theme.min.css" />

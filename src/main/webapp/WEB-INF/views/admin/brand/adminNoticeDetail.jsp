@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -14,6 +16,7 @@
 		
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
      	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+     	
      	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<!-- [if lt IE 9]>
 			<script src="/resources/include/js/html5shiv.js"></script>
@@ -44,15 +47,18 @@
 				$(function(){
 					//수정 버튼 클릭 시 처리 이벤트
 					$("#updateFormBtn").click(function(){
-						var no_no = $(this).parents("tr").attr("data-num")
-						$("#no_no").val(no_no);
-						console.log("글번호 : "+no_no);
+						
+						//var no_no = $(this).parents("tr").attr("data-num")
+						//$("#no_no").val(no_no);
+						//console.log("글번호 : "+no_no);
+						
 						//수정 페이지로 이동하기 위해 form추가 (id=detailForm)
 						$("#detailForm").attr({
 							"method" : "get",
 							"action" : "/admin/brand/updateForm"
 						});
 						$("#detailForm").submit();
+						
 					});
 					
 					//목록 버튼 클릭 시 처리 이벤트
@@ -63,22 +69,32 @@
 					 /* 삭제버튼 클릭 시 */
 			        $("#boardDeleteBtn").click(function(){
 						$.ajax({
-							url : "/admin/brand/noticeDelete",
+							url : "/admin/brand/replyCnt",
 							type : "post",
-							data : "no_no"+$("#no_no").val(),
+							data : "no_no="+$("#no_no").val(),
 							dataType : "text",
 							error : function() {
-								alert('삭제할 수 없습니다.');
+								alert('시스템 오류입니다. 관리자에게 문의하세요');
 							},
 							success : function(resultData) {
+								butChk = 2;
 								var goUrl="";
-								if(resultData=='실패'){
-									
-								}else if(resultData=='성공'){
-									
+								if(resultData==0){
+									if(confirm("삭제하시겠습니까?")){
+							        	$("#detailForm").attr({
+											"method" : "get",
+											"action" : "/admin/brand/noticeDelete"
+										});
+										$("#detailForm").submit();
+										alert("삭제가 완료되었습니다.");
+									}
+								}else{
+									alert("공지사항에 댓글이 존재하여 삭제 할 수 없습니다.");
+									return;
 								}
 							}
-						});
+						}); 
+						
 					});
 					
 					
@@ -102,7 +118,7 @@
 			</div>
 			
 			<form id="detailForm" name="detailForm">
-				<input type="hidden" id="no_no" name="no_no"/>
+				<input type="hidden" id="no_no" name="no_no" value="${adminDetail.no_no}"/>
 				<!-- 상세페이지에서 리스트 이동시 보던 전 페이지로 이동하기 -->
 				<%--<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">--%> <!-- (pageDTO) 글번호 가져오기 -->
 				<%--<input type="hidden" name="amount" id="amount" value="${pageMaker.cvo.amount}">--%>
@@ -116,9 +132,10 @@
 							<td>말머리</td>
 							<td class="text-left">${adminDetail.no_kind}</td>
 							<td>작성일</td>
-							<td class="text-left">${adminDetail.no_date}</td>
+							<td class="text-left">
+							<fmt:formatDate value="${adminDetail.no_date}" pattern="yyyy-MM-dd hh:mm"/></td>
 							<td>작성자</td>
-							<td class="text-left">${adminDetail.adm_no}</td>
+							<td class="text-left">${adminDetail.adm_name}</td>
 						</tr>
 						<tr>
 							<td>제 목</td>

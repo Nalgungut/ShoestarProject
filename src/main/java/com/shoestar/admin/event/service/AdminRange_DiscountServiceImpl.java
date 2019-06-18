@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.shoestar.admin.event.dao.AdminEventDAO;
 import com.shoestar.admin.event.dao.AdminRange_DiscountDAO;
 import com.shoestar.admin.event.dao.AdminRdProductDAO;
+import com.shoestar.admin.event.dao.adminRdTypeDAO;
 import com.shoestar.client.event.vo.EventVO;
 import com.shoestar.client.event.vo.Range_DiscountVO;
 import com.shoestar.client.event.vo.Rd_ProductVO;
+import com.shoestar.client.event.vo.Rd_TypeVO;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -24,7 +26,7 @@ public class AdminRange_DiscountServiceImpl implements AdminRange_DiscountServic
 	@Setter(onMethod_ =@Autowired)
 	private AdminRange_DiscountDAO ARDao;
 	
-	private AdminRdProductDAO RPDao;
+	private adminRdTypeDAO rTDao;
 	
 	
 	// 목록 구현
@@ -38,11 +40,16 @@ public class AdminRange_DiscountServiceImpl implements AdminRange_DiscountServic
 		return list;
 	}
 
+	// 목록 수
+	@Override
+	public int adminRdisCnt(Range_DiscountVO rvo) {
+		return ARDao.adminRdisCnt(rvo);
+	}
 
 	// 상세정보
 	@Override
 	public Range_DiscountVO AdminRDiscountDetail(Range_DiscountVO rvo) {
-		Range_DiscountVO detail = new Range_DiscountVO();
+		Range_DiscountVO detail = null;//new Range_DiscountVO();
 		
 		detail = ARDao.AdminRDiscountDetail(rvo);
 		
@@ -71,14 +78,81 @@ public class AdminRange_DiscountServiceImpl implements AdminRange_DiscountServic
 		
 		result = ARDao.AdminRDisInsert(rvo);
 		
-		
+	/*	
 		for(int i = 0; i < rvo.getList().size(); i++) {
 			rvo.getList().get(i).setRd_no(rd_no); // rd_no의 값 설정
-			Rd_ProductVO rdvo = rvo.getList().get(i); // >> list.size for문
-			RPDao.RdProductInsert(rdvo);
+			Rd_TypeVO rdvo = rvo.getList().get(i); // >> list.size for문
+			rTDao.rdTypeInsert(rdvo);
 		}
+	 */	
+		return result;
+	}
+	
+	// 창 이동시 값 세팅용 update
+	/*@Override
+	public Range_DiscountVO updateForm(Range_DiscountVO rvo) {
+		Range_DiscountVO detail = null;
+		detail = ARDao.ridsDetail(rvo);
+		return detail;
+	}*/
+
+	// 수정
+	@Override
+	public int rdisUpdate(Range_DiscountVO rvo) {
+		int  result = 0;
+		
+		log.info(rvo);
+		
+		result = ARDao.adminRdisUpdate(rvo);
 		
 		return result;
 	}
+
+
+	// 범위 할인 삭제
+	@Override
+	public int rdisDelete(Range_DiscountVO rvo) {
+		int result = 0;
+		
+		
+		rTDao.rdTypeDelete(rvo.getRd_no());
+		result = ARDao.rdisDelete(rvo.getRd_no());
+		
+		return result;
+		
+	}
+	
+	
+	// 범위 할인 대상 등록
+	@Override
+	public int rtInsert(/*Rd_TypeVO*/Range_DiscountVO rvo) {
+		int result = 0;
+		
+		log.info(rvo);
+		
+		log.info(rvo.getRd_no());
+		log.info(rvo.getPct_no());
+		
+		
+		result = rTDao.rdTypeInsert(rvo);	
+		
+		
+		return result;
+	}
+	
+	
+	// 범위 할인 대상 삭제
+	@Override
+	public int rtDelete(Range_DiscountVO rvo) {
+		int result = 0;
+		
+		result = rTDao.rdTypePctDelete(rvo.getPct_no());
+		log.info(rvo);
+		log.info(rvo.getRd_no());
+		log.info(rvo.getPct_no());
+		return result;
+	}
+
+
 	
 }

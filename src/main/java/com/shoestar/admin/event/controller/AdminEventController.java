@@ -51,8 +51,8 @@ public class AdminEventController {
 		model.addAttribute("AdmineventList", eventService.AdmineventList(evo));
 		
 		int total = eventService.AdmineventCnt(evo);
-		evo.setPageNum(1);
-		evo.setAmount(5);
+		/*evo.setPageNum(1);
+		evo.setAmount(5);*/
 		model.addAttribute("pageMaker", new PageDTO(evo, total));
 		
 		return "admin/event/eventList";

@@ -17,7 +17,7 @@ hr{color: gray; width: 1355px; float: left; margin-bottom: 10px; margin-top: 0px
 
 #EviewImage{color: red;}
 
-.EventTitle{color: black; margin-left: 10px; }
+.EventTitle{color: black; margin-left: 20px; }
 
 .EventTitle:hover{text-decoration: none; font-weight: bold; color: gray;}
 
