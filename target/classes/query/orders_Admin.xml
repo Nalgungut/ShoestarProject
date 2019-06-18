@@ -4,20 +4,9 @@
 	
 	<sql id="ordersInfoRequiresGrouping">
 		o.od_no, o.mem_no, od_date, od_prog, mem_name,
-		SUM(oi.oi_org_price) AS totalPriceOrg, SUM(oi.oi_price) AS totalPrice,
-		COUNT(oi_no) AS numberOfProds
-	</sql>
-	
-	<sql id="ordersJoinOiAndMember">
-		orders o
-			INNER JOIN
-				member m
-			ON
-				o.mem_no = m.mem_no
-			LEFT OUTER JOIN
-				orders_ins oi
-			ON
-				o.od_no = oi.od_no
+		(select sum(oi_org_price) from orders_ins where od_no = o.od_no) AS totalPriceOrg,
+		(select sum(oi_price) from orders_ins where od_no = o.od_no) AS totalPrice,
+		(select count(oi_no) from orders_ins where od_no = o.od_no) AS numberOfProds
 	</sql>
 	
 	<select id="getList" parameterType="orders" resultType="orders">
@@ -29,15 +18,11 @@
 				rownum rn,
 				<include refid="ordersInfoRequiresGrouping" />
 			FROM
-				<include refid="ordersJoinOiAndMember" />
-				LEFT OUTER JOIN
-					prod_ins pi
+				orders o
+				INNER JOIN
+					member m
 				ON
-					oi.pi_no = pi.pi_no
-				LEFT OUTER JOIN
-					prod p
-				ON
-					p.pd_no = pi.pd_no
+					o.mem_no = m.mem_no
 			<where><trim prefixOverrides="AND">
 				<if test="dateBegin != null">
 					<![CDATA[TRUNC(o.od_date) >= #{dateBegin}]]>
@@ -51,10 +36,46 @@
 							o.od_no = #{keyword}
 						</when>
 						<when test='search == "pd_name"'>
-							p.pd_name LIKE ('%'||#{keyword}||'%')
+							o.od_no IN
+							(
+							SELECT
+								NVL(orders.od_no, 0)
+							FROM
+								orders
+								INNER JOIN
+									orders_ins
+								ON
+									orders.od_no = orders_ins.od_no
+								INNER JOIN
+									prod_ins
+								ON
+									orders_ins.pi_no = prod_ins.pi_no
+								INNER JOIN
+									prod
+								ON
+									prod_ins.pd_no = prod.pd_no
+							WHERE
+								pd_name LIKE ('%'||#{keyword}||'%')
+							)
 						</when>
 						<when test='search == "pd_no"'>
-							pi.pd_no = #{keyword}
+							o.od_no IN
+							(
+							SELECT
+								NVL(orders.od_no, 0)
+							FROM
+								orders
+								INNER JOIN
+									orders_ins
+								ON
+									orders.od_no = orders_ins.od_no
+								INNER JOIN
+									prod_ins
+								ON
+									orders_ins.pi_no = prod_ins.pi_no
+							WHERE
+								pd_no = #{keyword}
+							)
 						</when>
 						<when test='search == "mem_name"'>
 							m.mem_name = #{keyword}
@@ -66,8 +87,6 @@
 				</if></trim>
 				<![CDATA[AND rownum <= #{pageNum} * #{amount}]]>
 			</trim></where>
-			GROUP BY
-				rownum, o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
 			ORDER BY
 				o.od_no DESC
 		) orderlist
@@ -79,11 +98,13 @@
 		SELECT
 			<include refid="ordersInfoRequiresGrouping" />
 		FROM
-			<include refid="ordersJoinOiAndMember" />
+			orders o
+			INNER JOIN
+				member m
+			ON
+				o.mem_no = m.mem_no
 		WHERE
 			o.od_no = #{od_no}
-		GROUP BY
-			o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
 		ORDER BY
 			o.od_no DESC
 	</select>
@@ -117,15 +138,11 @@
 		SELECT
 			COUNT(*)
 		FROM
-			<include refid="ordersJoinOiAndMember" />
-			LEFT OUTER JOIN
-				prod_ins pi
+			orders o
+			INNER JOIN
+				member m
 			ON
-				oi.pi_no = pi.pi_no
-			LEFT OUTER JOIN
-				prod p
-			ON
-				p.pd_no = pi.pd_no
+				o.mem_no = m.mem_no
 		<where><trim prefixOverrides="AND">
 			<if test="dateBegin != null">
 				<![CDATA[TRUNC(o.od_date) >= #{dateBegin}]]>
@@ -139,10 +156,46 @@
 						o.od_no = #{keyword}
 					</when>
 					<when test='search == "pd_name"'>
-						p.pd_name LIKE ('%'||#{keyword}||'%')
+						o.od_no IN
+						(
+						SELECT
+							NVL(orders.od_no, 0)
+						FROM
+							orders
+							INNER JOIN
+								orders_ins
+							ON
+								orders.od_no = orders_ins.od_no
+							INNER JOIN
+								prod_ins
+							ON
+								orders_ins.pi_no = prod_ins.pi_no
+							INNER JOIN
+								prod
+							ON
+								prod_ins.pd_no = prod.pd_no
+						WHERE
+							pd_name LIKE ('%'||#{keyword}||'%')
+						)
 					</when>
 					<when test='search == "pd_no"'>
-						pi.pd_no = #{keyword}
+						o.od_no IN
+						(
+						SELECT
+							NVL(orders.od_no, 0)
+						FROM
+							orders
+							INNER JOIN
+								orders_ins
+							ON
+								orders.od_no = orders_ins.od_no
+							INNER JOIN
+								prod_ins
+							ON
+								orders_ins.pi_no = prod_ins.pi_no
+						WHERE
+							pd_no = #{keyword}
+						)
 					</when>
 					<when test='search == "mem_name"'>
 						m.mem_name = #{keyword}
@@ -153,8 +206,6 @@
 				</choose>
 			</if></trim>
 		</trim></where>
-		GROUP BY
-			rownum, o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
 	</select>
 	
 </mapper>

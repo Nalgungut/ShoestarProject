@@ -68,13 +68,9 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
-						여름맞이 창고 방출, 최대 70%할인중!
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							할인품목
-						</a>
 								<!-- 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							

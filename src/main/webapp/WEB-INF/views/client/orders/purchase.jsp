@@ -252,9 +252,9 @@
 				<!-- 기타 정보 표시란 -->
 				<div class="addrSection">
 					<h4>배송지 입력</h4>
-					<div class="col-md-12">
+					<div class="col-md-12 margin-top">
 						<label class="col-md-2 control-label">주소 선택</label>
-						<div class="form-group col-md-10">
+						<div class="form-group col-md-10 form-inline">
 							<input type="radio" id="addrSaved" class="addrChange" name="addrSel_not_for_submit" checked="checked">
 							<label for="addrSaved" class="font-weight-normal">기존 배송지</label>
 							<input type="radio" id="addrNew" class="addrChange" name="addrSel_not_for_submit">
@@ -286,7 +286,7 @@
 				
 				<hr>
 				
-				<div class="transactionSection">
+				<div class="transactionSection margin-top">
 					<h4>결제 수단 선택</h4>
 					<form id="transactionForm">
 						<label class="control-label col-md-2">선택</label>
