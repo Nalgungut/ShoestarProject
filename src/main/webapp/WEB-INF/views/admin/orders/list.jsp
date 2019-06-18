@@ -49,6 +49,13 @@
 				var allowThese = ["od_prog", "dateBegin", "dateEnd"];
 				
 				if(!$("#keyword").val().isEmpty()) {
+					var searchOption = $("#search > option:selected").val();
+					if(searchOption != null && searchOption.endsWith("no")) {
+						if(isNaN($("#keyword").val())) {
+							alert("해당 검색어 카테고리는 숫자만 입력 가능합니다.");
+							return false;
+						}
+					}
 					allowThese.push("search", "keyword");
 				}
 				
@@ -58,7 +65,8 @@
 			
 			function updateDateBegin(target) {
 				$("#dateRangeGroup").children("a.dateRange").not(target).removeClass("btn-primary").addClass("btn-default");
-				$("#dateBegin").val(target.prop("href")).removeClass("btn-default").addClass("btn-primary");
+				target.removeClass("btn-default").addClass("btn-primary")
+				$("#dateBegin").val(target.attr("data-date"));
 			}
 		</script>
 	</head>
@@ -79,7 +87,7 @@
 					
 					<thead>
 						<tr>
-							<th>검색어</th>
+							<td><strong>검색어</strong></td>
 							<td class="form-inline">
 								<select name="search" id="search" class="form-control">
 									<option value="od_no" selected="selected">주문번호</option>
@@ -92,21 +100,21 @@
 							</td>
 						</tr>
 						<tr>
-							<th>기간</th>
+							<td><strong>기간</strong></td>
 							<td class="form-inline">
 								<div id="dateRangeGroup" class="btn-group" role="group" >
-									<a class="dateRange btn btn-default" href="${dtft.year}">1년</a>
-									<a class="dateRange btn btn-default" href="${dtft.month}">1달</a>
-									<a class="dateRange btn btn-default" href="${dtft.week}">7일</a>
-									<a class="dateRange btn btn-default" href="${dtft.day}">1일</a>
+									<a class="dateRange btn btn-default" data-date="${dtft.year}">1년</a>
+									<a class="dateRange btn btn-default" data-date="${dtft.month}">1달</a>
+									<a class="dateRange btn btn-primary" data-date="${dtft.week}">7일</a>
+									<a class="dateRange btn btn-default" data-date="${dtft.day}">1일</a>
 								</div>
 								<input type="date" name="dateBegin" id="dateBegin" class="form-control" value="${dtft.week}" min="2000-01-01" max="${dtft.today}">
 								&nbsp;~&nbsp;
 								<input type="date" name="dateEnd" id="dateEnd" class="form-control" value="${dtft.today}" min="2000-01-01" max="${dtft.today}">
 							</td>
 						</tr>
-						<tr>
-							<th>상태</th>
+						<tr class="lastLine">
+							<td><strong>상태</strong></td>
 							<td>
 								<input type="radio" name="od_prog" value="all" id="stall"><label for="stall">전체</label>
 								<input type="radio" name="od_prog" value="ok" id="stok"><label for="stok">정상</label>
@@ -115,7 +123,7 @@
 						</tr>
 					</thead>
 				</table>
-				<div class="text-center">
+				<div class="text-center margin-top">
 					<button type="button" class="btn btn-success" id="btnSearch">검색</button>
 					<button type="reset" class="btn btn-default" id="btnReset">초기화</button>
 				</div>
@@ -165,8 +173,8 @@
 								<td class="totalPriceOrg"><fmt:formatNumber value="${stack.totalPriceOrg}" pattern="#,###"/></td>
 								<td class="totalPrice"><fmt:formatNumber value="${stack.totalPrice}" pattern="#,###"/></td>
 								<td class="od_prog"><c:choose>
-									<c:when test='${empty stack.od_prog}'></c:when>
-									<c:otherwise>${stack.od_prog}</c:otherwise>
+									<c:when test='${empty stack.od_prog}'>-</c:when>
+									<c:otherwise><span class="statusWarning">${stack.od_prog}</span></c:otherwise>
 								</c:choose></td>
 							</tr></c:forEach>
 						</form></c:when>

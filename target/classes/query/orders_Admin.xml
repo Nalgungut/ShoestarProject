@@ -22,45 +22,57 @@
 	
 	<select id="getList" parameterType="orders" resultType="orders">
 		SELECT
-			<include refid="ordersInfoRequiresGrouping" />
+			*
 		FROM
-			<include refid="ordersJoinOiAndMember" />
-			LEFT OUTER JOIN
-				prod_ins pi
-			ON
-				oi.pi_no = pi.pi_no
-			LEFT OUTER JOIN
-				prod p
-			ON
-				p.pd_no = pi.pd_no
+		(
+			SELECT
+				rownum rn,
+				<include refid="ordersInfoRequiresGrouping" />
+			FROM
+				<include refid="ordersJoinOiAndMember" />
+				LEFT OUTER JOIN
+					prod_ins pi
+				ON
+					oi.pi_no = pi.pi_no
+				LEFT OUTER JOIN
+					prod p
+				ON
+					p.pd_no = pi.pd_no
+			<where><trim prefixOverrides="AND">
+				<if test="dateBegin != null">
+					<![CDATA[TRUNC(o.od_date) >= #{dateBegin}]]>
+				</if>
+				<if test="dateEnd != null">
+					<![CDATA[AND TRUNC(o.od_date) <= #{dateEnd}]]>
+				</if>
+				<trim prefix="AND (" suffix=")"><if test='keyword != null and keyword != ""'>
+					<choose>
+						<when test='search == "od_no"'>
+							o.od_no = #{keyword}
+						</when>
+						<when test='search == "pd_name"'>
+							p.pd_name LIKE ('%'||#{keyword}||'%')
+						</when>
+						<when test='search == "pd_no"'>
+							pi.pd_no = #{keyword}
+						</when>
+						<when test='search == "mem_name"'>
+							m.mem_name = #{keyword}
+						</when>
+						<when test='search == "mem_no"'>
+							o.mem_no = #{keyword}
+						</when>
+					</choose>
+				</if></trim>
+				<![CDATA[AND rownum <= #{pageNum} * #{amount}]]>
+			</trim></where>
+			GROUP BY
+				rownum, o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
+			ORDER BY
+				o.od_no DESC
+		) orderlist
 		WHERE
-			(
-				<![CDATA[TRUNC(o.od_date) >= #{dateBegin} AND]]>
-				<![CDATA[TRUNC(o.od_date) <= #{dateEnd}]]>
-			)
-			<trim prefix="AND (" suffix=")"><if test='keyword != null and keyword != ""'>
-				<choose>
-					<when test='search == "od_no"'>
-						o.od_no = #{keyword}
-					</when>
-					<when test='search == "od_no"'>
-						p.pd_name LIKE ('%'||#{keyword}||'%')
-					</when>
-					<when test='search == "pd_no"'>
-						pi.pd_no = #{keyword}
-					</when>
-					<when test='search == "mem_name"'>
-						m.mem_name = #{keyword}
-					</when>
-					<when test='search == "mem_no"'>
-						o.mem_no = #{keyword}
-					</when>
-				</choose>
-			</if></trim>
-		GROUP BY
-			o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
-		ORDER BY
-			o.od_no DESC
+			<![CDATA[rn > (#{pageNum} - 1) * #{amount}]]>
 	</select>
 	
 	<select id="getDetail" parameterType="orders" resultType="orders">
@@ -69,7 +81,7 @@
 		FROM
 			<include refid="ordersJoinOiAndMember" />
 		WHERE
-			od_no = #{od_no}
+			o.od_no = #{od_no}
 		GROUP BY
 			o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
 		ORDER BY
@@ -78,7 +90,7 @@
 	
 	<select id="getInsList" parameterType="orders" resultType="ordersins">
 		SELECT
-			oi.*, pcl_name, pd_name, pct_name
+			oi.*, pcl_name, p.pd_no, pd_name, pct_name
 		FROM
 			orders_ins oi
 			INNER JOIN
@@ -98,7 +110,51 @@
 			ON
 				p.pct_no = pct.pct_no
 		WHERE
-			od_no = #{od_no}
+			oi.od_no = #{od_no}
+	</select>
+	
+	<select id="countRecords" parameterType="orders" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			<include refid="ordersJoinOiAndMember" />
+			LEFT OUTER JOIN
+				prod_ins pi
+			ON
+				oi.pi_no = pi.pi_no
+			LEFT OUTER JOIN
+				prod p
+			ON
+				p.pd_no = pi.pd_no
+		<where><trim prefixOverrides="AND">
+			<if test="dateBegin != null">
+				<![CDATA[TRUNC(o.od_date) >= #{dateBegin}]]>
+			</if>
+			<if test="dateEnd != null">
+				<![CDATA[AND TRUNC(o.od_date) <= #{dateEnd}]]>
+			</if>
+			<trim prefix="AND (" suffix=")"><if test='keyword != null and keyword != ""'>
+				<choose>
+					<when test='search == "od_no"'>
+						o.od_no = #{keyword}
+					</when>
+					<when test='search == "pd_name"'>
+						p.pd_name LIKE ('%'||#{keyword}||'%')
+					</when>
+					<when test='search == "pd_no"'>
+						pi.pd_no = #{keyword}
+					</when>
+					<when test='search == "mem_name"'>
+						m.mem_name = #{keyword}
+					</when>
+					<when test='search == "mem_no"'>
+						o.mem_no = #{keyword}
+					</when>
+				</choose>
+			</if></trim>
+		</trim></where>
+		GROUP BY
+			rownum, o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
 	</select>
 	
 </mapper>

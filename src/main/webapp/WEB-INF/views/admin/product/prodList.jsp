@@ -185,7 +185,7 @@
 					
 					<thead>
 						<tr>
-							<th>검색어</th>
+							<td><strong>검색어</strong></td>
 							<td class="form-inline">
 								<select name="search" id="search" class="form-control">
 									<option value="pd_name" selected="selected">상품명</option>
@@ -195,13 +195,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th>카테고리</th>
+							<td><strong>카테고리</strong></td>
 							<td class="form-inline">
 								<select name="pct_no" id="ctgList" class="form-control"></select>
 							</td>
 						</tr>
 						<tr>
-							<th>상태</th>
+							<td><strong>상태</strong></td>
 							<td>
 								<input type="radio" name="pd_status" value="all" id="stall"><label for="stall">전체</label>
 								<input type="radio" name="pd_status" value="ok" id="stok"><label for="stok">판매중</label>
@@ -214,7 +214,7 @@
 					
 					<tbody id="advancedSearch" class="collapse">
 						<tr>
-							<th>성별</th>
+							<td><strong>성별</strong></td>
 							<td>
 								<input type="radio" name="pd_sex" value="all" id="sxall"><label for="sxall">전체</label>
 								<input type="radio" name="pd_sex" value="m" id="sxm"><label for="sxm">남성용</label>
@@ -222,7 +222,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>연령대</th>
+							<td><strong>연령대</strong></td>
 							<td>
 								<input type="radio" name="pd_age" value="all" id="agall"><label for="agall">전체</label>
 								<input type="radio" name="pd_age" value="a" id="agad"><label for="agad">성인</label>
@@ -230,13 +230,13 @@
 							</td>
 						</tr>
 						<tr>
-							<th>색상</th>
+							<td><strong>색상</strong></td>
 							<td class="form-inline">
 								<select name="pcl_no" id="colorList" class="form-control"></select>
 							</td>
 						</tr>
 						<tr>
-							<th>판매 가격</th>
+							<td><strong>판매 가격</strong></td>
 							<td class="form-inline">
 								<input type="number" id="priceBottom" name="priceBottom" class="form-control"> 이상
 								&nbsp;~&nbsp;

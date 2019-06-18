@@ -12,4 +12,6 @@ public interface OrdersAdminService {
 	public OrdersVO getDetail(OrdersVO ovo);
 	
 	public List<OrdersInsVO> getInsList(OrdersVO ovo);
+	
+	public int countRecords(OrdersVO ovo);
 }

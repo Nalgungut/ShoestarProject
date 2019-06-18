@@ -83,7 +83,6 @@
 	
 	<definition name="admin/orders/*" extends="admin">
 		<put-attribute name="body" value="/WEB-INF/views/admin/orders/{1}.jsp"></put-attribute>
-		<put-attribute name="sidebar" value="/WEB-INF/views/admin/orders/ordersSidebar.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="admin/adminMember/*" extends="admin">

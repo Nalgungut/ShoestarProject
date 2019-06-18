@@ -18,6 +18,12 @@ public class OrdersAdminServiceImpl implements OrdersAdminService {
 	
 	@Override
 	public List<OrdersVO> getList(OrdersVO ovo) {
+		String keyword = ovo.getKeyword();
+		String search = ovo.getSearch();
+		if(keyword != null && search.endsWith("no")) {
+			ovo.setKeyword(null);
+		}
+		
 		return ordersAdminDao.getList(ovo);
 	}
 
@@ -29,6 +35,11 @@ public class OrdersAdminServiceImpl implements OrdersAdminService {
 	@Override
 	public List<OrdersInsVO> getInsList(OrdersVO ovo) {
 		return ordersAdminDao.getInsList(ovo);
+	}
+
+	@Override
+	public int countRecords(OrdersVO ovo) {
+		return ordersAdminDao.countRecords(ovo);
 	}
 
 }

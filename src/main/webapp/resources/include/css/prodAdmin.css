@@ -97,3 +97,11 @@ body > .container > .sidebar {
 .table > tfoot > tr.align-middle > td, .table > tfoot > tr.align-middle > th {
 	vertical-align: middle;
 }
+
+.lastLine {
+	border-bottom: 1px solid #ddd;
+}
+
+.statusWarning {
+	color: darkred;
+}
