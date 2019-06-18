@@ -134,9 +134,17 @@
 	
 	<select id="ordersInsByOdNo" parameterType="orders" resultType="ordersins">
 		SELECT
-			*
+			oi.*, pd_name
 		FROM
-			orders_ins
+			orders_ins oi
+			INNER JOIN
+				prod_ins pi
+			ON
+				oi.pi_no = pi.pi_no
+			INNER JOIN
+				prod p
+			ON
+				pi.pd_no = p.pd_no
 		WHERE
 			od_no = #{od_no}
 		ORDER BY
