@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.shoestar.admin.orders.dao.OrdersAdminDao;
 import com.shoestar.admin.prod.dao.ProdAdminDao;
+import com.shoestar.client.orders.vo.OrdersVO;
 import com.shoestar.client.prod.dao.ProdDao;
 import com.shoestar.client.prod.dao.ProdInsDao;
 import com.shoestar.client.prod.vo.ProdInsVO;
@@ -31,24 +33,20 @@ public class ProdTest {
 	private ProdInsDao prodInsDao;
 	@Setter(onMethod_ = @Autowired)
 	private ProdAdminDao prodAdminDao;
+	@Setter(onMethod_ = @Autowired)
+	private OrdersAdminDao ordersAdminDao;
 	
 	@Test
 	public void testThings() {
 		log.info("테스트를 시작합니다");
 		log.info("---------------------------------------------------------");
 		
-		ProdVO pvo = new ProdVO();
-		pvo.setPd_name("test");
-		pvo.setPd_age("a");
-		pvo.setPd_sex("m");
-		pvo.setPct_no(1);
-		pvo.setPd_price(20000);
-		pvo.setPd_fabric("천 100%");
-		pvo.setPd_country("베트남");
-		pvo.setPd_year("2019");
-		pvo.setPd_manu("무슨회사");
-		pvo.setPd_import("누군가");
+		OrdersVO ovo = new OrdersVO();
+		List<OrdersVO> list = ordersAdminDao.getList(ovo);
 		
-		log.info("결과 값은: " + prodAdminDao.insertProd(pvo));
+		for (OrdersVO ordersVO : list) {
+			log.info("결과 값은: " + ordersVO);
+		}
+		
 	}
 }

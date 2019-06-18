@@ -20,7 +20,7 @@
 			$(function() {
 				// 항목별 상세 페이지 링크
 				$(".productRecord").on("click", function() {
-					location.href = "/admin/orders/detail/" + $(this).attr("data-odno");
+					location.href = "/admin/orders/detail?od_no=" + $(this).attr("data-odno");
 				});
 				
 				// 검색 버튼 설정
