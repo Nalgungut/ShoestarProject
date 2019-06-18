@@ -2,6 +2,7 @@ package com.shoestar.client.myPage.dao;
 
 import java.util.List;
 
+import com.shoestar.client.myPage.vo.DeliveryVO;
 import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
 
@@ -22,5 +23,8 @@ public interface MyPageDao {
 	 * @return 주문 상품 목록(OrdersInsVO)
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
+
+
+	public List<DeliveryVO> deliveryList(DeliveryVO dvo);
 	
 }

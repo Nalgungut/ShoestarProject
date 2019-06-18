@@ -73,7 +73,7 @@
 			                    <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i> 쇼핑정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
 			                    <ul id="submenu-2" class="collapse">
 			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 주문내역</a></li>
-			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 배송조회</a></li>
+			                        <li><a href="/myPage/myDelivery"><i class="fa fa-angle-double-right"></i> 배송조회</a></li>
 			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li> -->
 			                    </ul>
 			                </li>

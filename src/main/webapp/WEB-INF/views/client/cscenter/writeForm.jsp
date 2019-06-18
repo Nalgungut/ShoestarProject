@@ -29,8 +29,25 @@
    						"method" : "post",
    						"action" : "/cscenter/qnaInsert"
    					});
+   					//$("#f_writeForm").submit();
+   					
+   					var oi_no = $("#od_no > option:selected").attr("data-num");
+   					var oi_qty = $("#od_no > option:selected").attr("data-qty");
+   					
+   					console.log(oi_no);
+   					console.log(oi_qty);
+   					
+   					$("#oi_no").val(oi_no);
+   					$("#oi_qty").val(oi_qty);
+   					
+   					/* $("#os_insertForm").attr({
+   						"method" : "post",
+   						"action" : "/cscenter/qnaInsert"
+   					}); */
+   					//$("#os_insertForm").submit();
    					$("#f_writeForm").submit();
-   					alert("정상적으로 등록되었습니다.");
+   					alert("정상적으로 등록되었습니다."); 
+   					
    				}
    			});
    			
@@ -42,10 +59,16 @@
    		});
    	</script>
 	<body>
+		<!-- <form id="os_insertForm"name = "os_insertForm">
+			<input type="hidden" name="oi_no" id="oi_no"/>
+			<input type="hidden" name="oi_qty" id="oi_qty" />			
+		</form> -->
 		<div class="contentContainer container-fluid">
 			<div class="contentTit page-header"><h3 class="text-center">1:1게시판 문의</h3></div>
 			<div class="contentTB ">
 				<form id="f_writeForm">
+				<input type="hidden" name="oi_no" id="oi_no"/>
+				<input type="hidden" name="oi_qty" id="oi_qty" />	
 					<input type="hidden" name="mem_no" id="mem_no" value="${login.mem_no}"/>
 					<div class="form-group form-inline">
 						<label for="mem_name">작성자</label>
@@ -61,14 +84,15 @@
 							<option value="기타">기타</option>
 						</select>
 					</div>
+					
 					<div class="form-group">
 						<label for="od_no">주문번호</label>
 						<select id="od_no" name="od_no" class="form-control">
 							<c:if test="${not empty orders}">
 								<c:forEach var="odata" items="${orders}" varStatus="status">
 									<option value=""> </option>
-									<option value="${odata.od_no}">
-										${odata.od_no}번 주문 (<fmt:formatDate value="${odata.od_date}" pattern="yyyy-MM-dd" />일)
+									<option value="${odata.od_no}" data-num="${odata.oi_no}" data-qty="${odata.oi_qty}">
+										${odata.od_no}번 주문 / 주문자 : ${odata.mem_name} / 구입상품명 : ${odata.pd_name} / 구입수량 : ${odata.oi_qty} 
 									</option>
 								</c:forEach>
 							</c:if>

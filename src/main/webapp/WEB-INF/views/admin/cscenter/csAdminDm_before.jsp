@@ -10,7 +10,7 @@
       	<script type="text/javascript">
       		$(function(){
       			
-      			$('#ingBtn').click(function(){ 				
+      			$(document).on("click","input[name='ingBtn']",function(){ 				
 					var hiddenName = $("#dm_name").val();
       				var hiddenStatus = $("#dm_status").val();
       				var hiddenNumber = $("#dm_number").val();
