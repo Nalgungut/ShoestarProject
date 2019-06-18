@@ -16,4 +16,5 @@ public class AdminOsVO {
 	private String qna_ctgr = "";	
 	private int os_no = 0;
 	private String os_status = "";
+	private int odno = 0;
 }

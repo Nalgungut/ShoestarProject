@@ -44,5 +44,12 @@ public class AdminOSServiceImpl implements AdminOSService {
 		
 		return list;
 	}
+	@Override
+	public List<AdminOsVO> orders_status_end_search(AdminOsVO osvo) {
+		List<AdminOsVO> list = null;
+		list = odao.orders_status_search_end(osvo);
+		
+		return list;
+	}
 
 }

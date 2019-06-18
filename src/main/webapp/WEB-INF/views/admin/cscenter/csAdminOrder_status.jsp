@@ -19,13 +19,12 @@
       			});
       			
       			$("#searchBtn").click(function(){ 
-      				var od_no = 
-      				console.log('')
-      				$("#os_form").attr({
+      			
+      				$("#search_form").attr({
       					"method" : "post",
       					"action" : "/admin/cscenter/orders_status_search"
       				});
-      				$("#os_form").submit();
+      				$("#search_form").submit();
       			});
       			
       			$("#allBtn").click(function(){

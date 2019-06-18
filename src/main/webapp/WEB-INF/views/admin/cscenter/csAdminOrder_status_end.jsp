@@ -8,7 +8,21 @@
 		<meta charset="UTF-8">
 		<title>상품처리완료 탭</title>
       	<script type="text/javascript">
-      		$(function(){
+      	$(function(){
+  			
+  			$("#searchBtn").click(function(){ 
+  				
+  				$("#search_form").attr({
+  					"method" : "post",
+  					"action" : "/admin/cscenter/orders_status_search_end"
+  				});
+  				$("#search_form").submit();
+  			});
+  			
+  			$("#allBtn").click(function(){
+  				location.href="/admin/cscenter/csAdminOrder_status_end";
+  			});
+  		});
       			
       	</script>
 	</head>

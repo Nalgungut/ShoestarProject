@@ -8,28 +8,30 @@
 		<meta charset="UTF-8">
 		<title>상품상태 처리 탭</title>
       	<script type="text/javascript">
-      		$(function(){
-      			$(document).on("click","input[name='ingBtn']",function(){
-      				$("#os_form").attr({
-      					"method" : "post",
-      					"action" : "/admin/cscenter/osUpdate"
-      				});
-      				$("#os_form").submit();
-      				alert('정상적으로 처리완료 처리 되었습니다.');
-      			});
-      			
-      			$("#searchBtn").click(function(){
-      				$("#os_form").attr({
-      					"method" : "post",
-      					"action" : "admin/cscneter/orders_status_search"
-      				});
-      				$("#os_form").submit();
-      			});
-      			
-      			$("#allBtn").click(function(){
-      				location.href="/admin/cscenter/csAdminOrder_status";
-      			});
-      		});
+	      	$(function(){
+	  			$(document).on("click","input[name='ingBtn']",function(){
+	  				$("#os_form").attr({
+	  					"method" : "post",
+	  					"action" : "/admin/cscenter/osUpdate"
+	  				});
+	  				$("#os_form").submit();
+	  				alert('정상적으로 처리완료 처리 되었습니다.');
+	  			});
+	  			
+	  			$("#searchBtn").click(function(){ 
+	  				
+	  				$("#search_form").attr({
+	  					"method" : "post",
+	  					"action" : "/admin/cscenter/orders_status_search"
+	  				});
+	  				$("#search_form").submit();
+	  			});
+	  			
+	  			$("#allBtn").click(function(){
+	  				location.href="/admin/cscenter/csAdminOrder_status";
+	  			});
+	  		});
+  		
       	</script>
 	</head>
    

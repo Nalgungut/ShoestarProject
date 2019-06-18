@@ -107,7 +107,42 @@
             on
                 q.od_no = o.od_no
 		WHERE
-			os.os_status = '처리대기' and o.od_no = #{od_no}
+			os.os_status = '처리대기' and o.od_no = #{odno}
+		ORDER BY
+			q.qna_date DESC
+	</select>
+	
+	<select id="orders_status_search_end" parameterType="com.shoestar.admin.cscenter.vo.AdminOsVO" resultType="com.shoestar.admin.cscenter.vo.AdminOsVO">
+		SELECT
+        os.os_no, m.mem_no, m.mem_name, oi.oi_no, os.os_qty, pd_name, od_date ,q.qna_ctgr,o.od_no, os.os_status
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+            inner join
+                orders_status os
+            on 
+                os.oi_no= oi.oi_no 
+            inner join
+                qna q
+            on
+                q.od_no = o.od_no
+		WHERE
+			os.os_status = '처리완료' and o.od_no = #{odno}
 		ORDER BY
 			q.qna_date DESC
 	</select>

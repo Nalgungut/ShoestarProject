@@ -16,5 +16,7 @@ public interface AdminOSService {
 	public int osUpdate(AdminOsVO osvo);
 
 	public List<AdminOsVO> order_status_search(AdminOsVO osvo);
+
+	public List<AdminOsVO> orders_status_end_search(AdminOsVO osvo);
 	
 }

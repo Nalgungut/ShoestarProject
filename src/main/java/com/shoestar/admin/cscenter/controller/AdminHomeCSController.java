@@ -96,6 +96,14 @@ public class AdminHomeCSController {
 		return "admin/cscenter/orders_status_search";
 	}
 	
+	@RequestMapping(value="/orders_status_search_end")
+	public String csAdminOrder_status_end(@ModelAttribute("data")AdminOsVO osvo, Model model) {
+		List<AdminOsVO> orders_status_end_search = osService.orders_status_end_search(osvo);
+		model.addAttribute("osList", orders_status_end_search);
+		
+		return "admin/cscenter/orders_status_end_search";
+	}
+	
 	@RequestMapping(value="/dm_end_search")
 	public String dm_end_search(@ModelAttribute("data")AdminDeliveryVO dvo, Model model) {
 		List<AdminDeliveryVO> dm_end_search = dmService.dm_end_search(dvo);
