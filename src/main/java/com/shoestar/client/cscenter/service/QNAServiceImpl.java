@@ -8,6 +8,7 @@ import com.shoestar.client.cscenter.dao.QNADao;
 import com.shoestar.client.cscenter.vo.Orders_statusVO;
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
+import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
 
 import lombok.AllArgsConstructor;
@@ -41,15 +42,16 @@ public class QNAServiceImpl implements QNAService {
 	
 
 	@Override
-	public List<OrdersVO> qnaOrders(int mem_no) {
+	public List<OrdersInsVO> qnaOrders(int mem_no) {
 		return qdao.qnaOrders(mem_no);
 	}
 
 	@Override
-	public int qnaInsert(QNAVO qvo) {
+	public int qnaInsert(QNAVO qvo,  Orders_statusVO ovo) {
 		int result = 0;
 		
 		result = qdao.qnaInsert(qvo);
+		
 		return result;
 	}
 	
@@ -74,11 +76,11 @@ public class QNAServiceImpl implements QNAService {
 		list = qdao.qna_replyList(qrvo);
 		return list;
 	}
-	/*
+	
 	@Override
 	public int orders_statusInsert(Orders_statusVO ovo) {
 		int result = 0;
 		result = qdao.orders_statusInsert(ovo);
 		return result;
-	}*/
+	}
 }

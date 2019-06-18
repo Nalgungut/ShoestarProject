@@ -2,13 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shoestar.client.myPage.dao.MyPageDao">
 
-<select id="ordersDataByMemNo" parameterType="int" >
-	    <![CDATA[
-		  select * from t_shopping_order
-          where member_id=#{member_id}
-          and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
-          order by pay_order_time desc
-    	]]>
-</select>
-
+	<select id="ordersDataByMemNo" parameterType="int" >
+		    <![CDATA[
+			  select * from t_shopping_order
+	          where member_id=#{member_id}
+	          and  to_char(pay_order_time,'yyyy-mm-dd')  between #{beginDate} and #{endDate}
+	          order by pay_order_time desc
+	    	]]>
+	</select>
+	
+	<select id="deliveryList" parameterType="com.shoestar.client.myPage.vo.DeliveryVO" resultType="com.shoestar.client.myPage.vo.DeliveryVO">
+		SELECT
+		    d.dm_no, m.mem_no,m.mem_name, d.od_no,d.dm_name,d.dm_number, pd_name, od_date,  d.dm_status
+		FROM
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		    INNER JOIN
+		        delivery d 
+		    ON
+		        o.od_no = d.od_no
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
+    	where m.mem_no = #{mem_no}
+    	order by d.dm_no desc
+	</select>
 </mapper>

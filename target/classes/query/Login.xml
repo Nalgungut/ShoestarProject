@@ -23,7 +23,9 @@
 	
 	<!-- 비밀번호 찾기 -->
 	<select id="find_pwd" parameterType="String" resultType="login">
-		select mem_pwd from member where mem_id = #{mem_id}
+		select mem_pwd 
+		from member 
+		where mem_id = #{mem_id} and mem_email = #{mem_email} and mem_name = #{mem_name} 
 	</select>
 	
 </mapper>

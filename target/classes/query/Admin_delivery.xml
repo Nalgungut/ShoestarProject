@@ -194,7 +194,7 @@
 		UPDATE delivery
 			set dm_status = '배송완료'
 		where dm_no = #{dm_no}
-		order by od_no desc
+		
 	</update>
 	
 	

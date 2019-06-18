@@ -10,7 +10,10 @@ public interface LoginDao {
 
 	public LoginVO find_id(String mem_email);
 
-	public LoginVO find_pwd(String mem_id);
+	public LoginVO find_pwd(LoginVO lvo);
+
+
+	/* public LoginVO find_pwd(LoginVO vo); */
 
 	
 

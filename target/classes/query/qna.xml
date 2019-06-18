@@ -36,24 +36,42 @@
 		where qna_no = #{qna_no}
 	</update>
 	
-	<select id="qnaOrders" parameterType="int" resultType="com.shoestar.client.orders.vo.OrdersVO">
-		SELECT
-			*
+	<select id="qnaOrders" parameterType="int" resultType="com.shoestar.client.orders.vo.OrdersInsVO">
+	SELECT
+        m.mem_no, m.mem_name, oi.oi_no, oi.oi_qty, pd_name, od_date ,oi.od_no
 		FROM
-			orders
+		    orders_ins oi
+		    INNER JOIN
+		        orders o
+		    ON
+		        oi.od_no = o.od_no
+		   
+		    INNER JOIN
+		        member m
+		    ON
+		        m.mem_no = o.mem_no
+		    INNER JOIN
+		        prod_ins pi
+		    ON 
+		        pi.pi_no = oi.pi_no
+		    INNER JOIN
+		        prod p
+		    ON
+		        p.pd_no = pi.pd_no
 		WHERE
-			mem_no = #{mem_no}
+			m.mem_no = #{mem_no}
 		ORDER BY
-			od_no DESC
+			o.od_no DESC
+			
 	</select>
 	
-	<!-- <insert id="orders_statusInsert" parameterType="com.shoestar.client.cscenter.vo.Orders_statusVO">
+	<insert id="orders_statusInsert" parameterType="com.shoestar.client.cscenter.vo.Orders_statusVO">
 		<selectKey keyProperty="os_no" resultType="int" order="BEFORE">
 			select orders_status_seq.nextval from dual
 		</selectKey>
 			INSERT INTO orders_status(os_no, os_qty, os_status, os_date, oi_no)
-			values(#{os_no}, 1, '처리대기', sysdate, )
-	</insert> -->
+			values(#{os_no}, #{oi_qty}, '처리대기', sysdate, #{oi_no})
+	</insert>
 	<insert id="qnaInsert" parameterType="qna">
 		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
 			select qna_seq.nextval from dual

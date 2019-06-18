@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shoestar.admin.cscenter.service.AdminDeliveryService;
 import com.shoestar.admin.cscenter.service.AdminFAQService;
+import com.shoestar.admin.cscenter.service.AdminOSService;
 import com.shoestar.admin.cscenter.service.AdminQNAService;
 import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
 import com.shoestar.admin.cscenter.vo.AdminFAQVO;
+import com.shoestar.admin.cscenter.vo.AdminOsVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAReplyVO;
 import com.shoestar.admin.cscenter.vo.AdminQNAVO;
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
@@ -36,6 +38,7 @@ public class AdminHomeCSController {
 	private AdminFAQService faqService;
 	private AdminQNAService qnaService;
 	private AdminDeliveryService dmService;
+	private AdminOSService osService;
 	
 	//¾îµå¹Î °í°´¼¾ÅÍ È¨¸µÅ©
 	@RequestMapping(value="/", method=RequestMethod.GET)
@@ -83,6 +86,22 @@ public class AdminHomeCSController {
 		model.addAttribute("dmList", dm_before_search);
 		
 		return "admin/cscenter/dm_before_search";
+	}
+	
+	@RequestMapping(value="/orders_status_search")
+	public String orders_status_search(@ModelAttribute("data")AdminOsVO osvo, Model model) {
+		List<AdminOsVO> orders_status_search = osService.order_status_search(osvo);
+		model.addAttribute("osList", orders_status_search);
+		
+		return "admin/cscenter/orders_status_search";
+	}
+	
+	@RequestMapping(value="/orders_status_search_end")
+	public String csAdminOrder_status_end(@ModelAttribute("data")AdminOsVO osvo, Model model) {
+		List<AdminOsVO> orders_status_end_search = osService.orders_status_end_search(osvo);
+		model.addAttribute("osList", orders_status_end_search);
+		
+		return "admin/cscenter/orders_status_end_search";
 	}
 	
 	@RequestMapping(value="/dm_end_search")
@@ -156,6 +175,16 @@ public class AdminHomeCSController {
 		return "redirect:" + url;
 	}
 	
+	@RequestMapping(value="/osUpdate",method= RequestMethod.POST)
+	public String osUpdate(@ModelAttribute AdminOsVO osvo, Model model) {
+		int result = 0;
+		String url = "";
+		
+		result = osService.osUpdate(osvo);
+		url = "/admin/cscenter/csAdminOrder_status";
+		return "redirect:" + url;
+	}
+	
 	@RequestMapping(value="/dm_ing", method=RequestMethod.POST)
 	public String dm_ing(@ModelAttribute AdminDeliveryVO dvo, Model model) {
 		int result = 0;
@@ -184,6 +213,22 @@ public class AdminHomeCSController {
 		model.addAttribute("qnaList", qnaList);
 		
 		return "admin/cscenter/csAdminQna";
+	}
+	
+	@RequestMapping(value = "/csAdminOrder_status")
+	public String osList(@ModelAttribute("data") AdminOsVO osvo, Model model) {
+		List<AdminOsVO> osList = osService.osList(osvo);
+		model.addAttribute("osList", osList);
+		
+		return "admin/cscenter/csAdminOrder_status";
+	}
+	
+	@RequestMapping(value = "/csAdminOrder_status_end")
+	public String osListEnd(@ModelAttribute("data") AdminOsVO osvo, Model model) {
+		List<AdminOsVO> osList = osService.osListEnd(osvo);
+		model.addAttribute("osList", osList);
+		
+		return "admin/cscenter/csAdminOrder_status_end";
 	}
 	
 	@ResponseBody

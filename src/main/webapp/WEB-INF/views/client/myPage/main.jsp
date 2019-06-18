@@ -73,7 +73,7 @@
 			                    <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i> 쇼핑정보 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
 			                    <ul id="submenu-2" class="collapse">
 			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 주문내역</a></li>
-			                        <li><a href="#"><i class="fa fa-angle-double-right"></i> 배송조회</a></li>
+			                        <li><a href="/myPage/myDelivery"><i class="fa fa-angle-double-right"></i> 배송조회</a></li>
 			                        <!-- <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li> -->
 			                    </ul>
 			                </li>
@@ -116,7 +116,7 @@
 						            <c:forEach items="${myOrderList}" var="order">
 						                  <tr>
 						                     <td>${order.od_no}</td>
-						                     <td><a href="/myPage/myOrder?mem_no=${order.od_no}">${order.numberOfProds}개</a></td>
+						                     <td><a href="/myPage/myOrder?od_no=${order.od_no}">${order.numberOfProds}개</a></td>
 						                     <td><fmt:formatDate value="${order.od_date}" pattern="yyyy년 MM월 dd일"/></td>
 						                     <td>${order.od_prog}</td>
 						                  </tr>
