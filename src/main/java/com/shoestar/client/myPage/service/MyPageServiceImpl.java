@@ -26,6 +26,11 @@ public class MyPageServiceImpl implements MyPageService{
 		return ordersDao.ordersInsByOdNo(ovo);
 	}
 
+	public List<OrdersInsVO> ordersInsByOdNo(OrdersInsVO ovo) {
+		// TODO Auto-generated method stub
+		return ordersDao.ordersInsByOdNo(ovo);
+	}
+
 	
 
 

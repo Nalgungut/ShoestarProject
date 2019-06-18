@@ -23,6 +23,9 @@ public interface MyPageService {
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
 
+
+	public List<OrdersInsVO> ordersInsByOdNo(OrdersInsVO ovo);
+
 	
 
 
