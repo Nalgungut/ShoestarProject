@@ -14,7 +14,10 @@ public interface LoginService {
 
 	public LoginVO find_id(HttpServletResponse response, String mem_email) throws Exception;
 
-	public LoginVO find_pwd(HttpServletResponse response, String mem_id) throws Exception;
+	public LoginVO find_pwd(LoginVO lvo);
+
+	/*public LoginVO find_pwd(HttpServletResponse response, LoginVO vo) throws Exception;*/
+
 
 		
 }
