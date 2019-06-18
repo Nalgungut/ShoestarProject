@@ -49,7 +49,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="/myOrder", method = RequestMethod.GET)
-	public String myOrder( @SessionAttribute("login") LoginVO login, Model model, OrdersVO ovo2, OrdersInsVO ovo){
+	public String myOrder( @SessionAttribute("login") LoginVO login, Model model, OrdersVO ovo){
 		
 		List<OrdersInsVO> detailOrder = myPageService.ordersInsByOdNo(ovo);
 		model.addAttribute("detailList", detailOrder);

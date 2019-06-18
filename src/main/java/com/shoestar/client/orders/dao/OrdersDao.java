@@ -35,5 +35,4 @@ public interface OrdersDao {
 	
 	public int insertDeliveryInfo(AdminDeliveryVO dvo);
 
-	public List<OrdersInsVO> ordersInsByOdNo(OrdersInsVO ovo);
 }
