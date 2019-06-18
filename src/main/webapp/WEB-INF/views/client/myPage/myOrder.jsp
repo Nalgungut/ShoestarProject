@@ -115,9 +115,8 @@
 						                     <td>${detailOrder.od_no}</td>
 						                     <td>${detailOrder.pi_no}</td>
 						                     <td>${detailOrder.pd_name}</td>
-						                     <td>${detailOrder.size}</td>
+						                     <td>${detailOrder.ps_size}</td>
 						                     <td>${detailOrder.oi_qty}</td>
-						                     <td>${detailOrder.color}</td>
 						                     <td>${detailOrder.oi_price}</td>
 						                  </tr>
 						            </c:forEach>

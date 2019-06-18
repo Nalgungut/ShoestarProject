@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shoestar.client.login.vo.LoginVO;
 import com.shoestar.client.member.vo.MemberVO;
 import com.shoestar.client.myPage.service.MyPageService;
+import com.shoestar.client.myPage.vo.DeliveryVO;
 import com.shoestar.client.orders.service.OrdersService;
 import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
@@ -58,6 +60,16 @@ public class MyPageController {
 		
 	}
 	
-	}
+	@RequestMapping(value="/myDelivery", method = RequestMethod.GET)
+	public String myDeliveryList(@ModelAttribute("data") DeliveryVO dvo, @SessionAttribute("login") LoginVO lvo, Model model) {
+			dvo.setMem_no(lvo.getMem_no());
+			
+			List<DeliveryVO> deliveryList = myPageService.deliveryList(dvo);
+			
+			model.addAttribute("deliveryList", deliveryList);
+			
+			return "client/myPage/myDelivery";
 	
+	}
+}
 

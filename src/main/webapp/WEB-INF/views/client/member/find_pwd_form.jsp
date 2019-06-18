@@ -58,6 +58,14 @@
 						<label>아이디입력</label>
 						<input class="w3-input" type="text" id="mem_id" name="mem_id" required>
 					</p>
+					<p>
+						<label>이메일입력</label>
+						<input class="w3-input" type="text" id="mem_email" name="mem_email" required>
+					</p>
+					<p>
+						<label>이름입력</label>
+						<input class="w3-input" type="text" id="mem_name" name="mem_name" required>
+					</p>
 					<p class="w3-center">
 						<button type="submit" id="findBtn" name="findBtn" class="btn btn-default">비밀번호 찾기</button>
 						<button type="button" onclick="history.go(-1);" class="btn btn-default">로그인</button>

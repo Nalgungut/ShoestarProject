@@ -86,7 +86,7 @@ public class LoginController {
 		
 		///////////////////// [비밀번호 찾기 폼]///////////////////////////
 		@RequestMapping(value = "/find_pwd_form")
-		public String find_pwd() throws Exception{
+		public String find_pwd() {
 		return "client/member/find_pwd_form";
 		}
 		
@@ -99,10 +99,15 @@ public class LoginController {
 		}
 		
 		// 비밀번호
+		
 		@RequestMapping(value = "/find_pwd", method = RequestMethod.POST)
-		public String find_pwd(HttpServletResponse response, @RequestParam("mem_id") String mem_id, Model md) throws Exception{
-			LoginVO vo = loginService.find_pwd(response, mem_id);
-			md.addAttribute("mem_pwd", vo.getMem_pwd());
+		public String find_pwd(String mem_id, String mem_email, String mem_name, Model model) {
+			LoginVO lvo = new LoginVO();
+			lvo.setMem_id(mem_id);
+			lvo.setMem_email(mem_email);
+			lvo.setMem_name(mem_name);
+			LoginVO vo2 = loginService.find_pwd(lvo);
+			model.addAttribute("mem_pwd", vo2.getMem_pwd());
 			return "client/member/find_pwd";
 		}
 	

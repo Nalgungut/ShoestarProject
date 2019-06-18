@@ -55,24 +55,20 @@ public class LoginServiceImpl implements LoginService{
 	}
 	
 	@Override
-	public LoginVO find_pwd(HttpServletResponse response, String mem_id) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		LoginVO mem_pwd = loginDao.find_pwd(mem_id);
+	public LoginVO find_pwd(LoginVO lvo) {
+
+		LoginVO mem_pwd = loginDao.find_pwd(lvo);
 		
-		
-		if (mem_pwd == null) {
-			out.println("<script>");
-			out.println("alert('가입된 아이디가 없습니다.');");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		} else {
-			return mem_pwd;
+		return mem_pwd;
 		}
-	}
+
+
 	
+	/*public LoginVO find_pwd(LoginVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
 	
 
 		

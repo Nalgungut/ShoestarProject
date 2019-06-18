@@ -13,5 +13,6 @@ public class LoginVO {
 	private String mem_id="";
 	private String mem_pwd="";
 	private String mem_name="";
+	private String mem_email="";
 	
 }
