@@ -260,7 +260,7 @@
 			<!-- 사이드 바  -->
 			<div class="sidebar" style="width:10%; background-color:#222;" >
 			  <a class="active" href="/brand/brandMain">브랜드 소개</a>
-			  <a href="/brand/brandNewslist" style="color: white;">브랜드 뉴스</a>
+			  <!-- <a href="/brand/brandNewslist" style="color: white;">브랜드 뉴스</a> -->
 			  <a href="/brand/noticeList" style="color: white;">공지사항</a>
 			</div>
 			

@@ -33,7 +33,7 @@
 		<style>
 		
 				/*사이드바 */
-			.bb {
+			 .bb {
 			  margin: 0;
 			  font-family: "Lato", sans-serif;
 			}
@@ -88,7 +88,7 @@
 			    text-align: center;
 			    float: none;
 			  }
-			} 
+			}  
 			/* 사이드 바 종료 */
 				
 				table{
@@ -113,9 +113,9 @@
 					color:red;}
 				
 				
-				.noticeList{
+				/* .noticeList{
 					margin-left: 50px;
-				}
+				} */
 				#insertFormBtn{
 				float:right;}
 				table{
@@ -170,7 +170,7 @@
 	                  if($("#search").val()=='no_subject') value = "#list tr td.goDetail";
 	                  $(value+":contains('" + word + "')").each(function(){
 	                     var regex = new RegExp(word, 'gi');
-	                     $(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>"));
+	                     /* $(this).html($(this).html().replace(regex, "<span class='required'>" + word + "</span>")); */
 	                  });
 	               }
 	            }
@@ -251,15 +251,15 @@
 	<body>
 		<div class="contentContainer container">
 		<!-- 사이드 바  -->
-			<div class="sidebar" style="width:15%;" >
+			<!-- <div class="sidebar" style="width:15%;" >
 			  <a class="active" href="/admin/brand/adminNoticeList" style="color: white;">공지사항 수정</a>
 			  <a href="/brand/brandNewslist" >뉴스 수정</a>
-			</div>
+			</div> -->
 			
 			
 			<div class="contentTit"><h3>관리자 공지사항</h3></div>
 			
-			<form id="detailForm">
+			<form id="detailForm" style="aling: center;">
 				<input type="hidden" id="no_no" name="no_no"/>
 				<!-- 상세페이지에서 리스트 이동시 보던 전 페이지로 이동하기 -->
 				<%--<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">--%> <!-- (pageDTO) 글번호 가져오기 -->
@@ -286,7 +286,7 @@
 			</div>
 			
 			<%--==================리스트 시작=================== --%>	
-			<div id="noticeList" style="margin-left: 25%">
+			<div id="noticeList">
 			<table class="table-striped" summary="게시판 리스트">
 				<thead>
 					<tr>
@@ -314,7 +314,7 @@
 									
 									<td id="goDetail" class="goDetail"><fmt:formatDate value="${adminNoticeList.no_date}" pattern="yyyy-MM-dd hh:mm"/></td>
 
-								</tr>
+								</tr> 
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
