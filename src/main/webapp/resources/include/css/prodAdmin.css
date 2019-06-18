@@ -53,6 +53,11 @@ body > .container > .sidebar {
 	margin-bottom: 20px;
 }
 
+.clearButton {
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+}
+
 .sectionTitle {
 	border-bottom: 1px solid #666;
 	clear: both;
@@ -65,4 +70,26 @@ body > .container > .sidebar {
 
 .margin-top {
 	margin-top: 20px;
+}
+
+.emptyList {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	color: gray;
+	text-align: center;
+}
+
+.stockWarning {
+	color: darkred;
+	font-weight: bold;
+}
+
+.text-sm {
+	font-size: 0.8em;
+}
+
+.table > thead > tr.align-middle > td, .table > thead > tr.align-middle > th,
+.table > tbody > tr.align-middle > td, .table > tbody > tr.align-middle > th,
+.table > tfoot > tr.align-middle > td, .table > tfoot > tr.align-middle > th {
+	vertical-align: middle;
 }

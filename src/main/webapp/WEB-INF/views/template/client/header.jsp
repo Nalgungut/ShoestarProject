@@ -52,6 +52,12 @@
 	vertical-align:middle;}
 	#ss{
 	font-color:black;}
+	
+	.emptyInput {
+		max-width: 200px;
+		background-color: rgba(0,0,0,0);
+		border-bottom: 1px solid black;
+	}
 </style>
 <body>
 
@@ -110,7 +116,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="http://localhost:8080/" class="logo">
+					<a href="/" class="logo">
 						<img src="/resources/include/test/images/icons/shoestar5.png" alt="IMG-LOGO">
 					</a>
 
@@ -130,6 +136,10 @@
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
+						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+							<input type="text" class="emptyInput" name="keyword" id="searchKeyword">
+						</div>
+						
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>

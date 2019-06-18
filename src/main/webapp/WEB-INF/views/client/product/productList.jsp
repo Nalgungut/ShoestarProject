@@ -58,40 +58,6 @@
 				};
 			});
 			
-			function showProductList(searchReq) {
-				stopSearchForSecond = true;
-				toggleLightbox(true);
-				
-				$.ajax({
-					url: "/product/getList" + searchReq,
-					type: "get",
-					dataType: "json",
-					error: function() {
-						$("#itemList").append(createErrorList("상품 정보를 불러올 수 없었습니다.", "div").addClass("text-center emptyResult"));
-						toggleLightbox(false);
-					},
-					success: function(data) {
-						if(!jQuery.isEmptyObject(data)) {
-							$.each(data, function(index, stack) {
-								$("#itemList").append(createProductDiv(stack));
-								$("#itemList").append(createProductDiv(stack));
-								$("#itemList").append(createProductDiv(stack));
-								$("#itemList").append(createProductDiv(stack));
-								$("#itemList").append(createProductDiv(stack));
-							});
-						} else {
-							if($("#itemList").html().isEmpty()) {
-								$("#itemList").append(createErrorList("검색 결과가 없습니다.", "div").addClass("text-center emptyResult"));
-							} else {
-								endOfSearch = true;
-							}
-						}
-						stopSearchForSecond = false;
-						toggleLightbox(false);
-					}
-				});
-			}
-			
 			function showProductCategory() {
 				$("#ctgList").html("");
 				
@@ -225,7 +191,7 @@
 			
 			<div class="container col-md-9" id="itemListContainer">
 				<!-- ############################## 상품란 ############################## -->
-				<div class="row" id="itemList"></div>
+				<div class="row text-center" id="itemList"></div>
 			</div>
 			
 			<div class="loadingLightbox" hidden="hidden">

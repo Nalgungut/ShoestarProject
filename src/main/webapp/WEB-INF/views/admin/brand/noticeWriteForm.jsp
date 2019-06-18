@@ -117,9 +117,9 @@
 							<tr>
 								<td>글머리</td>
 								<td class="">
-									<input type="radio" name="no_kind" id="no_kind" value="event" class="">이벤트
-									<input type="radio" name="no_kind" id="no_kind" value="info" class="">알림
-									<input type="radio" name="no_kind" id="no_kind" value="system" class="">시스템 
+									<input type="radio" name="no_kind" id="no_kind" value="이벤트" class="">이벤트
+									<input type="radio" name="no_kind" id="no_kind" value="알림" class="">알림
+									<input type="radio" name="no_kind" id="no_kind" value="시스템" class="">시스템 
 							</tr>
 							<tr>
 								<td>글제목</td>

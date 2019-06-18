@@ -69,8 +69,100 @@
 						insertPim($("#pimInputForm"));
 					}
 				});
+				
+				// 추가되지 않은 색상 정보 불러오기
+				unoccupiedColors(pdno, function(colorlist) {
+					if(!jQuery.isEmptyObject(colorlist)) {
+						$.each(JSON.parse(colorlist), function(index, stack) {
+							$("#prodins_colorlist").append($("<option>").attr({
+								"value" : stack.pcl_no
+							}).html(stack.pcl_name + "(색상 코드 : #" + stack.pcl_code + ")"));
+						});
+					} else {
+						$("#prodinModalBtn").attr({
+							"data-target" : ""
+						}).click(function() {
+							alert("선택 가능한 색상이 없습니다.");
+						});
+					}
+				});
+				
+				// 색상 입력 버튼 제어
+				$("#submitProdinsInsert").click(function() {
+					insertProdins($("#prodinsInputForm"), pdno);
+				});
+				
+				// 색상 삭제 버튼 제어
+				$("#deleteProdins").click(function() {
+					if(confirm("정말로 상품 색상을 삭제하시겠습니까?")) {
+						deleteProdins($("#prodinsInputForm"), pdno);
+					}
+				});
+				
+				// pi_no가 없을 시 입력 금지
+				if(pi_no == 0) {
+					$("#imageModalBtn").attr({
+						"data-target": "",
+						"data-toggle": ""
+					}).click(function() {
+						alert("우선 색상 정보가 필요합니다!");
+					});
+					$("#stockModalBtn").attr({
+						"data-target": "",
+						"data-toggle": ""
+					}).click(function() {
+						alert("우선 색상 정보가 필요합니다!");
+					});
+				}
+				
+				
+				// 사이즈 추가 시
+				$("#submitStockInsert").click(function() {
+					if(checkAll($("#stockInsertForm"))) {
+						if(isShoesSize($("#stockInsert_size").val()) && isStockQty($("#stockInsert_qty").val())) {
+							if(confirm("사이즈를 추가하시겠습니까?")) {
+								insertStock($("#stockInsertForm"));
+							}
+						}
+					}
+				});
+				
+				
+				// 재고 수정 시
+				$(".updatePst").on("click", function name() {
+					if(inputHiddenStockForm($(this), false)) {
+						updateStock($("#pstUpdateForm"));
+					}
+				});
+				
+				// 재고 삭제 시
+				$(".deletePst").on("click", function name() {
+					if(inputHiddenStockForm($(this), true)) {
+						deleteStock($("#pstUpdateForm"));
+					}
+				});
 			});
 			
+			// 숨겨진 폼에 값을 입력하고 수정일 경우 값 유효성 체크를 병행하는 함수
+			function inputHiddenStockForm(target, isDelete) {
+				var size = target.closest("tr").find(".ps_size_userInput").val();
+				var qty = target.closest("tr").find(".ps_qty_userInput").val();
+				if(isDelete) {
+					$("#stockUpdate_size").val(target.attr("data-pssize"));
+					$("#stockUpdate_size_self").val("0");
+					$("#stockUpdate_qty").val("0");
+				} else if(isShoesSize(size) && isStockQty(qty)) {
+					$("#stockUpdate_size_self").val(target.attr("data-pssize"));
+					$("#stockUpdate_size").val(size);
+					$("#stockUpdate_qty").val(qty);
+				} else {
+					return false;
+				}
+				
+				return true;
+			}
+			
+			// 기초 정보 리셋
 			function resetPrimaryData() {
 				$("#pd_name").val(pdname);
 				$("#pd_sex_" + pdsex).prop("checked", true);
@@ -233,6 +325,7 @@
 			function resetPimInsert() {
 				$resetForm($("#pimInputForm"));
 			}
+			
 		</script>
 	</head>
 	
@@ -365,35 +458,88 @@
 		<!-- ######################### 상품 내역 ######################### -->
 		<h3 class="sectionTitle">상품 내역</h3>
 		
+		
 		<!-- 색상 정보 -->
 		<div class="pinsArticle">
 			<div class="articleTitle">
 				<h4>색상 선택</h4>
-				<button type="button" class="text-center submenuActions">
+				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#colorModal" id="prodinModalBtn">
 					신규 색상 <span class='glyphicon glyphicon-plus'></span>
 				</button>
 			</div>
 			<ul id="colorList"></ul>
-			<button type="button" class="text-center submenuActions">
+			<button type="button" class="text-center submenuActions" id="deleteProdins">
 				선택 제거 <span class='glyphicon glyphicon-minus'></span>
 			</button>
 		</div>
+		
+		
 		<!-- 이미지 정보 -->
 		<div class="pimArticle">
 			<div class="articleTitle">
 				<h4>이미지 정보</h4>
-				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#imageModal">
+				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#imageModal" id="imageModalBtn">
 					신규 이미지 <span class='glyphicon glyphicon-plus'></span>
 				</button>
 			</div>
 			<ul id="pimList"></ul>
 		</div>
+		
+		
 		<!-- 재고 정보 -->
 		<div class="stockArticle">
-			<div class="articleTitle"><h4>재고 정보</h4></div>
-			<ul id="stockList"></ul>
+			<div class="articleTitle">
+				<h4>재고 정보</h4>
+				<button type="button" class="text-center submenuActions" data-toggle="modal" data-target="#stockModal" id="stockModalBtn">
+					신규 사이즈 <span class='glyphicon glyphicon-plus'></span>
+				</button>
+			</div>
+			<div class="col-md-8"><table class="table table-hover">
+				<thead>
+					<tr class="align-middle">
+						<th>사이즈</th>
+						<th>재고</th>
+						<th></th>
+						<th class="text-sm padding-right">
+							<span class="glyphicon glyphicon-chevron-up"></span>수정
+							<span class="glyphicon glyphicon-remove"></span> 삭제
+						</th><!-- 버튼 -->
+					</tr>
+				</thead>
+				<tbody>
+					<c:choose>
+						<c:when test="${not empty pstlist}"><c:forEach items="${pstlist}" var="pst">
+							<tr class="form-inline align-middle">
+								<td>
+									<input type="number" class="ps_size_userInput form-control" value="${pst.ps_size}">
+								</td>
+								<td>
+									<input type="number" class="ps_qty_userInput form-control" value="${pst.ps_qty}">
+								</td>
+								<td><span class="stockWarning">${pst.ps_qty <= 0 ? "매진" : ""}</span></td>
+								<td>
+									<button type="button" class="clearButton updatePst" data-pssize="${pst.ps_size}">
+										<span class="glyphicon glyphicon-chevron-up"></span>
+									</button>
+									<button type="button" class="clearButton deletePst" data-pssize="${pst.ps_size}">
+										<span class="glyphicon glyphicon-remove"></span>
+									</button>
+								</td>
+							</tr>
+						</c:forEach></c:when>
+						<c:otherwise>
+							<tr>
+								<td colspan="4" class="emptyList">재고 항목이 비어있습니다.</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table></div>
 		</div>
 		
+		
+		
+		<!-- ######################### 모달란 ######################### -->
 		
 		<!-- 이미지 입력을 위한 모달 -->
 		<!-- Modal -->
@@ -431,5 +577,76 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- 색상 입력을 위한 모달 -->
+		<!-- Modal -->
+		<div class="modal" id="colorModal" tabindex="-1" role="dialog" aria-labelledby="colorModalTitle" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="imageModalTitle">색상 선택</h4>
+					</div>
+					<div class="modal-body">
+						<form id="prodinsInputForm">
+							<input type="hidden" name="pd_no" id="prodins_pd_no" value="${pd_no}">
+							<input type="hidden" name="pi_no" id="prodins_pi_no" value="${pi_no}">
+							<div class="form-group">
+								<select name="pcl_no" id="prodins_colorlist" class="form-control"></select>
+							</div>
+						</form>
+						<div class="text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="submitProdinsInsert">추가</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 재고 입력을 위한 모달 -->
+		<!-- Modal -->
+		<div class="modal" id="stockModal" tabindex="-1" role="dialog" aria-labelledby="stockModalTitle" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="stockModalTitle">사이즈 추가</h4>
+					</div>
+					<div class="modal-body">
+						<form id="stockInsertForm">
+							<input type="hidden" name="pi_no" id="stockInsert_pi_no" value="${pi_no}">
+							<div class="form-group">
+								<label>
+									사이즈
+									<input type="number" name="ps_size" id="stockInsert_size" required="required" class="form-control">
+								</label>
+							</div>
+							<div class="form-group">
+								<label>
+									수량
+									<input type="number" name="ps_qty" id="stockInsert_qty" required="required" class="form-control">
+								</label>
+							</div>
+						</form>
+						<div class="text-right">
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="submitStockInsert">추가</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 재고 수정을 위한 숨겨진 폼 -->
+		<form id="pstUpdateForm">
+			<input type="hidden" name="pi_no" value="${pi_no}">
+			<input type="hidden" name="ps_size" id="stockUpdate_size">
+			<input type="hidden" name="ps_size_self" id="stockUpdate_size_self">
+			<input type="hidden" name="ps_qty" id="stockUpdate_qty">
+		</form>
+		
 	</body>
 </html>

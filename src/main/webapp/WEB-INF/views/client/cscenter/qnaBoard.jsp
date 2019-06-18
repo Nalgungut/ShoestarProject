@@ -2,6 +2,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +98,7 @@
                         <tr class="tac" data-num="${qna.qna_no}" data-num2="${qna.mem_no}" data-num3="${qna.od_no}">
                            <td>${qna.qna_ctgr}</td>
                            <td class="goDetail tal">${qna.qna_title}</td>          
-                           <td>${qna.qna_date}</td>
+                          <td><fmt:formatDate value="${qna.qna_date}" pattern="yyyy/MM/dd"/></td>
                            <td class="name">${qna.mem_name}</td>
                            <td>${qna.qna_state}</td>
                         </tr>

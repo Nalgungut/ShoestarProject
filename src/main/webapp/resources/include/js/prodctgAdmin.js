@@ -159,30 +159,26 @@ function updateColor(targetForm) {
 }
 
 /**
- * 카테고리를 삭제하는 ajax
+ * 색상을 삭제하는 ajax
  * @param targetForm 대상 폼
  */
 function deleteColor(targetForm) {
-	var deleteFunction = function(targetData) {
-		$.ajax({
-			url : "/admin/product/deleteColor",
-			type : "post",
-			data : targetData.serialize(),
-			error : function() {
-				alert("서버 오류로 색상을 삭제하는데 실패했습니다.");
-			},
-			success : function(data) {
-				if(data == "true") {
-					alert("성공적으로 삭제되었습니다.");
-					location.reload();
-				} else if(data == "referenceError") {
-					alert("등록된 상품이 존재하는 색상은 삭제할 수 없습니다.");
-				} else {
-					alert("색상을 삭제하는데 실패했습니다.");
-				}
+	$.ajax({
+		url : "/admin/product/deleteColor",
+		type : "post",
+		data : targetForm.serialize(),
+		error : function() {
+			alert("서버 오류로 색상을 삭제하는데 실패했습니다.");
+		},
+		success : function(data) {
+			if(data == "true") {
+				alert("성공적으로 삭제되었습니다.");
+				location.reload();
+			} else if(data == "referenceError") {
+				alert("등록된 상품이 존재하는 색상은 삭제할 수 없습니다.");
+			} else {
+				alert("색상을 삭제하는데 실패했습니다.");
 			}
-		});
-	};
-	
-	checkColorDuplicate(targetForm.serialize(), deleteFunction, targetForm);
+		}
+	});
 }

@@ -115,18 +115,71 @@ function chkKrw(item, msg){
 	}
 }
 
+//if($.inArray(비교대상, 배열) != -1){ 찾지 못하면 -1 반환
 
 // 현재 선택해서 넣을 값이 이미 가지고 있을때 중복입니다!
-// 
+// 함수 문제 >> 배열의 값비교 
 /*function chkPdNo( item, chk, msg){
+	var i;
 	
-	for(select의 값들.size까지 찾아보고){
-		if(현재 받은 제품번호랑 == 제품항목들의 번호 ){
-			
+	//for(i = 0; chk.length(); i++){ //select의 값들.size까지 찾아보고
+		//if(item == chk.getIndexOf(i)){ //현재 받은 제품번호랑 == 제품항목들의 번호 
+		if($.inArray(item, chk) != -1){
 			alert(msg+ " 이미 입력했습니다. 다른 제품을 선택하세요.");
+			console.log("d");
 			return false;
 		}else{
 			return true;
 		}
+	//}
+}*/
+
+// 배열 비교
+/*function chkPdNo( item, chk, msg){
+		if($.inArray(item, chk) != -1){
+			alert(msg+ " 이미 입력했습니다. 다른 제품을 선택하세요.");
+			console.log("d");
+			return false;
+		}else{
+			return true;
+		}
+}*/
+
+
+/*
+$.each(배열변수, function() {
+	   if(this == 비교할문자) {
+	       실행할 코드
+	   }
+	}*/
+
+
+
+
+
+
+/*function chkgrap(){
+	$.grep( [ 0, 1, 2 ], function( n, i ) {
+		  return n > 0;
+		});
+	
+	var y = $.grep(x, function(value, index){
+
+		return value%2==0;
+
+});
+*/
+
+
+
+
+/*function chkPdNo( item, chk, msg){
+	var array3; 
+	for(var i=0, l=array1.length; i<l;i++){ 
+	    for(var j=0, k=array2.length; j<k; j++){ 
+	     if(array1[i] != array[2]){ 
+	      aray3.push(array[i]); 
+	     } 
+	    } 
 	}
 }*/

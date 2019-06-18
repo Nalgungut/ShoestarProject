@@ -13,5 +13,12 @@ public interface AdminRange_DiscountService {
 	public List<Range_DiscountVO> AdminDetail(Range_DiscountVO rvo);
 	
 	public int AdminRDisInsert(Range_DiscountVO rvo);
+	public int rdisUpdate(Range_DiscountVO rvo);
+	public int rdisDelete(Range_DiscountVO rvo);
+	public int adminRdisCnt(Range_DiscountVO rvo);
 	
+	
+	// rd_type
+	public int rtInsert(Range_DiscountVO rvo);
+	public int rtDelete(Range_DiscountVO rvo);
 }
