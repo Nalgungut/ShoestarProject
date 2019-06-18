@@ -107,7 +107,7 @@
             on
                 q.od_no = o.od_no
 		WHERE
-			os.os_status = '처리대기' and od_no = #{od_no}
+			os.os_status = '처리대기' and o.od_no = #{od_no}
 		ORDER BY
 			q.qna_date DESC
 	</select>

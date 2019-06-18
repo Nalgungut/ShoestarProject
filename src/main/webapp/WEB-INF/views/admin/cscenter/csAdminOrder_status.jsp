@@ -18,10 +18,12 @@
       				alert('정상적으로 처리완료 처리 되었습니다.');
       			});
       			
-      			$("#searchBtn").click(function(){
+      			$("#searchBtn").click(function(){ 
+      				var od_no = 
+      				console.log('')
       				$("#os_form").attr({
       					"method" : "post",
-      					"action" : "/admin/cscneter/orders_status_search"
+      					"action" : "/admin/cscenter/orders_status_search"
       				});
       				$("#os_form").submit();
       			});
@@ -30,12 +32,13 @@
       				location.href="/admin/cscenter/csAdminOrder_status";
       			});
       		});
+      		
       	</script>
 	</head>
    
 	<body>
 		<div class="contentContainer container-fluid">
-	  <div class="contentTit page-header"><h3 class="text-center">상품문의 처리대기 리스트</h3></div> 
+	  <div class="contentTit page-header"><h3 class="text-center d">상품문의 처리대기 리스트</h3></div> 
 		<div class="form-group">
 			<form id="search_form" name="search_form">
 				<p>주문번호 검색</p>
