@@ -221,7 +221,7 @@
 			<div class="sidebar" style="width:10%; background-color:#222;" >
 			
 			  <a class="ff" href="/brand/brandMain" style="color: white;">브랜드 소개</a>
-			  <a class="ff" href="/brand/brandNewslist" style="color: white;">브랜드 뉴스</a>
+			  <!-- <a class="ff" href="/brand/brandNewslist" style="color: white;">브랜드 뉴스</a> -->
 			  <a class="active" href="/brand/noticeList">공지사항</a>
 			</div>
 		

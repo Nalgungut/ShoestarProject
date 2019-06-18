@@ -243,7 +243,7 @@
                    
                    //작성일시
                    var date_span = $("<span>");
-                   date_span.html(" "+mem_name + "님"+" / 등록일 : "+re_date+"   ");
+                   date_span.html(" "+mem_name + "님");
                    
                    //수정하기 버튼
                    // var upBtn = $("<input>");

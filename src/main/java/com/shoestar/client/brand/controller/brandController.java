@@ -96,4 +96,6 @@ public class brandController {
 		return "client/brand/brandNewsDetail";
 	}
 	
+	
+	
 }
