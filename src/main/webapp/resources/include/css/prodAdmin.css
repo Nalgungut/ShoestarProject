@@ -38,6 +38,10 @@ body > .container > .sidebar {
 	vertical-align: middle;
 }
 
+.ordersList > tbody > tr > td {
+	vertical-align: middle;
+}
+
 .pd_name {
 	cursor: pointer;
 }

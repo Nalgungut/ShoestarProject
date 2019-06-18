@@ -217,7 +217,7 @@
 		
 		
 		<div id="shostLog" style="margin-top: 40px;">
-			<a href="http://localhost:8080/" class="logo">
+			<a href="/" class="logo">
 							<img  style="width: 1000px; height: 130px;"
 							 src="/resources/include/test/images/icons/shoestar1.png" alt="IMG-LOGO">
 			</a>

@@ -40,10 +40,6 @@ function showProductList(searchReq) {
 			if(!jQuery.isEmptyObject(data)) {
 				$.each(data, function(index, stack) {
 					$("#itemList").append(createProductDiv(stack));
-					$("#itemList").append(createProductDiv(stack));
-					$("#itemList").append(createProductDiv(stack));
-					$("#itemList").append(createProductDiv(stack));
-					$("#itemList").append(createProductDiv(stack));
 				});
 			} else {
 				if($("#itemList").html().isEmpty()) {

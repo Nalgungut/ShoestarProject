@@ -10,7 +10,8 @@
 	<!-- ===================== Connection Pool Configuration ===================== -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.127:1521:orcl" />
+		<!-- <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" /> -->
 		<property name="username" value="shoestar" />
 		<property name="password" value="shoes1234" />
 	</bean>

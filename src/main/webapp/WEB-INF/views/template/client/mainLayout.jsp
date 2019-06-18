@@ -73,7 +73,7 @@
 		</style>
 		<script type="text/javascript">
 			$(function() {
-				showProductList("?amount=10");
+				showProductList("?age=all&amount=10");
 			});
 		</script>
       

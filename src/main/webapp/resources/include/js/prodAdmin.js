@@ -139,7 +139,6 @@ function createImageActions(pimVO, pim_main) {
 	}
 	pimMainDiv.append(pimMainLabel).append(pimMain);
 	
-	
 	// 우선순위
 	var pimPriDiv = $("<div>").addClass("form-inline");
 	

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shoestar.admin.orders.dao.OrdersAdminDao">
+	
+	<sql id="ordersInfoRequiresGrouping">
+		o.od_no, o.mem_no, od_date, od_prog, mem_name,
+		SUM(oi.oi_org_price) AS totalPriceOrg, SUM(oi.oi_price) AS totalPrice,
+		COUNT(oi_no) AS numberOfProds
+	</sql>
+	
+	<sql id="ordersJoinOiAndMember">
+		orders o
+			INNER JOIN
+				member m
+			ON
+				o.mem_no = m.mem_no
+			LEFT OUTER JOIN
+				orders_ins oi
+			ON
+				o.od_no = oi.od_no
+	</sql>
+	
+	<select id="getList" parameterType="orders" resultType="orders">
+		SELECT
+			<include refid="ordersInfoRequiresGrouping" />
+		FROM
+			<include refid="ordersJoinOiAndMember" />
+			LEFT OUTER JOIN
+				prod_ins pi
+			ON
+				oi.pi_no = pi.pi_no
+			LEFT OUTER JOIN
+				prod p
+			ON
+				p.pd_no = pi.pd_no
+		WHERE
+			(
+				<![CDATA[TRUNC(o.od_date) >= #{dateBegin} AND]]>
+				<![CDATA[TRUNC(o.od_date) <= #{dateEnd}]]>
+			)
+			<trim prefix="AND (" suffix=")"><if test='keyword != null and keyword != ""'>
+				<choose>
+					<when test='search == "od_no"'>
+						o.od_no = #{keyword}
+					</when>
+					<when test='search == "od_no"'>
+						p.pd_name LIKE ('%'||#{keyword}||'%')
+					</when>
+					<when test='search == "pd_no"'>
+						pi.pd_no = #{keyword}
+					</when>
+					<when test='search == "mem_name"'>
+						m.mem_name = #{keyword}
+					</when>
+					<when test='search == "mem_no"'>
+						o.mem_no = #{keyword}
+					</when>
+				</choose>
+			</if></trim>
+		GROUP BY
+			o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
+		ORDER BY
+			o.od_no DESC
+	</select>
+	
+	<select id="getDetail" parameterType="orders" resultType="orders">
+		SELECT
+			<include refid="ordersInfoRequiresGrouping" />
+		FROM
+			<include refid="ordersJoinOiAndMember" />
+		WHERE
+			od_no = #{od_no}
+		GROUP BY
+			o.od_no, o.mem_no, o.od_date, o.od_prog, mem_name
+		ORDER BY
+			o.od_no DESC
+	</select>
+	
+	<select id="getInsList" parameterType="orders" resultType="ordersins">
+		SELECT
+			oi.*, pcl_name, pd_name, pct_name
+		FROM
+			orders_ins oi
+			INNER JOIN
+				prod_ins pi
+			ON
+				oi.pi_no = pi.pi_no
+			INNER JOIN
+				prod_color pc
+			ON
+				pi.pcl_no = pc.pcl_no
+			INNER JOIN
+				prod p
+			ON
+				p.pd_no = pi.pd_no	
+			INNER JOIN
+				prod_ctg pct
+			ON
+				p.pct_no = pct.pct_no
+		WHERE
+			od_no = #{od_no}
+	</select>
+	
+</mapper>

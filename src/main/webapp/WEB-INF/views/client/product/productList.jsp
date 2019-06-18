@@ -39,7 +39,11 @@
 			var stopSearchForSecond = false;
 			
 			$(function() {
-				$("#resetCategory").attr("href", defaultRequest);
+				if(defaultRequest.endsWith("?")) {
+					$("#resetCategory").attr("href", "?pd_age=all");
+				} else {
+					$("#resetCategory").attr("href", defaultRequest);
+				}
 				
 				showProductList(window.location.search + "&pageNum=" + pageNum++);
 				showProductCategory();
@@ -49,13 +53,13 @@
 				
 				
 				// 페이지 스크롤시 상품 추가 로드
-				window.onscroll = function(event) {
+				$(window).scroll(function() {
 					if(!endOfSearch && !stopSearchForSecond) {
-					    if((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+					    if($(window).scrollTop() + $(window).height() >= ($(document).height() - 100)) {
 							showProductList(window.location.search + "&pageNum=" + pageNum++);
 					    }
 					}
-				};
+				});
 			});
 			
 			function showProductCategory() {
@@ -181,15 +185,15 @@
 					</div>
 					<!-- 가격 리스트 -->
 					<ul class="menuList collapse in" id="priceList">
-						<li><a class="priceFilter" data-pricet="30000">30,000원 미만</a></li>
-						<li><a class="priceFilter" data-priceb="30000" data-pricet="60000">30,000 ~ 60,000</a></li>
-						<li><a class="priceFilter" data-priceb="60000" data-pricet="100000">60,000 ~ 100,000</a></li>
-						<li><a class="priceFilter" data-priceb="100000" >100,000원 이상</a></li>
+						<li><a class="priceFilter" data-pricet="50000">50,000원 미만</a></li>
+						<li><a class="priceFilter" data-priceb="50000" data-pricet="100000">50,000 ~ 100,000</a></li>
+						<li><a class="priceFilter" data-priceb="100000" data-pricet="150000">100,000 ~ 150,000</a></li>
+						<li><a class="priceFilter" data-priceb="150000" >150,000원 이상</a></li>
 					</ul>
 				</div>
 			</div>
 			
-			<div class="container col-md-9" id="itemListContainer">
+			<div class="container col-md-10" id="itemListContainer">
 				<!-- ############################## 상품란 ############################## -->
 				<div class="row text-center" id="itemList"></div>
 			</div>

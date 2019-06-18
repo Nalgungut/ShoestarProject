@@ -5,7 +5,7 @@
 	<!-- 성별 -->
 	<sql id="sexReq">
 		<if test='pd_sex != null and pd_sex != ""'>
-			pd_sex = #{pd_sex}
+			(pd_sex = #{pd_sex} OR pd_sex = 'u')
 		</if>
 	</sql>
 	

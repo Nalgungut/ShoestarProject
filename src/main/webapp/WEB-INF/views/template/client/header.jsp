@@ -147,10 +147,6 @@
 						<a href="/orders/cart" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11"><!-- data-notify="1" -->
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</a>
-
-						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " ><!-- data-notify="3" -->
-							<i class="zmdi zmdi-favorite-outline"></i>
-						</a>
 					</div>
 				</nav>
 			</div>	

@@ -39,7 +39,7 @@ public class FileUploadForProd extends FileUploadUtil {
 			// 级匙老 积己
 			File thumbAdd = new File(thumbRoot + real_name);
 			BufferedImage image = ImageIO.read(fileAdd);
-			BufferedImage thumb = Scalr.resize(image, Method.AUTOMATIC, Mode.FIT_TO_HEIGHT, 150);
+			BufferedImage thumb = Scalr.resize(image, Method.AUTOMATIC, Mode.FIT_TO_HEIGHT, 200);
 			ImageIO.write(thumb, extension, thumbAdd);
 		}
 		

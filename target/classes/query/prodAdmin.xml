@@ -90,12 +90,12 @@
 				pd_import = #{pd_import},
 			</if>
 			<trim suffix=","><choose>
-				<when test="pi_no == -1">
+				<when test="pi_main == -1">
 					pi_no = NULL
 				</when>
-				<when test="pi_no == 0"></when>
+				<when test="pi_main == 0"></when>
 				<otherwise>
-					pi_no = #{pi_no}
+					pi_no = #{pi_main}
 				</otherwise>
 			</choose></trim>
 			<if test='pd_status != null and pd_status != ""'><trim suffix=","><choose>
@@ -112,6 +112,14 @@
 				</when>
 				<otherwise>
 					pim_main = #{pim_main}
+				</otherwise>
+			</choose></if>
+			<if test="pi_main != 0"><choose>
+				<when test='pi_main == -1'>
+					pi_main = NULL
+				</when>
+				<otherwise>
+					pi_main = #{pi_main}
 				</otherwise>
 			</choose></if>
 		</trim>
@@ -189,6 +197,14 @@
 					#{pim_file}
 				</otherwise>
 			</choose>
+			<trim prefix=", "><if test="pi_no != 0"><choose>
+				<when test="pim_file == null">
+					pi_no = NULL
+				</when>
+				<otherwise>
+					pi_no = #{pi_no}
+				</otherwise>
+			</choose></if></trim>
 		WHERE
 			pd_no = 
 			(
