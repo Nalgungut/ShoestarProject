@@ -2,6 +2,7 @@ package com.shoestar.client.myPage.service;
 
 import java.util.List;
 
+import com.shoestar.client.myPage.vo.DeliveryVO;
 import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
 
@@ -22,6 +23,10 @@ public interface MyPageService {
 	 * @return 주문 상품 목록(OrdersInsVO)
 	 */
 	public List<OrdersInsVO> ordersInsByOdNo(OrdersVO ovo);
+
+	
+	//회원번호로 배송상태 가져오는 메서드
+	public List<DeliveryVO> deliveryList(DeliveryVO dvo);
 
 	
 

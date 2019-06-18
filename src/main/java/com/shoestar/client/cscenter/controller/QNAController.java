@@ -18,6 +18,7 @@ import com.shoestar.client.cscenter.vo.Orders_statusVO;
 import com.shoestar.client.cscenter.vo.QNAReplyVO;
 import com.shoestar.client.cscenter.vo.QNAVO;
 import com.shoestar.client.login.vo.LoginVO;
+import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
 
 import lombok.AllArgsConstructor;
@@ -68,7 +69,7 @@ public class QNAController {
 		@RequestMapping(value="/qnaUpdateForm")
 		public String updateForm(@SessionAttribute("login") LoginVO lvo, QNAVO qvo, Model model) {
 			int mem_no = lvo.getMem_no();
-			List<OrdersVO> result = qnaService.qnaOrders(mem_no);
+			List<OrdersInsVO> result = qnaService.qnaOrders(mem_no);
 			
 			model.addAttribute("orders", result);
 			model.addAttribute("qvo",qvo);
@@ -91,7 +92,7 @@ public class QNAController {
 		@RequestMapping(value="/writeForm")
 		public String writeForm(@SessionAttribute("login") LoginVO lvo, QNAVO qvo, Model model) {
 			int mem_no = lvo.getMem_no();
-			List<OrdersVO> result = qnaService.qnaOrders(mem_no);
+			List<OrdersInsVO> result = qnaService.qnaOrders(mem_no);
 			
 			model.addAttribute("orders", result);
 			
@@ -100,13 +101,15 @@ public class QNAController {
 		
 		@RequestMapping(value="/qnaInsert", method=RequestMethod.POST)
 		public String qnaInsert(@ModelAttribute QNAVO qvo, Model model, Orders_statusVO ovo) {
+			log.info(qvo);
+			log.info(ovo);
 			int result = 0;
 			String url = "";
 			
-			result = qnaService.qnaInsert(qvo);
+			result = qnaService.qnaInsert(qvo, ovo);
 			int result2 = 0;
-		/* result2 = qnaService.orders_statusInsert(ovo); */
-		if (result == 1 /* && result2 == 1 */) {
+			result2 = qnaService.orders_statusInsert(ovo);
+			if (result == 1  && result2 == 1) {
 				url = "/cscenter/qnaBoard";
 			}
 			return "redirect:" + url;
