@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.shoestar.admin.cscenter.vo.AdminDeliveryVO;
-import com.shoestar.client.myPage.vo.DeliveryVO;
 import com.shoestar.client.orders.vo.CartVO;
 import com.shoestar.client.orders.vo.OrdersInsVO;
 import com.shoestar.client.orders.vo.OrdersVO;
@@ -36,7 +35,5 @@ public interface OrdersDao {
 	
 	public int insertDeliveryInfo(AdminDeliveryVO dvo);
 
-
-
-	
+	public List<OrdersInsVO> ordersInsByOdNo(OrdersInsVO ovo);
 }
