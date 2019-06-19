@@ -73,7 +73,12 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 
 	@Override
 	public int deleteMultiple(List<Integer> pdnos) {
-		int result = prodAdminDao.deleteMultiple(pdnos);
+		int result;
+		try {
+			result = prodAdminDao.deleteMultiple(pdnos);
+		} catch (Exception e) {
+			result = 0;
+		}
 		return result;
 	}
 
@@ -177,6 +182,7 @@ public class ProdAdminServiceImpl implements ProdAdminService {
 
 	@Override
 	public int deleteProdins(ProdInsVO pivo) {
+		prodAdminDao.deletePiMain(pivo);
 		return prodAdminDao.deleteProdins(pivo);
 	}
 

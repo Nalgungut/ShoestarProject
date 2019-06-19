@@ -307,6 +307,23 @@
 			)
 	</select>
 	
+	<update id="deletePiMain" parameterType="prodins">
+		UPDATE
+			prod
+		SET
+			pi_no = NULL
+		WHERE
+			pd_no =
+			(
+				SELECT
+					pd_no
+				FROM
+					prod_ins
+				WHERE
+					pi_no = #{pi_no}
+			) AND
+			pi_no = #{pi_no}
+	</update>
 	
 	<!-- prod stock -->
 	<insert id="insertProdStock" parameterType="prodstock">

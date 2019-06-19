@@ -42,6 +42,8 @@ public interface ProdAdminDao {
 	
 	public List<ProdColorVO> unoccupiedColors(ProdVO pvo);
 	
+	public int deletePiMain(ProdInsVO pivo);
+	
 	// prodstock
 	public int insertProdStock(ProdStockVO psvo);
 	
